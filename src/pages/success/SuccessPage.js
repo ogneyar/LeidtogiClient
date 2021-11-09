@@ -33,7 +33,7 @@ const SuccessPage = () => {
         })
         setLoading(false)
         // для теста страницы
-        setSuccess(true)
+        // setSuccess(true)
     }, [id, uuid])
 
     if (loading) return <Loading />
