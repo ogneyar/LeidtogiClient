@@ -1,0 +1,15 @@
+
+# dependencies
+node_modules
+
+# production
+build
+
+# environment
+.env
+
+# databases
+mern.sql
+
+# lock
+package-lock.json
