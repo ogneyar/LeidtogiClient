@@ -17,6 +17,12 @@
     flex-wrap: wrap;
 }
 
+.CreateOrderPayment {
+    display:flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
 .CreateOrderChoiseDelivery,
 .CreateOrderPayment,
 .CreateOrderInputEmail {
