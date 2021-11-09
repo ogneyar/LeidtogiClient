@@ -29,14 +29,24 @@ const Payment = (props) => {
         createOrder({uuid: uuid(), cart, email: props?.email, url: URL})
             .then(
                 data => {
-                    if (data?.error) setResponse(data.error)
-                    else if (data.formUrl) {
-                        window.open(data.formUrl);
+                    if (data?.error) {
+                        if (data.error?.message) setResponse(data.error.message)
+                        else setResponse(data.error)
+                        setLoading(false)
+                    }else if (data.formUrl) {
+                        window.open(data.formUrl,'_self',false);
                     }
-                    else setResponse("Не предвиденная ошибка!")
+                    else {
+                        setResponse("Не предвиденная ошибка! Error: " + data.toString())
+                        setLoading(false)
+                    }
                 },
-                error => setResponse(error.message)
-            ).finally(data => setLoading(false))
+                error => {
+                    setResponse(error.message)
+                    setLoading(false)
+                }
+            )
+            // .finally(data => setLoading(false))
     }
 
     return (

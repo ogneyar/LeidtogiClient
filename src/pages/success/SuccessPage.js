@@ -20,7 +20,7 @@ const SuccessPage = () => {
     useEffect(() => {
         setLoading(true)
         getOrder(id).then(data => {
-            setEmail(data?.email)
+            setEmail(` (${data?.email})`)
             if (uuid === data?.uuid) {
                 setSuccess(true)
                 // сообщим админу
@@ -46,17 +46,17 @@ const SuccessPage = () => {
                     <div>
                         <header>Оплата упешно произведена!</header>
                         <p>Номер вашего заказа: <strong>{id}</strong></p>
-                        <p>Подробности о заказе Вам отправят на указанный Вами email ({email}).</p>
+                        <p>Чек с информацией о Вашем заказе будет отправлен на указанный email{email}.</p>
                         {/* <p>Если Вы зарегистрированный клиент, то отследить заказ можете в <NavLink to={LK_ROUTE}>личном кабине</NavLink>, все возникшие вопросы направляйте в <NavLink to={SUPPORT_ROUTE}>тех. поддержку.</NavLink></p> */}
                         <p>Если Вы зарегистрированный клиент, то все возникшие вопросы можете направить в <NavLink to={SUPPORT_ROUTE}>тех. поддержку.</NavLink></p>
-                        <p>Если Вы НЕ зарегистрированный клиент, тогда все возникающие вопросы направляйте на email адрес - <a href="mailto:info@leidtogi.ru">info@leidtogi.ru</a></p>
+                        <p>Если Вы НЕ зарегистрированный клиент, тогда все возникающие вопросы направляйте на email адрес - <a href="mailto:it@leidtogi.ru">it@leidtogi.ru</a></p>
                     </div>
                 :
                     <div>
                         <header>Возникла ОШИБКА при проверке номера заказа!</header>
                         <p>Номер вашего заказа: <strong>{id}</strong></p>
                         <p>Если Вы зарегистрированный клиент, то обратитесь в <NavLink to={SUPPORT_ROUTE}>тех. поддержку.</NavLink></p>
-                        <p>Если Вы НЕ зарегистрированный клиент, тогда напишите нам на email адрес - <a href="mailto:info@leidtogi.ru">info@leidtogi.ru</a></p>
+                        <p>Если Вы НЕ зарегистрированный клиент, тогда напишите нам на email адрес - <a href="mailto:it@leidtogi.ru">it@leidtogi.ru</a></p>
                     </div>
                 }
             </div>
