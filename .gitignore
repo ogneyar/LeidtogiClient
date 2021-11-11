@@ -13,3 +13,6 @@ mern.sql
 
 # lock
 package-lock.json
+
+# temp
+/temp

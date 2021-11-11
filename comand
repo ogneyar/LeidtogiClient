@@ -1,0 +1,13 @@
+
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+
+source ~/.profile
+
+nvm ls-remote
+
+nvm install 12.22.7
+
+npm i pm2 -g
+
+pm2 start server.js
+pm2 start index.js
