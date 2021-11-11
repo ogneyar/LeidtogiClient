@@ -16,3 +16,6 @@ package-lock.json
 
 # temp
 /temp
+
+# config
+nginx.conf

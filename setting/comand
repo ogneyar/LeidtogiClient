@@ -11,3 +11,7 @@ npm i pm2 -g
 
 pm2 start server.js
 pm2 start index.js
+
+
+
+certbot certonly -d pzmarket.ru -d www.pzmarket.ru -d server.pzmarket.ru

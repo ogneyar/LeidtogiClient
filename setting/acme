@@ -1,0 +1,4 @@
+# cat /etc/nginx/acme 
+location /.well-known {
+    root /var/www/html;
+}
