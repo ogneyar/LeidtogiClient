@@ -14,4 +14,4 @@ pm2 start index.js
 
 
 
-certbot certonly -d pzmarket.ru -d www.pzmarket.ru -d server.pzmarket.ru
+certbot certonly -d pzmarket.ru -d www.pzmarket.ru -d server.pzmarket.ru -d leidtogi.ru -d www.leidtogi.ru -d server.leidtogi.ru
