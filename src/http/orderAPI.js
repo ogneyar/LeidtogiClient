@@ -11,3 +11,8 @@ export const getOrder = async (id) => {
     const {data} = await $host.get('api/order/' + id) 
     return data  
 }
+
+export const setPay = async (uuid) => {
+    const {data} = await $host.put('api/order/pay/' + uuid) 
+    return data  
+}

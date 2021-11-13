@@ -14,6 +14,7 @@ export const PARSER_ROUTE = '/parser' // парсер HTML
 export const TESTER_ROUTE = '/tester' // парсер HTML
 export const CONFIRM_ROUTE = '/confirmation' // подтверждение почты пользователя
 export const SUPPORT_ROUTE = '/support' // тех.поддержка
+export const MESSAGE_ROUTE = '/message' // страница для сообщений
 
 // отдел Информация
 export const ABOUT_US_ROUTE = '/about_us' // о нас
@@ -55,3 +56,11 @@ export const MAIL = `<a href="mailto:info@leidtogi.ru">info@leidtogi.ru</a>` // 
 export const ADDRESS = "г. Курск, ул. Соловьиная, д. 51, оф. 2" // адресс нахождения офиса
 export const PHONE_ONE = `<a href="tel:+79312607792">+7 (931) 260-77-92</a>` // основной телефон
 export const TIME_TO_WORK = `<div><p>пн - пт: 09:00 - 18:00</p><p>сб - вс: выходной</p></div>` // время работы
+
+
+// индекс, от куда идёт доставка товаров
+export const DELIVERY_INDEX_FROM = 101000 // 
+
+
+// телеграм
+export const TELEGRAM_CHAT_ID_ADMIN = 1038937592 // 

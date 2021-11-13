@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
+import sendMessageAdmin from '../../service/telegramBotApi/sendMessageAdmin'
 import NavLink from '../../components/myBootstrap/NavLink'
-import { getOrder } from '../../http/orderAPI'
+import { getOrder, setPay } from '../../http/orderAPI'
 import Loading from '../../components/Loading'
 import InfoPage from '../info/InfoPage'
 // eslint-disable-next-line
@@ -16,27 +17,41 @@ const SuccessPage = () => {
     const [ email, setEmail ] = useState("")
     const [ loading, setLoading ] = useState(true)
     const [ success, setSuccess ] = useState(false)
+    const [ error, setError ] = useState(false)
 
     useEffect(() => {
-        setLoading(true)
-        getOrder(id).then(data => {
-            setEmail(` (${data?.email})`)
-            if (uuid === data?.uuid) {
-                setSuccess(true)
-                // сообщим админу
+        let isMounted = true; // 👈
+        if (!success) {
+            setLoading(true)
+            getOrder(id).then(data => {
+                // if (!isMounted) { // 👈
+                    setEmail(` (${data?.email})`)
+                    if (data?.pay === 7) {
+                        setSuccess(true)
+                    }else {
+                        if (uuid === data?.uuid) {
+                            setSuccess(true)
+                            // сообщим админу (надо отправку сообщений перенести на БЭК)
+                            if (!isMounted) sendMessageAdmin(`Оплата заказа №${id} произведена.\n\nEmail клиента ${data?.email}`)
+                            // установим флаг pay = true
+                            if (!isMounted) setPay(uuid)
+                            // очистим корзину
+                            localStorage.removeItem('cart')
+                        }else {
+                            setError(true)
+                        }
+                    }
+                // }
+            })
+            setLoading(false)
+        }
+        return () => {
+            isMounted = false // 👈
+        }
+    // eslint-disable-next-line
+    }, [])
 
-                // установим флаг pay = true
-
-                // очистим корзину
-                localStorage.removeItem('cart')
-            }
-        })
-        setLoading(false)
-        // для теста страницы
-        // setSuccess(true)
-    }, [id, uuid])
-
-    if (loading) return <Loading />
+    if (loading && !success && !error) return <Loading />
 
     return (
         <InfoPage>
@@ -52,12 +67,16 @@ const SuccessPage = () => {
                         <p>Если Вы НЕ зарегистрированный клиент, тогда все возникающие вопросы направляйте на email адрес - <a href="mailto:it@leidtogi.ru">it@leidtogi.ru</a></p>
                     </div>
                 :
-                    <div>
-                        <header>Возникла ОШИБКА при проверке номера заказа!</header>
-                        <p>Номер вашего заказа: <strong>{id}</strong></p>
-                        <p>Если Вы зарегистрированный клиент, то обратитесь в <NavLink to={SUPPORT_ROUTE}>тех. поддержку.</NavLink></p>
-                        <p>Если Вы НЕ зарегистрированный клиент, тогда напишите нам на email адрес - <a href="mailto:it@leidtogi.ru">it@leidtogi.ru</a></p>
-                    </div>
+                    error
+                    ?
+                        <div>
+                            <header>Возникла ОШИБКА при проверке номера заказа!</header>
+                            <p>Номер вашего заказа: <strong>{id}</strong></p>
+                            <p>Если Вы зарегистрированный клиент, то обратитесь в <NavLink to={SUPPORT_ROUTE}>тех. поддержку.</NavLink></p>
+                            <p>Если Вы НЕ зарегистрированный клиент, тогда напишите нам на email адрес - <a href="mailto:it@leidtogi.ru">it@leidtogi.ru</a></p>
+                        </div>
+                    :
+                        <Loading />
                 }
             </div>
         </InfoPage>

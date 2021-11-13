@@ -5,8 +5,9 @@ import { observer } from 'mobx-react-lite'
 import DeliverySdek from '../delivery/sdek/DeliverySdek'
 import Payment from '../payment/Payment'
 import {Context} from '../..'
-import './CreateOrder.css'
 import { Input } from '../myBootstrap'
+import Loading from '../Loading'
+import './CreateOrder.css'
 
 
 const CreateOrder = observer((props) => {
@@ -14,10 +15,14 @@ const CreateOrder = observer((props) => {
     const { user } = useContext(Context)
 
     const [ choiseDelivery, setСhoiseDelivery ] = useState(true)
+    const [ load, setLoad ] = useState(false)
     const [ payment, setPayment ] = useState(false)
     const [ visibleModal, setVisibleModal ] = useState(false)
     const [ email, setEmail ] = useState("")
+    const [ client, setClient ] = useState("")
     const [ newEmail, setNewEmail ] = useState("")
+    const [ address, setAddress ] = useState("")
+    const [ deliverySum, setDeliverySum ] = useState("")
 
     const onHideModal = () => {
         // let alfaPaymentButton = document.getElementById("alfa-payment-button")
@@ -26,9 +31,11 @@ const CreateOrder = observer((props) => {
     }
 
     useEffect(() => {
-        if (user?.user) {
-            // console.log(user.user.id);
+        if (user?.user?.email) {
             setEmail(user.user?.email)
+        }
+        if (user?.user?.id) {
+            setClient(user.user.id);
         }
     }, [user?.user])
 
@@ -69,10 +76,22 @@ const CreateOrder = observer((props) => {
                     :
                         choiseDelivery 
                         ?
+                            load
+                            ? <Loading />
+                            :
                             <div className="CreateOrderChoiseDelivery" >
                                 <label style={{position:"relative"}}>
                                     <p style={{position:"absolute",bottom:"-40px",left:"10px"}}>Из города Курск</p>
-                                    <Button size="lg" onClick={()=>{setСhoiseDelivery(false);setPayment(true)}}>Самовывоз</Button>
+                                    {/* <Button size="lg" onClick={()=>{setСhoiseDelivery(false);setPayment(true)}}>Самовывоз</Button> */}
+                                    <Payment 
+                                        text="Самовывоз" 
+                                        variant="success" 
+                                        load={load} 
+                                        setLoad={setLoad} 
+                                        amount={props?.amount} 
+                                        email={email} 
+                                        client={client} 
+                                    />
                                 </label>
                                 <Button size="lg" onClick={()=>{setСhoiseDelivery(false);setPayment(false)}}>С доставкой</Button>
                             </div>
@@ -80,11 +99,22 @@ const CreateOrder = observer((props) => {
                             payment
                             ? 
                                 <div className="CreateOrderPayment" >
-                                    <Payment amount={props?.amount} email={email} />
+                                    <p>Адрес склада СДЭК: {address}</p>
+                                    <p>Товара на сумму: {props?.amount}</p>
+                                    <p>Доставка на сумму: {deliverySum}</p>
+                                    <p style={{fontSize:"20px"}}>Итого к оплате: {props?.amount + deliverySum}</p>
+
+                                    <Payment 
+                                        address={address} 
+                                        deliverySum={deliverySum} 
+                                        // amount={props?.amount} 
+                                        email={email}
+                                        client={client}
+                                    />
                                 </div>
                             : 
                                 <div className="CreateOrderDeliverySdek" >
-                                    <DeliverySdek />
+                                    <DeliverySdek setAddress={setAddress} setPayment={setPayment} setDeliverySum={setDeliverySum} />
                                 </div>
                     }
 

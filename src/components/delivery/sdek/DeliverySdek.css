@@ -1,3 +1,33 @@
 .DeliverySdek {
-    
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    min-height: 400px;
+}
+
+.DeliverySdek hr {
+    width: 100%;
+    margin: 5px;
+    padding: 0;
+}
+
+.DeliverySdekLeftPanel {
+    position: absolute;
+    /* top: 40px;
+    left: 25px; */
+    /* display: none; */
+    z-index: 2000;
+    background: white;
+    opacity: 0.9;
+    padding-right: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.DeliverySdekLeftPanelBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
 }

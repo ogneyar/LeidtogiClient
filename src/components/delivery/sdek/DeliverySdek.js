@@ -14,6 +14,7 @@ import {
 import { Context } from '../../..'
 import { Alert } from '../../myBootstrap'
 import './DeliverySdek.css'
+import { DELIVERY_INDEX_FROM } from '../../../utils/consts'
 
 
 const DeliverySdek = observer((props) => {
@@ -47,6 +48,8 @@ const DeliverySdek = observer((props) => {
     // 55.75, 37.57 Москва
     const [ placemark, setPlacemark ] = useState([]) //
 
+    const [ zoom, setZoom ] = useState(12) //
+
     // eslint-disable-next-line
     const onClickButtonCalculate = async () => {
         let cart
@@ -62,6 +65,7 @@ const DeliverySdek = observer((props) => {
             indexFrom = "101000" // Москва
             // indexFrom = "390000" // Рязань
             // indexFrom = "347056" // Углекаменный
+            // indexFrom = "305000" // Курск
             let response = await sdekCalculate({
                 tariff_code: tariff,
                 from_location: { postal_code: indexFrom }, 
@@ -84,39 +88,37 @@ const DeliverySdek = observer((props) => {
             postal_code: index,
         })
 
-        console.log(response)
+        // console.log(response)
 
        if (response?.error) {
             setTextAlert(`Ошибка: ${response?.error?.message}`)
             setAlertVisible(true)
         }else {
             if (response && Array.isArray(response) && response.length === 1) {
-                setTextAlert(`Ближайший офис СДЭК находится по адресу: 
-                ${
-                    response[0].location.address_full
-                }
-                `)
+                // setTextAlert(`Ближайший офис СДЭК находится по адресу: ${response[0].location.address_full}`)
+                // setAlertVisible(true)
                 setLatitude(response[0].location.latitude)
                 setLongitude(response[0].location.longitude)
 
-                setPlacemark([{latitude: response[0].location.latitude, longitude: response[0].location.longitude, code: response[0].code}])
+                setPlacemark([{latitude: response[0].location.latitude, longitude: response[0].location.longitude, code: response[0].code, address: response[0].location.address_full}])
+                setZoom(12)
             }else if (response && Array.isArray(response) && response[0]?.location !== undefined) {
-
-                setTextAlert(`Необходимо выбрать удобный/ближайший для вас офис.`)
+                // setTextAlert(`Необходимо выбрать удобный/ближайший для вас офис.`)
+                // setAlertVisible(true)
                 setLatitude(response[0]?.location?.latitude)
                 setLongitude(response[0]?.location?.longitude)
 
                 setPlacemark(
                     response.map(i => {
-                        return {latitude: i.location.latitude, longitude: i.location.longitude, code: i.code}
+                        return {latitude: i.location.latitude, longitude: i.location.longitude, code: i.code, address: i.location.address_full}
                     })
                 )
+                setZoom(12)
             }else {
-                
                 setTextAlert(`По такому индексу ничего не найдено.`)
-
+                setAlertVisible(true)
             }
-            setAlertVisible(true)
+            
         }
     }
     
@@ -158,30 +160,59 @@ const DeliverySdek = observer((props) => {
         }
     }
 
+    const calculateAndOpenPayment = async () => {
+        let cart
+        cart = localStorage.getItem('cart')
+        if (cart && index.length === 6) {
+            cart = JSON.parse(cart)
+            let weight = 0
+            cart.forEach( i => weight += (Number(i.value) * Number(i.size.weight)) )
+            weight = weight * 1000
+            weight = Math.ceil(weight)            
+            
+            // let indexFrom = "101000" // Москва
+            // let indexFrom = "390000" // Рязань
+            // let indexFrom = "347056" // Углекаменный
+            // let indexFrom = "305000" // Курск
+
+            let response = await sdekCalculate({
+                tariff_code: tariff,
+                from_location: { postal_code: DELIVERY_INDEX_FROM }, 
+                to_location: { postal_code: index }, 
+                packages: [{ weight }] 
+            })
+            if (response?.error) alert(response.error)
+            else {
+                // console.log(response.total_sum );
+                props?.setDeliverySum(response.total_sum)
+                props?.setPayment(true)
+            }
+
+        }else if (index.length < 6) {
+            setTextAlert(`Введите правильный индекс!`)
+            setAlertVisible(true)
+        }
+    }
+
+    // useEffect(() => {
+    //     window?.ymaps?.ready(console.log("ready"))
+    // },[window?.ymaps?.ready])
 
     return (
-        <div className="mt-3 mb-3 w-100">
+        <div className="DeliverySdek">
 
-            <div
-                style={{
-                    position:"absolute",
-                    top: "40px",
-                    left: "25px",
-                    // display:"none",
-                    zIndex:2000,
-                    background:"white",
-                    opacity: 0.9,
-                    paddingRight: "10px",
-                }}
-            >
+            <div>
+                <p>Введите индекс и нажмите "Найти ближайший склад СДЭК", а после на карте нажмите на зелёный значёк склада СДЭК</p>
+            </div>
+    
+            <div className="DeliverySdekLeftPanel">
 
-                <div 
-                    className="d-flex flex-column align-items-center flex-wrap pb-2"
-                >
+                <div className="DeliverySdekLeftPanelBox">
                     
-                    <hr style={{width:"100%",margin:"5px",padding:0}}/>
+                    <hr />
                     <label className="mt-2 mr-2">Ваш индекс: </label>
-                    <hr style={{width:"100%",margin:"5px",padding:0}}/>
+                    {/* <hr style={{width:"100%",margin:"5px",padding:0}}/> */}
+                    <hr />
                     <Form.Control 
                         value={index}
                         style={{width:"120px"}}
@@ -192,7 +223,7 @@ const DeliverySdek = observer((props) => {
                         placeholder="Индекс" 
                     />
                     {/* <label className="">{info?.adName}</label> */}
-                    <hr style={{width:"100%",margin:"5px",padding:0}}/>
+                    <hr />
                     <Button
                         disabled={!index}
                         variant="outline-primary"
@@ -200,7 +231,7 @@ const DeliverySdek = observer((props) => {
                     >
                         Найти ближайший склад СДЭК
                     </Button>
-                    <hr style={{width:"100%",margin:"5px",padding:0}}/>
+                    <hr />
                     <Button
                         variant="outline-primary"
                         onClick={onClickButtonCalculate}
@@ -348,8 +379,11 @@ const DeliverySdek = observer((props) => {
             {/* <br />
             <hr /> */}
             
-            <YMaps>
-                <Map 
+            <YMaps
+                // ready={console.log("ready")}
+                // onLoad={console.log("onLoad")}
+            >
+                <Map
                     // defaultState={{ 
                     state={{ 
                         // Широта (latitude), Долгота (longitude)
@@ -358,7 +392,7 @@ const DeliverySdek = observer((props) => {
                         center: [latitude, longitude], 
                         // type: 'yandex#hybrid',
                         type: 'yandex#map',
-                        zoom: 10
+                        zoom: zoom || 12
                     }} 
                     // width="1080px" 
                     width="100%" 
@@ -371,14 +405,23 @@ const DeliverySdek = observer((props) => {
                                 key={i?.latitude + i?.longitude}
                                 // geometry={[55.684758, 37.738521]} 
                                 geometry={[i?.latitude, i?.longitude]} 
+                                // properties={{
+                                //     hintContent: 'Собственный значок метки',
+                                //     balloonContent: 'Это красивая метка'
+                                //   }}
                                 options={{
-                                    // preset: "islands#yellowStretchyIcon"
-                                    preset: "islands#dotIcon"
-                                }} 
+                                    iconLayout: 'default#image',
+                                    iconImageHref: 'images/delivery/sdek/sdek.png',
+                                    iconImageSize: [40, 40],
+                                    // iconImageOffset: [-3, -40],
+                                    // preset: "islands#dotIcon"
+
+                                  }}
                                 onClick={()=> {
-                                    console.log("код ПВЗ",i?.code)
-                                    alert("код ПВЗ: " + i?.code)
+                                    if (props?.setAddress) props?.setAddress(i?.address)
+                                    calculateAndOpenPayment()
                                 }}
+                                
                             />
                         )
                     :null}

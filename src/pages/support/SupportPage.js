@@ -2,10 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
-// import env from 'react-dotenv'
-import axios from 'axios'
 import $ from 'jquery'
 
+import sendMessageAdmin from '../../service/telegramBotApi/sendMessageAdmin'
 import { Alert } from '../../components/myBootstrap'
 import InfoPage from '../info/InfoPage'
 import Loading from '../../components/Loading'
@@ -24,8 +23,6 @@ const SupportPage = observer(() => {
     const [ loading, setLoading ] = useState(true)
     const [ showAlert, setShowAlert ] = useState(false)
 
-    const BOT_TOKEN = process.env.REACT_APP_BOT_TOKEN
-
     useEffect(() => {
         if (user.user?.id) {
             setInfo(user.user)
@@ -38,16 +35,15 @@ const SupportPage = observer(() => {
             setLoading(true)
             // прокрутка страницы вверх
             $('html, body').animate({scrollTop: 0}, 700, function(){})
-            // текст сообщения
-            let text = encodeURI(`${info?.email}\n\n${value}`)
-            let url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=1038937592&text=${text}`
-            axios.get(url).then(data => {
+
+            sendMessageAdmin(`Обращение в тех.поддержку.\n${info?.email}\n\n${value}`).then(data => {
                 if (data?.data?.ok) {
                     setLoading(false)
                     setValue("")
                     setShowAlert(true)
-                }
-            }).finally(da => setLoading(false))
+                } 
+            }).finally(() => setLoading(false))
+            // window.open("/message",'_self',false);
         }
     }
 

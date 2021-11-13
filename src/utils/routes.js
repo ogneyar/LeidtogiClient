@@ -13,6 +13,7 @@ import SearchPage from '../pages/search/SearchPage'
 import SuccessPage from '../pages/success/SuccessPage'
 import ErrorPage from '../pages/error/ErrorPage'
 import SupportPage from '../pages/support/SupportPage'
+import MessagePage from '../pages/message/MessagePage'
 
 import AboutUs from '../pages/info/AboutUs'
 import Delivery from '../pages/info/Delivery'
@@ -31,7 +32,7 @@ import {
     PRODUCT_ROUTE, LK_ROUTE, CONFIRM_ROUTE, SEARCH_ROUTE, SUCCESS_ROUTE, ERROR_ROUTE, ABOUT_US_ROUTE, 
     DELIVERY_ROUTE, PAYMENT_ROUTE, PRIVACY_POLICY_ROUTE, RETURNS_POLICY_ROUTE, 
     TERMS_OF_USE_ROUTE, WARRANTY_ROUTE, CONTACTS_ROUTE, SPECIALS_ROUTE, DELETE_ROUTE,
-    SUPPORT_ROUTE
+    SUPPORT_ROUTE, MESSAGE_ROUTE
 } from './consts'
 
 export const authRoutes = [
@@ -85,6 +86,10 @@ export const publicRoutes = [
     {
         path: SUPPORT_ROUTE,
         Component: SupportPage
+    },
+    {
+        path: MESSAGE_ROUTE,
+        Component: MessagePage
     },
     {
         path: SUCCESS_ROUTE + '/:uuid/:id',

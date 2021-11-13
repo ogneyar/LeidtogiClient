@@ -40,7 +40,7 @@
     
     
     <!-- Виджет СДЕК -->
-    <!-- <script type="text/javascript" type="text/javascript" src="/js/sdek_widjet.js"></script> -->
+    <!-- <script type="text/javascript" src="/js/sdek_widjet.js"></script> -->
     <!-- <script type="text/javascript"> 
       var ourWidjet = new ISDEKWidjet ({
         defaultCity: 'Белая Калитва', //какой город отображается по умолчанию
@@ -86,5 +86,84 @@
 
     <!-- <div id="forpvz" style="display: none; width:100%; height:600px;"></div> -->
     
+    
+    <div id="repair" style="
+      position:fixed;
+      z-index:10000;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:#BF3030;
+      /* display:flex; */
+      display:none;
+      align-items:center;
+      justify-content:center;
+      opacity:0.95;
+    ">
+      <div style=" 
+        text-align:center;
+        background:#1D7373;
+        width:350px;
+        height:550px;
+        border-radius:20px;
+        color:white;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+      ">
+          <h1 style=" 
+            color:white;      
+            padding:20px 10px 30px 10px;
+          ">Сайт работает в тестовом режиме!</h1>
+          <p>
+            По вопросам сотрудничества
+          </p>
+          <p>
+            обращаться по телефону:
+          </p>
+          <a href="tel:+79312607792" style=" 
+              color:white;      
+              text-decoration:none;
+              padding:20px 0;
+              font-size:28px;
+          ">
+            +7(931)260-77-92
+          </a>
+          <p>
+            или по email:
+          </p>
+          <a href="mailto:info@leidtogi.ru" style=" 
+              color:white;      
+              text-decoration:none;
+              padding:20px 0;
+              font-size:28px;
+          ">
+            info@leidtogi.ru
+          </a>
+          <button 
+            onclick="getElementById('repair').style.display = 'none'" 
+            style="
+            padding: 5px 10px;
+            border-radius:10px;
+            background-color: orange;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+          ">
+            Тестировать!
+          </button>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      function onclick() {
+        let repair = getElementById("repair")
+        repair.style.display = "none"
+        console.log("hz")
+      }
+    </script>
+
   </body>
   </html>
