@@ -27,7 +27,7 @@ const Payment = (props) => {
         if (props?.load !== undefined) props?.setLoad(true)
         setLoading(true)
         let cart = localStorage.getItem("cart")
-
+// формирование uuid надо перенести на БЭК
         let order = {uuid: uuid(), cart, email: props?.email, url: URL}
         if (props?.deliverySum) order = {...order, deliverySum: props?.deliverySum}
         if (props?.address) order = {...order, address: props?.address, delivery: "sdek"}
