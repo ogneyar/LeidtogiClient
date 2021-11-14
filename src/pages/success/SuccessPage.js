@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import sendMessageAdmin from '../../service/telegramBotApi/sendMessageAdmin'
 import NavLink from '../../components/myBootstrap/NavLink'
 import { getOrder, setPay } from '../../http/orderAPI'
 import Loading from '../../components/Loading'
@@ -24,24 +23,21 @@ const SuccessPage = () => {
         if (!success) {
             setLoading(true)
             getOrder(id).then(data => {
-                // if (!isMounted) { // 👈
-                    setEmail(` (${data?.email})`)
-                    if (data?.pay === 7) {
+                setEmail(` (${data?.email})`)
+                if (data?.pay) {
+                    setSuccess(true)
+                }else {
+                    if (uuid === data?.uuid) {
                         setSuccess(true)
+                        // установим флаг pay = true
+                        // там же на сервере отправится сообщение админу
+                        if (!isMounted) setPay(uuid)
+                        // очистим корзину
+                        localStorage.removeItem('cart')
                     }else {
-                        if (uuid === data?.uuid) {
-                            setSuccess(true)
-                            // сообщим админу (надо отправку сообщений перенести на БЭК)
-                            if (!isMounted) sendMessageAdmin(`Оплата заказа №${id} произведена.\n\nEmail клиента ${data?.email}`)
-                            // установим флаг pay = true
-                            if (!isMounted) setPay(uuid)
-                            // очистим корзину
-                            localStorage.removeItem('cart')
-                        }else {
-                            setError(true)
-                        }
+                        setError(true)
                     }
-                // }
+                }
             })
             setLoading(false)
         }

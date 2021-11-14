@@ -4,7 +4,6 @@ import { Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 import $ from 'jquery'
 
-import sendMessageAdmin from '../../service/telegramBotApi/sendMessageAdmin'
 import { Alert } from '../../components/myBootstrap'
 import InfoPage from '../info/InfoPage'
 import Loading from '../../components/Loading'
@@ -12,6 +11,7 @@ import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../utils/consts'
 import { Context } from '../..'
 
 import './SupportPage.css'
+import { sendMessage } from '../../http/telegramAPI'
 
 
 const SupportPage = observer(() => {
@@ -36,14 +36,13 @@ const SupportPage = observer(() => {
             // прокрутка страницы вверх
             $('html, body').animate({scrollTop: 0}, 700, function(){})
 
-            sendMessageAdmin(`Обращение в тех.поддержку.\n${info?.email}\n\n${value}`).then(data => {
-                if (data?.data?.ok) {
+            sendMessage(`Обращение в тех.поддержку.\n${info?.email}\n\n${value}`).then(data => {
+                if (data?.ok) {
                     setLoading(false)
                     setValue("")
                     setShowAlert(true)
                 } 
             }).finally(() => setLoading(false))
-            // window.open("/message",'_self',false);
         }
     }
 
