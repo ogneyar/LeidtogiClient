@@ -24,6 +24,8 @@ const CreateOrder = observer((props) => {
     const [ address, setAddress ] = useState("")
     const [ deliverySum, setDeliverySum ] = useState("")
 
+    const [ message, setMessage ] = useState("")
+
     const onHideModal = () => {
         // let alfaPaymentButton = document.getElementById("alfa-payment-button")
         // alfaPaymentButton.style.display = "none"
@@ -65,6 +67,9 @@ const CreateOrder = observer((props) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+
+                    {message ? <label style={{color:"red",paddingLeft:"20px"}}>{message}</label> : null}
+
                     {!email
                     ?
                         <div className="CreateOrderInputEmail" >
@@ -91,9 +96,10 @@ const CreateOrder = observer((props) => {
                                         amount={props?.amount} 
                                         email={email} 
                                         client={client} 
+                                        setMessage={setMessage}
                                     />
                                 </label>
-                                <Button size="lg" onClick={()=>{setСhoiseDelivery(false);setPayment(false)}}>С доставкой</Button>
+                                <Button size="lg" onClick={()=>{setСhoiseDelivery(false);setPayment(false);setMessage("")}}>С доставкой</Button>
                             </div>
                         :
                             payment
@@ -110,6 +116,7 @@ const CreateOrder = observer((props) => {
                                         // amount={props?.amount} 
                                         email={email}
                                         client={client}
+                                        setMessage={setMessage}
                                     />
                                 </div>
                             : 

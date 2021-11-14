@@ -15,8 +15,9 @@ const Payment = (props) => {
     // eslint-disable-next-line
     // const [ uId, setUId ] = useState(uuid())
 
-    const [ response, setResponse ] = useState(null)
+    // const [ response, setResponse ] = useState(null)
     const [ loading, setLoading ] = useState(false)
+    
    
     useEffect(() => {
 
@@ -24,10 +25,14 @@ const Payment = (props) => {
     },[])
 
     const onClickButtonPay = async () => {
+        props?.setMessage("")
+        // запустить лоадер во внешнем компоненте
         if (props?.load !== undefined) props?.setLoad(true)
+        // запустить лоадер в этом компоненте
         setLoading(true)
+        // достаём корзину товаров из localStorage
         let cart = localStorage.getItem("cart")
-
+        
         let order = {cart, email: props?.email, url: URL}
         if (props?.deliverySum) order = {...order, deliverySum: props?.deliverySum}
         if (props?.address) order = {...order, address: props?.address, delivery: "sdek"}
@@ -37,32 +42,44 @@ const Payment = (props) => {
             .then(
                 data => {
                     if (data?.error) {
-                        if (data.error?.message) setResponse(data.error.message)
-                        else setResponse(data.error)
+                        // бывает ошибка в таком формате
+                        if (data.error?.error) props?.setMessage(data.error.error)
+                        // а бывает в таком
+                        else props?.setMessage(data.error)
+                        // остановить лоадер во внешнем компоненте
                         if (props?.load !== undefined) props?.setLoad(false)
+                        // остановить лоадер в этом компоненте
                         setLoading(false)
-                    }else if (data.formUrl) {
-                        window.open(data.formUrl,'_self',false);
-                    }
-                    else {
-                        setResponse("Не предвиденная ошибка! Error: " + data.toString())
+                    }else if (data?.errorCode) {
+                        // в таком виде ошибка прилетает от банка
+                        props?.setMessage(data?.errorMessage)
+                        // остановить лоадер во внешнем компоненте
                         if (props?.load !== undefined) props?.setLoad(false)
+                        // остановить лоадер в этом компоненте
+                        setLoading(false)
+                    }else if (data?.formUrl) {
+                        window.open(data.formUrl,'_self',false);
+                    }else {
+                        props?.setMessage("Не предвиденная ошибка! Error: " + data.toString())
+                        // остановить лоадер во внешнем компоненте
+                        if (props?.load !== undefined) props?.setLoad(false)
+                        // остановить лоадер в этом компоненте
                         setLoading(false)
                     }
                 },
                 error => {
-                    setResponse(error.message)
+                    console.log("error",error);
+                    props?.setMessage(error.message)
+                    // остановить лоадер во внешнем компоненте
                     if (props?.load !== undefined) props?.setLoad(false)
+                    // остановить лоадер в этом компоненте
                     setLoading(false)
                 }
             )
-            // .finally(data => setLoading(false))
     }
 
     return (
         <div className="Payment" id="Payment">
-
-            {response ? <label>{response}</label> : null}
 
             {loading
             ?
