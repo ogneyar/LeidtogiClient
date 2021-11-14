@@ -2,3 +2,5 @@ REACT_APP_URL_PRODUCTION='https://pzmarket.ru/'
 REACT_APP_URL_PRODUCTION2='https://leidtogi.site/'
 REACT_APP_API_URL_PRODUCTION='https://server.pzmarket.ru/'
 REACT_APP_API_URL_PRODUCTION2='https://api.leidtogi.site/'
+
+удали токен, он теперь на сервере
