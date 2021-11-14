@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import React, { useState, useEffect } from 'react'
 import { Button } from 'react-bootstrap'
-import uuid from 'react-uuid'
+// import uuid from 'react-uuid'
 
 // import Button from '../myBootstrap/Button'
 import { createOrder } from '../../http/orderAPI'
@@ -27,8 +27,8 @@ const Payment = (props) => {
         if (props?.load !== undefined) props?.setLoad(true)
         setLoading(true)
         let cart = localStorage.getItem("cart")
-// формирование uuid надо перенести на БЭК
-        let order = {uuid: uuid(), cart, email: props?.email, url: URL}
+
+        let order = {cart, email: props?.email, url: URL}
         if (props?.deliverySum) order = {...order, deliverySum: props?.deliverySum}
         if (props?.address) order = {...order, address: props?.address, delivery: "sdek"}
         if (props?.client) order = {...order, client: props?.client}
