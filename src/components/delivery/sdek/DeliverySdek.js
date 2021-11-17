@@ -41,17 +41,14 @@ const DeliverySdek = observer((props) => {
 
     const [alertVisible, setAlertVisible] = useState(false)
     const [textAlert, setTextAlert] = useState("")
-
     
     const [ latitude, setLatitude ] = useState(55.75) // Долгота Белой Калитвы - 48.177645
     const [ longitude, setLongitude ] = useState(37.57) // Широта Белой Калитвы - 48.177645
     // 55.75, 37.57 Москва
     const [ placemark, setPlacemark ] = useState([]) //
 
-    // const [ zoom, setZoom ] = useState(12) //
 
-    // eslint-disable-next-line
-    const onClickButtonCalculate = async () => {
+    const onClickButtonCalculate = async (args) => {
         let cart
         cart = localStorage.getItem('cart')
         if (cart && index.length === 6) {
@@ -61,19 +58,39 @@ const DeliverySdek = observer((props) => {
             weight = weight * 1000
             weight = Math.ceil(weight)
             setInfo({ total_sum:"", period_min:"", period_max:"", weight_calc:"", currency:"", delivery_sum:"" })
-            let indexFrom
-            indexFrom = "101000" // Москва
-            // indexFrom = "390000" // Рязань
-            // indexFrom = "347056" // Углекаменный
-            // indexFrom = "305000" // Курск
-            let response = await sdekCalculate({
-                tariff_code: tariff,
-                from_location: { postal_code: indexFrom }, 
-                to_location: { postal_code: index }, 
-                packages: [{ weight }] 
-            })
-            if (response?.error) alert(response.error)
-            else setInfo(response)
+            let response
+            if (args?.address) {
+                response = await sdekCalculate({
+                    tariff_code: tariff,
+                    from_location: { postal_code: DELIVERY_INDEX_FROM }, 
+                    to_location: { address: args.address }, 
+                    packages: [{ weight }] 
+                })
+            }else {
+                response = await sdekCalculate({
+                    tariff_code: tariff,
+                    from_location: { postal_code: DELIVERY_INDEX_FROM }, 
+                    to_location: { postal_code: index }, 
+                    packages: [{ weight }] 
+                })
+            }
+            // console.log(response)
+            if (response?.error) {
+                if (response.error?.message) alert(response.error.message)
+                else alert(response.error)
+            }else if (response?.errors) {
+                // alert(response.errors[0].message)
+                if (response.errors[0].code === "ERR_PVZ_WITH_TARIFF_MISTAKE") {
+                    if (!args?.address) {
+                        let region_code = await getRegionCodeLocationSities()
+                        response = await sdekDeliveryPoints({region_code})
+                        if (response && Array.isArray(response) && response[0]?.location !== undefined && response[0].location?.address_full !== undefined) {
+                            let address = response[0].location.address_full
+                            await onClickButtonCalculate({address})
+                        }else alert(`Ошибка: не найден адрес для региона ${region_code} (DeliverySdek).`)
+                    }
+                }
+            }else setInfo(response)
 
         }else if (index.length < 6) {
             setTextAlert(`Введите правильный индекс!`)
@@ -82,12 +99,11 @@ const DeliverySdek = observer((props) => {
     }
 
 
-    const onClickButtonDeliveryPoints = async (props) => {
-
+    const onClickButtonDeliveryPoints = async (args) => {
         let response
-        if (props?.code) {
+        if (args?.region_code) {
             response = await sdekDeliveryPoints({
-                region_code: props.code,
+                region_code: args.region_code,
             })
         }else {
             response = await sdekDeliveryPoints({
@@ -120,11 +136,12 @@ const DeliverySdek = observer((props) => {
                 )
                 // setZoom(12)
             }else {
-                if (props?.code) {
+                if (args?.region_code) {
                     setTextAlert(`По такому индексу ничего не найдено.`)
                     setAlertVisible(true)
                 }else {
-                    await onClickButtonLocationSities()
+                    let region_code = await getRegionCodeLocationSities()
+                    await onClickButtonDeliveryPoints({region_code})
                 }
             }
             
@@ -133,46 +150,37 @@ const DeliverySdek = observer((props) => {
     
     // eslint-disable-next-line
     const onClickButtonLocationRegions = async () => {
-        
         let response = await sdekLocationRegions({})
-
         // console.log(response)
-
        if (response?.error) {
             setTextAlert(`Ошибка: ${response?.error?.message}`)
             setAlertVisible(true)
         }else {
             setTextAlert(`${response.map(i => i?.region).join(' ')}`)
-            // response.map(i => i?.city).join(' ')
             setAlertVisible(true)
         }
     }
 
-    // eslint-disable-next-line
-    const onClickButtonLocationSities = async () => {
-        
+    
+    const getRegionCodeLocationSities = async () => {
         let response = await sdekLocationSities({
             postal_code: index,
             // size: 34243,
             // page: 0
         })
-
         // console.log(response)
-
         if (response?.error) {
-            setTextAlert(`Ошибка: ${response.error?.message}`)
-            setAlertVisible(true)
-        }else {
-            // setTextAlert(`${response.map(i => i?.city).join(' ')}`)
+            return {error:`Ошибка: ${response.error?.message}`}
+            // setTextAlert(`Ошибка: ${response.error?.message}`)
             // setAlertVisible(true)
-
-            // console.log(response)
-            // console.log(response[0].code)
-            await onClickButtonDeliveryPoints({code:response[0].region_code})
+        }else {
+            // await onClickButtonDeliveryPoints({region_code: response[0].region_code})
+            return response[0].region_code
         }
+        
     }
 
-    const calculateAndOpenPayment = async () => {
+    const calculateAndOpenPayment = async (args) => {
         let cart
         cart = localStorage.getItem('cart')
         if (cart && index.length === 6) {
@@ -187,15 +195,29 @@ const DeliverySdek = observer((props) => {
             // let indexFrom = "347056" // Углекаменный
             // let indexFrom = "305000" // Курск
 
-            let response = await sdekCalculate({
-                tariff_code: tariff,
-                from_location: { postal_code: DELIVERY_INDEX_FROM }, 
-                to_location: { postal_code: index }, 
-                packages: [{ weight }] 
-            })
-            if (response?.error) alert(response.error)
+            let response
+            if (args?.address) {
+                response = await sdekCalculate({
+                    tariff_code: tariff,
+                    from_location: { postal_code: DELIVERY_INDEX_FROM }, 
+                    to_location: { address: args.address }, 
+                    packages: [{ weight }] 
+                })
+            }else {
+                response = await sdekCalculate({
+                    tariff_code: tariff,
+                    from_location: { postal_code: DELIVERY_INDEX_FROM }, 
+                    to_location: { postal_code: index }, 
+                    packages: [{ weight }] 
+                })
+            }
+            // console.log(args?.address);
+            if (response?.error) {
+                if (response.error?.message) alert(response.error.message)
+                else alert(response.error)
+            }else if (response?.errors) alert(response.errors[0].message)
             else {
-                // console.log(response.total_sum );
+                // console.log(response)
                 props?.setDeliverySum(response.total_sum)
                 props?.setPayment(true)
             }
@@ -245,14 +267,14 @@ const DeliverySdek = observer((props) => {
                     </Button>
                     <hr />
 
-                    <Button
+                    {/* <Button
                         variant="outline-primary"
                         onClick={onClickButtonLocationSities}
                     >
                         Список населенных пунктов
                     </Button>
+                    <hr /> */}
 
-                    <hr />
                     <Button
                         variant="outline-primary"
                         onClick={onClickButtonCalculate}
@@ -284,121 +306,7 @@ const DeliverySdek = observer((props) => {
                 :null
                 }
 
-                {/* <div className="d-flex flex-row align-items-end justify-content-between flex-wrap">
-                    <Button
-                        variant="outline-primary"
-                        onClick={onClickButtonCalculate}
-                    >
-                        Расчитать доставку
-                    </Button>
-                    <Button
-                        style={{"display":(user?.user?.id === undefined || user?.user?.id !== 1) ? "none" : "block"}}
-                        variant="success"
-                        onClick={onClickButtonOrder}
-                    >
-                        Заказать товар с доставкой
-                    </Button>
-                </div> */}
-                
-                
-                {/* <div 
-                    style={{"display":(user?.user?.id === undefined || user?.user?.id !== 1) ? "none" : "block"}}
-                >
-
-                    <hr />
-
-                    <div 
-                        className="mt-3 d-flex flex-row align-items-end justify-content-between flex-wrap"
-                    >
-                        <Button
-                            variant="outline-primary"
-                            onClick={onClickButtonGetOrder}
-                        >
-                            Инфо о заказе
-                        </Button>
-                        <Button
-                            variant="success"
-                            onClick={onClickButtonEditOrder}
-                        >
-                            Изменить заказ
-                        </Button>
-                    </div>
-
-                    <div
-                        className="mt-3 d-flex flex-row align-items-end justify-content-between flex-wrap"
-                    >
-                        <Button
-                            variant="warning"
-                            onClick={onClickButtonRefusalOrder}
-                        >
-                            Отказ от заказа
-                        </Button>
-                        <Button
-                            variant="danger"
-                            onClick={onClickButtonDeleteOrder}
-                        >
-                            Удалить заказ
-                        </Button>
-                    </div>
-
-                    <hr />
-
-                    <div 
-                        className="mt-3 d-flex flex-row align-items-end justify-content-between flex-wrap"
-                    >
-                        <Button
-                            variant="outline-primary"
-                            onClick={onClickButtonNewIntakes}
-                        >
-                            Заявка на вызов курьера
-                        </Button>
-                        <Button
-                            variant="outline-primary"
-                            onClick={onClickButtonDeliveryPoints}
-                        >
-                            Список офисов
-                        </Button>
-                        <Button
-                            variant="outline-primary"
-                            onClick={onClickButtonLocationRegions}
-                        >
-                            Список регионов
-                        </Button>
-                        <Button
-                            variant="outline-primary"
-                            onClick={onClickButtonLocationSities}
-                        >
-                            Список населенных пунктов
-                        </Button>
-                        
-                    </div>
-
-                    <hr />
-
-                    <div 
-                        className="mt-3 d-flex flex-row align-items-end justify-content-between flex-wrap"
-                    >
-                        <Button
-                            variant="outline-primary"
-                            onClick={onClickButtonPrintOrders}
-                        >
-                            Формирование квитанции
-                        </Button>
-                        <Button
-                            variant="primary"
-                            onClick={onClickButtonGetPrintOrders}
-                        >
-                            Получение квитанции
-                        </Button>
-                    </div>
-
-                </div> */}
-
-
             </div>
-
-            {/* <br />
-            <hr /> */}
             
             <YMaps
                 // ready={console.log("ready")}
@@ -441,7 +349,7 @@ const DeliverySdek = observer((props) => {
                                   }}
                                 onClick={()=> {
                                     if (props?.setAddress) props?.setAddress(i?.address)
-                                    calculateAndOpenPayment()
+                                    calculateAndOpenPayment({address: i?.address})
                                 }}
                                 
                             />

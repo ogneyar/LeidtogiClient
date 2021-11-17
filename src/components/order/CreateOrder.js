@@ -111,7 +111,7 @@ const CreateOrder = observer((props) => {
                                     <p style={{fontSize:"20px"}}>Итого к оплате: {props?.amount + deliverySum}</p>
 
                                     <Payment 
-                                        address={address} 
+                                        address={address}
                                         deliverySum={deliverySum} 
                                         // amount={props?.amount} 
                                         email={email}
@@ -121,7 +121,11 @@ const CreateOrder = observer((props) => {
                                 </div>
                             : 
                                 <div className="CreateOrderDeliverySdek" >
-                                    <DeliverySdek setAddress={setAddress} setPayment={setPayment} setDeliverySum={setDeliverySum} />
+                                    <DeliverySdek 
+                                        setAddress={setAddress} 
+                                        setPayment={setPayment} 
+                                        setDeliverySum={setDeliverySum} 
+                                    />
                                 </div>
                     }
 
