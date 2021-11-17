@@ -11,10 +11,10 @@ import {
     sdekOrder, sdekGetOrder, sdekEditOrder, sdekDeleteOrder, sdekRefusalOrder, sdekNewIntakes, sdekPrintOrders, sdekGetPrintOrders,
 } from '../../../http/delivery/sdekAPI'
 
-import { Context } from '../../..'
-import { Alert } from '../../myBootstrap'
-import './DeliverySdek.css'
 import { DELIVERY_INDEX_FROM } from '../../../utils/consts'
+import { Alert } from '../../myBootstrap'
+import { Context } from '../../..'
+import './DeliverySdek.css'
 
 
 const DeliverySdek = observer((props) => {
@@ -48,7 +48,7 @@ const DeliverySdek = observer((props) => {
     // 55.75, 37.57 Москва
     const [ placemark, setPlacemark ] = useState([]) //
 
-    const [ zoom, setZoom ] = useState(12) //
+    // const [ zoom, setZoom ] = useState(12) //
 
     // eslint-disable-next-line
     const onClickButtonCalculate = async () => {
@@ -82,14 +82,19 @@ const DeliverySdek = observer((props) => {
     }
 
 
-    const onClickButtonDeliveryPoints = async () => {
-        
-        let response = await sdekDeliveryPoints({
-            postal_code: index,
-        })
+    const onClickButtonDeliveryPoints = async (props) => {
 
+        let response
+        if (props?.code) {
+            response = await sdekDeliveryPoints({
+                region_code: props.code,
+            })
+        }else {
+            response = await sdekDeliveryPoints({
+                postal_code: index,
+            })
+        }
         // console.log(response)
-
        if (response?.error) {
             setTextAlert(`Ошибка: ${response?.error?.message}`)
             setAlertVisible(true)
@@ -101,7 +106,7 @@ const DeliverySdek = observer((props) => {
                 setLongitude(response[0].location.longitude)
 
                 setPlacemark([{latitude: response[0].location.latitude, longitude: response[0].location.longitude, code: response[0].code, address: response[0].location.address_full}])
-                setZoom(12)
+                // setZoom(12)
             }else if (response && Array.isArray(response) && response[0]?.location !== undefined) {
                 // setTextAlert(`Необходимо выбрать удобный/ближайший для вас офис.`)
                 // setAlertVisible(true)
@@ -113,10 +118,14 @@ const DeliverySdek = observer((props) => {
                         return {latitude: i.location.latitude, longitude: i.location.longitude, code: i.code, address: i.location.address_full}
                     })
                 )
-                setZoom(12)
+                // setZoom(12)
             }else {
-                setTextAlert(`По такому индексу ничего не найдено.`)
-                setAlertVisible(true)
+                if (props?.code) {
+                    setTextAlert(`По такому индексу ничего не найдено.`)
+                    setAlertVisible(true)
+                }else {
+                    await onClickButtonLocationSities()
+                }
             }
             
         }
@@ -127,7 +136,7 @@ const DeliverySdek = observer((props) => {
         
         let response = await sdekLocationRegions({})
 
-        console.log(response)
+        // console.log(response)
 
        if (response?.error) {
             setTextAlert(`Ошибка: ${response?.error?.message}`)
@@ -143,20 +152,23 @@ const DeliverySdek = observer((props) => {
     const onClickButtonLocationSities = async () => {
         
         let response = await sdekLocationSities({
-            // postal_code: index,
-            size: 34243,
-            page: 0
+            postal_code: index,
+            // size: 34243,
+            // page: 0
         })
 
-        console.log(response)
+        // console.log(response)
 
         if (response?.error) {
             setTextAlert(`Ошибка: ${response.error?.message}`)
             setAlertVisible(true)
         }else {
-            setTextAlert(`${response.map(i => i?.city).join(' ')}`)
-            // response.map(i => i?.city).join(' ')
-            setAlertVisible(true)
+            // setTextAlert(`${response.map(i => i?.city).join(' ')}`)
+            // setAlertVisible(true)
+
+            // console.log(response)
+            // console.log(response[0].code)
+            await onClickButtonDeliveryPoints({code:response[0].region_code})
         }
     }
 
@@ -231,6 +243,15 @@ const DeliverySdek = observer((props) => {
                     >
                         Найти ближайший склад СДЭК
                     </Button>
+                    <hr />
+
+                    <Button
+                        variant="outline-primary"
+                        onClick={onClickButtonLocationSities}
+                    >
+                        Список населенных пунктов
+                    </Button>
+
                     <hr />
                     <Button
                         variant="outline-primary"
@@ -392,7 +413,8 @@ const DeliverySdek = observer((props) => {
                         center: [latitude, longitude], 
                         // type: 'yandex#hybrid',
                         type: 'yandex#map',
-                        zoom: zoom || 12
+                        // zoom: zoom || 12
+                        zoom: 12
                     }} 
                     // width="1080px" 
                     width="100%" 

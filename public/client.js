@@ -6,7 +6,7 @@ const	port = 3000
 
 const app = express()
 
-app.use(express.static(path.resolve(__dirname, 'static')))
+app.use(express.static(path.resolve(__dirname)))
 app.use(favicon(path.join(__dirname,'favicon.ico')))
 
 app.get('*', (req, res) => res.sendFile(__dirname + '/index.html'))
