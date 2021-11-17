@@ -9,9 +9,13 @@ nvm install 12.22.7
 
 npm i pm2 -g
 
+cd /root/repair
+pm2 start repair.js
+cd /root/server
 pm2 start server.js
-pm2 start index.js
+cd /root/client
+pm2 start client.js
 
-
+service nginx ( status | start | stop | restart )
 
 certbot certonly -d pzmarket.ru -d www.pzmarket.ru -d server.pzmarket.ru -d leidtogi.ru -d www.leidtogi.ru -d server.leidtogi.ru
