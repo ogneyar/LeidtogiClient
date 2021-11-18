@@ -1,4 +1,6 @@
+// eslint-disable-next-line
 import React, { useState } from 'react';
+// eslint-disable-next-line
 import { Button, Form, Row, Col } from 'react-bootstrap'
 
 
@@ -8,19 +10,19 @@ const Size = ({size, setSize, action}) => {
         setSize({...size, [key]: value}) 
     }
 
-    const [visible, setVisible] = useState(false)
+    // const [visible, setVisible] = useState(false)
 
-    if (!visible) 
-        return (
-            <div>
-                <label>Габариты:</label>
-                <br />
-                <Button variant="outline-primary" onClick={() => setVisible(true)}>
-                    {action === "edit" && "Изменить данные"}
-                    {action === "add" && "Добавить самостоятельно"}
-                </Button>
-            </div>
-        )
+    // if (!visible) 
+    //     return (
+    //         <div>
+    //             <label>Габариты:</label>
+    //             <br />
+    //             <Button variant="outline-primary" onClick={() => setVisible(true)}>
+    //                 {action === "edit" && "Изменить данные"}
+    //                 {action === "add" && "Добавить самостоятельно"}
+    //             </Button>
+    //         </div>
+    //     )
 
     return (
         <Row

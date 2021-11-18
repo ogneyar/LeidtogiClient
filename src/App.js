@@ -43,7 +43,7 @@ const App = observer(() => {
             .then(
                 data => category.setAllCategories(data),
                 err => {
-                    alert("Не удалось загрузить категории. "+err)
+                    // alert("Не удалось загрузить категории. "+err)
                     console.log("Не удалось загрузить категории",err)
                     category.setAllCategories([{}])
                 })

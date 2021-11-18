@@ -1,29 +1,29 @@
-.CategoryService {
+.AdminCategoryService {
 
 }
 
-.CategoryServiceCheckboxIsProduct {
+.AdminCategoryServiceCheckboxIsProduct {
     margin-top: 15px;
 }
 
 @media(max-width: 500px) {
-    .CategoryService {
+    .AdminCategoryService {
         font-size: 12px;
     }
-    .CategoryServiceCheckboxIsProduct {
+    .AdminCategoryServiceCheckboxIsProduct {
         margin-top: 10px;
     }
 }
 
 
 @media(max-width: 410px) {
-    .CategoryService {
+    .AdminCategoryService {
         font-size: 10px;
     }
 }
 
 @media(max-width: 350px) {
-    .CategoryService {
+    .AdminCategoryService {
         font-size: 8px;
     }
 }

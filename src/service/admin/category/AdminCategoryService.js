@@ -1,14 +1,15 @@
 import React, { useContext, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Context } from '../../../index'
+
 import { fetchAllCategories, fetchCategories, deleteCategory, updateCategory } from '../../../http/categoryAPI'
-import CategoryAddService from './CategoryAddService'
 import { Input, Button, Alert } from '../../../components/myBootstrap'
+import AdminCategoryAddService from './AdminCategoryAddService'
 import translite from '../../../utils/translite'
-import './CategoryService.css'
+import { Context } from '../../../index'
+import './AdminCategoryService.css'
 
 
-const CategoryService = observer(({information, idName, offset, sub_id}) => {
+const AdminCategoryService = observer(({information, idName, offset, sub_id}) => {
     
     const { product, category } = useContext(Context)
     const [info, setInfo] = useState(information)
@@ -39,7 +40,7 @@ const CategoryService = observer(({information, idName, offset, sub_id}) => {
             if (sub === 0)  {
                 category.setCategories([...category.categories, ...data])
             }else {
-                category.setCategories(category.categories.map(i => {                    
+                category.setCategories(category.categories.map(i => {
                     return reMap(i, sub, data)
                 }))
             }
@@ -214,7 +215,7 @@ const CategoryService = observer(({information, idName, offset, sub_id}) => {
     
     return (
     <div
-        className={offset === "null" ? "CategoryService" : "CategoryService ml-4"}
+        className={offset === "null" ? "AdminCategoryService" : "AdminCategoryService ml-4"}
     >
         <Alert 
             show={showAlert} 
@@ -296,7 +297,7 @@ const CategoryService = observer(({information, idName, offset, sub_id}) => {
                             
 							<Input 
 								type="checkbox" 
-								className='CategoryServiceCheckboxIsProduct'
+								className='AdminCategoryServiceCheckboxIsProduct'
 								checked={i.is_product}
 								title="Содержит ли продукцию?"
 								style={{cursor:"pointer"}}
@@ -332,9 +333,9 @@ const CategoryService = observer(({information, idName, offset, sub_id}) => {
                         
                         {i.sub !== undefined 
                         ?
-                            <CategoryService information={i.sub} idName={"sub_"+idName} sub_id={i.id} />
+                            <AdminCategoryService information={i.sub} idName={"sub_"+idName} sub_id={i.id} />
                         : 
-                            <CategoryAddService sub_id={i.id} offset={"yes"} updateInfo={(sub, data, inform, offset) => updateInfo(sub, data, inform, offset)} />
+                            <AdminCategoryAddService sub_id={i.id} offset={"yes"} updateInfo={(sub, data, inform, offset) => updateInfo(sub, data, inform, offset)} />
                         }
                         
                     </div>
@@ -343,11 +344,11 @@ const CategoryService = observer(({information, idName, offset, sub_id}) => {
             )}
         </div>
 
-        <CategoryAddService sub_id={sub_id} offset={"null"} updateInfo={(sub, data, inform, offset) => updateInfo(sub, data, inform, offset)} />
+        <AdminCategoryAddService sub_id={sub_id} offset={"null"} updateInfo={(sub, data, inform, offset) => updateInfo(sub, data, inform, offset)} />
 
     </div>
                 
     )
 })
 
-export default CategoryService
+export default AdminCategoryService

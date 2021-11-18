@@ -3,7 +3,7 @@ import {Modal, Button} from 'react-bootstrap'
 import { Context } from '../..'
 // import { fetchCategories } from '../../http/categoryAPI'
 import { observer } from 'mobx-react-lite'
-import CategoryService from '../../service/admin/category/CategoryService'
+import AdminCategoryService from '../../service/admin/category/AdminCategoryService'
 import './Category.css'
 
 
@@ -50,7 +50,7 @@ const Category = observer(({show, onHide}) => {
                     </div>
                 </div>
 
-                <CategoryService information={info} idName={"category_"} offset={"null"} sub_id={0} />
+                <AdminCategoryService information={info} idName={"category_"} offset={"null"} sub_id={0} />
 
             </Modal.Body>
             <Modal.Footer>

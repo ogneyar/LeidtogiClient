@@ -41,8 +41,8 @@ const ProductService = observer((props) => {
 
     const [fileReader, setFileReader] = useState(null)
 
-    const [fileVisible, setFileVisible] = useState(false)
-
+    // const [fileVisible, setFileVisible] = useState(false)
+    
     
     useEffect(() => {
     },[])
@@ -143,25 +143,34 @@ const ProductService = observer((props) => {
     }
 
     const addProduct = async () => {
-        if (category.selectedCategory?.name && brand.selectedBrand?.name && article && name) {
+        if (category.selectedCategory?.name && brand.selectedBrand?.name && article && name && file) {
             let no = true
             product.allProducts.forEach(i => {
                 if (i.article === article) no = false
             })
             if (no) { // если нет такого артикула в БД
+                let error = false
                 setLoading(true)
                 const formData = await getFormData()
                 try{
-                    await createProduct(formData).then(data => props?.back())
-        
-                    fetchAllProducts().then(data => product.setAllProducts(data))
-                    category.setSelectedCategory({})
+                    await createProduct(formData).then(
+                        () => props?.back(),
+                        err => {
+                            error = true
+                            alert(err.message)
+                            // console.log(err.target);
+                        }
+                    )
+                    if (!error) {
+                        fetchAllProducts().then(data => product.setAllProducts(data))
+                        category.setSelectedCategory({})
+                    }
                     setLoading(false)
                 }catch(e) {
                     setLoading(false)
                 }
             }else alert("Такой артикул в базе данных уже есть.")
-        }else alert("Надо выбрать категорию, бренд, ввести артикул, имя, цену и характеристики.")
+        }else alert("Надо выбрать категорию, бренд, фото, ввести артикул, имя, цену и характеристики.")
     }
 
     const editProduct = async (id) => {
@@ -196,6 +205,7 @@ const ProductService = observer((props) => {
 
         if (action === "add") {
             if (file === null) {
+                // это парсер, в данный момент отключен
                 await fetchParserAll(brand.selectedBrand.name.toLowerCase(), article)
                     .then(data => {
                         if (data?.error) {
@@ -219,6 +229,14 @@ const ProductService = observer((props) => {
                             formData.append('info', JSON.stringify([desc,char,equip]))
                         }
                     })
+            }else {
+                formData.append('size', JSON.stringify(size))
+                formData.append('price', `${price}`)
+                let infoArray = []
+                if (description !== "") infoArray = [...infoArray,{title:"description",body:description}]
+                if (characteristics !== "") infoArray = [...infoArray,{title:"characteristics",body:characteristics}]
+                if (equipment !== "") infoArray = [...infoArray,{title:"equipment",body:equipment}]
+                formData.append('info', JSON.stringify(infoArray))
             }
         }else if (action === "edit") {
             formData.append('size', JSON.stringify(size))
@@ -359,26 +377,26 @@ const ProductService = observer((props) => {
                 />
             </div>
 
-            {brand.selectedBrand.name.toLowerCase() !== "milwaukee" 
-            ?
+            {/* {brand?.selectedBrand?.name.toLowerCase() !== "milwaukee" 
+            ? */}
             <div className="inputBox fileBox">
                 <div>
                     <label>Изображение инструмента:</label>
                     <br />
-                    {fileVisible 
-                    ?
+                    {/* {fileVisible 
+                    ? */}
                         <Form.Control 
                             className=''
                             type="file"
-                            disabled
+                            // disabled
                             onChange={selectFile}
                          />
-                    :
+                    {/* :
                         <Button variant="outline-primary" onClick={() => setFileVisible(true)}>
                             {action === "edit" && "Заменить фото"}
                             {action === "add" && "Добавить самостоятельно"}
                         </Button>
-                    }
+                    } */}
                 </div>
                 
                 <div>
@@ -389,7 +407,7 @@ const ProductService = observer((props) => {
                 </div>
                 
             </div>
-            : null}
+            {/* : null} */}
             
 
             <div className="inputBox">
