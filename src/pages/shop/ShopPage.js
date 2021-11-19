@@ -27,6 +27,9 @@ const Shop = observer(() => {
     const history = useHistory()
 
     useEffect(() => {
+
+        // console.log("product.allProducts",product.allProducts)
+
         if (product.allProducts.length) {
             if (!name) { // если в url указан корневой каталог /
                 product.setProducts(product.allProducts)

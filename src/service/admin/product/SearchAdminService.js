@@ -34,7 +34,11 @@ const SearchAdminService = observer((props) => {
 
     useEffect(() => {
         if (!loading && article !== "") {
-            setSearch(product.allProducts.filter(i => i.article.includes(article)))
+            setSearch(
+                product.allProducts.filter(
+                    i => i.article.includes(article)
+                ).sort((a, b) => a.article - b.article)
+            )
         }else setSearch([])
         // eslint-disable-next-line
     },[article])

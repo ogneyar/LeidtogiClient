@@ -176,7 +176,7 @@ const ProductService = observer((props) => {
     const editProduct = async (id) => {
         setLoading(true)
         const formData = await getFormData()
-        await updateAllProduct(id, formData).then(data => props?.back())
+        await updateAllProduct(id, formData).then(() => props?.back())
 
         fetchAllProducts().then(data => product.setAllProducts(data))
         category.setSelectedCategory({})
@@ -184,7 +184,7 @@ const ProductService = observer((props) => {
     }
 
     const delProduct = async (id) => {
-        await deleteProduct(id).then(data => props?.back())
+        await deleteProduct(id).then(() => props?.back())
 
         fetchAllProducts().then(data => product.setAllProducts(data))
         category.setSelectedCategory({})
@@ -204,8 +204,9 @@ const ProductService = observer((props) => {
         formData.append('categoryId', category.selectedCategory.id)
 
         if (action === "add") {
-            if (file === null) {
-                // это парсер, в данный момент отключен
+            // это парсер, в данный момент отключен
+            // лишь для этого я сделал взаимоисключающее условие
+            if (file === null && file === undefined) { 
                 await fetchParserAll(brand.selectedBrand.name.toLowerCase(), article)
                     .then(data => {
                         if (data?.error) {
@@ -229,20 +230,22 @@ const ProductService = observer((props) => {
                             formData.append('info', JSON.stringify([desc,char,equip]))
                         }
                     })
-            }else {
-                formData.append('size', JSON.stringify(size))
-                formData.append('price', `${price}`)
-                let infoArray = []
-                if (description !== "") infoArray = [...infoArray,{title:"description",body:description}]
-                if (characteristics !== "") infoArray = [...infoArray,{title:"characteristics",body:characteristics}]
-                if (equipment !== "") infoArray = [...infoArray,{title:"equipment",body:equipment}]
-                formData.append('info', JSON.stringify(infoArray))
             }
-        }else if (action === "edit") {
-            formData.append('size', JSON.stringify(size))
-            formData.append('price', `${price}`)
-            formData.append('info', JSON.stringify(info))
+            // else {
+            //     formData.append('size', JSON.stringify(size))
+            //     formData.append('price', `${price}`)
+            //     formData.append('info', JSON.stringify(info))
+            // }
         }
+        // else if (action === "edit") {
+        //     formData.append('size', JSON.stringify(size))
+        //     formData.append('price', `${price}`)
+        //     formData.append('info', JSON.stringify(info))
+        // }
+
+        formData.append('size', JSON.stringify(size))
+        formData.append('price', `${price}`)
+        formData.append('info', JSON.stringify(info))
 
         return formData
     }

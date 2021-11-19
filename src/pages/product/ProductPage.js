@@ -49,7 +49,7 @@ const ProductPage =  observer(() => {
                 if (!data?.id) history.push("/error")
 
                 setProduct(data)
-                // console.log(data);
+                // console.log("data",data);
                 rating.setRate(data.rating)
             },err => {
                 setError(true)
