@@ -18,9 +18,8 @@ const Aside = observer(() => {
     const { category } = useContext(Context)
 
     const history = useHistory()
-
-// это не баг, а фича
-console.log(useParams())
+    
+    useParams() // это не баг, а фича
 
     // хлебные крошки
     const [ breadCrumbsState, setBreadCrumbsState ] = useState([])
