@@ -44,7 +44,12 @@ const ProductItem = ({product}) => {
 
                     <div className="product-name">
                         {product.name}
+                        <p>артикул: {product.article}</p>
                     </div>
+
+                    {/* <div className="product-article">
+                        артикул: {product.article}
+                    </div> */}
 
                     <div className="product-text">
 

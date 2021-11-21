@@ -101,6 +101,14 @@
     height: 100px;
 }
 
+.product-name p {
+    font-size: 0.7em;
+}
+
+.product-article {
+    font-size: 0.7em;
+}
+
 .product-text {
     padding: 10px 0;
     display:flex;
