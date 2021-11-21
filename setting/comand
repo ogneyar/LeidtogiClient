@@ -18,4 +18,10 @@ pm2 start client.js
 
 service nginx ( status | start | stop | restart )
 
-certbot certonly -d pzmarket.ru -d www.pzmarket.ru -d server.pzmarket.ru -d leidtogi.ru -d www.leidtogi.ru -d server.leidtogi.ru
+# узнать какие порты прослушиваются
+netstat -ntlp | grep LISTEN
+
+# создание сертификата
+certbot certonly -d pzmarket.ru -d www.pzmarket.ru -d server.pzmarket.ru
+
+certbot certonly -d leidtogi.ru -d www.leidtogi.ru -d server.leidtogi.ru
