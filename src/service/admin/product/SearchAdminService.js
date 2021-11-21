@@ -154,9 +154,11 @@ const SearchAdminService = observer((props) => {
                     id={productSearch?.id}
                     name={productSearch?.name}
                     price={productSearch?.price}
-                    file={Array.isArray(productSearch?.img)  && productSearch?.img[0]?.small !== undefined
+                    file={Array.isArray(productSearch?.img) && productSearch?.img[0]?.small !== undefined
                     ? API_URL + productSearch.img[0].small
                     : API_URL + "unknown.jpg"}
+                    url={API_URL}
+                    images={productSearch?.img}
                     have={productSearch?.have}
                     article={productSearch?.article}
                     promo={productSearch?.promo}

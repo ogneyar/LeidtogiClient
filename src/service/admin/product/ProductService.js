@@ -27,7 +27,15 @@ const ProductService = observer((props) => {
     const [article, setArticle] = useState(props?.article || "")
     const [name, setName] = useState(props?.name || '')
     const [price, setPrice] = useState(props?.price || "")
+
     const [file, setFile] = useState(null)
+
+    // const [images, setImages] = useState(null)
+
+    const [image1, setImage1] = useState(null)
+    const [image2, setImage2] = useState(null)
+    const [image3, setImage3] = useState(null)
+    const [image4, setImage4] = useState(null)
     
     const [have, setHave] = useState(props?.have || 1)
     const [promo, setPromo] = useState(props?.promo || "")
@@ -40,6 +48,9 @@ const ProductService = observer((props) => {
     const [equipment, setEquipment] = useState(props?.equipment || "")
 
     const [fileReader, setFileReader] = useState(null)
+    const [fileReader2, setFileReader2] = useState(null)
+    const [fileReader3, setFileReader3] = useState(null)
+    const [fileReader4, setFileReader4] = useState(null)
 
     // const [fileVisible, setFileVisible] = useState(false)
     
@@ -106,7 +117,7 @@ const ProductService = observer((props) => {
             if (!yes) array.push({title: "characteristics", body:characteristics})
             setInfo(array)
         }
-        // eslint-disable-next-line
+    // eslint-disable-next-line
     },[characteristics])
 
     useEffect(() => {
@@ -122,23 +133,93 @@ const ProductService = observer((props) => {
             if (!yes) array.push({title: "equipment", body:equipment})
             setInfo(array)
         }
-        // eslint-disable-next-line
+    // eslint-disable-next-line
     },[equipment])
     
+    // useEffect(() => {
+    //     if (typeof(props.file) === "object" && props.file[0].small !== undefined) {
+    //         setFileReader(props.file[0].small)
+    //     }else if (typeof(props.file) === "string") setFileReader(props.file)
+    // },[props?.file])
+    
     useEffect(() => {
-        if (typeof(props.file) === "object" && props.file[0].small !== undefined) {
-            setFileReader(props.file[0].small)
-        }else if (typeof(props.file) === "string") setFileReader(props.file)
-    },[props?.file])
-
+        let arrayImages = []
+        if (props?.images && typeof(props?.images) === "string") {
+            arrayImages = JSON.parse(props?.images)
+        }else if (Array.isArray(props?.images)) {
+            arrayImages = props?.images
+        }
+        arrayImages.forEach((i, index) => {
+            switch(index) {
+                case 0:
+                    // setImage1()
+                    setFileReader(props?.url + i.small)
+                break;
+                case 1:
+                    setFileReader2(props?.url + i.small)
+                break;
+                case 2:
+                    setFileReader3(props?.url + i.small)
+                break;
+                case 3:
+                    setFileReader4(props?.url + i.small)
+                break;
+                default:
+                break;
+            }            
+        })
+    // eslint-disable-next-line
+    },[props?.images])
 
 
     const selectFile = e => {
-        let reader = new FileReader()
-        reader.onload = function(e) {
-            setFileReader(e.target.result)
+        let lengthArrayFiles
+        if (e.target.files.length > 4) lengthArrayFiles = 4
+        else lengthArrayFiles = e.target.files.length
+        // console.log("e.target.files.length",e.target.files.length);
+        // let arrayImages = []
+        for(let i = 0; i < lengthArrayFiles; i++) {
+            let reader = new FileReader()
+            reader.onload = function(e) {
+                switch(i) {
+                    case 0:
+                        setFileReader(e.target.result)
+                    break;
+                    case 1:
+                        setFileReader2(e.target.result)
+                    break;
+                    case 2:
+                        setFileReader3(e.target.result)
+                    break;
+                    case 3:
+                        setFileReader4(e.target.result)
+                    break;
+                    default:
+                    break;
+                }
+                // setFileReader(e.target.result)
+            }
+            reader.readAsDataURL(e.target.files[i])
+            // arrayImages = [...arrayImages, e.target.files[i]]
+            
+            switch(i) {
+                case 0:
+                    setImage1(e.target.files[i])
+                break;
+                case 1:
+                    setImage2(e.target.files[i])
+                break;
+                case 2:
+                    setImage3(e.target.files[i])
+                break;
+                case 3:
+                    setImage4(e.target.files[i])
+                break;
+                default:
+                break;
+            }
         }
-        reader.readAsDataURL(e.target.files[0])
+        // setImages(arrayImages)
         setFile(e.target.files[0])
     }
 
@@ -195,6 +276,13 @@ const ProductService = observer((props) => {
         formData.append('name', name.trim())
 
         formData.append('img', file)
+
+        // formData.append('images', JSON.stringify(images))
+
+        formData.append('image1', image1)
+        formData.append('image2', image2)
+        formData.append('image3', image3)
+        formData.append('image4', image4)
 
         formData.append('have', have)
         formData.append('article', article.trim())
@@ -384,7 +472,8 @@ const ProductService = observer((props) => {
             ? */}
             <div className="inputBox fileBox">
                 <div>
-                    <label>Изображение инструмента:</label>
+                    <label>Изображение инструмента:&nbsp;</label>
+                    <label>(не более четырёх)</label>
                     <br />
                     {/* {fileVisible 
                     ? */}
@@ -393,6 +482,8 @@ const ProductService = observer((props) => {
                             type="file"
                             // disabled
                             onChange={selectFile}
+                            multiple 
+                            accept="image/*,image/jpeg"
                          />
                     {/* :
                         <Button variant="outline-primary" onClick={() => setFileVisible(true)}>
@@ -402,11 +493,27 @@ const ProductService = observer((props) => {
                     } */}
                 </div>
                 
-                <div>
-                    {fileReader 
-                    // ? <Image src={fileReader} width="100" height="100" /> 
-                    ? <Image src={fileReader} width="80" /> 
-                    : null}
+                <div className="fileBoxImages">
+                    <div className="fileBoxImagesReader">
+                        {fileReader 
+                        ? <Image src={fileReader}  className="fileBoxImagesReader_Image" /> 
+                        : null}
+                    </div>
+                    <div className="fileBoxImagesReader">
+                        {fileReader2 
+                        ? <Image src={fileReader2}  className="fileBoxImagesReader_Image" /> 
+                        : null}
+                    </div>
+                    <div className="fileBoxImagesReader">
+                        {fileReader3 
+                        ? <Image src={fileReader3}  className="fileBoxImagesReader_Image" /> 
+                        : null}
+                    </div>
+                    <div className="fileBoxImagesReader">
+                        {fileReader4 
+                        ? <Image src={fileReader4} className="fileBoxImagesReader_Image" /> 
+                        : null}
+                    </div>
                 </div>
                 
             </div>
