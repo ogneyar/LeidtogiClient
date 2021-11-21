@@ -51,7 +51,7 @@
     }
 }
 
-@media(max-width:390px) {
+@media(max-width:410px) {
     .NavBar_Col_Buttons {
         align-items: center;
         flex-direction: column;
@@ -65,5 +65,11 @@
     .NavBar_Logo {
         padding: 2px;
         width: 115px;
+    }
+}
+
+@media(max-width:340px) {
+    .NavBar_Col_Buttons Button{
+        padding: 5px;
     }
 }
