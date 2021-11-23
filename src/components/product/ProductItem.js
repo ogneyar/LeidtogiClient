@@ -46,7 +46,7 @@ const ProductItem = ({product}) => {
                         {product.name}
                         <p>артикул: {product.article}</p>
                     </div>
-
+ 
                     {/* <div className="product-article">
                         артикул: {product.article}
                     </div> */}
