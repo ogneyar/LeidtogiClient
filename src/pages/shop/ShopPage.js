@@ -176,7 +176,9 @@ const Shop = observer(() => {
                     ? <Loading /> 
                     : <>
                         <Pagination />
-                        <ProductList />
+                        <div className="ShopProductList">
+                            <ProductList />
+                        </div>
                         <Pagination />
                     </>}
                     
