@@ -61,7 +61,7 @@ const Top = () => {
                             </strong>
                             <strong className="TopLinkStrong">
                                 <NavLink
-                                    className="NavLink NavLink_Top"
+                                    className="NavLink NavLink_Top_Support"
                                     to={SUPPORT_ROUTE}
                                 >
                                     Тех. поддержка

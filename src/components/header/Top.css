@@ -30,25 +30,33 @@
 .TopLinkStrong {}
 
 .NavLink_Top,
-.NavLink_Top_Specials {    
+.NavLink_Top_Specials,
+.NavLink_Top_Support {    
     padding: 7px 5px;
-    /* margin-right: 10px; */
     border-radius: 5px;
 }
 .NavLink_Top:hover,
-.NavLink_Top_Specials:hover {
-    border: 1px solid rgb(179, 17, 17);
-    color: rgb(179, 17, 17);
+.NavLink_Top_Specials:hover,
+.NavLink_Top_Support:hover {
+    color: var(--main-white-color);
+    border: 1px solid var(--main-white-color); 
 }
 .NavLink_Top {
-    color: var(--main-white-color);
-    border: 1px solid var(--main-white-color);
+    color: var(--main-grey-color);
+    border: 1px solid var(--main-grey-color);
 }
 
 .NavLink_Top_Specials {
-    color: var(--main-orange-color);
-    border: 1px solid var(--main-orange-color);
+    color: var(--main-red-color);
+    border: 1px solid var(--main-red-color);
 }
+
+.NavLink_Top_Support {
+    color: blue;
+    border: 1px solid blue;
+}
+
+
 
 @media(max-width: 991px) {
     .TopRow {
@@ -64,8 +72,9 @@
         margin-right: 3px;
     }  
     .NavLink_Top,
-    .NavLink_Top_Specials {    
-        padding: 3px 1px;
+    .NavLink_Top_Specials,
+    .NavLink_Top_Support {    
+        padding: 7px 1px;
     }
 }
 @media(max-width: 575px) {
@@ -84,8 +93,9 @@
         font-size: 13px;
     }
     .NavLink_Top,
-    .NavLink_Top_Specials {
-        padding: 5px 1px;
+    .NavLink_Top_Specials,
+    .NavLink_Top_Support {
+        /* padding: 5px 1px; */
     }
 }
 @media(max-width: 460px) {  
@@ -93,11 +103,12 @@
         font-size: 12px;
     }
     .NavLink_Top,
-    .NavLink_Top_Specials {    
-        padding: 7px 1px;
+    .NavLink_Top_Specials,
+    .NavLink_Top_Support {    
+        /* padding: 7px 1px; */
     }
 }
-@media(max-width: 415px) {  
+@media(max-width: 420px) {  
     .TopColLink {
         font-size: 10px;
     }
