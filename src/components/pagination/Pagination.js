@@ -98,7 +98,7 @@ const Pages = observer(() => {
     return (
         <Pagination 
             size={sizePagination} 
-            className="Pagination mt-2"
+            className="Pagination mt-2 mb-2"
         >
             {pages.length > 10 
             ? 
