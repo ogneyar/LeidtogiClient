@@ -71,31 +71,33 @@ const Search = observer((props) => {
         <div className="SearchComponent">
             <div className="SearchWrapper">
                 {props?.label ? <label>&nbsp;{props.label}</label> : null}
-                <div id="searchDiv" className="SearchDiv">
-                    <input 
-                        className="SearchInput" 
-                        type="text" 
-                        autoComplete="off" 
-                        name="search" 
-                        id="search" 
-                        placeholder="Поиск" 
-                        value={value}
-                        onChange={e => onChangeSearchInputValue(e.target.value)}
-                        onClick={e => onClickSearchInput(e.target.value)}
-                        onKeyDown={e => onKeyDownInput(e)}
-                    />
-
-                    <span className="InputGroupButton">
-
-                        <button 
+                <div className="SearchBox">
+                    <div id="searchDiv" className="SearchDiv">
+                        <input 
+                            className="SearchInput" 
                             type="text" 
-                            className="SearchButton btn btn-default"
-                            onClick={() => redirectOnSearch("value", value)}
-                        >
-                            <i className="fa fa-search " />
-                        </button>
+                            autoComplete="off" 
+                            name="search" 
+                            id="search" 
+                            placeholder="Поиск" 
+                            value={value}
+                            onChange={e => onChangeSearchInputValue(e.target.value)}
+                            onClick={e => onClickSearchInput(e.target.value)}
+                            onKeyDown={e => onKeyDownInput(e)}
+                        />
 
-                    </span>
+                        <span className="InputGroupButton">
+
+                            <button 
+                                type="text" 
+                                className="SearchButton btn btn-default"
+                                onClick={() => redirectOnSearch("value", value)}
+                            >
+                                <i className="fa fa-search " />
+                            </button>
+
+                        </span>
+                    </div>
                 </div>
                 
                 {list && list.length > 0

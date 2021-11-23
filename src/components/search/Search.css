@@ -125,7 +125,11 @@
 
 @media(max-width:575px) {
     .SearchDiv {
-        width: 90vw;
-        /* width: 300px; */
+        width: 100%;
+        /* border: 1px dashed black; */
+    }
+    .SearchBox {
+        width: 100vw;
+        padding: 0 15px;
     }
 }
