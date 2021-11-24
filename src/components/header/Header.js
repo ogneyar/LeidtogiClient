@@ -2,7 +2,7 @@ import React from 'react'
 import Top from './Top'
 import NavBar from './NavBar'
 import Aside from './Aside'
-// import Banner from './Banner'
+import Banner from './Banner'
 
 import './Header.css'
 
@@ -14,8 +14,8 @@ const Header = () => {
         >
             <Top />
             <NavBar />
+            <Banner />
             <Aside />
-            {/* <Banner /> */}
         </header>
     )
 }
