@@ -4,7 +4,8 @@ import { useHistory, useParams } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
 import CategoryBar from '../../components/category/CategoryBar'
-// import BrandBar from '../../components/brand/BrandBar'
+// eslint-disable-next-line
+import BrandBar from '../../components/brand/BrandBar'
 import ProductList from '../../components/product/ProductList'
 import Pagination from '../../components/pagination/Pagination'
 import Filter from '../../components/filter/Filter'
@@ -19,7 +20,8 @@ const Shop = observer(() => {
     const { product, category, brand } = useContext(Context)
 
     const [ loadingCategory, setLoadingCategory ] = useState(true)
-    // const [ loadingBrand, setLoadingBrand ] = useState(true)
+    // eslint-disable-next-line
+    const [ loadingBrand, setLoadingBrand ] = useState(true)
     const [ loadingProduct, setLoadingProduct ] = useState(true)
 
     const { name } = useParams()
@@ -154,7 +156,7 @@ const Shop = observer(() => {
     useEffect(() => {
         if (brand.allBrands.length) {
             brand.setBrands(brand.allBrands)
-            // setLoadingBrand(false)
+            setLoadingBrand(false)
         }
         // eslint-disable-next-line
     },[brand.allBrands])
