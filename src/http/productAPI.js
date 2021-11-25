@@ -47,6 +47,17 @@ export const fetchOneProduct = async (id) => {
     return {...data, img}
 }
 
+export const fetchOneProductOnUrl = async (url) => {
+    const {data} = await $host.get('api/product/url/' + url)
+    let img
+    try {
+        img = JSON.parse(data.img)
+    }catch(e) {
+        img = [{}]
+    }
+    return {...data, img}
+}
+
 export const fetchProductInfos = async (id) => {
     const {data} = await $host.get('api/product/info/' + id)
     return data
