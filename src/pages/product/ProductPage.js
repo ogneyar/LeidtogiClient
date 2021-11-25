@@ -4,13 +4,15 @@ import { useParams, useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import ReactHtmlParser from 'react-html-parser'
 
-import { fetchOneProduct } from '../../http/productAPI'
+import { fetchOneProduct, fetchOneProductOnUrl } from '../../http/productAPI'
 
 import { API_URL } from '../../utils/consts'
 import Error from '../error/ErrorPage'
 import Loading from '../../components/Loading'
 import ButtonBuy from '../../components/cart/ButtonBuy'
 import Rating from '../../components/rating/Rating'
+// eslint-disable-next-line
+import ShopPage from '../shop/ShopPage'
 import { Context } from '../..'
 import './ProductPage.css'
 
@@ -19,7 +21,9 @@ const ProductPage =  observer(() => {
 
     const { rating } = useContext(Context)
 
-    const { id } = useParams()
+    const { id, url } = useParams()
+
+    // if (!id) return <ShopPage />
 
     const history = useHistory()
     
@@ -28,36 +32,39 @@ const ProductPage =  observer(() => {
     const [error, setError] = useState(false)
 
     useEffect(() => {
-        fetchOneProduct(id)
-            .then(data => {
-                // let info
-                // if (data?.info[0]?.title) {
+        if (id) {
+            fetchOneProduct(id)
+                .then(data => {
+                    if (!data?.id) history.push("/error")
 
-                    // data.info.forEach(i => {
-                    //     if (i.title === "characteristics") setProduct({...data, characteristics:i.body})
-                    // })
-
-                    // setProduct({...data, info:data?.info})
-
-                    // info = data.info[0].description.split(";").map((i,index) => {
-                    //     return  {id:index, description:i.trim()[0].toUpperCase() + i.trim().substring(1)} // создание массива характеристик
-                    // })
-                    // setProduct({...data, info})
-
-                // }else setProduct({...data, info: null})
-
-                if (!data?.id) history.push("/error")
-
-                setProduct(data)
-                // console.log("data",data);
-                rating.setRate(data.rating)
-            },err => {
-                setError(true)
-            })
-            .finally(() => setLoading(false))
+                    setProduct(data)
+                    
+                    rating.setRate(data.rating)
+                },err => {
+                    setError(true)
+                })
+                .finally(() => setLoading(false))
+        }
     // eslint-disable-next-line
     },[id])
     
+    
+    useEffect(() => {
+        if (url) {
+            fetchOneProductOnUrl(url)
+                .then(data => {
+                    if (!data?.id) history.push("/error")
+
+                    setProduct(data)
+                    
+                    rating.setRate(data.rating)
+                },err => {
+                    setError(true)
+                })
+                .finally(() => setLoading(false))
+        }
+    // eslint-disable-next-line
+    },[url])
 
     if (loading) return <Loading />
 
