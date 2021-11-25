@@ -1,15 +1,32 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
 import { authRoutes, publicRoutes } from '../utils/routes'
+import ShopPage from '../pages/shop/ShopPage'
+import BrandPage from '../pages/brand/BrandPage'
 import { SHOP_ROUTE } from '../utils/consts'
 import { Context } from '..'
+import Loading from './Loading'
 
 
 const AppRouter = observer(() => {
     
-    const {user} = useContext(Context)
+    const { user, brand } = useContext(Context)
+
+    const [ brandRoutes, setBrandRoutes ] = useState([])
+
+    useEffect(() => {
+        setBrandRoutes(brand.allBrands.map(i => {
+            return {
+                path: '/' + i?.name.toLowerCase(),
+                Component: BrandPage
+            }
+        }))
+    }, [brand.allBrands])
+
+    if (brandRoutes[0]?.path === undefined) return <Loading />
+
     return (
         <Switch> 
             {user.isAuth && authRoutes.map(({path, Component}) => 
@@ -18,6 +35,17 @@ const AppRouter = observer(() => {
             {publicRoutes.map(({path, Component}) => 
                 <Route key={path} path={path} component={Component} exact />
             )}
+
+            {brandRoutes.map(({path, Component}) => 
+                <Route key={path} path={path} component={Component} exact />
+            )}
+            {brandRoutes.map(({path, Component}) => 
+                <Route key={path + '/:url'} path={path + '/:url'} component={Component} />
+            )}
+
+            {/* роут категорий - /nazvanie-kategorii */}
+            <Route key={'/:name'} path={'/:name'} component={ShopPage} exact />
+
             <Redirect to={SHOP_ROUTE} /> 
         </Switch>
     )

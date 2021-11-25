@@ -35,6 +35,7 @@ import {
     SUPPORT_ROUTE, MESSAGE_ROUTE
 } from './consts'
 
+
 export const authRoutes = [
     {
         path: ADMIN_ROUTE,
@@ -142,11 +143,5 @@ export const publicRoutes = [
     {
         path: DELETE_ROUTE,
         Component: DeletePage
-    },
-
-    // роут категорий - /nazvanie-kategorii
-    {
-        path: '/:name',
-        Component: ShopPage
     }
 ]
