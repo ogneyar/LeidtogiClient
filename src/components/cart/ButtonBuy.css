@@ -3,3 +3,26 @@
     font-weight: 800;
     padding: 5px 10px;
 }
+
+.NotificationDiv {
+    display: flex; 
+    justify-content:center; 
+    flex-wrap: nowrap;
+    margin: 20px;
+    text-align: center;
+    font-size: 22px;
+}
+
+.NotificationDiv span {
+    /* font-size: 22px; */
+}
+
+.NotificationDivButtons {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.NotificationDivButtons Button {
+    margin: 10px;
+}

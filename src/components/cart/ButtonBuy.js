@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router'
+import $ from 'jquery'
 
 import { onClickButtonBuy } from '../../service/cart/CartBuyService'
 import Notification from '../myBootstrap/Notification'
+// eslint-disable-next-line
 import { Button, NavLink } from '../myBootstrap'
 import { CART_ROUTE } from '../../utils/consts'
 import './ButtonBuy.css'
@@ -10,6 +13,8 @@ import './ButtonBuy.css'
 const ButtonBuy = (props) => {
 
     const [notificationVisible, setNotificationVisible] = useState(false)
+
+    const history = useHistory()
 
     let className
     if (props?.className) className = props?.className
@@ -30,11 +35,41 @@ const ButtonBuy = (props) => {
         <Notification 
             show={notificationVisible} 
             onHide={() => setNotificationVisible(false)}
+            className="ButtonBuyNotification"
+            time="10000"
         >
             <div
-                className="d-flex justify-content-center m-4"
+                className="NotificationDiv"
             >
-                Товар добавлен в&nbsp;<NavLink to={CART_ROUTE}>корзину</NavLink>!
+                {/* Товар добавлен в&nbsp;<NavLink to={CART_ROUTE}><span>корзину</span></NavLink>! */}
+                Товар добавлен в корзину!
+            </div>
+
+            <div
+                className="NotificationDivButtons"
+            >
+                <Button
+                    variant="outline-success"
+                    onClick={() => {
+                        history.push(CART_ROUTE)
+                        $('html, body').animate(
+                            {
+                                scrollTop: 200
+                            }, 
+                            700, 
+                            function(){}
+                        )
+                    }}
+                >
+                    ОФОРМИТЬ ЗАКАЗ!
+                </Button>
+                
+                <Button
+                    variant="outline-primary"
+                    onClick={() => setNotificationVisible(false)}
+                >
+                    Продолжить покупки
+                </Button>
             </div>
         </Notification>
         </>
