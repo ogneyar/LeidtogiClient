@@ -12,6 +12,7 @@ import NullCart from './NullCart'
 import './CartPage.css'
 import Loading from '../../components/Loading'
 import CreateOrder from '../../components/order/CreateOrder'
+import Confirm from '../../components/myBootstrap/Confirm'
 
 
 const Cart = () => {
@@ -19,6 +20,10 @@ const Cart = () => {
     const [state, setState] = useState([])
     const [total, setTotal] = useState(0)
     const [loading, setLoading] = useState(true)
+
+    const [showConfirm, setShowConfirm] = useState(false)
+    const [response, setResponse] = useState(null)
+    const [item, setItem] = useState(null)
 
     let cart
 
@@ -34,6 +39,35 @@ const Cart = () => {
         }
         setLoading(false)
     }, [])
+
+    useEffect(() => {
+        if (response && response === "yes" && item) {
+            let cart = localStorage.getItem('cart')
+            cart = JSON.parse(cart)
+            if (cart.length === 1) {
+                localStorage.removeItem('cart')
+                setState(null)
+                setTotal(0)
+            }else {
+                let totalValue = 0
+                cart = cart.filter(i => {
+                    if (i.id !== item.id) {
+                        totalValue += i.total
+                        return true
+                    }
+                    return false
+                })
+                setState(cart)
+                setTotal(totalValue)
+                localStorage.setItem('cart', JSON.stringify(cart))
+            }
+            setResponse(null)
+            setItem(null)
+        }else if (response && response === "no"){
+            setResponse(null)
+            setItem(null)
+        }
+    }, [response, item])
 
     const editValue = (action, item) => {
         cart = localStorage.getItem('cart')
@@ -68,28 +102,10 @@ const Cart = () => {
     }
     
     const onClickButtonDelete = (item) => {
-        let yes = window.confirm(`Вы уверены, что хотите удалить товар из корзины?`)
-        if (yes) {
-            cart = localStorage.getItem('cart')
-            cart = JSON.parse(cart)
-            if (cart.length === 1) {
-                localStorage.removeItem('cart')
-                setState(null)
-                setTotal(0)
-            }else {
-                let totalValue = 0
-                cart = cart.filter(i => {
-                    if (i.id !== item.id) {
-                        totalValue += i.total
-                        return true
-                    }
-                    return false
-                })
-                setState(cart)
-                setTotal(totalValue)
-                localStorage.setItem('cart', JSON.stringify(cart))
-            }
-        }
+        // let yes = window.confirm(`Вы уверены, что хотите удалить товар из корзины?`)
+        setShowConfirm(true)
+        setItem(item)
+        
     }
 
     if (loading) return <Loading />
@@ -225,6 +241,14 @@ const Cart = () => {
                 <CreateOrder amount={total} />
 
             </Card>
+
+            <Confirm 
+                show={showConfirm} 
+                onHide={() => setShowConfirm(false)} 
+                setResponse={setResponse} 
+                message={`Вы уверены, что хотите удалить товар из корзины?`}
+            />
+
         </Container>
     )
 
