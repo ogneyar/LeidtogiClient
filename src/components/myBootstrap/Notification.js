@@ -5,7 +5,7 @@ import { Modal } from 'react-bootstrap'
 const Notification = (props) => {
 
     let time = props?.time
-    if (!time) time = 1500
+    if (!time) time = 2500
  
     useEffect(() => {
         if (props.show) {
