@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {  Image } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import $ from 'jquery'
 
 import star from '../../assets/star.png'
 import { Card } from '../myBootstrap'
+// eslint-disable-next-line
 import { PRODUCT_ROUTE, API_URL } from '../../utils/consts'
 import ButtonBuy from '../cart/ButtonBuy'
+import { Context } from '../..'
 import './Product.css'
 
 
@@ -14,12 +16,16 @@ const ProductItem = ({product}) => {
 
     const history = useHistory()
 
+    const { brand } = useContext(Context)
+
 
     return (
         <div
             className="ProductItem"
             onClick={() => {
-                history.push(PRODUCT_ROUTE + '/' + product.id)
+                // history.push(PRODUCT_ROUTE + '/' + product.id)
+                history.push(brand?.selectedBrand?.name.toLowerCase() + '/' + product?.url)
+                // console.log("brand", brand);
                 $('html, body').animate(
                     {
                         scrollTop: 0
