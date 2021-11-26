@@ -10,12 +10,12 @@ import { Context } from '../..'
 import './Aside.css'
 
 import { authRoutes, publicRoutes } from '../../utils/routes'
-import { fetchOneProduct } from '../../http/productAPI'
+import { fetchOneProduct, fetchOneProductOnUrl } from '../../http/productAPI'
 
 
 const Aside = observer(() => {
 
-    const { category } = useContext(Context)
+    const { category, brand } = useContext(Context)
 
     const history = useHistory()
     
@@ -79,10 +79,24 @@ const Aside = observer(() => {
             }
         }else {
             let string = path.substring(0, number)
+            // let string = path.substring(0, "/" + 1)
             if (string === "product") {
                 let id = Number(path.substring(number + 1, path.length))
 
                 fetchOneProduct(id).then(data => {
+                    if (category?.allCategories && category?.allCategories.length > 0) {
+                        category.allCategories.forEach(cat => {
+                            if (cat?.id === data?.categoryId) {
+                                recursiveFunction(cat?.url)
+                            }
+                        })
+                    }
+                })
+
+            }else if (string === brand?.selectedBrand?.name.toLowerCase()) {
+                let url = path.substring(number + 1, path.length)
+
+                fetchOneProductOnUrl(url).then(data => {
                     if (category?.allCategories && category?.allCategories.length > 0) {
                         category.allCategories.forEach(cat => {
                             if (cat?.id === data?.categoryId) {
