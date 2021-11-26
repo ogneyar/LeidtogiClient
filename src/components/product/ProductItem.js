@@ -18,6 +18,7 @@ const ProductItem = ({product}) => {
 
     const { brand } = useContext(Context)
 
+    // if (product.article === "4933459271") console.log(product.name.length)
 
     return (
         <div
@@ -49,9 +50,19 @@ const ProductItem = ({product}) => {
                 <div className="product-body">
 
                     <div className="product-name">
-                        {product.name}
+                        {product.name.length > 90
+                        ?
+                            <div title={product.name}>{product.name.slice(0, 90) + "..."}</div>
+                        :
+                            product.name
+                        }
+
+                        {/* {product.name.length < 100  */}
+                        {/* &&  */}
                         <p>артикул: {product.article}</p>
-                    </div>
+                        {/* } */}
+                        
+                    </div> 
  
                     {/* <div className="product-article">
                         артикул: {product.article}
