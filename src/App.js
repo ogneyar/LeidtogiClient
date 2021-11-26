@@ -55,7 +55,11 @@ const App = observer(() => {
                 err => console.log(err))
         
         fetchBrands()
-            .then(data => brand.setAllBrands(data),
+            .then(
+                data => {
+                    brand.setAllBrands(data)
+                    brand.setSelectedBrand(data[0])
+                },
                 err => console.log(err))
                 
     // eslint-disable-next-line
