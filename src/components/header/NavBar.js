@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Navbar, Nav, Button, Container, Image } from 'react-bootstrap'
+import { Spinner, Navbar, Nav, Button, Container, Image } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 import { useHistory } from 'react-router-dom'
 
@@ -11,6 +11,7 @@ import cart from '../../assets/cart.png'
 import { logout } from '../../http/userAPI'
 
 import './NavBar.css';
+
 
 const NavBar = observer(() => {
     const { user } = useContext(Context)
@@ -65,7 +66,12 @@ const NavBar = observer(() => {
                                 <Image className="NavBar_Cart_Image" src={cart} />
                             </NavLink>
                         <Nav>
-                            {user.isAuth && user.user?.role ?
+                            {user.loading
+                            ?
+                                <Spinner animation="border" variant="light" />
+                            :
+                            
+                                user.isAuth && user.user?.role ?
                             
                                 <>
                                     {user.user?.role === 'ADMIN' ?

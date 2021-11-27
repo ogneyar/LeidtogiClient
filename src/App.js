@@ -34,9 +34,10 @@ const App = observer(() => {
                         if (data?.id) {
                             user.setUser({...data,activationLink:null,password:null})
                             user.setIsAuth(true)
-                        }
+                        }                        
                     },
                     err => console.log(err))
+                .finally(() => user.setLoading(false))
         }
 
         fetchAllCategories()

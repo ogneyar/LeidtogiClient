@@ -2,11 +2,18 @@ import {makeAutoObservable} from 'mobx'
 
 export default class UserStore {
     constructor() {
+        // загрузка данных с сервера
+        this._loading = true
+        // авторизован ли
         this._isAuth = false
+        // данные о пользователе
         this._user = {}
         makeAutoObservable(this)
     }
 
+    setLoading(bool) {
+        this._loading = bool
+    }
     setIsAuth(bool) {
         this._isAuth = bool
     }
@@ -14,6 +21,9 @@ export default class UserStore {
         this._user = user
     }
 
+    get loading() {
+        return this._loading
+    }
     get isAuth() {
         return this._isAuth
     }
