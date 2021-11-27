@@ -5,6 +5,10 @@
     min-height: 400px;
 }
 
+.DeliverySdek p {
+    font-size: 16px;
+}
+
 .DeliverySdek hr {
     width: 100%;
     margin: 5px;
@@ -16,12 +20,25 @@
     /* top: 40px;
     left: 25px; */
     /* display: none; */
-    z-index: 2000;
+    z-index: 1000;
     background: white;
     opacity: 0.9;
     padding-right: 10px;
     margin-top: 10px;
     margin-left: 10px;
+}
+
+@media(max-width: 1000px) {
+    .DeliverySdekLeftPanel {
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+}
+
+.DeliverySdekLeftPanel_TotalSumm {
+    margin: 0 10px 5px 10px;
+    padding: 0;
+    font-size: 16px;
 }
 
 .DeliverySdekLeftPanelBox {
@@ -30,4 +47,10 @@
     align-items: center;
     flex-wrap: wrap;
     padding-bottom: 10px;
+}
+
+.DeliverySdekLeftPanelBox_LabelIndex {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
 }
