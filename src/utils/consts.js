@@ -5,6 +5,7 @@ export const LOGIN_ROUTE = '/login' // вход
 export const REGISTRATION_ROUTE = '/registration' // регистрация
 export const SHOP_ROUTE = '/' // главная
 export const CART_ROUTE = '/cart' // корзина
+export const CREATE_ORDER_ROUTE = '/create_order' // оформление заказа
 export const PRODUCT_ROUTE = '/product' // товар
 export const LK_ROUTE = '/lk' // личный кабинет
 export const SEARCH_ROUTE = '/search' // поиск
@@ -48,7 +49,7 @@ export const URL =
 
 
 // прокрутка страницы при нажатии на категорию
-export const SCROLL_TOP = 205 // до aside
+export const SCROLL_TOP = 200 // до aside
 export const SCROLL_TOP_MOBILE = 160 // для мобильной версии сайта
 
 
@@ -59,7 +60,7 @@ export const TIME_TO_WORK = `<div><p>пн - пт: 09:00 - 18:00</p><p>сб - в�
 
 
 // индекс, от куда идёт доставка товаров
-export const DELIVERY_INDEX_FROM = 101000 // 
+export const DELIVERY_INDEX_FROM = 305520 // - г. Курск   // 101000 - г. Москва
 
 
 // телеграм
