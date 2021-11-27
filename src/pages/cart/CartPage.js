@@ -18,7 +18,7 @@ import Confirm from '../../components/myBootstrap/Confirm'
 const Cart = () => {
 
     const [state, setState] = useState([])
-    const [total, setTotal] = useState(0)
+    const [amount, setAmount] = useState(0)
     const [loading, setLoading] = useState(true)
 
     const [showConfirm, setShowConfirm] = useState(false)
@@ -35,7 +35,7 @@ const Cart = () => {
             setState(cart)
             let totalValue = 0
             cart.forEach(i => totalValue += i.total)
-            setTotal(totalValue)
+            setAmount(totalValue)
         }
         setLoading(false)
     }, [])
@@ -47,7 +47,7 @@ const Cart = () => {
             if (cart.length === 1) {
                 localStorage.removeItem('cart')
                 setState(null)
-                setTotal(0)
+                setAmount(0)
             }else {
                 let totalValue = 0
                 cart = cart.filter(i => {
@@ -58,7 +58,7 @@ const Cart = () => {
                     return false
                 })
                 setState(cart)
-                setTotal(totalValue)
+                setAmount(totalValue)
                 localStorage.setItem('cart', JSON.stringify(cart))
             }
             setResponse(null)
@@ -88,7 +88,7 @@ const Cart = () => {
                 return i
             })
             setState(cart)
-            setTotal(totalValue)
+            setAmount(totalValue)
             localStorage.setItem('cart', JSON.stringify(cart))
         }
     }
@@ -223,7 +223,7 @@ const Cart = () => {
                                 <div
                                     className="CartThDivRow"
                                 >
-                                    {total}
+                                    {amount}
                                 </div>
                                 
                             </th>
@@ -231,14 +231,14 @@ const Cart = () => {
                     </tbody>
                 </table>
                 
-                {/* <Payment amount={total} />  */}
+                {/* <Payment amount={amount} />  */}
 
                 {/* <Delivery /> */}
 
                 <br />
                 <hr />
 
-                <CreateOrder amount={total} />
+                <CreateOrder amount={amount} /> 
 
             </Card>
 
