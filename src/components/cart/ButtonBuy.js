@@ -6,8 +6,11 @@ import { onClickButtonBuy } from '../../service/cart/CartBuyService'
 import Notification from '../myBootstrap/Notification'
 // eslint-disable-next-line
 import { Button, NavLink } from '../myBootstrap'
-import { CART_ROUTE } from '../../utils/consts'
+// eslint-disable-next-line
+import { CART_ROUTE, CREATE_ORDER_ROUTE } from '../../utils/consts'
 import './ButtonBuy.css'
+// eslint-disable-next-line
+import CreateOrder from '../order/CreateOrder'
 
 
 const ButtonBuy = (props) => {
@@ -48,6 +51,24 @@ const ButtonBuy = (props) => {
             <div
                 className="NotificationDivButtons"
             >
+                {/* <Button
+                    variant="outline-warning"
+                    onClick={() => {
+                        history.push(CREATE_ORDER_ROUTE)
+                        $('html, body').animate(
+                            {
+                                scrollTop: 200
+                            }, 
+                            700, 
+                            function(){}
+                        )
+                    }}
+                >
+                    ОФОРМИТЬ ЗАКАЗ!
+                </Button> */}
+
+                {/* <CreateOrder /> */}
+                
                 <Button
                     variant="outline-success"
                     onClick={() => {
@@ -61,7 +82,7 @@ const ButtonBuy = (props) => {
                         )
                     }}
                 >
-                    ОФОРМИТЬ ЗАКАЗ!
+                    Перейти к корзине!
                 </Button>
                 
                 <Button

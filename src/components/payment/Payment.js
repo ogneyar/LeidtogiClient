@@ -38,7 +38,8 @@ const Payment = (props) => {
         if (props?.address) order = {...order, address: props?.address, delivery: "sdek"}
         if (props?.client) order = {...order, client: props?.client}
         
-        createOrder(order)
+        let open = false
+        await createOrder(order)
             .then(
                 data => {
                     if (data?.error) {
@@ -46,36 +47,31 @@ const Payment = (props) => {
                         if (data.error?.error) props?.setMessage(data.error.error)
                         // а бывает в таком
                         else props?.setMessage(data.error)
-                        // остановить лоадер во внешнем компоненте
-                        if (props?.load !== undefined) props?.setLoad(false)
-                        // остановить лоадер в этом компоненте
-                        setLoading(false)
                     }else if (data?.errorCode) {
                         // в таком виде ошибка прилетает от банка
                         props?.setMessage(data?.errorMessage)
-                        // остановить лоадер во внешнем компоненте
-                        if (props?.load !== undefined) props?.setLoad(false)
-                        // остановить лоадер в этом компоненте
-                        setLoading(false)
                     }else if (data?.formUrl) {
-                        window.open(data.formUrl,'_self',false);
+
+                        window.open(data.formUrl,'_self',false)
+                        open = true
+
                     }else {
                         props?.setMessage("Не предвиденная ошибка! Error: " + data.toString())
-                        // остановить лоадер во внешнем компоненте
-                        if (props?.load !== undefined) props?.setLoad(false)
-                        // остановить лоадер в этом компоненте
-                        setLoading(false)
                     }
                 },
                 error => {
                     console.log("error",error);
                     props?.setMessage(error.message)
+                   
+                })
+            .finally(() => {
+                if (!open) {
                     // остановить лоадер во внешнем компоненте
                     if (props?.load !== undefined) props?.setLoad(false)
                     // остановить лоадер в этом компоненте
                     setLoading(false)
                 }
-            )
+            })
     }
 
     return (

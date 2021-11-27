@@ -93,7 +93,7 @@ const Aside = observer(() => {
                     }
                 })
 
-            }else if (string === brand?.selectedBrand?.name.toLowerCase()) {
+            }else if (brand?.selectedBrand?.name !== undefined && string === brand?.selectedBrand?.name.toLowerCase()) {
                 let url = path.substring(number + 1, path.length)
 
                 fetchOneProductOnUrl(url).then(data => {
