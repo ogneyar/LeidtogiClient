@@ -10,7 +10,10 @@ const InfoPage = (props) => {
         <Container 
             className="InfoPage"
         >            
-            <Card className="InfoPageCard">
+            <Card 
+                className="InfoPageCard"
+                style={props?.width && {width: props?.width}}
+            >
                 <div className="InfoPageCardBody">
                     {props?.children}
                 </div>
