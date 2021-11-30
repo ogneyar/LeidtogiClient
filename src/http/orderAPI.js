@@ -7,6 +7,11 @@ export const createOrder = async (props) => {
     return data  
 }
 
+export const getOrderForUser = async (id) => {
+    const {data} = await $authHost.get('api/order/user/' + id) 
+    return data  
+}
+
 export const getOrder = async (id) => {
     const {data} = await $host.get('api/order/' + id) 
     return data  
