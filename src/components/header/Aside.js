@@ -128,6 +128,7 @@ const Aside = observer(() => {
     return (
         <Container className="Aside">
             <div className="AsideDiv" onClick={onClickAsideDiv}>
+                {/* &nbsp; */}
                 {/* <div className="AsideDivNavLink">
                     <NavLink to={"/"} style={{color:"white"}}>
                         Главная

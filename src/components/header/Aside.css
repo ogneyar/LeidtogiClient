@@ -28,17 +28,31 @@
     margin: 5px 3px 5px 0;
 }
 
-@media(max-width: 575px) {
-    .Aside {
-        padding: 10px 15px;
-    }
-}
-
+/* более 991 */
 @media(min-width: 991px) {
     .Aside {
         margin: 10px 0;
     }
 }
+/* менее 991 */
+@media(max-width: 991px) {
+    .Aside {
+        padding: 10px 15px;
+    }
+}
+/* менее 575 */
+@media(max-width: 575px) {
+    .Aside {
+        padding: 5px 15px;
+    }
+}
+/* между (: */
+/* @media(min-width: 575px) and (max-width: 991px) {
+    .Aside {
+        margin: 10px 0;
+    }
+} */
+
 
 /* @media(max-width: 991px) {
     .Aside {
