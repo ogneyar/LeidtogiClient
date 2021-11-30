@@ -6,7 +6,7 @@ import $ from 'jquery'
 import star from '../../assets/star.png'
 import { Card } from '../myBootstrap'
 // eslint-disable-next-line
-import { PRODUCT_ROUTE, API_URL } from '../../utils/consts'
+import { PRODUCT_ROUTE, API_URL, ERROR_ROUTE } from '../../utils/consts'
 import ButtonBuy from '../cart/ButtonBuy'
 import { Context } from '../..'
 import './Product.css'
@@ -25,7 +25,10 @@ const ProductItem = ({product}) => {
             className="ProductItem"
             onClick={() => {
                 // history.push(PRODUCT_ROUTE + '/' + product.id)
-                history.push(brand?.selectedBrand?.name.toLowerCase() + '/' + product?.url)
+                let url = ERROR_ROUTE
+                if (brand?.selectedBrand?.name) url = brand?.selectedBrand?.name.toLowerCase() + '/' + product?.url
+                
+                history.push(url)
                 // console.log("brand", brand);
                 $('html, body').animate(
                     {
