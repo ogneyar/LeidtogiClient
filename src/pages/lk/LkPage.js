@@ -62,7 +62,7 @@ const Lk = observer(() => {
                             onClick={() => setOrdersInfo(true)}
                         >
                             <div>
-                                Мои заказы
+                                Заказы
                             </div>
                         </div>
                         <div
@@ -70,7 +70,7 @@ const Lk = observer(() => {
                             onClick={() => setPersonalInfo(true)}
                         >
                             <div>
-                            Личные данные
+                                Личные данные
                             </div>
                         </div>
                     </div>
