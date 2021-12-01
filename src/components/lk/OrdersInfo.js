@@ -14,26 +14,35 @@ const OrdersInfo = () => {
     useEffect(() => {
         if (user?.user?.id) {
             getOrderForUser(user.user.id).then(data => {
-                if (data[0] !== undefined) setOrders(data)
+                if (data[0] !== undefined) {
+                    setOrders(data.filter(i => i?.pay))
+                    // setOrders(data)
+                }
             })
         }
     }, [user?.user])
 
     return (
-        <div
-            style={{padding: "20px 0"}}
-        >            
-            {oders && Array.isArray(oders) 
+        <div style={{padding: "20px 0"}} >
+            {oders && Array.isArray(oders) && oders.length > 0
             ? 
                 <div>
-                    <h2>Ваши заказы.</h2>
-                    {oders.map(i => {
-                        if (i?.pay) {
-                            return (
-                                <p>Номер: 000{i.id} - оплачен, статус: {i?.state === "forming" && "Формируется."}</p>
-                            )
-                        }else return null
-                    })}
+                    <h4 style={{marginBottom: "20px"}} >Ваши заказы:</h4>
+                    {/* <br /> */}
+                    {oders.map(i => 
+                        <p style={{margin:"10px 0"}} >
+                            Номер: {i.id} - 
+                            {i?.pay 
+                            ? 
+                            <>
+                                оплачен., статус:&nbsp;
+                                {i?.state === "forming" && "формируется..."}
+                            </>
+                            : 
+                                "не оплачен."
+                            }
+                        </p>
+                    )}
                 </div>
             :
                 <div>У Вас ещё нет заказов...</div>
