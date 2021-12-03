@@ -6,7 +6,7 @@ import { CREATE_ORDER_ROUTE, SCROLL_TOP } from '../../utils/consts'
 import scrollUp from '../../utils/scrollUp'
 
 const CreateOrder = () => {
-
+    // eslint-disable-next-line
     const history = useHistory()
 
     return (
@@ -15,7 +15,8 @@ const CreateOrder = () => {
         >
             <Button
                 onClick={() => {
-                    history.push(CREATE_ORDER_ROUTE)
+                    // history.push(CREATE_ORDER_ROUTE)
+                    window.open(CREATE_ORDER_ROUTE,'_self',false)
                     scrollUp(SCROLL_TOP)
                 }}
                 className="CreateOrderButton"
