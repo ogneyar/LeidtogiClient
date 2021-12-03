@@ -33,21 +33,36 @@ export const SPECIALS_ROUTE = '/specials' // акции
 // странный юмор программиста
 export const DELETE_ROUTE = '/delete' // удаление сайта
 
+const URL_PRODUCTION  = process.env.REACT_APP_URL_PRODUCTION || "https://leidtogi.ru/"
+const URL_TEST  = process.env.REACT_APP_URL_TEST || "https://leidtogi.site/"
+const URL_DEVELOPMENT  = process.env.REACT_APP_URL_DEVELOPMENT || "http://localhost:3000/"
+
+const API_URL_PRODUCTION = process.env.REACT_APP_API_URL_PRODUCTION || "https://server.leidtogi.ru/"
+const API_URL_TEST = process.env.REACT_APP_API_URL_TEST || "https://api.leidtogi.site/"
+const API_URL_DEVELOPMENT = process.env.REACT_APP_API_URL_DEVELOPMENT || "http://localhost:5000/"
+
+export const URL = 
+    process.env.REACT_APP_ENV === 'production' 
+    ? 
+        window.location.hostname === "leidtogi.ru"
+        ?
+            URL_PRODUCTION
+        :
+            URL_TEST
+    :
+        URL_DEVELOPMENT
 
 export const API_URL = 
-        process.env.REACT_APP_ENV === 'production' 
+    process.env.REACT_APP_ENV === 'production' 
     ? 
-        process.env.REACT_APP_API_URL_PRODUCTION 
+        window.location.hostname === "leidtogi.ru"
+        ?
+            API_URL_PRODUCTION
+        :
+            API_URL_TEST
     : 
-        process.env.REACT_APP_API_URL
-
+        API_URL_DEVELOPMENT
         
-export const URL = 
-        process.env.REACT_APP_ENV === 'production' 
-    ? 
-        process.env.REACT_APP_URL_PRODUCTION 
-    : 
-        process.env.REACT_APP_URL
 
 
 // прокрутка страницы при нажатии на категорию
