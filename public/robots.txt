@@ -3,6 +3,8 @@ User-agent: *
 Disallow: /
 
 # Disallow: /cart
-# Disallow: /success
-# Disallow: /errorr
+# Disallow: /error
 # Disallow: /create_order
+# Disallow: /pay
+# Disallow: /success
+# Disallow: /congratulation
