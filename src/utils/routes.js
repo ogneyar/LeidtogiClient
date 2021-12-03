@@ -9,9 +9,11 @@ import ConfirmPage from '../pages/confirm/ConfirmPage'
 import ShopPage from '../pages/shop/ShopPage'
 import ProductPage from '../pages/product/ProductPage'
 import CartPage from '../pages/cart/CartPage'
+import PayPage from '../pages/pay/PayPage' // redirect on bank
 import CreateOrderPage from '../pages/order/CreateOrderPage'
 import SearchPage from '../pages/search/SearchPage'
 import SuccessPage from '../pages/success/SuccessPage'
+import CongratulationPage from '../pages/congratulation/CongratulationPage'
 import ErrorPage from '../pages/error/ErrorPage'
 import SupportPage from '../pages/support/SupportPage'
 import MessagePage from '../pages/message/MessagePage'
@@ -29,10 +31,10 @@ import Specials from '../pages/info/Specials'
 import DeletePage from '../pages/site/DeletePage'
 
 import {
-    ADMIN_ROUTE, PARSER_ROUTE, TESTER_ROUTE, CART_ROUTE, SHOP_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, 
+    ADMIN_ROUTE, PARSER_ROUTE, TESTER_ROUTE, CART_ROUTE, PAY_ROUTE, SHOP_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, 
     PRODUCT_ROUTE, LK_ROUTE, CONFIRM_ROUTE, SEARCH_ROUTE, SUCCESS_ROUTE, ERROR_ROUTE, ABOUT_US_ROUTE, 
     DELIVERY_ROUTE, PAYMENT_ROUTE, PRIVACY_POLICY_ROUTE, RETURNS_POLICY_ROUTE, CREATE_ORDER_ROUTE,
-    TERMS_OF_USE_ROUTE, WARRANTY_ROUTE, CONTACTS_ROUTE, SPECIALS_ROUTE, DELETE_ROUTE,
+    TERMS_OF_USE_ROUTE, WARRANTY_ROUTE, CONTACTS_ROUTE, SPECIALS_ROUTE, DELETE_ROUTE, CONGRATULATION_ROUTE,
     SUPPORT_ROUTE, MESSAGE_ROUTE
 } from './consts'
 
@@ -67,6 +69,10 @@ export const publicRoutes = [
         Component: CartPage
     },
     {
+        path: PAY_ROUTE,
+        Component: PayPage
+    },
+    {
         path: CREATE_ORDER_ROUTE,
         Component: CreateOrderPage
     },
@@ -98,9 +104,17 @@ export const publicRoutes = [
         path: MESSAGE_ROUTE,
         Component: MessagePage
     },
+    // {
+    //     path: SUCCESS_ROUTE + '/:uuid/:id',
+    //     Component: SuccessPage
+    // },
     {
-        path: SUCCESS_ROUTE + '/:uuid/:id',
+        path: SUCCESS_ROUTE,
         Component: SuccessPage
+    },
+    {
+        path: CONGRATULATION_ROUTE,
+        Component: CongratulationPage
     },
     {
         path: ERROR_ROUTE,
