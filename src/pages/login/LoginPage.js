@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { Button, Card, Container, Form, Row } from 'react-bootstrap'
+import { useQueryParam, StringParam } from 'use-query-params'
 import { NavLink, useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import $ from 'jquery'
+
 
 import { login, getUserInfo } from '../../http/userAPI'
 // eslint-disable-next-line
@@ -16,6 +18,9 @@ const LoginPage = observer((props) => {
     const { user } = useContext(Context)
 
     const history = useHistory()
+    
+    // eslint-disable-next-line
+    const [returnUrl, setReturnUrl] = useQueryParam('returnUrl', StringParam)
 
     const [ alertVisible, setAlertVisible ] = useState(false)
     const [ alertMessage, setAlertMessage ] = useState('')
@@ -33,12 +38,8 @@ const LoginPage = observer((props) => {
             if (props?.confirm) {
                 history.push(CONFIRM_ROUTE + "/" + props?.url)
             }else {
-                // if (data?.isActivated) {
-                //     history.push(SHOP_ROUTE)
-                // }else {
-                //     history.push(LK_ROUTE)
-                // }
-                history.push(LK_ROUTE)
+                if (returnUrl) history.push(returnUrl)
+                else history.push(LK_ROUTE)
             }
             scrollUp()
             
