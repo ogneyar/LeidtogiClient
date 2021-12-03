@@ -1,83 +1,68 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useQueryParam, NumberParam, StringParam } from 'use-query-params'
 
 import NavLink from '../../components/myBootstrap/NavLink'
 import { getOrder, setPay } from '../../http/orderAPI'
 import Loading from '../../components/Loading'
 import InfoPage from '../info/InfoPage'
-// eslint-disable-next-line
-import { LK_ROUTE, SUPPORT_ROUTE } from '../../utils/consts'
+import { SUPPORT_ROUTE, URL } from '../../utils/consts'
 import './SuccessPage.css'
 
 const SuccessPage = () => {
 
-    const { id, uuid } = useParams()
+    // eslint-disable-next-line
+    const [id, setId] = useQueryParam('id', NumberParam)
+    // eslint-disable-next-line
+    const [uuid, setUuid] = useQueryParam('uuid', StringParam)
+    // eslint-disable-next-line
+    const [orderId, setOrderId] = useQueryParam('orderId', StringParam)
+    // eslint-disable-next-line
+    const [lang, setLang] = useQueryParam('lang', StringParam)
 
-    const [ email, setEmail ] = useState("")
-    const [ loading, setLoading ] = useState(true)
-    const [ success, setSuccess ] = useState(false)
-    const [ error, setError ] = useState(false)
+    const [ error, setError ] = useState(false) 
 
     useEffect(() => {
         let isMounted = true; // 👈
-        if (!success) {
-            setLoading(true)
-            getOrder(id).then(data => {
-                setEmail(` (${data?.email})`)
+        getOrder(id).then(data => {
+            if (data) {
                 if (data?.pay) {
-                    setSuccess(true)
+                    // перевод на страницу поздравлений
+                    window.open(URL + "congratulation?id=" + id + "&email=" + data?.email ,'_self',false)
                 }else {
                     if (uuid === data?.uuid) {
-                        setSuccess(true)
                         // установим флаг pay = true
                         // там же на сервере отправится сообщение админу
                         if (isMounted) setPay(uuid)
                         // очистим корзину
                         localStorage.removeItem('cart')
+                        // перевод на страницу поздравлений
+                        window.open(URL + "congratulation?id=" + id + "&email=" + data?.email ,'_self',false)
                     }else {
                         setError(true)
                     }
                 }
-            })
-            setLoading(false)
-        }
+            }else setError(true)
+        }).catch(err => setError(true))
         return () => {
             isMounted = false // 👈
         }
     // eslint-disable-next-line
     }, [])
 
-    if (loading && !success && !error) return <Loading />
-
+    
     return (
         <InfoPage>
             <div className="SuccessPage">
-                {success
+                {error
                 ?
                     <div>
-                        <header>Оплата упешно произведена!</header>
-                        
+                        <header>Возникла ОШИБКА при проверке номера заказа!</header>
                         <p>Номер вашего заказа: <strong>{id}</strong></p>
-
-                        <p>Наш менеджер свяжется с Вами в ближайшее время.</p>
-
-                        <p>Если Вы зарегистрированный клиент, то посмотреть информацию о Ваших заказах можете в <NavLink to={LK_ROUTE}>личном кабинете</NavLink>, а все возникшие вопросы направляйте в <NavLink to={SUPPORT_ROUTE}>тех. поддержку.</NavLink></p>
-
-                        <p>Если Вы НЕ зарегистрированный клиент, тогда все возникающие вопросы направляйте на email адрес - <a href="mailto:it@leidtogi.ru">it@leidtogi.ru</a></p>
-                        
-                        <p>Чек с информацией о Вашем заказе будет отправлен на указанный email{email}.</p>
+                        <p>Если Вы зарегистрированный клиент, то обратитесь в <NavLink to={SUPPORT_ROUTE}>тех. поддержку.</NavLink></p>
+                        <p>Если Вы НЕ зарегистрированный клиент, тогда напишите нам на email адрес - <a href="mailto:it@leidtogi.ru">it@leidtogi.ru</a></p>
                     </div>
                 :
-                    error
-                    ?
-                        <div>
-                            <header>Возникла ОШИБКА при проверке номера заказа!</header>
-                            <p>Номер вашего заказа: <strong>{id}</strong></p>
-                            <p>Если Вы зарегистрированный клиент, то обратитесь в <NavLink to={SUPPORT_ROUTE}>тех. поддержку.</NavLink></p>
-                            <p>Если Вы НЕ зарегистрированный клиент, тогда напишите нам на email адрес - <a href="mailto:it@leidtogi.ru">it@leidtogi.ru</a></p>
-                        </div>
-                    :
-                        <Loading />
+                    <Loading />
                 }
             </div>
         </InfoPage>
