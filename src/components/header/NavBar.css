@@ -13,7 +13,8 @@
 .NavBar_Col_Buttons {
     display:flex;
 }
-.NavBar_Cart {
+.NavBar_Cart,
+.NavBar_Spinner {
     display:flex;
     align-items: center;
 }

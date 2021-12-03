@@ -68,7 +68,9 @@ const NavBar = observer(() => {
                         <Nav>
                             {user.loading
                             ?
+                            <div className="NavBar_Spinner">
                                 <Spinner animation="border" variant="light" />
+                            </div>
                             :
                             
                                 user.isAuth && user.user?.role ?
