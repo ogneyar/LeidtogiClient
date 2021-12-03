@@ -21,7 +21,7 @@ const CreateOrderPage = () => {
     const [amount, setAmount] = useState(0)
 
     const [ choiseDelivery, setСhoiseDelivery ] = useState(true)
-    const [ load, setLoad ] = useState(user?.loading)
+    const [ load, setLoad ] = useState(true)
     const [ payment, setPayment ] = useState(false)
     const [ email, setEmail ] = useState("")
     const [ client, setClient ] = useState("")
@@ -44,15 +44,21 @@ const CreateOrderPage = () => {
     useEffect(() => {
         if (user?.user?.email) {
             setEmail(user.user?.email)
+            setLoad(false)
         }
         if (user?.user?.id) {
             setClient(user.user.id);
         }
-    }, [user?.user])
+       
+    }, [user?.user, user?.loading])
 
     useEffect(() => {
-        setLoad(user.loading)
+        if (user?.loading === false && !localStorage.getItem('token')) {
+            setLoad(false)
+        }
     }, [user?.loading])
+
+    if (load) return <Loading />
 
     return (
         <InfoPage
@@ -90,9 +96,6 @@ const CreateOrderPage = () => {
                     :
                         choiseDelivery 
                         ?
-                            load
-                            ? <Loading />
-                            :
                             <div className="CreateOrderPageChoiseDelivery" >
                                 <div>
                                     <p>Из города Курск</p>
