@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-// eslint-disable-next-line
-import { useQueryParam, NumberParam, StringParam } from 'use-query-params'
+import { useQueryParam, StringParam } from 'use-query-params'
 
 import InfoPage from '../info/InfoPage'
 import Loading from '../../components/Loading'
