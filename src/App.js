@@ -38,7 +38,7 @@ const App = observer(() => {
                     },
                     err => console.log(err))
                 .finally(() => user.setLoading(false))
-        }
+        }else user.setLoading(false)
 
         fetchAllCategories()
             .then(
