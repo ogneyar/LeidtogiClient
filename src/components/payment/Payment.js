@@ -52,7 +52,7 @@ const Payment = (props) => {
                         props?.setMessage(data?.errorMessage)
                     }else if (data?.formUrl) {
 
-                        window.open(data.formUrl,'_self',false)
+                        window.open(URL + 'pay?redirect_url=' + data.formUrl,'_self',false)
                         open = true
 
                     }else {
