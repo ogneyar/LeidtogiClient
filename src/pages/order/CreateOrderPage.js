@@ -7,7 +7,7 @@ import DeliverySdek from '../../components/delivery/sdek/DeliverySdek'
 import Payment from '../../components/payment/Payment'
 import { Context } from '../..'
 import { Input } from '../../components/myBootstrap'
-import { LOGIN_ROUTE, SCROLL_TOP } from '../../utils/consts'
+import { LOGIN_ROUTE, CREATE_ORDER_ROUTE, SCROLL_TOP } from '../../utils/consts'
 import Loading from '../../components/Loading'
 import scrollUp from '../../utils/scrollUp'
 import InfoPage from '../info/InfoPage'
@@ -83,7 +83,7 @@ const CreateOrderPage = () => {
                             <Input value={newEmail} onChange={e => setNewEmail(e.target.value)} />
                             <span>чтобы мы могли отправить на него чек, как того требует ФЗ №54</span>
                             <div>
-                                или <NavLink to={LOGIN_ROUTE}>войдите</NavLink>, если Вы зарегистрированы!
+                                или <NavLink to={LOGIN_ROUTE + "?returnUrl=" + CREATE_ORDER_ROUTE}>войдите</NavLink>, если Вы зарегистрированы!
                             </div>
                             <Button size="lg" onClick={()=>{newEmail && setEmail(newEmail)}}>Далее</Button>
                         </div>

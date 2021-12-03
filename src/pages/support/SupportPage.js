@@ -7,7 +7,7 @@ import $ from 'jquery'
 import { Alert } from '../../components/myBootstrap'
 import InfoPage from '../info/InfoPage'
 import Loading from '../../components/Loading'
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../utils/consts'
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SUPPORT_ROUTE } from '../../utils/consts'
 import { Context } from '../..'
 
 import './SupportPage.css'
@@ -62,7 +62,7 @@ const SupportPage = observer(() => {
                     <p>необходимо&nbsp;
                         <NavLink
                             className="NavLink"
-                            to={LOGIN_ROUTE}
+                            to={LOGIN_ROUTE + "?returnUrl=" + SUPPORT_ROUTE}
                         >
                             войти
                         </NavLink>
