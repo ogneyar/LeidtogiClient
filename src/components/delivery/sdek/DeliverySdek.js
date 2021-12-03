@@ -44,7 +44,7 @@ const DeliverySdek = observer((props) => {
     const [textAlert, setTextAlert] = useState("")
     
     const [ latitude, setLatitude ] = useState(55.75) // Долгота Белой Калитвы - 48.177645
-    const [ longitude, setLongitude ] = useState(37.57) // Широта Белой Калитвы - 48.177645
+    const [ longitude, setLongitude ] = useState(37.615) // Широта Белой Калитвы - 48.177645
     // 55.75, 37.57 Москва
     const [ placemark, setPlacemark ] = useState([]) //
     
@@ -67,7 +67,8 @@ const DeliverySdek = observer((props) => {
         if (cart && index.length === 6) {
             cart = JSON.parse(cart)
             let weight = 0
-            cart.forEach( i => weight += (Number(i.value) * Number(i.size.weight)) )
+            cart.forEach( i => weight += (Number(i?.value) * Number(i?.size?.weight)) )
+            if (!weight) weight = 5
             weight = weight * 1000
             weight = Math.ceil(weight)
             setInfo({ total_sum:"", period_min:"", period_max:"", weight_calc:"", currency:"", delivery_sum:"" })
@@ -197,9 +198,10 @@ const DeliverySdek = observer((props) => {
         if (cart && index.length === 6) {
             cart = JSON.parse(cart)
             let weight = 0
-            cart.forEach( i => weight += (Number(i.value) * Number(i.size.weight)) )
+            cart.forEach( i => weight += (Number(i?.value) * Number(i?.size?.weight)) )
+            if (!weight) weight = 5
             weight = weight * 1000
-            weight = Math.ceil(weight)            
+            weight = Math.ceil(weight)
             
             // let indexFrom = "101000" // Москва
             // let indexFrom = "390000" // Рязань
@@ -243,12 +245,14 @@ const DeliverySdek = observer((props) => {
     const resize = () => {
         let div = document.getElementById("DeliverySdek")
 
-        if (window.innerWidth < 1000) {
-            div.style.width = window.innerWidth - 100 + "px"
-            setSmallWidth(true)
-        }else {
-            div.style.width = "100%"
-            setSmallWidth(false)
+        if (div) {
+            if (window.innerWidth < 1000) {
+                div.style.width = window.innerWidth - 100 + "px"
+                setSmallWidth(true)
+            }else {
+                div.style.width = "100%"
+                setSmallWidth(false)
+            }
         }
         
     }
@@ -349,7 +353,7 @@ const DeliverySdek = observer((props) => {
                     // defaultState={{ 
                     state={{ 
                         // Широта (latitude), Долгота (longitude)
-                        // center: [55.75, 37.57], // Москва
+                        // center: [55.75, 37.615], // Москва
                         // center: [48.177645, 40.802384], // Белая Калитва
                         center: [latitude, longitude], 
                         // type: 'yandex#hybrid',
