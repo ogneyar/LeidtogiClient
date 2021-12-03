@@ -238,7 +238,10 @@ const Cart = () => {
                 <br />
                 <hr />
 
-                <CreateOrder amount={amount} /> 
+                <CreateOrder 
+                    // amount={amount} 
+                    setLoad={() => setLoading(true) } 
+                /> 
 
             </Card>
 
