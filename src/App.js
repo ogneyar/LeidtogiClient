@@ -26,6 +26,13 @@ const App = observer(() => {
     const [error, setError] = useState(false)
 
     useEffect(() => {
+
+        // if (window.location.hostname === "leidtogi.ru") {
+        if (process.env.REACT_APP_ENV === 'production') {
+            let repair = document.getElementById("repair")
+            repair.style.display = "flex"
+        }
+
         if (localStorage.getItem('token')) {
             setLoading(true)
             getUserInfo()
