@@ -21,7 +21,7 @@ const CreateOrderPage = () => {
     const [amount, setAmount] = useState(0)
 
     const [ choiseDelivery, setСhoiseDelivery ] = useState(true)
-    const [ load, setLoad ] = useState(false)
+    const [ load, setLoad ] = useState(user?.loading)
     const [ payment, setPayment ] = useState(false)
     const [ email, setEmail ] = useState("")
     const [ client, setClient ] = useState("")
@@ -49,6 +49,10 @@ const CreateOrderPage = () => {
             setClient(user.user.id);
         }
     }, [user?.user])
+
+    useEffect(() => {
+        setLoad(user.loading)
+    }, [user?.loading])
 
     return (
         <InfoPage
