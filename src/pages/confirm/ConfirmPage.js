@@ -12,35 +12,24 @@ import { Context } from '../..'
 import './ConfirmPage.css'
 
 
-const ConfirmPage = observer(() => {
+const ConfirmPage = observer(() => { 
 
     const { user } = useContext(Context)
     const { url } = useParams()
-    const [ loading, setLoading ] = useState(false)
+    const [ loading, setLoading ] = useState(true)
 
     useEffect(() => {
         async function activateUser(id, url) {
             await activate(id, url).then(data => {
                 user.setUser({...user.user, isActivated:1})
-            })
+            }).finally(() => setLoading(false))
         }
         if (user.user?.id) {
             if (!user.user?.isActivated) {
-                // if (user.user?.activationLink === url) {
-                    setLoading(true)
-
-                    // updateUser(user.user?.id, {isActivated:1}).then(data => {
-                    //     user.setUser({...user.user, isActivated:1})
-                    // })
-
-                    activateUser(user.user.id, url)
-
-                    setLoading(false)
-                // }
+                activateUser(user.user.id, url)
             }
-            // console.log("id", user.user?.id)
-            // console.log("activationLink", user.user?.activationLink)
-            // console.log("isActivated",user.user?.isActivated)
+        }else if (user?.loading === false) {
+            setLoading(false)
         }
     // eslint-disable-next-line
     },[user.user?.id])
