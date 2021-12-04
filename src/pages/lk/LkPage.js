@@ -5,7 +5,9 @@ import { Button } from 'react-bootstrap'
 
 import PersonalInfo from '../../components/lk/PersonalInfo'
 import OrdersInfo from '../../components/lk/OrdersInfo'
-import { LOGIN_ROUTE } from '../../utils/consts'
+import { LOGIN_ROUTE, LK_ROUTE } from '../../utils/consts'
+import { retryMail } from '../../http/userAPI'
+import Loading from '../../components/Loading'
 import InfoPage from '../info/InfoPage'
 import Error from '../error/ErrorPage'
 import { Context } from '../..'
@@ -22,11 +24,45 @@ const Lk = observer(() => {
 
     const [ ordersInfo, setOrdersInfo ] = useState(false)
     const [ personalInfo, setPersonalInfo ] = useState(false)
+    
+    const [ second, setSecond ] = useState(null)
+    const [ error, setError ] = useState(null)
+    const [ loading, setLoading ] = useState(false)
 
     useEffect(() => {
         let token = localStorage.getItem("token")
         if (!token) setRedirect(true)
     },[])
+
+    useEffect(() => {
+        let time = 1000
+        for(let i = 60; i >= 0; i--) {
+            setTimeout(() => {
+                setSecond(i)
+            },time)
+            time += 1000
+        }
+    },[])
+
+    const onClickButtonRetryMail = async () => {
+        setError(null)
+        setLoading(true)
+        const data = await retryMail(user?.user?.id)
+        if (data?.ok) {
+            window.open(LK_ROUTE,"_self",false)
+            // setError(JSON.stringify(data))
+            // setLoading(false)
+        }else if (data?.ok === false) {
+            setError(JSON.stringify(data?.response))
+            setLoading(false)
+        }else if (data?.error) {
+            setError(data?.error)
+            setLoading(false)
+        }else {
+            setError(JSON.stringify(data))
+            setLoading(false)
+        }
+    }
 
     if (redirect) history.push(LOGIN_ROUTE)
 
@@ -40,6 +76,23 @@ const Lk = observer(() => {
                     <p>Вам на него отправлена ссылка для активации аккаунта.</p>
                     <p>Если письмо не пришло проверьте папку СПАМ.</p>
                     {/* <p>Если и в папке СПАМ письма нет, напишите нам в тех.поддержку.</p> */}
+                    <br />
+
+                    {error}
+
+                    {loading 
+                    ? <Loading /> 
+                    :
+                        <Button 
+                            variant="outline-success" 
+                            disabled={second !== 0}
+                            onClick={onClickButtonRetryMail}
+                        >
+                            Отправить повторно
+                        </Button>
+                    }
+
+                    {second ? <p>{second}</p> : null}
                 </div>
             </InfoPage>
         )
