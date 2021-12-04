@@ -2,6 +2,9 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Container, Button } from 'react-bootstrap'
 
+import Order from '../../components/admin/OrderAdmin'
+import User from '../../components/admin/UserAdmin'
+
 import Category from '../../components/admin/Category'
 import Brand from '../../components/admin/Brand'
 import Product from '../../components/admin/Product'
@@ -45,6 +48,9 @@ const Admin = observer(() => {
     // eslint-disable-next-line
     },[brand.allBrands])
 
+    const [orderVisible, setOrderVisible] = useState(false)
+    const [userVisible, setUserVisible] = useState(false)
+    
     const [categoryVisible, setCategoryVisible] = useState(false)
     const [brandVisible, setBrandVisible] =  useState(false)
     const [productVisible, setProductVisible] = useState(false)
@@ -53,29 +59,62 @@ const Admin = observer(() => {
 
     return (
         <Container className="Content d-flex flex-column Admin Mobile">
+           
             <Button 
                 variant={"outline-dark"} 
                 className="m-3 p-2 Admin_button"
-                onClick={() => setProductVisible(true)}
+                onClick={() => setOrderVisible(true)}
             >
-                Редактор продукции
+                Заказы
             </Button>
+            
+            {user.user?.id === 1 && <hr/>}
 
-            <Button 
-                variant={"outline-dark"} 
-                className="m-3 p-2 Admin_button"
-                onClick={() => setCategoryVisible(true)}
-            >
-                Редактор категорий
-            </Button>
+            {user.user?.id === 1 
+            ?
+                <Button 
+                    variant={"outline-dark"} 
+                    className="m-3 p-2 Admin_button"
+                    onClick={() => setUserVisible(true)}
+                >
+                    Редактор пользователей
+                </Button>
+            : null}
 
-            <Button 
-                variant={"outline-dark"} 
-                className="m-3 p-2 Admin_button"
-                onClick={() => setBrandVisible(true)}
-            >
-                Редактор брендов
-            </Button>
+            {user.user?.id === 1 && <hr/>}
+
+            {user.user?.id === 1 
+            ?
+                <Button 
+                    variant={"outline-dark"} 
+                    className="m-3 p-2 Admin_button"
+                    onClick={() => setProductVisible(true)}
+                >
+                    Редактор продукции
+                </Button>
+            : null}
+
+            {user.user?.id === 1 
+            ?
+                <Button 
+                    variant={"outline-dark"} 
+                    className="m-3 p-2 Admin_button"
+                    onClick={() => setCategoryVisible(true)}
+                >
+                    Редактор категорий
+                </Button>
+            : null}
+
+            {user.user?.id === 1 
+            ?
+                <Button 
+                    variant={"outline-dark"} 
+                    className="m-3 p-2 Admin_button"
+                    onClick={() => setBrandVisible(true)}
+                >
+                    Редактор брендов
+                </Button>
+            : null}
 
             {user.user?.id === 1 && <hr/>}
             
@@ -113,6 +152,9 @@ const Admin = observer(() => {
                 Удалить САЙТ!!!
             </Button>
             
+            <Order show={orderVisible} onHide={() => setOrderVisible(false)}/>
+            <User show={userVisible} onHide={() => setUserVisible(false)}/>
+
             <Product show={productVisible} onHide={() => setProductVisible(false)}/>
             <Category show={categoryVisible} onHide={() => setCategoryVisible(false)}/>
             <Brand show={brandVisible} onHide={() => setBrandVisible(false)}/>
