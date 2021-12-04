@@ -41,7 +41,12 @@ export const updateUser = async (id, body) => {
 }
 
 export const activate = async (id, link) => {
-    const {data}  = await $authHost.get('api/user/activate/'+ link, {id})
+    const {data}  = await $authHost.post('api/user/activate/'+ link, { id })
+    return data
+}
+
+export const retryMail = async (id) => {
+    const {data}  = await $authHost.post('api/user/retry_mail/'+ id)
     return data
 }
 
