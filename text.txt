@@ -1,6 +1,0 @@
-REACT_APP_URL_PRODUCTION='https://leidtogi.ru/'
-REACT_APP_URL_TEST='https://leidtogi.site/'
-REACT_APP_URL_DEVELOPMENT='http://localhost:3000/'
-REACT_APP_API_URL_PRODUCTION='https://server.leidtogi.ru/'
-REACT_APP_API_URL_TEST='https://api.leidtogi.site/'
-REACT_APP_API_URL_DEVELOPMENT='http://localhost:5000/'
