@@ -27,10 +27,10 @@ const App = observer(() => {
 
     useEffect(() => {
 
-        // if (window.location.hostname === "leidtogi.ru") {
         if (process.env.REACT_APP_ENV === 'production') {
-            let repair = document.getElementById("repair")
-            repair.style.display = "flex"
+            if (window.location.hostname !== "leidtogi.ru") {
+                document.getElementById("repair").style.display = "flex"
+            }
         }
 
         if (localStorage.getItem('token')) {
