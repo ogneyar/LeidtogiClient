@@ -1,4 +1,4 @@
-export const LIMIT = 4
+export const LIMIT = 12
 
 export const ADMIN_ROUTE = '/admin' // администрация
 export const LOGIN_ROUTE = '/login' // вход
