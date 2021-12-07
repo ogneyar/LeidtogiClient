@@ -1,10 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow: /
-
-# Disallow: /cart
-# Disallow: /error
-# Disallow: /create_order
-# Disallow: /pay
-# Disallow: /success
-# Disallow: /congratulation
+# Disallow: /
+Disallow: /cart
+Disallow: /error
+Disallow: /create_order
+Disallow: /pay
+Disallow: /success
+Disallow: /congratulation
