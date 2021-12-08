@@ -10,7 +10,7 @@ const sendMessageAdmin = async (message) => {
         
     await axios.get(`https://api.telegram.org/bot${process.env.REACT_APP_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID_ADMIN}&text=-----------------------------------`)
 
-    let url = `https://api.telegram.org/bot${process.env.REACT_APP_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID_ADMIN}&text=${message}`
+    let url = `https://api.telegram.org/bot${process.env.REACT_APP_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID_ADMIN}&text=${message}&disable_web_page_preview=true`
         
     return await axios.get(url)
         
