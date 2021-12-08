@@ -12,7 +12,8 @@ Disallow: /create_order
 Disallow: /pay
 Disallow: /success
 Disallow: /congratulation
+Disallow: /product
 Disallow: /admin
 Disallow: /lk
 
-# Sitemap: https://site.ru/sitemap.xml
+# Sitemap: https://leidtogi.ru/sitemap.xml
