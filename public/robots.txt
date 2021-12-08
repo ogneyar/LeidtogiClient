@@ -1,4 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
+# User-agent: Yandex
+# Disallow: /admin
+# User-agent: Googlebot
+# Disallow: /admin
+
 User-agent: *
 # Disallow: /
 Disallow: /cart
@@ -7,3 +12,7 @@ Disallow: /create_order
 Disallow: /pay
 Disallow: /success
 Disallow: /congratulation
+Disallow: /admin
+Disallow: /lk
+
+# Sitemap: https://site.ru/sitemap.xml
