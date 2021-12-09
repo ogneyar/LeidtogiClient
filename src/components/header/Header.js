@@ -4,6 +4,8 @@ import NavBar from './NavBar'
 import Aside from './Aside'
 // eslint-disable-next-line
 import Banner from './Banner'
+// eslint-disable-next-line
+import Carousel from './Carousel'
 
 import './Header.css'
 
@@ -16,6 +18,7 @@ const Header = () => {
             <Top />
             <NavBar />
             {/* <Banner /> */}
+            {/* <Carousel /> */}
             <Aside />
         </header>
     )

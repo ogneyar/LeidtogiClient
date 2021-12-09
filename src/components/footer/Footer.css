@@ -1,6 +1,7 @@
 .Footer {
     color: var(--main-orange-color);
     margin-top: 45px;
+    /* background-color:blue; */
 }
 
 .FooterContainer {}

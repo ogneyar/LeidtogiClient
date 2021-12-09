@@ -5,23 +5,5 @@
 
 .Banner {
     /* background-color: var(--main-silver-color); */
-    height: var(--height-banner);
+    /* height: var(--height-banner); */
 }
-
-.BannerContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-end;
-}
-
-.BannerImg {
-    width: var(--height-banner);
-    height: var(--height-banner);
-    object-fit: contain;
-}
-
-.BannerCaption {
-    width: var(--height-banner);
-}
-

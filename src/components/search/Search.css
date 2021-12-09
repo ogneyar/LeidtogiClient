@@ -3,13 +3,23 @@
     display:flex; 
     justify-content:center; 
     align-items:center;
+    background-color: white;
+    /* margin: 0;
+    padding: 0;
+    width: 100%; */
 }
+
 
 .SearchWrapper {
     display:flex; 
     flex-direction: column;
     
     z-index: 1000;
+    
+    /* background-color:blue;
+    margin: 0;
+    padding: 0;
+    width: 100%; */
 }
 
 .SearchDiv {
@@ -124,12 +134,23 @@
 }
 
 @media(max-width:575px) {
+    .SearchBox {
+        /* width: 91vw; */
+        width: calc(100vw - 50px);
+        /* width: calc(100vw - var(--scrollbar-width)); */
+        /* width: 100vw; */
+    }
     .SearchDiv {
         width: 100%;
-        /* border: 1px dashed black; */
     }
-    .SearchBox {
-        width: 100vw;
+    
+    .SearchInput {
         padding: 0 15px;
+    }
+}
+
+@media (hover: none) and (max-width: 575px) { /* hover: none - это для мобильных устройств (означает что нельзя навестись, так как экран сенсорный) */
+    .SearchBox {
+        width: calc(100vw - 30px);
     }
 }
