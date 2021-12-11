@@ -42,7 +42,7 @@ const ProductService = observer((props) => {
     const [country, setCountry] = useState(props?.country || "Германия")
     
     const [size, setSize] = useState({weight: "", volume: "", width: "", height: "", length: ""})
-    const [info, setInfo] = useState([])
+    // const [info, setInfo] = useState([])
     const [description, setDescription] = useState(props?.description || "")
     const [characteristics, setCharacteristics] = useState(props?.characteristics || "")
     const [equipment, setEquipment] = useState(props?.equipment || "")
@@ -88,53 +88,53 @@ const ProductService = observer((props) => {
         if (props.size?.weight || props.size?.volume || props.size?.width || props.size?.height || props.size?.length) setSize(props?.size)
     },[props?.size])
 
-    useEffect(() => {
-        if (description) {
-            let yes = false
-            let array = info.map(i => {
-                if (i.title === "description") {
-                    yes = true
-                    return {title: "description", body:description}
-                }
-                return i
-            })
-            if (!yes) array.push({title: "description", body:description})
-            setInfo(array)
-        }
-        // eslint-disable-next-line
-    },[description])
+    // useEffect(() => {
+    //     if (description) {
+    //         let yes = false
+    //         let array = info.map(i => {
+    //             if (i.title === "description") {
+    //                 yes = true
+    //                 return {title: "description", body:description}
+    //             }
+    //             return i
+    //         })
+    //         if (!yes) array.push({title: "description", body:description})
+    //         setInfo(array)
+    //     }
+    //     // eslint-disable-next-line
+    // },[description])
 
-    useEffect(() => {
-        if (characteristics) {
-            let yes = false
-            let array = info.map(i => {
-                if (i.title === "characteristics") {
-                    yes = true
-                    return {title: "characteristics", body:characteristics}
-                }
-                return i
-            })
-            if (!yes) array.push({title: "characteristics", body:characteristics})
-            setInfo(array)
-        }
-    // eslint-disable-next-line
-    },[characteristics])
+    // useEffect(() => {
+    //     if (characteristics) {
+    //         let yes = false
+    //         let array = info.map(i => {
+    //             if (i.title === "characteristics") {
+    //                 yes = true
+    //                 return {title: "characteristics", body:characteristics}
+    //             }
+    //             return i
+    //         })
+    //         if (!yes) array.push({title: "characteristics", body:characteristics})
+    //         setInfo(array)
+    //     }
+    // // eslint-disable-next-line
+    // },[characteristics])
 
-    useEffect(() => {
-        if (equipment) {
-            let yes = false
-            let array = info.map(i => {
-                if (i.title === "equipment") {
-                    yes = true
-                    return {title: "equipment", body:equipment}
-                }
-                return i
-            })
-            if (!yes) array.push({title: "equipment", body:equipment})
-            setInfo(array)
-        }
-    // eslint-disable-next-line
-    },[equipment])
+    // useEffect(() => {
+    //     if (equipment) {
+    //         let yes = false
+    //         let array = info.map(i => {
+    //             if (i.title === "equipment") {
+    //                 yes = true
+    //                 return {title: "equipment", body:equipment}
+    //             }
+    //             return i
+    //         })
+    //         if (!yes) array.push({title: "equipment", body:equipment})
+    //         setInfo(array)
+    //     }
+    // // eslint-disable-next-line
+    // },[equipment])
     
     // useEffect(() => {
     //     if (typeof(props.file) === "object" && props.file[0].small !== undefined) {
@@ -333,7 +333,12 @@ const ProductService = observer((props) => {
 
         formData.append('size', JSON.stringify(size))
         formData.append('price', `${price}`)
-        formData.append('info', JSON.stringify(info))
+        let array = []
+        if (description) array.push({title:"description",body:description})
+        if (characteristics) array.push({title:"characteristics",body:characteristics})
+        if (equipment) array.push({title:"equipment",body:equipment})
+        formData.append('info', JSON.stringify(array))
+        // formData.append('info', JSON.stringify(info))
 
         return formData
     }
