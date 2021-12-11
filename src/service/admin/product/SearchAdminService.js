@@ -94,8 +94,9 @@ const SearchAdminService = observer((props) => {
 
             {search 
             ? 
-                search.map(i => {
-                    return (
+                search.map((i,index) => {
+                    if (index < 5) {
+                        return (
                         <div
                             className={"divArticle"} // этот класс из index.css
                             key={i.id}
@@ -140,7 +141,7 @@ const SearchAdminService = observer((props) => {
                                 </div>
                             </div>
                         </div>
-                    )
+                    )}else return null
                 }) 
             : 
                 null
