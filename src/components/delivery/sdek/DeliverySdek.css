@@ -2,11 +2,13 @@
     margin-top: 10px;
     margin-bottom: 10px;
     width: 100%;
-    min-height: 400px;
+    /* min-height: 400px; */
+    /* background-color: pink; */
 }
 
 .DeliverySdek p {
     font-size: 16px;
+    line-height: 2px;
 }
 
 .DeliverySdek hr {
