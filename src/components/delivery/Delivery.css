@@ -1,9 +1,14 @@
-.Delivery {
-    margin: 20px 0;
+
+#YMaps {
+    min-height: 400px;
+}
+
+.DeliveryComponent {
+    margin: 5px 0;
 }
 
 .DeliveryHeader {
-    margin: 20px 0;
+    margin: 5px 0;
 }
 
 .DeliveryCalculation {
@@ -30,3 +35,4 @@
     padding: 7px 10px;
     border-radius: 5px;
 }
+
