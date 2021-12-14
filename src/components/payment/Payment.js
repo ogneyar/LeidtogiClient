@@ -35,7 +35,8 @@ const Payment = (props) => {
         
         let order = {cart, email: props?.email, url: URL}
         if (props?.deliverySum) order = {...order, deliverySum: props?.deliverySum}
-        if (props?.address) order = {...order, address: props?.address, delivery: "sdek"}
+        if (props?.address) order = {...order, address: props?.address}
+        if (props?.delivery) order = {...order, delivery: props?.delivery}
         if (props?.client) order = {...order, client: props?.client}
         
         let open = false
