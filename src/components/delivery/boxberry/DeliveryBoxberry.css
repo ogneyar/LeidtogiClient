@@ -1,27 +1,22 @@
-.DeliverySdek {
+.DeliveryBoxberry {
     margin-top: 10px;
     margin-bottom: 10px;
     width: 100%;
-    /* min-height: 400px; */
-    /* background-color: pink; */
 }
 
-.DeliverySdek p {
+.DeliveryBoxberry p {
     font-size: 16px;
     line-height: 2px;
 }
 
-.DeliverySdek hr {
+.DeliveryBoxberry hr {
     width: 100%;
     margin: 5px;
     padding: 0;
 }
 
-.DeliverySdekLeftPanel {
+.DeliveryBoxberryLeftPanel {
     position: absolute;
-    /* top: 40px;
-    left: 25px; */
-    /* display: none; */
     z-index: 1000;
     background: white;
     opacity: 0.9;
@@ -31,19 +26,19 @@
 }
 
 @media(max-width: 1000px) {
-    .DeliverySdekLeftPanel {
+    .DeliveryBoxberryLeftPanel {
         margin-top: 5px;
         margin-left: 5px;
     }
 }
 
-.DeliverySdekLeftPanel_TotalSumm {
+.DeliveryBoxberryLeftPanel_TotalSumm {
     margin: 0 10px 5px 10px;
     padding: 0;
     font-size: 16px;
 }
 
-.DeliverySdekLeftPanelBox {
+.DeliveryBoxberryLeftPanelBox {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,8 +46,28 @@
     padding-bottom: 10px;
 }
 
-.DeliverySdekLeftPanelBox_LabelIndex {
+.DeliveryBoxberryLeftPanelBox_LabelIndex {
     margin: 0;
     padding: 0;
     font-size: 16px;
+}
+
+.arrayCities {
+    margin-top: 2px;
+    border: 1px solid lightgrey;
+    padding: 5px 10px 0 10px;
+    min-width: 150px;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.arrayCities p {
+    padding-top: 10px;
+    cursor: pointer;
+}
+
+.arrayCities hr {
+    margin: 2px;
 }

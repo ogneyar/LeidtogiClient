@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 
-import DeliverySdek from '../../components/delivery/sdek/DeliverySdek'
+// import DeliverySdek from '../../components/delivery/sdek/DeliverySdek'
+import Delivery from '../../components/delivery/Delivery'
 import Payment from '../../components/payment/Payment'
 import { Context } from '../..'
 import { Input } from '../../components/myBootstrap'
@@ -28,6 +29,7 @@ const CreateOrderPage = () => {
     const [ newEmail, setNewEmail ] = useState("")
     const [ address, setAddress ] = useState("")
     const [ deliverySum, setDeliverySum ] = useState("")
+    const [ delivery, setDelivery ] = useState("sdek")
 
     const [ message, setMessage ] = useState("")
 
@@ -124,10 +126,19 @@ const CreateOrderPage = () => {
                                 </Button>
                             </div>
                         :
-                            payment
-                            ? 
+                            !payment
+                            ?
+                                <div className="CreateOrderPageDeliverySdek" >
+                                    <Delivery 
+                                        setAddress={setAddress} 
+                                        setPayment={setPayment} 
+                                        setDeliverySum={setDeliverySum} 
+                                        setDelivery={setDelivery}
+                                    />
+                                </div>
+                            : 
                                 <div className="CreateOrderPagePayment" >
-                                    <p>Адрес склада СДЭК: {address}</p>
+                                    <p>Адрес склада: {address}</p>
                                     <p>Товара на сумму: {amount}</p>
                                     <p>Доставка на сумму: {deliverySum}</p>
                                     <p style={{fontSize:"20px"}}>Итого к оплате: {amount + deliverySum}</p>
@@ -135,18 +146,11 @@ const CreateOrderPage = () => {
                                     <Payment 
                                         address={address}
                                         deliverySum={deliverySum} 
+                                        delivery={delivery} 
                                         // amount={props?.amount} 
                                         email={email}
                                         client={client}
                                         setMessage={setMessage}
-                                    />
-                                </div>
-                            : 
-                                <div className="CreateOrderPageDeliverySdek" >
-                                    <DeliverySdek 
-                                        setAddress={setAddress} 
-                                        setPayment={setPayment} 
-                                        setDeliverySum={setDeliverySum} 
                                     />
                                 </div>
                     }

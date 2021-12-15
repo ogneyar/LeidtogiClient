@@ -41,6 +41,8 @@ const App = observer(() => {
                         if (data?.id) {
                             user.setUser({...data,activationLink:null,password:null})
                             user.setIsAuth(true)
+                        }else {
+                            localStorage.removeItem('token')
                         }
                     },
                     err => console.log(err))

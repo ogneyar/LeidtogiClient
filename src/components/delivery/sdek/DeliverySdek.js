@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
+// eslint-disable-next-line
 import ReactHtmlParser from 'react-html-parser'
 // eslint-disable-next-line
 import { YMaps, Map, Placemark } from 'react-yandex-maps'
@@ -12,10 +13,11 @@ import {
 } from '../../../http/delivery/sdekAPI'
 
 import { DELIVERY_INDEX_FROM } from '../../../utils/consts'
+// eslint-disable-next-line
 import { Alert } from '../../myBootstrap'
+import Loading from '../../Loading'
 import { Context } from '../../..'
 import './DeliverySdek.css'
-import Loading from '../../Loading'
 
 
 const DeliverySdek = observer((props) => {
@@ -40,24 +42,24 @@ const DeliverySdek = observer((props) => {
     })
     const [index, setIndex] = useState("")
 
-    const [alertVisible, setAlertVisible] = useState(false)
-    const [textAlert, setTextAlert] = useState("")
+    // const [alertVisible, setAlertVisible] = useState(false)
+    // const [textAlert, setTextAlert] = useState("")
     
-    const [ latitude, setLatitude ] = useState(55.75) // Долгота Белой Калитвы - 48.177645
-    const [ longitude, setLongitude ] = useState(37.615) // Широта Белой Калитвы - 48.177645
-    // 55.75, 37.57 Москва
-    const [ placemark, setPlacemark ] = useState([]) //
+    // const [ latitude, setLatitude ] = useState(55.75) // Долгота Белой Калитвы - 48.177645
+    // const [ longitude, setLongitude ] = useState(37.615) // Широта Белой Калитвы - 48.177645
+    // 55.75, 37.615 Москва
+    // const [ placemark, setPlacemark ] = useState([]) //
     
     const [ loading, setLoading ] = useState(false) //
 
-    const [ smallWidth, setSmallWidth ] = useState(window.innerWidth < 1000) //
+    // const [ smallWidth, setSmallWidth ] = useState(window.innerWidth < 1000) //
 
     
-    useEffect(() => {
-        if (textAlert) {
-            setAlertVisible(true)
-        }
-    },[textAlert])
+    // useEffect(() => {
+    //     if (textAlert) {
+    //         setAlertVisible(true)
+    //     }
+    // },[textAlert])
 
 
     const onClickButtonCalculate = async (args) => {
@@ -90,9 +92,9 @@ const DeliverySdek = observer((props) => {
             }
             if (response?.error) {
                 if (response.error?.message) {
-                    setTextAlert("Ошибка: " + response.error.message)
+                    props?.setTextAlert("Ошибка: " + response.error.message)
                 }else {
-                    setTextAlert("Ошибка: " + response.error)
+                    props?.setTextAlert("Ошибка: " + response.error)
                 }
             }else if (response?.errors) {
                 if (response.errors[0].code === "ERR_PVZ_WITH_TARIFF_MISTAKE") {
@@ -103,24 +105,24 @@ const DeliverySdek = observer((props) => {
                             let address = response[0].location.address_full
                             await onClickButtonCalculate({address})
                         }else {
-                            setTextAlert(`Ошибка: не найден адрес для региона ${region_code} (DeliverySdek).`)
+                            props?.setTextAlert(`Ошибка: не найден адрес для региона ${region_code} (DeliverySdek).`)
                         }
                     }
-                }else {                    
-                    setTextAlert("Ошибка: " + response.errors[0]?.message)
+                }else {
+                    props?.setTextAlert("Ошибка: " + response.errors[0]?.message)
                 }
             }else setInfo(response)
 
-        }else if (index.length < 6) {
-            setTextAlert(`Введите правильный индекс!`)
+        }else if (index && index.length < 6) {
+            props?.setTextAlert(`Введите правильный индекс!`)
         }
         setLoading(false)
     }
 
 
     const onClickButtonDeliveryPoints = async (args) => {
-        if (index.length < 6) {
-            setTextAlert(`Введите правильный индекс!`)
+        if (!index || index.length < 6) {
+            props?.setTextAlert(`Введите правильный индекс!`)
         }else {
             setLoading(true)
             setInfo({ total_sum:"", period_min:"", period_max:"", weight_calc:"", currency:"", delivery_sum:"" })
@@ -135,30 +137,42 @@ const DeliverySdek = observer((props) => {
                 })
             }
             if (response?.error) {
-                setTextAlert(`Ошибка: ${response?.error?.message}`)
+                props?.setTextAlert(`Ошибка: ${response?.error?.message}`)
             }else {
                 if (response && Array.isArray(response) && response.length === 1) {
-                    setLatitude(response[0].location.latitude)
-                    setLongitude(response[0].location.longitude)
+                    props?.setLatitude(response[0].location.latitude)
+                    props?.setLongitude(response[0].location.longitude)
 
-                    setPlacemark([{latitude: response[0].location.latitude, longitude: response[0].location.longitude, code: response[0].code, address: response[0].location.address_full}])
+                    props?.setPlacemark([{
+                        latitude: response[0].location.latitude, 
+                        longitude: response[0].location.longitude, 
+                        code: response[0].code, // код ПВЗ
+                        address: response[0].location.address_full,
+                        onClick: () => calculateAndOpenPayment({address: response[0].location.address_full})
+                    }])
                     
                 }else if (response && Array.isArray(response) && response[0]?.location !== undefined) {
-                    setLatitude(response[0]?.location?.latitude)
-                    setLongitude(response[0]?.location?.longitude)
+                    props?.setLatitude(response[0]?.location?.latitude)
+                    props?.setLongitude(response[0]?.location?.longitude)
 
-                    setPlacemark(
+                    props?.setPlacemark(
                         response.map(i => {
-                            return {latitude: i.location.latitude, longitude: i.location.longitude, code: i.code, address: i.location.address_full}
+                            return {
+                                latitude: i.location.latitude, 
+                                longitude: i.location.longitude, 
+                                code: i.code, 
+                                address: i.location.address_full,
+                                onClick: () => calculateAndOpenPayment({address: i.location.address_full})
+                            }
                         })
                     )
                 }else {
                     if (args?.region_code) {
-                        setTextAlert(`По такому индексу ничего не найдено.`)
+                        props?.setTextAlert(`По такому индексу ничего не найдено.`)
                     }else {
                         let region_code = await getRegionCodeLocationSities()
                         if (region_code) await onClickButtonDeliveryPoints({region_code})
-                        else setTextAlert(`По такому индексу ничего не найдено.`)
+                        else props?.setTextAlert(`По такому индексу ничего не найдено.`)
                     }
                 }
                 
@@ -171,9 +185,9 @@ const DeliverySdek = observer((props) => {
     const onClickButtonLocationRegions = async () => {
         let response = await sdekLocationRegions({})
        if (response?.error) {
-            setTextAlert(`Ошибка: ${response?.error?.message}`)
+            props?.setTextAlert(`Ошибка: ${response?.error?.message}`)
         }else {
-            setTextAlert(`${response.map(i => i?.region).join(' ')}`)
+            props?.setTextAlert(`${response.map(i => i?.region).join(' ')}`)
         }
     }
 
@@ -226,46 +240,30 @@ const DeliverySdek = observer((props) => {
             }
             if (response?.error) {
                 if (response.error?.message) {
-                    setTextAlert(`Ошибка: ${response.error.message}`)
+                    props?.setTextAlert(`Ошибка: ${response.error.message}`)
                 }else {
-                    setTextAlert(`Ошибка: ${response.error}`)
+                    props?.setTextAlert(`Ошибка: ${response.error}`)
                 }
             }else if (response?.errors) {
-                setTextAlert(`Ошибка: ${response.errors[0].message}`)
+                props?.setTextAlert(`Ошибка: ${response.errors[0].message}`)
             }else {
+                props?.setDelivery("sdek")
                 props?.setDeliverySum(response.total_sum)
                 props?.setPayment(true)
             }
 
-        }else if (index.length < 6) {
-            setTextAlert(`Введите правильный индекс!`)
+        }else if (index && index.length < 6) {
+            props?.setTextAlert(`Введите правильный индекс!`)
         }
     }
 
-    const resize = () => {
-        let div = document.getElementById("DeliverySdek")
-
-        if (div) {
-            if (window.innerWidth < 1000) {
-                div.style.width = window.innerWidth - 100 + "px"
-                setSmallWidth(true)
-            }else {
-                div.style.width = "100%"
-                setSmallWidth(false)
-            }
-        }
-        
-    }
-
-    useEffect(() => {
-        window.addEventListener('resize', resize)
-    },[])
 
     return (
         <div className="DeliverySdek" id="DeliverySdek"> 
 
             <div>
-                <p>Введите индекс и нажмите "Найти ближайший склад СДЭК", а после на карте нажмите на зелёный значёк склада СДЭК</p>
+                <p>Введите индекс и нажмите "Найти склад СДЭК".</p>
+                <p>После, найдите на карте и нажмите на значёк склада СДЭК.</p>
             </div>
     
             <div className="DeliverySdekLeftPanel">
@@ -344,27 +342,22 @@ const DeliverySdek = observer((props) => {
                 }
 
             </div>
-            
+{/*             
             <YMaps
                 // ready={console.log("ready")}
                 // onLoad={console.log("onLoad")}
             >
                 <Map
-                    // defaultState={{ 
                     state={{ 
                         // Широта (latitude), Долгота (longitude)
                         // center: [55.75, 37.615], // Москва
                         // center: [48.177645, 40.802384], // Белая Калитва
                         center: [latitude, longitude], 
-                        // type: 'yandex#hybrid',
                         type: 'yandex#map',
-                        // zoom: zoom || 12
                         zoom: 12
                     }} 
-                    // width="1080px" 
                     width="100%" 
                     height={smallWidth ? "600px" : "400px"} 
-                    // height="600px" 
                 >
                 
                     {placemark && Array.isArray(placemark) && placemark[0]?.latitude !== undefined
@@ -372,19 +365,11 @@ const DeliverySdek = observer((props) => {
                         placemark.map(i => 
                             <Placemark 
                                 key={i?.latitude + i?.longitude}
-                                // geometry={[55.684758, 37.738521]} 
                                 geometry={[i?.latitude, i?.longitude]} 
-                                // properties={{
-                                //     hintContent: 'Собственный значок метки',
-                                //     balloonContent: 'Это красивая метка'
-                                //   }}
                                 options={{
                                     iconLayout: 'default#image',
                                     iconImageHref: 'images/delivery/sdek/sdek.png',
                                     iconImageSize: [40, 40],
-                                    // iconImageOffset: [-3, -40],
-                                    // preset: "islands#dotIcon"
-
                                   }}
                                 onClick={()=> {
                                     if (props?.setAddress) props?.setAddress(i?.address)
@@ -397,9 +382,9 @@ const DeliverySdek = observer((props) => {
 
                 
                 </Map>
-            </YMaps>
+            </YMaps> */}
 
-            <Alert 
+            {/* <Alert 
                 show={alertVisible} 
                 onHide={() => {
                     setAlertVisible(false)
@@ -407,7 +392,7 @@ const DeliverySdek = observer((props) => {
                 }}
             >
                 {ReactHtmlParser(textAlert)}
-            </Alert> 
+            </Alert>  */}
 
         </div>
     )
