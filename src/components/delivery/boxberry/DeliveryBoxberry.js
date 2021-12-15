@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite'
 
 import { getListCities, getListCitiesByName, getListPointsByCityCode, getDeliveryCosts } from '../../../http/delivery/boxberryAPI'
 import Loading from '../../Loading'
+import { DELIVERY_BOXBERRY_CURIER_PRICE } from '../../../utils/consts'
 import './DeliveryBoxberry.css'
 
 
@@ -60,7 +61,7 @@ const DeliveryBoxberry = observer((props) => {
                         }
                     }else {
                         props?.setDelivery("boxberry")
-                        props?.setDeliverySum(response.price)
+                        props?.setDeliverySum(Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE)
                         props?.setPayment(true)
                     }
                 }
@@ -140,7 +141,7 @@ const DeliveryBoxberry = observer((props) => {
                         }else {
                             props?.setTextAlert("Ошибка: " + response.error)
                         }
-                    }else setInfo({...response, weight})
+                    }else setInfo({...response, price: Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE, weight})
                 }
             }else {
                 props?.setTextAlert(`В таком городе нет склада Boxberry`)
