@@ -55,19 +55,19 @@ export const sdekNewIntakes = async (id, body) => {
 
 //
 export const sdekDeliveryPoints = async (body) => {
-    const {data} = await $authHost.post('api/delivery/sdek/delivery_points/', {country_code: "RU", type: "PVZ", ...body})
+    const {data} = await $host.get('api/delivery/sdek/delivery_points/', {params: { ...body }})
     return data
 }
 
 //
 export const sdekLocationRegions = async (body) => {
-    const {data} = await $authHost.post('api/delivery/sdek/location_regions/', {country_codes: "RU", ...body})
+    const {data} = await $host.get('api/delivery/sdek/location_regions/', {params: { ...body }})
     return data
 }
 
 //
 export const sdekLocationSities = async (body) => {
-    const {data} = await $authHost.post('api/delivery/sdek/location_cities/', {country_codes: "RU", ...body})
+    const {data} = await $host.get('api/delivery/sdek/location_cities/', {params: { ...body }})
     return data
 }
 
