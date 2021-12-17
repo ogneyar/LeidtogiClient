@@ -23,189 +23,104 @@ import './DeliverySdek.css'
 const DeliverySdek = observer((props) => {
     
     const { user } = useContext(Context)
+   
+    const [allCities, setAllCities] = useState([])
+    const [listCities, setListCities] = useState([])
+    
+    // eslint-disable-next-line
+    const [ tariff, setTariff ] = useState("138")
+
+    const [ info, setInfo ] = useState({
+        total_sum:"", period_min:"", period_max:"", weight_calc:"", currency:"", delivery_sum:""
+    })
+    const [ index, setIndex ] = useState("")
+
+    const [ name, setName ] = useState("")
+    const [ listCitiesNull, setListCitiesNull ] = useState(false)
+    
+    const [ loading, setLoading ] = useState(false) //
+
 
     useEffect(() => {
-        if (user.user.address) {
+        props?.setIconImageHref("images/delivery/sdek/sdek.png")
+
+        sdekLocationSities()
+            .then(data => {
+                setAllCities(data)
+            })
+
+        let delivery_city = localStorage.getItem('delivery_city')
+        if (delivery_city) {
+            setName(delivery_city)
+            onClickButtonDeliveryPoints({city: delivery_city})
+        }
+
+    // eslint-disable-next-line
+    },[])
+
+    useEffect(() => {
+        if (user.user.address && !localStorage.getItem('delivery_city')) {
+            
             let address = user.user.address
             let result = address.match(/\d\d\d\d\d\d/)
             if (result.index !== -1) {
                 setIndex(address.substring(result.index, result.index + 6))
+                // postal_code
+                sdekLocationSities({postal_code:address.substring(result.index, result.index + 6)})
+                    .then(data => {
+                        setName(data[0]?.city)
+                        localStorage.setItem('delivery_city', data[0]?.city)
+                        onClickButtonDeliveryPoints({city: data[0]?.city})
+                    })
             }
         }
+    // eslint-disable-next-line
     },[user?.user?.address])
-    
+
+     
+    useEffect(() => {
+        if (!listCitiesNull) findListCities()
+        else {
+            setListCities([])
+            setListCitiesNull(false)
+        }
     // eslint-disable-next-line
-    const [tariff, setTariff] = useState("138")
+    },[name])
 
-    const [info, setInfo] = useState({
-        total_sum:"", period_min:"", period_max:"", weight_calc:"", currency:"", delivery_sum:""
-    })
-    const [index, setIndex] = useState("")
-
-    // const [alertVisible, setAlertVisible] = useState(false)
-    // const [textAlert, setTextAlert] = useState("")
-    
-    // const [ latitude, setLatitude ] = useState(55.75) // Долгота Белой Калитвы - 48.177645
-    // const [ longitude, setLongitude ] = useState(37.615) // Широта Белой Калитвы - 48.177645
-    // 55.75, 37.615 Москва
-    // const [ placemark, setPlacemark ] = useState([]) //
-    
-    const [ loading, setLoading ] = useState(false) //
-
-    // const [ smallWidth, setSmallWidth ] = useState(window.innerWidth < 1000) //
-
-    
-    // useEffect(() => {
-    //     if (textAlert) {
-    //         setAlertVisible(true)
-    //     }
-    // },[textAlert])
-
-
-    const onClickButtonCalculate = async (args) => {
-        setLoading(true)
-        let cart
-        cart = localStorage.getItem('cart')
-        if (cart && index.length === 6) {
-            cart = JSON.parse(cart)
-            let weight = 0
-            cart.forEach( i => weight += (Number(i?.value) * Number(i?.size?.weight)) )
-            if (!weight) weight = 5
-            weight = weight * 1000
-            weight = Math.ceil(weight)
-            setInfo({ total_sum:"", period_min:"", period_max:"", weight_calc:"", currency:"", delivery_sum:"" })
-            let response
-            if (args?.address) {
-                response = await sdekCalculate({
-                    tariff_code: tariff,
-                    from_location: { postal_code: DELIVERY_INDEX_FROM }, 
-                    to_location: { address: args.address }, 
-                    packages: [{ weight }] 
-                })
-            }else {
-                response = await sdekCalculate({
-                    tariff_code: tariff,
-                    from_location: { postal_code: DELIVERY_INDEX_FROM }, 
-                    to_location: { postal_code: index }, 
-                    packages: [{ weight }] 
-                })
-            }
-            if (response?.error) {
-                if (response.error?.message) {
-                    props?.setTextAlert("Ошибка: " + response.error.message)
-                }else {
-                    props?.setTextAlert("Ошибка: " + response.error)
-                }
-            }else if (response?.errors) {
-                if (response.errors[0].code === "ERR_PVZ_WITH_TARIFF_MISTAKE") {
-                    if (!args?.address) {
-                        let region_code = await getRegionCodeLocationSities()
-                        response = await sdekDeliveryPoints({region_code})
-                        if (response && Array.isArray(response) && response[0]?.location !== undefined && response[0].location?.address_full !== undefined) {
-                            let address = response[0].location.address_full
-                            await onClickButtonCalculate({address})
-                        }else {
-                            props?.setTextAlert(`Ошибка: не найден адрес для региона ${region_code} (DeliverySdek).`)
-                        }
+    // поиск похожих названий городов из общего списка городов boxberry 
+    const findListCities = () => {
+        if (name && allCities) {
+            setListCities(allCities
+                .filter(j => j.city.toLowerCase().startsWith(name.toLowerCase()))
+                .map((i,index) => {
+                    if (index < 5 && name.toLowerCase() !== i.city.toLowerCase()) {
+                        return <>
+                            <p 
+                                style={{position:"relative",margin:0,padding:0}}
+                                onClick={() => {
+                                    setName(i.city)
+                                    localStorage.setItem('delivery_city', i.city)
+                                    setListCitiesNull(true)
+                                    onClickButtonDeliveryPoints({city:i.city})
+                                }} 
+                            >
+                                <div style={{paddingBottom:"10px"}}>г.&nbsp;{i.city}</div>
+                                {/* <br /> */}
+                                <small style={{position:"absolute",left:"0px",top:"15px",color:"grey"}}>{i.region}</small>
+                            </p>
+                            <hr />
+                        </>
                     }
-                }else {
-                    props?.setTextAlert("Ошибка: " + response.errors[0]?.message)
-                }
-            }else setInfo(response)
-
-        }else if (index && index.length < 6) {
-            props?.setTextAlert(`Введите правильный индекс!`)
-        }
-        setLoading(false)
-    }
-
-
-    const onClickButtonDeliveryPoints = async (args) => {
-        if (!index || index.length < 6) {
-            props?.setTextAlert(`Введите правильный индекс!`)
+                    return null
+                })
+                .filter(k => k !== null)
+            )
         }else {
-            setLoading(true)
-            setInfo({ total_sum:"", period_min:"", period_max:"", weight_calc:"", currency:"", delivery_sum:"" })
-            let response
-            if (args?.region_code) {
-                response = await sdekDeliveryPoints({
-                    region_code: args.region_code,
-                })
-            }else {
-                response = await sdekDeliveryPoints({
-                    postal_code: index,
-                })
-            }
-            if (response?.error) {
-                props?.setTextAlert(`Ошибка: ${response?.error?.message}`)
-            }else {
-                if (response && Array.isArray(response) && response.length === 1) {
-                    props?.setLatitude(response[0].location.latitude)
-                    props?.setLongitude(response[0].location.longitude)
-
-                    props?.setPlacemark([{
-                        latitude: response[0].location.latitude, 
-                        longitude: response[0].location.longitude, 
-                        code: response[0].code, // код ПВЗ
-                        address: response[0].location.address_full,
-                        onClick: () => calculateAndOpenPayment({address: response[0].location.address_full})
-                    }])
-                    
-                }else if (response && Array.isArray(response) && response[0]?.location !== undefined) {
-                    props?.setLatitude(response[0]?.location?.latitude)
-                    props?.setLongitude(response[0]?.location?.longitude)
-
-                    props?.setPlacemark(
-                        response.map(i => {
-                            return {
-                                latitude: i.location.latitude, 
-                                longitude: i.location.longitude, 
-                                code: i.code, 
-                                address: i.location.address_full,
-                                onClick: () => calculateAndOpenPayment({address: i.location.address_full})
-                            }
-                        })
-                    )
-                }else {
-                    if (args?.region_code) {
-                        props?.setTextAlert(`По такому индексу ничего не найдено.`)
-                    }else {
-                        let region_code = await getRegionCodeLocationSities()
-                        if (region_code) await onClickButtonDeliveryPoints({region_code})
-                        else props?.setTextAlert(`По такому индексу ничего не найдено.`)
-                    }
-                }
-                
-            }
-            setLoading(false)
+            setListCities()
         }
     }
     
-    // eslint-disable-next-line
-    const onClickButtonLocationRegions = async () => {
-        let response = await sdekLocationRegions({})
-       if (response?.error) {
-            props?.setTextAlert(`Ошибка: ${response?.error?.message}`)
-        }else {
-            props?.setTextAlert(`${response.map(i => i?.region).join(' ')}`)
-        }
-    }
-
-    
-    const getRegionCodeLocationSities = async () => {
-        let response = await sdekLocationSities({
-            postal_code: index,
-            // size: 34243,
-            // page: 0
-        })
-        if (response?.error) {
-            return {error:`Ошибка: ${response.error?.message}`}
-        }else {
-            return response[0]?.region_code
-        }
-        
-    }
-
+    // нажатие на карте метки СКЛАДА
     const calculateAndOpenPayment = async (args) => {
         let cart
         cart = localStorage.getItem('cart')
@@ -217,11 +132,6 @@ const DeliverySdek = observer((props) => {
             weight = weight * 1000
             weight = Math.ceil(weight)
             
-            // let indexFrom = "101000" // Москва
-            // let indexFrom = "390000" // Рязань
-            // let indexFrom = "347056" // Углекаменный
-            // let indexFrom = "305000" // Курск
-
             let response
             if (args?.address) {
                 response = await sdekCalculate({
@@ -258,11 +168,186 @@ const DeliverySdek = observer((props) => {
     }
 
 
+    // подсчёт стоимости доставки
+    const onClickButtonCalculate = async (args) => {
+        setLoading(true)
+        let cart
+        cart = localStorage.getItem('cart')
+        // if (cart && index.length === 6) {
+        if (cart && name) {
+            cart = JSON.parse(cart)
+            let weight = 0
+            cart.forEach( i => weight += (Number(i?.value) * Number(i?.size?.weight)) )
+            if (!weight) weight = 5
+            weight = weight * 1000
+            weight = Math.ceil(weight)
+            setInfo({ total_sum:"", period_min:"", period_max:"", weight_calc:"", currency:"", delivery_sum:"" })
+            let response, to_location
+            if (args?.address) {
+                to_location = { address: args.address }
+            }else if (name || index) {
+                if (name) {
+                    let data = await getLocationSities({ city: name })
+                    if (data && data?.code !== undefined) {
+                        to_location = { code: data?.code }
+                    }else {
+                        response = {error: {message: "В таком городе не найден склада СДЭК"} }
+                    }
+                }else if (index) {
+                    to_location = { postal_code: index }
+                }
+            }else {
+                response = {error: { message: "Не указан город / индекс" }}
+            }
+
+            if (!response) {
+                if (to_location) {
+                    response = await sdekCalculate({
+                        tariff_code: tariff,
+                        from_location: { postal_code: DELIVERY_INDEX_FROM }, 
+                        to_location, 
+                        packages: [{ weight }] 
+                    })
+                }else {
+                    response = {error: { message: "Не найден объект to_location" }}
+                }
+            }
+            
+
+            if (response?.error) {
+                if (response.error?.message) {
+                    props?.setTextAlert("Ошибка: " + response.error.message)
+                }else {
+                    props?.setTextAlert("Ошибка: " + response.error)
+                }
+            }else if (response?.errors) {
+                if (response.errors[0].code === "ERR_PVZ_WITH_TARIFF_MISTAKE") {
+                    if (!args?.address) {
+                        let { region_code } = await getLocationSities()
+                        response = await sdekDeliveryPoints({region_code})
+                        if (response && Array.isArray(response) && response[0]?.location !== undefined && response[0].location?.address_full !== undefined) {
+                            let address = response[0].location.address_full
+                            await onClickButtonCalculate({address})
+                        }else {
+                            props?.setTextAlert(`Ошибка: не найден адрес для региона ${region_code} (DeliverySdek).`)
+                        }
+                    }
+                }else {
+                    props?.setTextAlert("Ошибка: " + response.errors[0]?.message)
+                }
+            }else setInfo(response)
+
+        }else if (!name) {
+            props?.setTextAlert(`В таком городе не найден склада СДЭК.`)
+        }
+        // }else if (index && index.length < 6) {
+        //     props?.setTextAlert(`Введите правильный индекс!`)
+        // }
+        setLoading(false)
+    }
+
+
+    const onClickButtonDeliveryPoints = async (args) => {
+        if (!args?.city && !name && (!index || index.length < 6)) {
+            props?.setTextAlert(`В таком городе нет склада СДЭК`)
+        }else {
+            setLoading(true)
+            setInfo({ total_sum:"", period_min:"", period_max:"", weight_calc:"", currency:"", delivery_sum:"" })
+            let response
+            if (args?.region_code) {
+                response = await sdekDeliveryPoints({ region_code: args.region_code })
+            }else if (args?.city || name) {
+                let data = await getLocationSities({ city: args?.city || name })
+                if (data && data?.code !== undefined) {
+                    response = await sdekDeliveryPoints({ city_code: data.code })
+                }else {
+                    response = {error: {message: "В таком городе не найден склада СДЭК"} }
+                }
+            }else {
+                response = await sdekDeliveryPoints({ postal_code: index })
+            }
+
+            if (response?.error) {
+                props?.setTextAlert(`Ошибка: ${response?.error?.message}`)
+            }else {
+                if (response && Array.isArray(response) && response.length === 1) {
+                    props?.setLatitude(response[0].location.latitude)
+                    props?.setLongitude(response[0].location.longitude)
+
+                    props?.setPlacemark([{
+                        latitude: response[0].location.latitude, 
+                        longitude: response[0].location.longitude, 
+                        code: response[0].code, // код ПВЗ
+                        address: response[0].location.address_full,
+                        onClick: () => calculateAndOpenPayment({address: response[0].location.address_full})
+                    }])
+                    
+                }else if (response && Array.isArray(response) && response[0]?.location !== undefined) {
+                    props?.setLatitude(response[0]?.location?.latitude)
+                    props?.setLongitude(response[0]?.location?.longitude)
+
+                    props?.setPlacemark(
+                        response.map(i => {
+                            return {
+                                latitude: i.location.latitude, 
+                                longitude: i.location.longitude, 
+                                code: i.code, 
+                                address: i.location.address_full,
+                                onClick: () => calculateAndOpenPayment({address: i.location.address_full})
+                            }
+                        })
+                    )
+                }else {
+                    if (args?.region_code) {
+                        props?.setTextAlert(`В таком городе нет склада СДЭК.`)
+                    }else {
+                        let { region_code } = await getLocationSities()
+                        if (region_code) await onClickButtonDeliveryPoints({region_code})
+                        else props?.setTextAlert(`В таком городе нет склада СДЭК!`)
+                    }
+                }
+                
+            }
+            setLoading(false)
+        }
+    }
+    
+    // eslint-disable-next-line
+    const onClickButtonLocationRegions = async () => {
+        let response = await sdekLocationRegions({})
+       if (response?.error) {
+            props?.setTextAlert(`Ошибка: ${response?.error?.message}`)
+        }else {
+            props?.setTextAlert(`${response.map(i => i?.region).join(' ')}`)
+        }
+    }
+
+    // функция возвращает объект {"code":1543, "city":"Белая Калитва", "region_code":45, "sub_region":"Белокалитвинский", ...}
+    const getLocationSities = async (args) => {
+        let response
+        if (args?.postal_code) {
+            response = await sdekLocationSities({ postal_code: args?.postal_code })
+        }else if (args?.city) {
+            response = await sdekLocationSities({ city: args?.city })
+        }else {
+            response = await sdekLocationSities({ postal_code: index })
+        }
+        if (response?.error) {
+            return {error:`Ошибка: ${response.error?.message}`}
+        }else {
+            return response[0]
+        }
+        
+    }
+
+
+
     return (
         <div className="DeliverySdek" id="DeliverySdek"> 
 
-            <div>
-                <p>Введите индекс и нажмите "Найти склад СДЭК".</p>
+            <div className="DeliverySdekTooltip">
+                {/* <p>Введите индекс и нажмите "Найти склад СДЭК".</p> */}
+                <p>Введите название Вашего районного города и нажмите "Найти склад СДЭК".</p>
                 <p>После, найдите на карте и нажмите на значёк склада СДЭК.</p>
             </div>
     
@@ -276,40 +361,38 @@ const DeliverySdek = observer((props) => {
                     :
                     <>
                         <hr />
-                        <label className="DeliverySdekLeftPanelBox_LabelIndex">Ваш индекс: </label>
+                        <label className="DeliverySdekLeftPanelBox_LabelIndex">Ваш районный город: </label>
                         {/* <hr style={{width:"100%",margin:"5px",padding:0}}/> */}
                         <hr />
 
                         <Form.Control 
-                            value={index}
-                            style={{width:"120px"}}
-                            maxLength="6"
-                            type="number"
-                            onChange={e => setIndex(e.target.value)}
+                            value={name}
+                            style={{width:"150px"}}
+                            onChange={e => {
+                                setName(e.target.value)
+                                if (e.target.value) localStorage.setItem('delivery_city', e.target.value)
+                                else localStorage.removeItem('delivery_city')
+                            }}
                             className='' 
-                            placeholder="Индекс" 
+                            placeholder="Город" 
                         />
-                        {/* <label className="">{info?.adName}</label> */}
+                        {name && listCities && listCities[0] !== undefined
+                        ? 
+                            <div className='DeliveryBoxberry_ListCities'>
+                                {listCities}
+                            </div>
+                        : null}
                         <hr />
                         <Button
-                            disabled={!index}
+                            disabled={!name}
                             variant="outline-primary"
                             onClick={onClickButtonDeliveryPoints}
                         >
                             Найти склад СДЭК
                         </Button>
                         <hr />
-
-                        {/* <Button
-                            variant="outline-primary"
-                            onClick={onClickButtonLocationSities}
-                        >
-                            Список населенных пунктов
-                        </Button>
-                        <hr /> */}
-
                         <Button
-                            disabled={!index}
+                            disabled={!name}
                             variant="outline-primary"
                             onClick={onClickButtonCalculate}
                         >
@@ -342,57 +425,6 @@ const DeliverySdek = observer((props) => {
                 }
 
             </div>
-{/*             
-            <YMaps
-                // ready={console.log("ready")}
-                // onLoad={console.log("onLoad")}
-            >
-                <Map
-                    state={{ 
-                        // Широта (latitude), Долгота (longitude)
-                        // center: [55.75, 37.615], // Москва
-                        // center: [48.177645, 40.802384], // Белая Калитва
-                        center: [latitude, longitude], 
-                        type: 'yandex#map',
-                        zoom: 12
-                    }} 
-                    width="100%" 
-                    height={smallWidth ? "600px" : "400px"} 
-                >
-                
-                    {placemark && Array.isArray(placemark) && placemark[0]?.latitude !== undefined
-                    ?
-                        placemark.map(i => 
-                            <Placemark 
-                                key={i?.latitude + i?.longitude}
-                                geometry={[i?.latitude, i?.longitude]} 
-                                options={{
-                                    iconLayout: 'default#image',
-                                    iconImageHref: 'images/delivery/sdek/sdek.png',
-                                    iconImageSize: [40, 40],
-                                  }}
-                                onClick={()=> {
-                                    if (props?.setAddress) props?.setAddress(i?.address)
-                                    calculateAndOpenPayment({address: i?.address})
-                                }}
-                                
-                            />
-                        )
-                    :null}
-
-                
-                </Map>
-            </YMaps> */}
-
-            {/* <Alert 
-                show={alertVisible} 
-                onHide={() => {
-                    setAlertVisible(false)
-                    setTextAlert("")
-                }}
-            >
-                {ReactHtmlParser(textAlert)}
-            </Alert>  */}
 
         </div>
     )
