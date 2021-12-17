@@ -30,6 +30,8 @@ export default function Delivery(props) {
     const [ smallWidth, setSmallWidth ] = useState(window.innerWidth < 1000) //
     // eslint-disable-next-line
     const [ loading, setLoading ] = useState(true) //
+    
+    const [ iconImageHref, setIconImageHref ] = useState("") // иконка доставщика
 
     
     useEffect(() => {
@@ -87,6 +89,7 @@ export default function Delivery(props) {
                     onClick={() => {
                         setDelivery("sdek")
                         setPlacemark([])
+                        setIconImageHref("")
                     }}
                 >
                     СДЭК
@@ -97,6 +100,7 @@ export default function Delivery(props) {
                     onClick={() => {
                         setDelivery("boxberry")
                         setPlacemark([])
+                        setIconImageHref("")
                     }}
                 >
                     Boxberry
@@ -107,6 +111,7 @@ export default function Delivery(props) {
                     onClick={() => {
                         setDelivery("pochta")
                         setPlacemark([])
+                        setIconImageHref("")
                     }}
                 >
                     Почта России
@@ -117,6 +122,7 @@ export default function Delivery(props) {
                     onClick={() => {
                         setDelivery("businessLines")
                         setPlacemark([])
+                        setIconImageHref("")
                     }}
                 >
                     Деловые Линии
@@ -127,6 +133,7 @@ export default function Delivery(props) {
                     onClick={() => {
                         setDelivery("pek")
                         setPlacemark([])
+                        setIconImageHref("")
                     }}
                 >
                     ПЭК
@@ -146,6 +153,7 @@ export default function Delivery(props) {
                         setTextAlert={setTextAlert} 
                         setPlacemark={setPlacemark}
                         setLoadingDelivery={setLoading}
+                        setIconImageHref={setIconImageHref}
                     />
                 : null}
 
@@ -158,6 +166,7 @@ export default function Delivery(props) {
                         setTextAlert={setTextAlert} 
                         setPlacemark={setPlacemark}
                         setLoadingDelivery={setLoading}
+                        setIconImageHref={setIconImageHref}
                     />
                 : null}
 
@@ -170,6 +179,7 @@ export default function Delivery(props) {
                         setTextAlert={setTextAlert} 
                         setPlacemark={setPlacemark}
                         setLoadingDelivery={setLoading}
+                        setIconImageHref={setIconImageHref}
                     />
                 : null}
 
@@ -182,6 +192,7 @@ export default function Delivery(props) {
                         setTextAlert={setTextAlert} 
                         setPlacemark={setPlacemark}
                         setLoadingDelivery={setLoading}
+                        setIconImageHref={setIconImageHref}
                     />
                 : null}
 
@@ -194,6 +205,7 @@ export default function Delivery(props) {
                         setTextAlert={setTextAlert} 
                         setPlacemark={setPlacemark}
                         setLoadingDelivery={setLoading}
+                        setIconImageHref={setIconImageHref}
                     />
                 : null}
                 
@@ -221,11 +233,12 @@ export default function Delivery(props) {
                             <Placemark 
                                 key={i?.latitude + i?.longitude}
                                 geometry={[i?.latitude, i?.longitude]} 
-                                // options={{
-                                //     iconLayout: 'default#image',
-                                //     iconImageHref: 'images/delivery/sdek/sdek.png',
-                                //     iconImageSize: [40, 40],
-                                //   }}
+                                options={{
+                                    iconLayout: 'default#image',
+                                    // iconImageHref: 'images/delivery/sdek/sdek.png',
+                                    iconImageHref: iconImageHref ? iconImageHref : undefined,
+                                    iconImageSize: [40, 40],
+                                  }}
                                 onClick={async()=> {
                                     if (props?.setAddress) props?.setAddress(i?.address)
                                     setLoading(true)
