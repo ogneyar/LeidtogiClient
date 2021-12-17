@@ -10,27 +10,78 @@ import './DeliveryBoxberry.css'
 
 const DeliveryBoxberry = observer((props) => {
 
-    const [arrayCities, setArrayCities] = useState([])
-    const [borderVisible, setBorderVisible] = useState([])
+    const [allCities, setAllCities] = useState([])
+    const [listCities, setListCities] = useState([])
 
-    useEffect(() => {
-        getListCities()
-            .then(data => {
-                setArrayCities(data)
-                setBorderVisible(true)
-            })
-    },[])
-
-    // eslint-disable-next-line
-    const [ loading, setLoading ] = useState(false) //
-    // eslint-disable-next-line
-    const [info, setInfo] = useState({
+    const [ loading, setLoading ] = useState(false)
+    const [ info, setInfo ] = useState({
         price:"", price_base:"", price_service:"", delivery_period:"", weight:""
     })
-    const [name, setName] = useState("")
+    const [ name, setName ] = useState("")
+    const [ listCitiesNull, setListCitiesNull ] = useState(false)
+    
+    useEffect(() => {
+        props?.setIconImageHref("images/delivery/boxberry/boxberry.png")
 
+        getListCities()
+            .then(data => {
+                setAllCities(data)
+            })
 
-    const calculateAndOpenPayment = async () => {
+        let delivery_city = localStorage.getItem('delivery_city')
+        if (delivery_city) {
+            setName(delivery_city)
+            onClickButtonListPoints(delivery_city)
+        }
+        // eslint-disable-next-line
+    },[])
+    
+    useEffect(() => {
+        if (!listCitiesNull) findListCities()
+        else {
+            setListCities([])
+            setListCitiesNull(false)
+        }
+    // eslint-disable-next-line
+    },[name])
+
+    // поиск похожих названий городов из общего списка городов boxberry 
+    const findListCities = () => {
+        if (name && allCities) {
+            setListCities(allCities
+                // .filter(j => j.Name.toLowerCase().includes(name.toLowerCase()))
+                .filter(j => j.Name.toLowerCase().startsWith(name.toLowerCase()))
+                .map((i,index) => {
+                    if (index < 5 && name.toLowerCase() !== i.Name.toLowerCase()) {
+                        return <>
+                            <p 
+                                style={{position:"relative",margin:0,padding:0}}
+                                onClick={() => {
+                                    setName(i.Name)
+                                    localStorage.setItem('delivery_city', i.Name)
+                                    setListCitiesNull(true)
+                                    onClickButtonListPoints(i.Name)
+                                }} 
+                            >
+                                <div style={{paddingBottom:"10px"}}>{i.Prefix}.&nbsp;{i.Name}</div>
+                                {/* <br /> */}
+                                <small style={{position:"absolute",left:"0px",top:"15px",color:"grey"}}>{i.Region}</small>
+                            </p>
+                            <hr />
+                        </>
+                    }
+                    return null
+                })
+                .filter(k => k !== null)
+            )
+        }else {
+            setListCities()
+        }
+    }
+    
+
+    // нажатие на карте метки СКЛАДА
+    const calculateAndOpenPayment = async (args) => { 
         let cart = localStorage.getItem('cart')
         if (cart && name) {
             setLoading(true)
@@ -41,34 +92,27 @@ const DeliveryBoxberry = observer((props) => {
             if (!weight) weight = 5
             weight = weight * 1000
             weight = Math.ceil(weight)
-            
-            let listCities = await getListCitiesByName(name)
-            if (listCities[0]?.Code) {
-                let response = await getListPointsByCityCode(listCities[0].Code)
-
+           
+            if (args?.Code) {
+                let response = await getDeliveryCosts({
+                    target: args.Code, // 16126
+                    weight
+                })
                 if (response?.error) {
-                    props?.setTextAlert(`Ошибка: ${response?.error}`)
-                }else {
-                    response = await getDeliveryCosts({
-                        target: response[0].Code, // 16126
-                        weight
-                    })
-                    if (response?.error) {
-                        if (response.error?.message) {
-                            props?.setTextAlert("Ошибка: " + response.error.message)
-                        }else {
-                            props?.setTextAlert("Ошибка: " + response.error)
-                        }
+                    if (response.error?.message) {
+                        props?.setTextAlert("Ошибка: " + response.error.message)
                     }else {
-                        props?.setDelivery("boxberry")
-                        props?.setDeliverySum(Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE)
-                        props?.setPayment(true)
+                        props?.setTextAlert("Ошибка: " + response.error)
                     }
+                }else {
+                    props?.setDelivery("boxberry")
+                    props?.setDeliverySum(Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE)
+                    props?.setPayment(true)
                 }
             }else {
-                props?.setTextAlert(`В таком городе нет склада Boxberry`)
-                setBorderVisible(false)
+                props?.setTextAlert(`Не известен номер склада Boxberry`)
             }
+                
             setLoading(false)
 
         }else if (!name) {
@@ -76,9 +120,10 @@ const DeliveryBoxberry = observer((props) => {
         }
     }
 
-    const onClickButtonListPoints = async () => {
+    const onClickButtonListPoints = async (name) => {
         if (name) {
             setLoading(true)
+            setListCities([])
             setInfo({ price:"", price_base:"", price_service:"", delivery_period:"", weight:"" })
             let listCities = await getListCitiesByName(name)
             if (listCities[0]?.Code) {
@@ -87,35 +132,38 @@ const DeliveryBoxberry = observer((props) => {
                 if (response?.error) {
                     props?.setTextAlert(`Ошибка: ${response?.error}`)
                 }else {
-                    // props?.setTextAlert(JSON.stringify(response[0]))
                     let gps = response[0].GPS.split(",")
                     props?.setLatitude(gps[0])
                     props?.setLongitude(gps[1])
                     
-                    props?.setPlacemark([{
-                        latitude: gps[0], 
-                        longitude: gps[1], 
-                        code: response[0].Code,  // код ПВЗ
-                        address: response[0].Address,
-                        phone: response[0].Phone,
-                        work: response[0].WorkShedule,
-                        description: response[0].TripDescription,
-                        onClick: () => calculateAndOpenPayment()
-                    }])
+                    props?.setPlacemark(
+                        response.map(i => {
+                            return {
+                                latitude: i.GPS.split(",")[0], 
+                                longitude: i.GPS.split(",")[1], 
+                                code: i.Code, // код ПВЗ
+                                address: i.Address,
+                                phone: i.Phone,
+                                work: i.WorkShedule,
+                                description: i.TripDescription,
+                                onClick: () => calculateAndOpenPayment({Code: i.Code})
+                            }
+                        })
+                    )
                 }
             }else {
                 props?.setTextAlert(`В таком городе нет склада Boxberry`)
-                setBorderVisible(false)
             }
             setLoading(false)
         }
     }
 
     const onClickButtonDeliveryCosts = async () => {
+        await onClickButtonListPoints(name)
         let cart = localStorage.getItem('cart')
         if (cart && name) {
             setLoading(true)
-
+            setListCities([])
             cart = JSON.parse(cart)
             let weight = 0
             cart.forEach( i => weight += (Number(i?.value) * Number(i?.size?.weight)) )
@@ -145,7 +193,6 @@ const DeliveryBoxberry = observer((props) => {
                 }
             }else {
                 props?.setTextAlert(`В таком городе нет склада Boxberry`)
-                setBorderVisible(false)
             }
             setLoading(false)
         }
@@ -155,8 +202,8 @@ const DeliveryBoxberry = observer((props) => {
         <div
             className="DeliveryBoxberry"
         >
-            <div>
-                <p>Введите индекс и нажмите "Найти склад Boxberry".</p>
+            <div className="DeliveryBoxberryTooltip">
+                <p>Введите название Вашего районного города и нажмите "Найти склад Boxberry".</p>
                 <p>После, найдите на карте и нажмите на значёк склада Boxberry.</p>
             </div>
 
@@ -177,46 +224,29 @@ const DeliveryBoxberry = observer((props) => {
                             value={name}
                             style={{width:"150px"}}
                             type="text"
+                            onFocus={() => {
+                                findListCities()
+                            }}
+                            // onBlur={() => setOnBlurName(true)}
                             onChange={e => {
                                 setName(e.target.value)
-                                if (!borderVisible) setBorderVisible(true)
+                                if (e.target.value) localStorage.setItem('delivery_city', e.target.value)
+                                else localStorage.removeItem('delivery_city')
                             }}
                             className='' 
                             placeholder="Город" 
                         />
-                        {name 
+                        {name && listCities && listCities[0] !== undefined
                         ? 
-                            arrayCities && borderVisible
-                            ?
-                                <div className='arrayCities'>
-                                    {arrayCities
-                                        .filter(j => j.Name.toLowerCase().includes(name.toLowerCase()))
-                                        .map((i,index) => {
-                                            if (index < 5 && name.toLowerCase() !== i.Name.toLowerCase()) {
-                                                return <>
-                                                    <p 
-                                                        onClick={() => {
-                                                            setName(i.Name)
-                                                            setBorderVisible(false)
-                                                        }}
-                                                    >
-                                                        {i.Name}
-                                                    </p>
-                                                    <hr />
-                                                </>
-                                            }else if (name.toLowerCase() === i.Name.toLowerCase()) setBorderVisible(false)
-                                            
-                                            return null
-                                        })
-                                    }
-                                </div>
-                            : null
+                            <div className='DeliveryBoxberry_ListCities'>
+                                {listCities}
+                            </div>
                         : null}
                         <hr />
                         <Button
                             disabled={!name}
                             variant="outline-primary"
-                            onClick={onClickButtonListPoints}
+                            onClick={() => onClickButtonListPoints(name)}
                         >
                             Найти склад Boxberry
                         </Button>
@@ -232,7 +262,6 @@ const DeliveryBoxberry = observer((props) => {
                     </>}
                     
                 </div>
-                {/* price:"", price_base:"", price_service:"", delivery_period:"", weight:"" */}
                 
                 {info?.price
                 ?
