@@ -12,8 +12,10 @@ import './ButtonBuy.css'
 // eslint-disable-next-line
 import CreateOrder from '../order/CreateOrder'
 
+import addDataLayer from '../../service/dataLayer/add'
 
-const ButtonBuy = (props) => {
+
+const ButtonBuy = (props) => { 
 
     const [notificationVisible, setNotificationVisible] = useState(false)
 
@@ -21,6 +23,7 @@ const ButtonBuy = (props) => {
 
     let className
     if (props?.className) className = props?.className
+
 
     return (
         <>
@@ -30,6 +33,14 @@ const ButtonBuy = (props) => {
             onClick={e => {
                 setNotificationVisible(true)
                 onClickButtonBuy(e, props?.product)
+                if (props?.product) {
+                    addDataLayer({
+                        article: props?.product?.article,
+                        name: props?.product?.name,
+                        price: props?.product?.price,
+                        value: 1
+                    })
+                }
             }}
         >
             {props.children}
@@ -44,31 +55,12 @@ const ButtonBuy = (props) => {
             <div
                 className="NotificationDiv"
             >
-                {/* Товар добавлен в&nbsp;<NavLink to={CART_ROUTE}><span>корзину</span></NavLink>! */}
                 Товар добавлен в корзину!
             </div>
 
             <div
                 className="NotificationDivButtons"
             >
-                {/* <Button
-                    variant="outline-warning"
-                    onClick={() => {
-                        history.push(CREATE_ORDER_ROUTE)
-                        $('html, body').animate(
-                            {
-                                scrollTop: 200
-                            }, 
-                            700, 
-                            function(){}
-                        )
-                    }}
-                >
-                    ОФОРМИТЬ ЗАКАЗ!
-                </Button> */}
-
-                {/* <CreateOrder /> */}
-                
                 <Button
                     variant="outline-success"
                     onClick={() => {
