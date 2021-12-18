@@ -6,6 +6,7 @@ import { getOrder, setPay } from '../../http/orderAPI'
 import Loading from '../../components/Loading'
 import InfoPage from '../info/InfoPage'
 import { SUPPORT_ROUTE, URL } from '../../utils/consts'
+import purchaseDataLayer from '../../service/dataLayer/purchase'
 import './SuccessPage.css'
 
 const SuccessPage = () => {
@@ -35,6 +36,8 @@ const SuccessPage = () => {
                         if (isMounted) setPay(uuid)
                         // очистим корзину
                         localStorage.removeItem('cart')
+                        // передача данных о покупке в Яндекс.Метрику
+                        purchaseDataLayer(data?.id, JSON.parse(data?.cart))
                         // перевод на страницу поздравлений
                         window.open(URL + "congratulation?id=" + id + "&email=" + data?.email ,'_self',false)
                     }else {
