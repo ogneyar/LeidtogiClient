@@ -1,0 +1,56 @@
+<yml_catalog>
+    <offers>
+        <!-- id - артикул, available - наличие -->
+        <offer id="4933471080" available="true">
+
+            <!-- обязательные параметры! -->
+
+            <!-- Название товарного предложения. -->
+            <name>Акк. УШМ M18 FHSAG125 XPDB-552X FUEL (Li-Ion5,5Ач)</name>
+            <!-- URL страницы товара. -->
+            <url>https://leidtogi.ru/milwaukee/akk-ushm-m18-fhsag125-xpdb-552x-fuel-li-ion5-5ach_4933471080</url>
+            <!-- Ссылка на изображение. -->
+            <picture>https://server.leidtogi.ru/milwaukee/4933471080/big/e13e52e0-dee0-4f7e-aa3c-ae0c5718090c.jpg</picture>
+            <!-- Цена, по которой данный товар можно приобрести. -->
+            <price>67990.00</price>
+            <!-- Код валюты (RUB, USD, UAH, KZT). -->
+            <currencyId>RUB</currencyId>
+            <!-- Идентификатор категории товара, присвоенный рекламодателем -->
+            <categoryId>22</categoryId>
+            
+            <!-- не обязательные параметры! -->
+            
+            <!-- Модель. -->
+            <model></model>
+            <!-- Производитель. -->
+            <vendor></vendor>
+            <!-- Код товара (указывается код производителя) -->
+            <vendorCode></vendorCode>
+            <!-- Описание товарного предложения. -->
+            <description>Гибкая аккумуляторная система: работает со всеми аккумуляторами Milwaukee® М18™</description>
+            <!-- Категория товара, в которой он должен быть размещен на Яндекс.Маркете. -->
+            <market_category></market_category>
+            <!-- Возможность купить товар в розничном магазине -->
+            <store>true</store>
+            <!-- Возможность самовывоза из пунктов выдачи -->
+            <pickup>true</pickup>
+            <!-- Возможность курьерской доставки товара -->
+            <delivery>true</delivery>
+            <!-- Старая цена на товар, которая обязательно должна быть выше новой цены (price). -->
+            <oldprice></oldprice>
+            <!-- Информация о заказе (Пример: "Оплата: Наличные, Б/Н, пластиковые карты, кредит") -->
+            <sales_notes></sales_notes>
+            <!-- Наличие гарантии производителя -->
+            <manufacturer_warranty>true</manufacturer_warranty>
+            <!-- Страна производства товара. -->
+            <country_of_origin></country_of_origin>
+            <!-- Товар относится к категории «для взрослых» -->
+            <adult>false</adult>
+            <!-- Возрастная категория товара. (Пример: <age unit="year">18</age>) -->
+            <age></age>
+            <!-- Возможность скачать товар -->
+            <downloadable>false</downloadable>
+
+        </offer>
+    </offers>
+</yml_catalog>
