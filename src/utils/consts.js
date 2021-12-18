@@ -84,3 +84,7 @@ export const DELIVERY_BOXBERRY_CURIER_PRICE = 250  // по г. Москва
 
 // телеграм
 export const TELEGRAM_CHAT_ID_ADMIN = 1038937592 // 
+
+
+// Яндекс.Метрика
+export const PURCHASE_GOAL_ID = 226560302 // номер цели "успешная оплата"
