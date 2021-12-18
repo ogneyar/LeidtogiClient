@@ -121,10 +121,10 @@ const DeliverySdek = observer((props) => {
     }
     
     // нажатие на карте метки СКЛАДА
-    const calculateAndOpenPayment = async (args) => {
+    const calculateAndOpenPayment = async (address) => {
         let cart
         cart = localStorage.getItem('cart')
-        if (cart && index.length === 6) {
+        if (cart) {
             cart = JSON.parse(cart)
             let weight = 0
             cart.forEach( i => weight += (Number(i?.value) * Number(i?.size?.weight)) )
@@ -133,21 +133,17 @@ const DeliverySdek = observer((props) => {
             weight = Math.ceil(weight)
             
             let response
-            if (args?.address) {
+            if (address) {
                 response = await sdekCalculate({
                     tariff_code: tariff,
                     from_location: { postal_code: DELIVERY_INDEX_FROM }, 
-                    to_location: { address: args.address }, 
+                    to_location: { address }, 
                     packages: [{ weight }] 
                 })
             }else {
-                response = await sdekCalculate({
-                    tariff_code: tariff,
-                    from_location: { postal_code: DELIVERY_INDEX_FROM }, 
-                    to_location: { postal_code: index }, 
-                    packages: [{ weight }] 
-                })
+                response = {error: {message: "Нет данных об адресе склада СДЭК"} }
             }
+
             if (response?.error) {
                 if (response.error?.message) {
                     props?.setTextAlert(`Ошибка: ${response.error.message}`)
@@ -162,8 +158,8 @@ const DeliverySdek = observer((props) => {
                 props?.setPayment(true)
             }
 
-        }else if (index && index.length < 6) {
-            props?.setTextAlert(`Введите правильный индекс!`)
+        }else {
+            props?.setTextAlert(`Отсутствуют данные о корзине товаров!`)
         }
     }
 
@@ -279,7 +275,7 @@ const DeliverySdek = observer((props) => {
                         longitude: response[0].location.longitude, 
                         code: response[0].code, // код ПВЗ
                         address: response[0].location.address_full,
-                        onClick: () => calculateAndOpenPayment({address: response[0].location.address_full})
+                        onClick: () => calculateAndOpenPayment(response[0].location.address_full)
                     }])
                     
                 }else if (response && Array.isArray(response) && response[0]?.location !== undefined) {
@@ -293,7 +289,7 @@ const DeliverySdek = observer((props) => {
                                 longitude: i.location.longitude, 
                                 code: i.code, 
                                 address: i.location.address_full,
-                                onClick: () => calculateAndOpenPayment({address: i.location.address_full})
+                                onClick: () => calculateAndOpenPayment(i.location.address_full)
                             }
                         })
                     )
