@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+// import ReactDomServer from 'react-dom/server'
 import { Button } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 
@@ -11,15 +12,18 @@ import { getAllProductInfos } from '../../http/productInfoAPI'
 import translit from '../../utils/translite'
 import InfoPage from '../info/InfoPage'
 import { Context } from '../..'
+import { setFeed } from '../../http/testerAPI'
 
 
 const TesterPage = () => {
-
-    const { product } = useContext(Context)
+    // eslint-disable-next-line
+    const { product, brand } = useContext(Context)
 
     const [ showAlert, setShowAlert ] = useState(false)
     const [ message, setMessage ] = useState("")
     const [ article, setArticle ] = useState("9678968-01")
+
+    const [ xml, setXML ] = useState("")
 
     const onClickButtonGetImage = () => {
         if (article !== "") {
@@ -44,12 +48,6 @@ const TesterPage = () => {
     // eslint-disable-next-line
     const onClickButtonSetUrl = async () => {
         let response = await fetchAllProducts()
-        // .then(data => {
-        //     setMessage(message + data.map(i => i.id + "\n\r"))
-        //     setShowAlert(true)
-        // })
-
-        // console.log("response",response);
 
         setShowAlert(true)
 
@@ -63,7 +61,6 @@ const TesterPage = () => {
             }
         })
 
-        // if (message) setMessage(message + "Закончил!<br /><br />")
     }
 
 
@@ -142,10 +139,37 @@ const TesterPage = () => {
         setMessage(messageInfo)
     }
 
+    const getXML = async () => {
+        if (product?.allProducts) {
+            setXML("...")
+
+            let response = await setFeed()
+
+            if (response?.error) setXML("ошибка")
+            else setXML("успех")
+
+        }else setXML("")
+    }
 
     return (
         <InfoPage>
             <div>
+                <br />
+                Создание фида yml для Яндекс.Метрики
+                <hr />
+                {xml &&
+                <>
+                    {xml}
+                    <br />
+                </> 
+                }
+                <Button onClick={getXML}>
+                    Создать фид
+                </Button>
+                <hr />
+
+                <br />
+                Поиск отсутствующих параметров
                 <hr />
                 <Button onClick={getProductWithOutGabarites}>
                     Поcмотреть товары без габаритов
@@ -164,6 +188,8 @@ const TesterPage = () => {
                 </Button>
                 <hr />
                 <br />
+                Husqvarana
+                <hr />
                 <Input type="text" value={article} onChange={(e) => setArticle(e.target.value)} />
                 <hr />
                 <Button onClick={onClickButtonGetImage}>
