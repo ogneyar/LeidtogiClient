@@ -81,11 +81,10 @@ const DeliveryBoxberry = observer((props) => {
     
 
     // нажатие на карте метки СКЛАДА
-    const calculateAndOpenPayment = async (args) => { 
+    const calculateAndOpenPayment = async (code) => { 
         let cart = localStorage.getItem('cart')
-        if (cart && name) {
+        if (cart) {
             setLoading(true)
-
             cart = JSON.parse(cart)
             let weight = 0
             cart.forEach( i => weight += (Number(i?.value) * Number(i?.size?.weight)) )
@@ -93,9 +92,9 @@ const DeliveryBoxberry = observer((props) => {
             weight = weight * 1000
             weight = Math.ceil(weight)
            
-            if (args?.Code) {
+            if (code) {
                 let response = await getDeliveryCosts({
-                    target: args.Code, // 16126
+                    target: code, // 16126
                     weight
                 })
                 if (response?.error) {
@@ -115,8 +114,8 @@ const DeliveryBoxberry = observer((props) => {
                 
             setLoading(false)
 
-        }else if (!name) {
-            props?.setTextAlert(`Введите районный город!`)
+        }else {
+            props?.setTextAlert(`Отсутствуют данные о корзине товаров!`)
         }
     }
 
@@ -146,7 +145,7 @@ const DeliveryBoxberry = observer((props) => {
                                 phone: i.Phone,
                                 work: i.WorkShedule,
                                 description: i.TripDescription,
-                                onClick: () => calculateAndOpenPayment({Code: i.Code})
+                                onClick: () => calculateAndOpenPayment(i.Code)
                             }
                         })
                     )
