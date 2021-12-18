@@ -14,15 +14,22 @@ import Loading from '../../components/Loading'
 import CreateOrder from '../../components/order/CreateOrder'
 import Confirm from '../../components/myBootstrap/Confirm'
 
+import addDataLayer from '../../service/dataLayer/add'
+import removeDataLayer from '../../service/dataLayer/remove'
 
 const Cart = () => {
 
+    // состояние корзины
     const [state, setState] = useState([])
+    // итоговая стоимость товаров
     const [amount, setAmount] = useState(0)
+    // загрузка данных
     const [loading, setLoading] = useState(true)
-
+    // показ сообщения 
     const [showConfirm, setShowConfirm] = useState(false)
+    // ответ от пользователя
     const [response, setResponse] = useState(null)
+    //
     const [item, setItem] = useState(null)
 
     let cart
@@ -61,6 +68,12 @@ const Cart = () => {
                 setAmount(totalValue)
                 localStorage.setItem('cart', JSON.stringify(cart))
             }
+            removeDataLayer({
+                article: item?.article,
+                name: item?.name,
+                price: item?.price,
+                value: item?.value
+            })
             setResponse(null)
             setItem(null)
         }else if (response && response === "no"){
@@ -68,6 +81,7 @@ const Cart = () => {
             setItem(null)
         }
     }, [response, item])
+
 
     const editValue = (action, item) => {
         cart = localStorage.getItem('cart')
@@ -87,6 +101,21 @@ const Cart = () => {
                 totalValue += i.total
                 return i
             })
+            if (action === "plus") {
+                addDataLayer({
+                    article: item?.article,
+                    name: item?.name,
+                    price: item?.price,
+                    value: 1
+                })
+            }else if (action === "minus") {
+                removeDataLayer({
+                    article: item?.article,
+                    name: item?.name,
+                    price: item?.price,
+                    value: 1
+                })
+            }
             setState(cart)
             setAmount(totalValue)
             localStorage.setItem('cart', JSON.stringify(cart))
