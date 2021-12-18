@@ -15,7 +15,7 @@ import { fetchOneProduct, fetchOneProductOnUrl } from '../../http/productAPI'
 
 const Aside = observer(() => {
 
-    const { category, brand } = useContext(Context)
+    const { category, brand, bread } = useContext(Context)
 
     const history = useHistory()
     
@@ -29,11 +29,13 @@ const Aside = observer(() => {
     function recursiveFunction(path) {
         if (path === "") {
             setBreadCrumbsState([])
+            bread.setCrumbs([])
         }else if (category?.allCategories && category?.allCategories.length > 0) {
             category.allCategories.forEach(i => {
                 if (i?.url === path) {
                     breadCrumbs = [ {name: i?.name, url: i.url}, ...breadCrumbs ]
                     setBreadCrumbsState([...breadCrumbs])
+                    bread.setCrumbs([...breadCrumbs])
                     if (i?.sub_category_id !== 0) {
                         category.allCategories.forEach(j => {
                             if (i.sub_category_id === j?.id) {
@@ -74,6 +76,7 @@ const Aside = observer(() => {
 
             if (yes) {
                 setBreadCrumbsState([])
+                bread.setCrumbs([])
             }else {
                 recursiveFunction(path)
             }
@@ -118,6 +121,7 @@ const Aside = observer(() => {
         let path = history.location.pathname.replace(/\//,"") 
         if (path === "") {
             setBreadCrumbsState([])
+            bread.setCrumbs([])
         }else {
             breadCrumbs = []
             recursiveFunction(path)
@@ -151,4 +155,4 @@ const Aside = observer(() => {
     )
 })
 
-export default Aside
+export default Aside 
