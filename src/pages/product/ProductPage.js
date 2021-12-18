@@ -11,26 +11,23 @@ import Error from '../error/ErrorPage'
 import Loading from '../../components/Loading'
 import ButtonBuy from '../../components/cart/ButtonBuy'
 import Rating from '../../components/rating/Rating'
-// eslint-disable-next-line
-import ShopPage from '../shop/ShopPage'
+import detailDataLayer from '../../service/dataLayer/detail'
 import { Context } from '../..'
 import './ProductPage.css'
 
 
 const ProductPage =  observer(() => {
-
-    const { rating } = useContext(Context)
+    // eslint-disable-next-line
+    const { rating, bread } = useContext(Context)
 
     const { id, url } = useParams()
-
-    // if (!id) return <ShopPage />
 
     const history = useHistory()
     
     const [product, setProduct] = useState({name: "", article: "", img: "", price: "", info: [], size: []})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
-
+    
     useEffect(() => {
         if (id) {
             fetchOneProduct(id)
@@ -69,6 +66,15 @@ const ProductPage =  observer(() => {
     if (loading) return <Loading />
 
     if (error) return <Error />
+
+    if (!loading && !error) {
+        detailDataLayer({ // Яндекс.Метрика
+            article: product?.article,
+            name: product?.name,
+            price: product?.price,
+        })
+    }
+
 
     return ( 
         <Container className="ProductPage">
