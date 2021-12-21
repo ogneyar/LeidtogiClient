@@ -7,7 +7,7 @@
     cursor: pointer;
 }
 .RatingLabel {
-    padding-top: 10px;
+    padding-top: 0;
     font-size: 24px;
 }
 .RatingBody {
@@ -25,7 +25,20 @@
 .RatingValue {
     position: absolute;
     margin-top: 10px;
-    font-size: 64px;
     color: rgb(0, 128, 0);
-    z-index: 1;    
+    z-index: 1;
+}
+
+.RatingValue label {
+    font-size: 64px;
+}
+
+.RatingValue small {
+    display:flex;
+    cursor: pointer;
+    font-size: 24px;
+    width: 100px;
+    padding-top: 10px;
+    text-align: center;
+    /* background-color: yellow; */
 }
