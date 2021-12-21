@@ -27,8 +27,11 @@ const Confirm = (props) => {
             <Modal.Body
                 className="ConfirmModalBody"
             >
-
-                {props.children ? props.children : props?.message}
+                <div
+                    className="ConfirmModalBody_Message"
+                >
+                    {props.children ? props.children : props?.message}
+                </div>
                 
                 <div
                     className="ConfirmModalBodyDivButtons"
@@ -39,6 +42,7 @@ const Confirm = (props) => {
                             props?.setResponse("yes")
                             props?.onHide()
                         }}
+                        // width="100px"
                     >
                         Да
                     </Button>
