@@ -27,10 +27,15 @@ const Notification = (props) => {
                 e.stopPropagation()
                 e.preventDefault()
             }}
+            size={props?.size || null}
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Уведомление
+                    {props?.title || "Уведомление"}
+                    
+                    <label
+                        style={{marginLeft:"20px",fontSize:"13px",color:"grey"}}
+                    >{props?.titleMore || null}</label>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body
