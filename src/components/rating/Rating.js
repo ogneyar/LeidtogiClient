@@ -33,11 +33,12 @@ const Rating = observer((props) => {
             className="Rating" 
         >
 
+            {rating.rate !== 0 && 
             <label
                 className="RatingLabel"
             >
                 Общий рейтинг товара
-            </label>
+            </label>}
             
             <div
                 className="RatingBody"
@@ -55,7 +56,12 @@ const Rating = observer((props) => {
                 <div
                     className="RatingValue"
                 >
-                    {rating.rate}
+                    {rating.rate !== 0 
+                    ?
+                        <label>{rating.rate}</label>
+                    :
+                        <small>Оценить товар</small>
+                    }
                 </div>
             </div>
 
@@ -71,8 +77,8 @@ const Rating = observer((props) => {
             <Notification 
                 show={notificationModalVisible}
                 onHide={() => setNotificationModalVisible(false)}
-                message={"Для выставления оценки товару необходимо зарегистрироваться."}
-                time={2500}
+                message={"Для выставления оценки необходимо авторизоваться."}
+                time={3000}
             />
 
         </div>
