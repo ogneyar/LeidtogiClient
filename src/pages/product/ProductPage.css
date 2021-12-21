@@ -20,6 +20,9 @@
     flex-direction: column; 
     align-items: center; 
 }
+.ProductImage {
+    padding-bottom: 10px;
+}
 .ProductImageDiv {    
     display: flex;
     flex-direction: row; 
@@ -33,7 +36,7 @@
 .ProductCard {
     justify-content: space-around;
     width: 300px; 
-    height: 300px; 
+    height: 275px; 
     font-size: 32px;
     border: 5px solid lightgray;
 }
