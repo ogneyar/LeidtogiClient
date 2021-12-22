@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { observer } from 'mobx-react-lite'
 import { useHistory } from 'react-router'
 import $ from 'jquery'
 
@@ -12,11 +13,14 @@ import addDataLayer from '../../service/dataLayer/add'
 import removeDataLayer from '../../service/dataLayer/remove'
 // eslint-disable-next-line
 import CreateOrder from '../order/CreateOrder'
+import { Context } from '../..'
 import './ButtonBuy.css'
 
 
 
 const ButtonBuy = (props) => { 
+    
+    const context = useContext(Context)
 
     const [notificationVisible, setNotificationVisible] = useState(false)
     
@@ -37,7 +41,7 @@ const ButtonBuy = (props) => {
                         setValue(i.value)
                     }
                 })
-                // setQuantity(data.length)
+                context.cart.setCart(data)
             })
             addDataLayer({
                 article: props?.product?.article,
@@ -55,7 +59,7 @@ const ButtonBuy = (props) => {
                             setValue(i.value)
                         }
                     })
-                    // setQuantity(data.length)
+                    context.cart.setCart(data)
                 })
                 removeDataLayer({
                     article: props?.product?.article,
@@ -69,9 +73,8 @@ const ButtonBuy = (props) => {
             let cart = onClickButtonBuy(e, props?.product, "delete")
             cart.then(data => {
                 setQuantity(data.length)
-                // if (data.length === 0) {
-                    setNotificationVisible(false)
-                // }
+                setNotificationVisible(false)
+                context.cart.setCart(data)
             })
             removeDataLayer({
                 article: props?.product?.article,
@@ -106,6 +109,7 @@ const ButtonBuy = (props) => {
                         }
                     })
                     setQuantity(data.length)
+                    context.cart.setCart(data)
                 })
             }}
         >
@@ -204,4 +208,4 @@ const ButtonBuy = (props) => {
     )
 }
 
-export default ButtonBuy
+export default observer(ButtonBuy)
