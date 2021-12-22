@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactHtmlParser from 'react-html-parser'
 
-import { MAIL, ADDRESS, PHONE_ONE, TIME_TO_WORK } from '../../utils/consts'
+import { MAIL, ADDRESS_FULL, PHONE_ONE, TIME_TO_WORK } from '../../utils/consts'
 import './FooterContacts.css'
 
 const FooterContacts = () => {
@@ -17,7 +17,7 @@ const FooterContacts = () => {
                     <li>
                         <span className="fa fa-map-marker">&nbsp;</span>
                         <div className="media-body">
-                            <p>{ADDRESS}</p>
+                            <p>{ADDRESS_FULL}</p>
                         </div>
                     </li>
                     <li>
