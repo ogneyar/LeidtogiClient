@@ -20,7 +20,7 @@ import './styles/App.css'
 
 const App = observer(() => {
 
-    const { user, product, category, brand } = useContext(Context)
+    const { user, product, category, brand, cart } = useContext(Context)
     const [loading, setLoading] = useState(false)
     // eslint-disable-next-line
     const [error, setError] = useState(false)
@@ -71,7 +71,12 @@ const App = observer(() => {
                     brand.setSelectedBrand(data[0])
                 },
                 err => console.log(err))
-                
+        
+        let basket = localStorage.getItem('cart')
+        if (basket) {
+            cart.setCart(JSON.parse(basket))
+        }
+        
     // eslint-disable-next-line
     }, [])
     // }, [brand, category, product, user])
