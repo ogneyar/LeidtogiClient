@@ -1,20 +1,22 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Spinner, Navbar, Nav, Button, Container, Image } from 'react-bootstrap'
-import { observer } from 'mobx-react-lite'
+import ReactHtmlParser from 'react-html-parser'
 import { useHistory } from 'react-router-dom'
+import { observer } from 'mobx-react-lite'
 
 import { NavLink } from '../myBootstrap'
 import { Context } from '../..'
-import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE, CART_ROUTE, LK_ROUTE } from '../../utils/consts'
+import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE, CART_ROUTE, LK_ROUTE, NAME, ADDRESS, PHONE_ONE, MAIL } from '../../utils/consts'
 import logo from '../../assets/logo.png'
-import cart from '../../assets/cart.png'
+import basket from '../../assets/cart.png'
 import { logout } from '../../http/userAPI'
 
 import './NavBar.css';
 
 
 const NavBar = observer(() => {
-    const { user } = useContext(Context)
+
+    const { user, cart } = useContext(Context)
     const history = useHistory()
 
     const onClickLogoutButton = () => {
@@ -24,6 +26,15 @@ const NavBar = observer(() => {
         logout()
         history.push(LOGIN_ROUTE)
     }
+
+    const [ quantity, setQuantity ] = useState(0)
+
+    useEffect(() => {
+        if (cart?.cart) {
+            setQuantity(cart?.cart?.length)
+        }
+    },[cart?.cart])
+
 
     return (
         <Navbar 
@@ -55,15 +66,28 @@ const NavBar = observer(() => {
                         </NavLink>
                     </div>
 
+                    <div
+                        className="NavBar_Col_Contacts"
+                    >
+                        <label className="NavBar_Col_Contacts_Name">{NAME}</label>
+                        <label className="NavBar_Col_Contacts_Address">{ADDRESS}</label>
+                        <label className="NavBar_Col_Contacts_Phone">{ReactHtmlParser(PHONE_ONE)}</label>
+                        <label className="NavBar_Col_Contacts_Mail">{ReactHtmlParser(MAIL)}</label>
+                    </div>
+
                     <div 
                         className="NavBar_Col_Buttons"
                     >
-                        
-
                             <NavLink className="NavLink NavBar_Cart"
                                 to={CART_ROUTE}
                             >
-                                <Image className="NavBar_Cart_Image" src={cart} />
+                                <div className="NavBar_Cart_Box">
+
+                                    <Image className="NavBar_Cart_Image" src={basket} />
+                                    
+                                   {quantity !== 0 && <span>{quantity}</span>}
+
+                                </div>
                             </NavLink>
                         <Nav>
                             {user.loading
