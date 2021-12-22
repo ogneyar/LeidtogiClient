@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { observer } from 'mobx-react-lite'
 import { Card } from 'react-bootstrap'
 
 import { API_URL } from '../../utils/consts'
@@ -8,16 +9,18 @@ import Delivery from '../../components/delivery/Delivery'
 // eslint-disable-next-line
 import Payment from '../../components/payment/Payment'
 import NullCart from './NullCart'
-
-import './CartPage.css'
 import Loading from '../../components/Loading'
 import CreateOrder from '../../components/order/CreateOrder'
 import Confirm from '../../components/myBootstrap/Confirm'
-
 import addDataLayer from '../../service/dataLayer/add'
 import removeDataLayer from '../../service/dataLayer/remove'
+import { Context } from '../..'
+import './CartPage.css'
+
 
 const Cart = () => {
+
+    const context = useContext(Context)
 
     // состояние корзины
     const [state, setState] = useState([])
@@ -53,6 +56,7 @@ const Cart = () => {
             cart = JSON.parse(cart)
             if (cart.length === 1) {
                 localStorage.removeItem('cart')
+                context.cart.setCart([])
                 setState(null)
                 setAmount(0)
             }else {
@@ -67,6 +71,7 @@ const Cart = () => {
                 setState(cart)
                 setAmount(totalValue)
                 localStorage.setItem('cart', JSON.stringify(cart))
+                context.cart.setCart(cart)
             }
             removeDataLayer({
                 article: item?.article,
@@ -80,7 +85,7 @@ const Cart = () => {
             setResponse(null)
             setItem(null)
         }
-    }, [response, item])
+    }, [response, item, context.cart])
 
 
     const editValue = (action, item) => {
@@ -119,6 +124,7 @@ const Cart = () => {
             setState(cart)
             setAmount(totalValue)
             localStorage.setItem('cart', JSON.stringify(cart))
+            context.cart.setCart(cart)
         }
     }
 
@@ -286,4 +292,4 @@ const Cart = () => {
 
 }
 
-export default Cart
+export default observer(Cart)
