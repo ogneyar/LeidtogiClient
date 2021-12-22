@@ -1,9 +1,11 @@
 // import Notification from "../../components/myBootstrap/Notification"
 import { fetchProductSizes } from "../../http/productAPI"
 
+
 export const onClickButtonBuy = async (e, product, type = "add") => {
     e.stopPropagation()
     e.preventDefault()
+
 
     let size 
 
@@ -66,8 +68,10 @@ export const onClickButtonBuy = async (e, product, type = "add") => {
         }
 
     }
-    localStorage.setItem('cart', JSON.stringify(cart))
-    // alert("Товар добавлен в корзину.")
+
+    if (cart.length > 0) localStorage.setItem('cart', JSON.stringify(cart))
+    else localStorage.removeItem('cart')
+
 
     return cart
 }
