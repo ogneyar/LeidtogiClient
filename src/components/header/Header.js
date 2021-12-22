@@ -1,6 +1,7 @@
 import React from 'react'
 import Top from './Top'
 import NavBar from './NavBar'
+import Address from './Address'
 import Aside from './Aside'
 // eslint-disable-next-line
 import Banner from './Banner'
@@ -17,6 +18,7 @@ const Header = () => {
         >
             <Top />
             <NavBar />
+            <Address />
             {/* <Banner /> */}
             {/* <Carousel /> */}
             <Aside />
