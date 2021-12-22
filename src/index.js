@@ -7,6 +7,7 @@ import CategoryStore from './store/CategoryStore'
 import BrandStore from './store/BrandStore'
 import RatingStore from './store/RatingStore'
 import BreadCrumbsStore from './store/BreadCrumbsStore'
+import CartStore from './store/CartStore'
 
 import './styles/index.css'
 
@@ -21,7 +22,8 @@ ReactDOM.render(
     category: new CategoryStore(),
     brand: new BrandStore(),
     rating: new RatingStore(),
-    bread: new BreadCrumbsStore()
+    bread: new BreadCrumbsStore(),
+    cart: new CartStore()
   }}>
     <App />
   </Context.Provider>,
