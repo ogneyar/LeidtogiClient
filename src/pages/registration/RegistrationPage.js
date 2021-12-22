@@ -146,7 +146,7 @@ const RegistrationPage = observer(() => {
                         offset = 2
                     break
 
-                    case 10:                        
+                    case 10:
                     case 13:
                         if (lastLength < length) offset = 1
                     break
