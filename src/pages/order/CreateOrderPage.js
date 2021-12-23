@@ -181,12 +181,12 @@ const CreateOrderPage = () => {
                                 Если Вы зарегистрированы на нашем сайте, то <NavLink to={LOGIN_ROUTE + "?returnUrl=" + CREATE_ORDER_ROUTE}>авторизуйтесь</NavLink>, тогда не надо будет повторно вводить Ваши данные и проще будет отследить Ваш заказ!
                             </div>
 
-                            <label>Введите Ваше Ф.И.О.</label>
+                            <label>Введите Ф.И.О.</label>
                             <Form.Control 
                                 value={name} 
                                 onChange={e => setName(e.target.value)} 
-                                title="Введите Ваше Ф.И.О." 
-                                placeholder="Ваше Ф.И.О." 
+                                title="Введите Ваши Ф.И.О." 
+                                placeholder="Ваши Ф.И.О." 
                             />
                             <span>&nbsp;</span>
 
