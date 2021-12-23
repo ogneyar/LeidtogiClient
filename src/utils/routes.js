@@ -10,7 +10,7 @@ import ShopPage from '../pages/shop/ShopPage'
 import ProductPage from '../pages/product/ProductPage'
 import CartPage from '../pages/cart/CartPage'
 import PayPage from '../pages/pay/PayPage' // redirect on bank
-import CreateOrderPage from '../pages/order/CreateOrderPage'
+import CreateOrderPage from '../pages/createOrder/CreateOrderPage'
 import SearchPage from '../pages/search/SearchPage'
 import SuccessPage from '../pages/success/SuccessPage'
 import CongratulationPage from '../pages/congratulation/CongratulationPage'

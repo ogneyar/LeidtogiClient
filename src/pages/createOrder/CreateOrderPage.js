@@ -44,13 +44,6 @@ const CreateOrderPage = () => {
     const [ message, setMessage ] = useState("")
 
     useEffect(() => {
-        // let basket = localStorage.getItem('cart')
-        // if (basket) {
-        //     basket = JSON.parse(basket)
-        //     let totalValue = 0
-        //     basket.forEach(i => totalValue += i.total)
-        //     setAmount(totalValue)
-        // }
         if (cart?.cart) {
             let totalValue = 0
             cart?.cart.forEach(i => totalValue += i.total)
@@ -83,6 +76,12 @@ const CreateOrderPage = () => {
         }
     },[phone, phoneSelection])
 
+    useEffect(() => {
+        if (message) {
+            window.innerWidth > 991 ? scrollUp(SCROLL_TOP) : scrollUp(SCROLL_TOP_MOBILE)
+        }
+    },[message])
+
     
     const phoneFunction = (e) => {
         let val = e.target.value
@@ -90,7 +89,7 @@ const CreateOrderPage = () => {
         let start = e.target.selectionStart
         let length = val.length
         let lastLength = phone.length
-        val = val.match(/\d/g).join('')
+        if (val) val = val.match(/\d/g).join('')
         let numberLength = val.length
         if (Number(val) || val === "") {
             switch(numberLength) {
@@ -322,7 +321,7 @@ const CreateOrderPage = () => {
                                 : 
                                 <div>
                                     <div className="CreateOrderPagePayment">
-                                        {name && <p>Ваше имя: <strong>{name}</strong></p>}
+                                        {name && <p>Вы: <strong>{name}</strong></p>}
                                         {phone && <p>Ваш телефон: <strong>+7&nbsp;{phone}</strong></p>}
                                         <p>Ваш email: <strong>{email}</strong></p>
                                         
