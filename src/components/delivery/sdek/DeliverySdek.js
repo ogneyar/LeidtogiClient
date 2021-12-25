@@ -342,9 +342,8 @@ const DeliverySdek = observer((props) => {
         <div className="DeliverySdek" id="DeliverySdek"> 
 
             <div className="DeliverySdekTooltip">
-                {/* <p>Введите индекс и нажмите "Найти склад СДЭК".</p> */}
-                <p>Введите название Вашего районного города и нажмите "Найти склад СДЭК".</p>
-                <p>После, найдите на карте и нажмите на значёк склада СДЭК.</p>
+                Введите название Вашего районного города и нажмите "Найти склад СДЭК".
+                После, найдите на карте и нажмите на значёк склада СДЭК.
             </div>
     
             <div className="DeliverySdekLeftPanel">

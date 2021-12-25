@@ -202,8 +202,8 @@ const DeliveryBoxberry = observer((props) => {
             className="DeliveryBoxberry"
         >
             <div className="DeliveryBoxberryTooltip">
-                <p>Введите название Вашего районного города и нажмите "Найти склад Boxberry".</p>
-                <p>После, найдите на карте и нажмите на значёк склада Boxberry.</p>
+                Введите название Вашего районного города и нажмите "Найти склад Boxberry".
+                После, найдите на карте и нажмите на значёк склада Boxberry.
             </div>
 
             <div className="DeliveryBoxberryLeftPanel">
@@ -269,7 +269,7 @@ const DeliveryBoxberry = observer((props) => {
                         {info?.delivery_period 
                         ? 
                             <div>Срок доставки:&nbsp;
-                                {info?.delivery_period}
+                                {info?.delivery_period} д.
                             </div> 
                         : null}
                         {info?.weight 
