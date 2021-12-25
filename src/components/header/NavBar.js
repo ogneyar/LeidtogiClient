@@ -137,7 +137,7 @@ const NavBar = observer(() => {
                             
 
                                 <Button 
-                                    onClick={() => history.push(LOGIN_ROUTE)}
+                                    onClick={() => history.push(LOGIN_ROUTE + "?returnUrl=" + history?.location?.pathname)}
                                     variant={'outline-light'}
                                 >
                                     Авторизация
