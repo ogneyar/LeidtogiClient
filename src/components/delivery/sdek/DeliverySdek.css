@@ -2,13 +2,10 @@
     margin-top: 10px;
     margin-bottom: 10px;
     width: 100%;
-    /* min-height: 400px; */
-    /* background-color: pink; */
 }
 
-.DeliverySdek p {
+.DeliverySdekTooltip {
     font-size: 16px;
-    /* line-height: 2px; */
     padding: 0;
     margin: 0;
 }
@@ -21,9 +18,6 @@
 
 .DeliverySdekLeftPanel {
     position: absolute;
-    /* top: 40px;
-    left: 25px; */
-    /* display: none; */
     z-index: 1000;
     background: white;
     opacity: 0.9;
@@ -34,8 +28,6 @@
 
 @media(max-width: 1000px) {
     .DeliverySdekLeftPanel {
-        /* margin-top: 5px;
-        margin-left: 5px; */
     }
 }
 
