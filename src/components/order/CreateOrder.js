@@ -16,8 +16,8 @@ const CreateOrder = (props) => {
                 <Button
                     onClick={() => {
                         props?.setLoad()
-                        // history.push(CREATE_ORDER_ROUTE)
-                        window.open(CREATE_ORDER_ROUTE,'_self',false)
+                        history.push(CREATE_ORDER_ROUTE)
+                        // window.open(CREATE_ORDER_ROUTE,'_self',false)
                         scrollUp(SCROLL_TOP)
                     }}
                     className="CreateOrderButton"
