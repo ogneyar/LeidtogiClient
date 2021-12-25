@@ -3,13 +3,13 @@ import ReactHtmlParser from 'react-html-parser'
 // eslint-disable-next-line
 import { YMaps, Map, Placemark, FullscreenControl, TypeSelector, ZoomControl } from 'react-yandex-maps'
 
-import DeliveryBusinessLines from './DeliveryBusinessLines'
-import DeliveryBoxberry from './boxberry/DeliveryBoxberry'
-import { SCROLL_TOP } from '../../utils/consts'
 import DeliverySdek from './sdek/DeliverySdek'
-import DeliveryPochta from './DeliveryPochta'
-import scrollUp from '../../utils/scrollUp'
+import DeliveryBoxberry from './boxberry/DeliveryBoxberry'
+import DeliveryDL from './dl/DeliveryDL'
 import DeliveryPek from './DeliveryPek'
+import DeliveryPochta from './DeliveryPochta'
+import { SCROLL_TOP } from '../../utils/consts'
+import scrollUp from '../../utils/scrollUp'
 import { Alert } from '../myBootstrap'
 import Loading from '../Loading'
 import './Delivery.css'
@@ -43,8 +43,23 @@ export default function Delivery(props) {
     const resize = () => {
         let div = document.getElementById("DeliveryComponent")
         if (div) {
-            if (window.innerWidth < 1000) {
+            if (window.innerWidth < 768 && window.innerWidth > 730) {
+                div.style.width = window.innerWidth - 280 + "px"
+                setSmallWidth(true)
+            }else if (window.innerWidth <= 730 && window.innerWidth > 687) {
+                div.style.width = window.innerWidth - 250 + "px"
+                setSmallWidth(true)
+            }else if (window.innerWidth <= 687 && window.innerWidth > 630) {
+                div.style.width = window.innerWidth - 200 + "px"
+                setSmallWidth(true)
+            }else if (window.innerWidth <= 630 && window.innerWidth > 590) {
+                div.style.width = window.innerWidth - 150 + "px"
+                setSmallWidth(true)
+            }else if (window.innerWidth <= 590 && window.innerWidth > 420) {
                 div.style.width = window.innerWidth - 100 + "px"
+                setSmallWidth(true)
+            }else if (window.innerWidth <= 420) {
+                div.style.width = window.innerWidth - 50 + "px"
                 setSmallWidth(true)
             }else {
                 div.style.width = "100%"
@@ -71,13 +86,13 @@ export default function Delivery(props) {
         >
 
             <header className="DeliveryHeader">
-                <h4>Расчёт доставки&nbsp;
+                <div>Расчёт доставки&nbsp;
                     {delivery === "sdek" && `"Службой Доставки Экспресс Курьер"`}
                     {delivery === "boxberry" && `"Boxberry"`}
-                    {delivery === "pochta" && `"Почтой России"`}
-                    {delivery === "businessLines" && `"Деловыми Линиями"`}
+                    {delivery === "dl" && `"Деловыми Линиями"`}
                     {delivery === "pek" && `"Первой Экспедиционной Компанией"`}
-                </h4>
+                    {delivery === "pochta" && `"Почтой России"`}
+                </div>
             </header>
 
             <div
@@ -105,28 +120,18 @@ export default function Delivery(props) {
                 >
                     Boxberry
                 </button>
-                {/* <button
-                    className={delivery === "pochta"  ? "DeliveryActionButton" : "DeliveryButton"}
-                    disabled={delivery === "pochta"}
+                
+                <button
+                    className={delivery === "dl" ? "DeliveryActionButton" : "DeliveryButton"}
+                    disabled={delivery === "dl"}
                     onClick={() => {
-                        setDelivery("pochta")
-                        setPlacemark([])
-                        setIconImageHref("")
-                    }}
-                >
-                    Почта России
-                </button> */}
-                {/* <button
-                    className={delivery === "businessLines" ? "DeliveryActionButton" : "DeliveryButton"}
-                    disabled={delivery === "businessLines"}
-                    onClick={() => {
-                        setDelivery("businessLines")
+                        setDelivery("dl")
                         setPlacemark([])
                         setIconImageHref("")
                     }}
                 >
                     Деловые Линии
-                </button> */}
+                </button>
                 {/* <button
                     className={delivery === "pek" ? "DeliveryActionButton" : "DeliveryButton"}
                     disabled={delivery === "pek"}
@@ -137,6 +142,17 @@ export default function Delivery(props) {
                     }}
                 >
                     ПЭК
+                </button> */}
+                {/* <button
+                    className={delivery === "pochta"  ? "DeliveryActionButton" : "DeliveryButton"}
+                    disabled={delivery === "pochta"}
+                    onClick={() => {
+                        setDelivery("pochta")
+                        setPlacemark([])
+                        setIconImageHref("")
+                    }}
+                >
+                    Почта России
                 </button> */}
                 
             </div>
@@ -170,22 +186,9 @@ export default function Delivery(props) {
                     />
                 : null}
 
-                {delivery === "pochta" 
+                {delivery === "dl" 
                 ? 
-                    <DeliveryPochta 
-                        {...props} 
-                        setLatitude={setLatitude} 
-                        setLongitude={setLongitude} 
-                        setTextAlert={setTextAlert} 
-                        setPlacemark={setPlacemark}
-                        setLoadingDelivery={setLoading}
-                        setIconImageHref={setIconImageHref}
-                    />
-                : null}
-
-                {delivery === "businessLines" 
-                ? 
-                    <DeliveryBusinessLines 
+                    <DeliveryDL 
                         {...props} 
                         setLatitude={setLatitude} 
                         setLongitude={setLongitude} 
@@ -199,6 +202,19 @@ export default function Delivery(props) {
                 {delivery === "pek" 
                 ? 
                     <DeliveryPek 
+                        {...props} 
+                        setLatitude={setLatitude} 
+                        setLongitude={setLongitude} 
+                        setTextAlert={setTextAlert} 
+                        setPlacemark={setPlacemark}
+                        setLoadingDelivery={setLoading}
+                        setIconImageHref={setIconImageHref}
+                    />
+                : null}
+                
+                {delivery === "pochta" 
+                ? 
+                    <DeliveryPochta 
                         {...props} 
                         setLatitude={setLatitude} 
                         setLongitude={setLongitude} 
