@@ -13,9 +13,6 @@
 }
 
 .CreateOrderPageBody {
-    /* display:flex;
-    align-items: center; 
-    justify-content: center; */
 }
 
 .CreateOrderPageBodyMessage {
@@ -34,6 +31,9 @@
 @media(max-width: 450px) {
     .CreateOrderPageChoiseDelivery {
         flex-direction: column;
+    }
+    .CreateOrderPageTitle {
+        font-size: 26px;
     }
 }
 
