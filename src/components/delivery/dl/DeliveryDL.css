@@ -10,7 +10,8 @@
     padding: 0;
 }
 
-.DeliveryDL_Tooltip {
+.DeliveryDL_Tooltip,
+.DeliveryDL p {
     font-size: 16px;
     padding: 0;
     margin: 0;
