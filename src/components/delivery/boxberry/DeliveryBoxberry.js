@@ -59,6 +59,7 @@ const DeliveryBoxberry = observer((props) => {
                                 onClick={() => {
                                     setName(i.Name)
                                     localStorage.setItem('delivery_city', i.Name)
+                                    // localStorage.setItem('delivery_region', i.Region)
                                     setListCitiesNull(true)
                                     onClickButtonListPoints(i.Name)
                                 }} 
@@ -203,7 +204,7 @@ const DeliveryBoxberry = observer((props) => {
         >
             <div className="DeliveryBoxberryTooltip">
                 Введите название Вашего районного города и нажмите "Найти склад Boxberry".
-                После, найдите на карте и нажмите на значёк склада Boxberry.
+                После, найдите на карте и нажмите на значёк склада Boxberry. <img src="images/delivery/boxberry/boxberry.png" width="30px" alt=""/>
             </div>
 
             <div className="DeliveryBoxberryLeftPanel">
