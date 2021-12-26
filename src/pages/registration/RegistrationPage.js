@@ -88,9 +88,14 @@ const RegistrationPage = observer(() => {
         let length = val.length
         let lastLength = info.phone.length
 
-        if (val) val = val.match(/\d/g).join('')
+        if (val) val = val.match(/\d/g)
 
-        let numberLength = val.length
+        if (val) val = val.join('')
+
+        let numberLength
+
+        if (val) numberLength = val.length
+        else numberLength = 0
 
         if (Number(val) || val === "") {
 
