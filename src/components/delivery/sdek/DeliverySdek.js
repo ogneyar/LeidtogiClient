@@ -343,7 +343,7 @@ const DeliverySdek = observer((props) => {
 
             <div className="DeliverySdekTooltip">
                 Введите название Вашего районного города и нажмите "Найти склад СДЭК".
-                После, найдите на карте и нажмите на значёк склада СДЭК.
+                После, найдите на карте и нажмите на значёк склада СДЭК. <img src="images/delivery/sdek/sdek.png" width="30px" alt=""/>
             </div>
     
             <div className="DeliverySdekLeftPanel">
