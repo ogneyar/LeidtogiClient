@@ -54,6 +54,8 @@ const CreateOrderPage = () => {
     useEffect(() => {
         if (user?.user?.email) {
             setEmail(user.user?.email)
+            if (user.user?.phone) setPhone(user.user.phone.toString().substring(1,user.user.phone.length))
+            if (user.user?.name) setName(user.user?.name)
             setLoad(false)
         }
         if (user?.user?.id) {
@@ -325,7 +327,7 @@ const CreateOrderPage = () => {
                                         {phone && <p>Ваш телефон: <strong>+7&nbsp;{phone}</strong></p>}
                                         <p>Ваш email: <strong>{email}</strong></p>
                                         
-                                        <p>Адрес склада{delivery === "sdek" ? " СДЕК" : delivery === "boxberry" ? " Boxberry" : null }:</p>
+                                        <p>Адрес склада{delivery === "sdek" ? " СДЕК" : delivery === "boxberry" ? " Boxberry" : delivery === "dl" ? " Деловых линий" : null }:</p>
                                         <p><strong>{address}</strong></p>
                                         <p>После оплаты с Вами свяжется наш менеджер и подскажет как отследить доставку, как вызвать курьера, когда ожидать прибытие Ваших покупок на склад.</p>
 
