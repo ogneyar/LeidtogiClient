@@ -84,6 +84,8 @@ export const DELIVERY_INDEX_FROM = 140055 // - г. Котельники // 10100
 
 export const DELIVERY_BOXBERRY_CURIER_PRICE = 250  // по г. Москва 
 
+export const DELIVERY_DL_DERIVAL_CITY = "5000003200000000000000000"  // - г. Котельники
+
 
 // телеграм
 export const TELEGRAM_CHAT_ID_ADMIN = 1038937592 // 
