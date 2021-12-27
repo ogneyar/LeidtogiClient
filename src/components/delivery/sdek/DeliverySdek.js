@@ -40,14 +40,26 @@ const DeliverySdek = observer((props) => {
     
     const [ loading, setLoading ] = useState(false) //
 
+    const sdekLocationSitiesRekursiveFunction = (args) => {
+        sdekLocationSities(args).then(data => {
+            if (data[0]?.code !== undefined) {
+                if (allCities && Array.isArray(allCities)) setAllCities([...allCities, ...data])
+                else setAllCities(data)
+                sdekLocationSitiesRekursiveFunction({page:args.page++})
+            }
+        })
+    }
 
     useEffect(() => {
         props?.setIconImageHref("images/delivery/sdek/sdek.png")
 
         sdekLocationSities()
             .then(data => {
-                setAllCities(data)
+                if (data[0]?.code !== undefined) {
+                    setAllCities(data)
+                }
             })
+        // sdekLocationSitiesRekursiveFunction({page:0})
 
         let delivery_city = localStorage.getItem('delivery_city')
         if (delivery_city) {
@@ -89,7 +101,7 @@ const DeliverySdek = observer((props) => {
 
     // поиск похожих названий городов из общего списка городов boxberry 
     const findListCities = () => {
-        if (name && allCities) {
+        if (name && allCities && Array.isArray(allCities)) {
             setListCities(allCities
                 .filter(j => j.city.toLowerCase().startsWith(name.toLowerCase()))
                 .map((i,index) => {

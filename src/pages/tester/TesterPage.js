@@ -10,9 +10,11 @@ import { fetchAllProducts, updateProduct, fetchProductSizes } from '../../http/p
 import { getAllProductSizes } from '../../http/productSizeAPI'
 import { getAllProductInfos } from '../../http/productInfoAPI'
 import translit from '../../utils/translite'
+import { API_URL } from '../../utils/consts'
 import InfoPage from '../info/InfoPage'
 import { Context } from '../..'
-import { setFeed } from '../../http/testerAPI'
+import { locationCitiesSdek, setFeed } from '../../http/testerAPI'
+import Loading from '../../components/Loading'
 
 
 const TesterPage = () => {
@@ -24,6 +26,10 @@ const TesterPage = () => {
     const [ article, setArticle ] = useState("9678968-01")
 
     const [ xml, setXML ] = useState("")
+
+    const [ locationCities, setLocationCities ] = useState("")
+    const [ loading, setLoading ] = useState(false)
+    const [ page, setPage ] = useState(0)
 
     const onClickButtonGetImage = () => {
         if (article !== "") {
@@ -151,9 +157,50 @@ const TesterPage = () => {
         }else setXML("")
     }
 
+    const getLocationCities = async (page) => {
+        // let page = 0
+        setLoading(true)
+        await locationCitiesSdek({page})
+            .then(data => {
+                if (data <= 1) {
+                    setLocationCities("Закончил успешно - " + API_URL + "deliveries/sdek/locationCities.json")
+                    setPage(0)
+                }else {
+                    // setTimeout(() => {
+                    //     getLocationCities(++page)
+                    // },[1000])
+                    setLocationCities("Количество записей - " + data)
+                    setPage(page + 1)
+                }
+            })
+            .finally(() => setLoading(false))
+    }
+
+    if (loading) return <Loading />
+
     return (
         <InfoPage>
             <div>
+                <br />
+                Создание locationCities.json для СДЭК
+                <hr />
+                {locationCities &&
+                <>
+                    {locationCities}
+                    <br />
+                </> 
+                }
+                {page ?
+                <>
+                    Номер страницы: {page}
+                    <br />
+                </> 
+                : null}
+                <Button onClick={() => getLocationCities(page)}>
+                    Создать locationCities
+                </Button>
+                <hr />
+
                 <br />
                 Создание фида yml для Яндекс.Метрики
                 <hr />
