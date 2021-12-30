@@ -7,7 +7,7 @@ import ReactHtmlParser from 'react-html-parser'
 import { YMaps, Map, Placemark } from 'react-yandex-maps'
 
 import { 
-    sdekCalculate, sdekDeliveryPoints, sdekLocationRegions, sdekLocationSities,
+    sdekCalculate, sdekDeliveryPoints, sdekLocationRegions, sdekLocationSities, sdekGetLocationSitiesJSON,
     // eslint-disable-next-line
     sdekOrder, sdekGetOrder, sdekEditOrder, sdekDeleteOrder, sdekRefusalOrder, sdekNewIntakes, sdekPrintOrders, sdekGetPrintOrders,
 } from '../../../http/delivery/sdekAPI'
@@ -40,26 +40,16 @@ const DeliverySdek = observer((props) => {
     
     const [ loading, setLoading ] = useState(false) //
 
-    const sdekLocationSitiesRekursiveFunction = (args) => {
-        sdekLocationSities(args).then(data => {
-            if (data[0]?.code !== undefined) {
-                if (allCities && Array.isArray(allCities)) setAllCities([...allCities, ...data])
-                else setAllCities(data)
-                sdekLocationSitiesRekursiveFunction({page:args.page++})
-            }
-        })
-    }
 
     useEffect(() => {
         props?.setIconImageHref("images/delivery/sdek/sdek.png")
 
-        sdekLocationSities()
+        sdekGetLocationSitiesJSON()
             .then(data => {
                 if (data[0]?.code !== undefined) {
                     setAllCities(data)
                 }
             })
-        // sdekLocationSitiesRekursiveFunction({page:0})
 
         let delivery_city = localStorage.getItem('delivery_city')
         if (delivery_city) {
