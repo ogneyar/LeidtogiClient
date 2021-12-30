@@ -157,24 +157,36 @@ const TesterPage = () => {
         }else setXML("")
     }
 
-    const getLocationCities = async (page) => {
+    const getLocationCities = async () => {
         // let page = 0
         setLoading(true)
-        await locationCitiesSdek({page})
+        await locationCitiesSdek({page}) 
             .then(data => {
-                if (data <= 1) {
+                if (data?.error !== undefined) {
+                    setLocationCities("Ошибка: " + data?.error)
+                    setPage(0)
+                }else if (data <= 1) {
                     setLocationCities("Закончил успешно - " + API_URL + "deliveries/sdek/locationCities.json")
                     setPage(0)
                 }else {
-                    // setTimeout(() => {
-                    //     getLocationCities(++page)
-                    // },[1000])
                     setLocationCities("Количество записей - " + data)
-                    setPage(page + 1)
+                    setTimeout(() => {
+                        setPage(page + 1)
+                        // getLocationCities(page)
+                    },[2000])
                 }
             })
             .finally(() => setLoading(false))
     }
+
+    
+    useEffect(() => {
+        if (page && page > 0) {
+            getLocationCities(page)
+        }
+    // eslint-disable-next-line
+    }, [page])
+
 
     if (loading) return <Loading />
 
