@@ -23,7 +23,7 @@ const SuccessPage = () => {
     const [ error, setError ] = useState(false) 
 
     useEffect(() => {
-        let isMounted = true; // 👈
+        // let isMounted = true; // 👈
         getOrder(id).then(data => {
             if (data) {
                 if (data?.pay) {
@@ -33,7 +33,8 @@ const SuccessPage = () => {
                     if (uuid === data?.uuid) {
                         // установим флаг pay = true
                         // там же на сервере отправится сообщение админу
-                        if (isMounted) setPay(uuid)
+                        // if (isMounted) setPay(uuid)
+                        setPay(uuid)
                         // очистим корзину
                         localStorage.removeItem('cart')
                         // передача данных о покупке в Яндекс.Метрику
@@ -46,9 +47,9 @@ const SuccessPage = () => {
                 }
             }else setError(true)
         }).catch(err => setError(true))
-        return () => {
-            isMounted = false // 👈
-        }
+        // return () => {
+        //     isMounted = false // 👈
+        // }
     // eslint-disable-next-line
     }, [])
 
