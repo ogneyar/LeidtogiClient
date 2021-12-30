@@ -66,8 +66,14 @@ export const sdekLocationRegions = async (body) => {
 }
 
 //
-export const sdekLocationSities = async (body) => {
-    const {data} = await $host.get('api/delivery/sdek/location_cities/', {params: { ...body }})
+export const sdekLocationSities = async (params) => {
+    const {data} = await $host.get('api/delivery/sdek/location_cities/', { params })
+    return data
+}
+
+//
+export const sdekGetLocationSitiesJSON = async () => {
+    const {data} = await $host.get('/deliveries/sdek/locationCities.json')
     return data
 }
 
