@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import { Context } from '../..'
-// import { Row } from 'react-bootstrap'
 import ProductItem from './ProductItem'
 import './Product.css'
 
@@ -16,7 +15,7 @@ const ProductList = observer((props) => {
     useEffect(() => {
         let offset = product.page * product.limit - product.limit // отступ
         let limit = 0
-
+        
         setInfo(product.products.filter((i,index) => {
             if (index + 1 > offset) {
                 limit += 1
@@ -24,7 +23,7 @@ const ProductList = observer((props) => {
             }
             return false
         }))
-    },[product.limit, product.page, product.selectedCategory, product.products])
+    },[product.limit, product.page, product.products]) 
     
 
     return (
