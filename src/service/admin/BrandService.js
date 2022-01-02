@@ -78,9 +78,9 @@ const BrandService = observer(({information}) => {
 						>
                             <Input
                                 className='mt-1'
-                                style={{cursor:state[number].cursor,width:"100%"}}
+                                style={{cursor:state[number]?.cursor,width:"100%"}}
                                 value={i.name}
-                                readOnly={state[number].readOnly}
+                                readOnly={state[number]?.readOnly}
                                 id={i.id}
                                 onChange={e => {
                                     setInfo(info.map(k => i.id === k.id ? {...k, name:e.target.value} : k))
