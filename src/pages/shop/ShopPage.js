@@ -26,14 +26,13 @@ const Shop = observer(() => {
     
     const history = useHistory()
     
-    // я вот так со стейтом заморочился лишь из-за роута /shop
-    const params = useParams()
-    const [ name, setName ] = useState(params?.name)
+    let { name } = useParams()
 
     useEffect(() => {
-
+        // я вот так заморочился лишь из-за роута /shop
         // хотя в принципе этот роут не  используется (:
-        if (name === "shop") setName("")
+        // eslint-disable-next-line
+        if (name === "shop") name = ""
 
         if (product.allProducts.length) {
             if (!name) { // если в url указан корневой каталог /
