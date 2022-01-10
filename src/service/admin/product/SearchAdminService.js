@@ -12,7 +12,7 @@ import { API_URL } from '../../../utils/consts';
 
 const SearchAdminService = observer((props) => {
 
-    const {product, category} = useContext(Context)
+    const {product, category, brand} = useContext(Context)
 
     const [article, setArticle] = useState("")
     const [search, setSearch] = useState([])
@@ -57,6 +57,9 @@ const SearchAdminService = observer((props) => {
         setArticle("")
         category.allCategories.forEach(i => {
             if (item.categoryId === i.id) category.setSelectedCategory(i)
+        })
+        brand.allBrands.forEach(i => {
+            if (item.brandId === i.id) brand.setSelectedBrand(i)
         })
         setProductSearch(item)
 
