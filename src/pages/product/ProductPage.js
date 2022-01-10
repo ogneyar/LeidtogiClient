@@ -16,9 +16,9 @@ import { Context } from '../..'
 import './ProductPage.css'
 
 
-const ProductPage =  observer(() => {
+const ProductPage =  observer((props) => {
     // eslint-disable-next-line
-    const { rating, bread } = useContext(Context)
+    const { rating, bread, brand } = useContext(Context)
 
     const { id, url } = useParams()
 
@@ -52,8 +52,15 @@ const ProductPage =  observer(() => {
                 .then(data => {
                     if (!data?.id) history.push("/error")
 
-                    setProduct(data)
                     
+                    // console.log(data?.brandId);
+                    brand.allBrands.forEach(i => {
+                        if (data?.brandId === i?.id) 
+                            if (i?.name.toLowerCase() !== props?.brandName) history.push("/" + props?.brandName)
+                    })
+                    
+                    setProduct(data)
+
                     rating.setRate(data.rating)
                 },err => {
                     setError(true)
@@ -139,9 +146,24 @@ const ProductPage =  observer(() => {
                         <>
                         <h2>Характеристики</h2>
                         <table>
-                            {
-                            ReactHtmlParser(info?.body)
-                            }
+                        { 
+                            product.brandId === 6 
+                            ?
+                                ReactHtmlParser(
+                                    "<tbody>" + info?.body
+                                        .split("; ")
+                                        .map(i => {
+                                            return "<tr><td>" + 
+                                                i.split(" - ")[0] + 
+                                                "</td><td>" + 
+                                                i.split(" - ")[1] + 
+                                                "</td></tr>"
+                                        })
+                                        .join("").replace(";", "") + "</tbody>"
+                                ) 
+                            :
+                                ReactHtmlParser(info?.body)
+                        }
                         </table>    
                         </>
                         : info?.title === "description" 
@@ -149,9 +171,18 @@ const ProductPage =  observer(() => {
                             <>
                             <h2>Описание</h2>
                             <div>
-                                {
-                                ReactHtmlParser(info?.body)
-                                }
+                            {
+                                product.brandId === 6 
+                                ?
+                                    ReactHtmlParser( // <ul><li>...</li><li>...</li></ul>
+                                        "<ul>" + info?.body
+                                            .replace(/(&amp;lt;p&amp;gt;)/g,"<li>")
+                                            .replace(/(&amp;lt;\/p&amp;gt;)/g,"</li>")
+                                        + "</ul>"
+                                    )
+                                :
+                                    ReactHtmlParser(info?.body)
+                            }
                             </div>    
                             </>
                             : info?.title === "equipment" 
