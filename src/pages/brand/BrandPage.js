@@ -7,13 +7,13 @@ import ShopPage from '../shop/ShopPage'
 import './BrandPage.css'
 
 
-const BrandPage = () => {
+const BrandPage = (props) => {
     
     const { url } = useParams()
+    
+    if (url) return <ProductPage brandName={props?.brandName} />
 
-    if (url) return <ProductPage />
-
-    return <ShopPage />
+    return <ShopPage brandName={props?.brandName} />
 }
 
 export default BrandPage
