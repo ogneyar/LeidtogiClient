@@ -15,7 +15,7 @@ import { Context } from '../..'
 import './ShopPage.css'
 
 
-const Shop = observer(() => {
+const Shop = observer((props) => { 
 
     const { product, category, brand } = useContext(Context)
 
@@ -29,8 +29,11 @@ const Shop = observer(() => {
     let { name } = useParams()
 
     useEffect(() => {
-        // я вот так заморочился лишь из-за роута /shop
-        // хотя в принципе этот роут не  используется (:
+
+        if (name) {product.setPage(1)}
+
+        // это для роута /shop
+        // хотя в принципе этот роут не используется (:
         // eslint-disable-next-line
         if (name === "shop") name = ""
 
