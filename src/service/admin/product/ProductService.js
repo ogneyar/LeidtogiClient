@@ -30,8 +30,6 @@ const ProductService = observer((props) => {
 
     const [file, setFile] = useState(null)
 
-    // const [images, setImages] = useState(null)
-
     const [image1, setImage1] = useState(null)
     const [image2, setImage2] = useState(null)
     const [image3, setImage3] = useState(null)
@@ -42,7 +40,7 @@ const ProductService = observer((props) => {
     const [country, setCountry] = useState(props?.country || "Германия")
     
     const [size, setSize] = useState({weight: "", volume: "", width: "", height: "", length: ""})
-    // const [info, setInfo] = useState([])
+
     const [description, setDescription] = useState(props?.description || "")
     const [characteristics, setCharacteristics] = useState(props?.characteristics || "")
     const [equipment, setEquipment] = useState(props?.equipment || "")
@@ -52,8 +50,6 @@ const ProductService = observer((props) => {
     const [fileReader3, setFileReader3] = useState(null)
     const [fileReader4, setFileReader4] = useState(null)
 
-    // const [fileVisible, setFileVisible] = useState(false)
-    
     
     useEffect(() => {
     },[])
@@ -62,16 +58,16 @@ const ProductService = observer((props) => {
         if (category.allCategories.length) {
             category.setCategories(category.allCategories)
         }
-        // eslint-disable-next-line
+    // eslint-disable-next-line
     },[category.allCategories])
 
     
     useEffect(() => {
         if (brand.allBrands.length) {
             brand.setBrands(brand.allBrands)
-            brand.setSelectedBrand(brand.allBrands[0])
+            // brand.setSelectedBrand(brand.allBrands[0])
         }
-        // eslint-disable-next-line
+    // eslint-disable-next-line
     },[brand.allBrands])
 
     useEffect(() => {
@@ -87,60 +83,6 @@ const ProductService = observer((props) => {
     useEffect(() => {
         if (props.size?.weight || props.size?.volume || props.size?.width || props.size?.height || props.size?.length) setSize(props?.size)
     },[props?.size])
-
-    // useEffect(() => {
-    //     if (description) {
-    //         let yes = false
-    //         let array = info.map(i => {
-    //             if (i.title === "description") {
-    //                 yes = true
-    //                 return {title: "description", body:description}
-    //             }
-    //             return i
-    //         })
-    //         if (!yes) array.push({title: "description", body:description})
-    //         setInfo(array)
-    //     }
-    //     // eslint-disable-next-line
-    // },[description])
-
-    // useEffect(() => {
-    //     if (characteristics) {
-    //         let yes = false
-    //         let array = info.map(i => {
-    //             if (i.title === "characteristics") {
-    //                 yes = true
-    //                 return {title: "characteristics", body:characteristics}
-    //             }
-    //             return i
-    //         })
-    //         if (!yes) array.push({title: "characteristics", body:characteristics})
-    //         setInfo(array)
-    //     }
-    // // eslint-disable-next-line
-    // },[characteristics])
-
-    // useEffect(() => {
-    //     if (equipment) {
-    //         let yes = false
-    //         let array = info.map(i => {
-    //             if (i.title === "equipment") {
-    //                 yes = true
-    //                 return {title: "equipment", body:equipment}
-    //             }
-    //             return i
-    //         })
-    //         if (!yes) array.push({title: "equipment", body:equipment})
-    //         setInfo(array)
-    //     }
-    // // eslint-disable-next-line
-    // },[equipment])
-    
-    // useEffect(() => {
-    //     if (typeof(props.file) === "object" && props.file[0].small !== undefined) {
-    //         setFileReader(props.file[0].small)
-    //     }else if (typeof(props.file) === "string") setFileReader(props.file)
-    // },[props?.file])
     
     useEffect(() => {
         let arrayImages = []
@@ -152,7 +94,6 @@ const ProductService = observer((props) => {
         arrayImages.forEach((i, index) => {
             switch(index) {
                 case 0:
-                    // setImage1()
                     setFileReader(props?.url + i.small)
                 break;
                 case 1:
@@ -176,8 +117,7 @@ const ProductService = observer((props) => {
         let lengthArrayFiles
         if (e.target.files.length > 4) lengthArrayFiles = 4
         else lengthArrayFiles = e.target.files.length
-        // console.log("e.target.files.length",e.target.files.length);
-        // let arrayImages = []
+        
         for(let i = 0; i < lengthArrayFiles; i++) {
             let reader = new FileReader()
             reader.onload = function(e) {
@@ -197,10 +137,8 @@ const ProductService = observer((props) => {
                     default:
                     break;
                 }
-                // setFileReader(e.target.result)
             }
             reader.readAsDataURL(e.target.files[i])
-            // arrayImages = [...arrayImages, e.target.files[i]]
             
             switch(i) {
                 case 0:
@@ -219,7 +157,6 @@ const ProductService = observer((props) => {
                 break;
             }
         }
-        // setImages(arrayImages)
         setFile(e.target.files[0])
     }
 
@@ -239,7 +176,6 @@ const ProductService = observer((props) => {
                         err => {
                             error = true
                             alert(err.message)
-                            // console.log(err.target);
                         }
                     )
                     if (!error) {
@@ -276,8 +212,6 @@ const ProductService = observer((props) => {
         formData.append('name', name.trim())
 
         formData.append('img', file)
-
-        // formData.append('images', JSON.stringify(images))
 
         formData.append('image1', image1)
         formData.append('image2', image2)
@@ -319,17 +253,7 @@ const ProductService = observer((props) => {
                         }
                     })
             }
-            // else {
-            //     formData.append('size', JSON.stringify(size))
-            //     formData.append('price', `${price}`)
-            //     formData.append('info', JSON.stringify(info))
-            // }
         }
-        // else if (action === "edit") {
-        //     formData.append('size', JSON.stringify(size))
-        //     formData.append('price', `${price}`)
-        //     formData.append('info', JSON.stringify(info))
-        // }
 
         formData.append('size', JSON.stringify(size))
         formData.append('price', `${price}`)
@@ -338,7 +262,6 @@ const ProductService = observer((props) => {
         if (characteristics) array.push({title:"characteristics",body:characteristics})
         if (equipment) array.push({title:"equipment",body:equipment})
         formData.append('info', JSON.stringify(array))
-        // formData.append('info', JSON.stringify(info))
 
         return formData
     }
