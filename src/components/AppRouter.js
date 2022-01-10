@@ -18,9 +18,10 @@ const AppRouter = observer(() => {
 
     useEffect(() => {
         setBrandRoutes(brand.allBrands.map(i => {
+            let brandName = i?.name.toLowerCase()
             return {
-                path: '/' + i?.name.toLowerCase(),
-                Component: BrandPage
+                path: '/' + brandName,
+                Component: () => BrandPage({ brandName })
             }
         }))
     }, [brand.allBrands])
@@ -29,13 +30,16 @@ const AppRouter = observer(() => {
 
     return (
         <Switch> 
+            {/* роуты зарегистрированных пользователей */}
             {user.isAuth && authRoutes.map(({path, Component}) => 
                 <Route key={path} path={path} component={Component} exact />
             )}
+            {/* общедоступные роуты */}
             {publicRoutes.map(({path, Component}) => 
                 <Route key={path} path={path} component={Component} exact />
             )}
 
+            {/* роуты брендов - /nazvanie-brenda */}
             {brandRoutes.map(({path, Component}) => 
                 <Route key={path} path={path} component={Component} exact />
             )}
