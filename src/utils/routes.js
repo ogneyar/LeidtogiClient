@@ -38,7 +38,7 @@ import {
     SUPPORT_ROUTE, MESSAGE_ROUTE
 } from './consts'
 
-
+// brandRoutes находится в src/components/AppRouter.js
 
 export const authRoutes = [
     {
