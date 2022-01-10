@@ -26,7 +26,14 @@ const ProductItem = ({product}) => {
             onClick={() => {
                 // history.push(PRODUCT_ROUTE + '/' + product.id)
                 let url = ERROR_ROUTE
-                if (brand?.selectedBrand?.name) url = brand?.selectedBrand?.name.toLowerCase() + '/' + product?.url
+                let brandName = "milwaukee" // дефолтное состояние
+                brand.allBrands.forEach(i => {
+                    if (product.brandId === i.id) {
+                        brand.setSelectedBrand(i)
+                        brandName = i.name
+                    }
+                })
+                if (brandName) url = brandName.toLowerCase() + '/' + product?.url
                 
                 history.push(url)
                 // console.log("brand", brand);
