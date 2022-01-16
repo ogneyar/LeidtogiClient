@@ -1,7 +1,7 @@
 import { $host, $authHost } from './index'
 
 
-export const fetchParser = async (brand, number, party) => {
+export const fetchParserXLSX = async (brand, number, party) => {
     const {data} = await $authHost.get('api/parser/xlsx', {params: {
         brand, number, party
     }})
@@ -41,5 +41,13 @@ export const fetchHusqvarnaGetImage = async (article) => {
 
 export const fetchHusqvarnaGetCharcteristic = async (article) => {
     const {data} = await $host.get('api/parser/husqvarna_get_charcteristic', {params: {article}})
+    return data
+}
+
+
+export const fetchParserRGK = async (number) => {
+    const {data} = await $authHost.get('api/parser/rgk', {params: {
+        number
+    }})
     return data
 }
