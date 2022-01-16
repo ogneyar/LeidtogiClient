@@ -147,22 +147,7 @@ const ProductPage =  observer((props) => {
                         <h2>Характеристики</h2>
                         <table>
                         { 
-                            product.brandId === 6 
-                            ?
-                                ReactHtmlParser(
-                                    "<tbody>" + info?.body
-                                        .split("; ")
-                                        .map(i => {
-                                            return "<tr><td>" + 
-                                                i.split(" - ")[0] + 
-                                                "</td><td>" + 
-                                                i.split(" - ")[1] + 
-                                                "</td></tr>"
-                                        })
-                                        .join("").replace(";", "") + "</tbody>"
-                                ) 
-                            :
-                                ReactHtmlParser(info?.body)
+                            ReactHtmlParser(info?.body)
                         }
                         </table>    
                         </>
@@ -172,16 +157,7 @@ const ProductPage =  observer((props) => {
                             <h2>Описание</h2>
                             <div>
                             {
-                                product.brandId === 6 
-                                ?
-                                    ReactHtmlParser( // <ul><li>...</li><li>...</li></ul>
-                                        "<ul>" + info?.body
-                                            .replace(/(&amp;lt;p&amp;gt;)/g,"<li>")
-                                            .replace(/(&amp;lt;\/p&amp;gt;)/g,"</li>")
-                                        + "</ul>"
-                                    )
-                                :
-                                    ReactHtmlParser(info?.body)
+                                ReactHtmlParser(info?.body)
                             }
                             </div>    
                             </>
