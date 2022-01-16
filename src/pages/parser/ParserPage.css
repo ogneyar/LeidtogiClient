@@ -1,0 +1,13 @@
+.ParserPage {
+
+}
+
+.ParserPage_Header {
+    display: flex;
+    flex-direction: column;
+}
+
+.ParserPage_Header button {
+    padding: 10px;
+    margin: 5px;
+}
