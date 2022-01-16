@@ -1,117 +1,35 @@
 // eslint-disable-next-line
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactHtmlParser from 'react-html-parser'
-// import uuid from 'react-uuid'
 
-import { 
-    // fetchParserImages, fetchParserSizes, fetchParserAll, fetchParserMailRu, 
-    fetchParser } from '../../http/paserAPI';
-// import { updateProductOnArticle, fetchAllProducts, fetchProductSizes, updateProductSizes } from '../../http/productAPI';
-// import InfoPage from '../info/InfoPage';
-// import { Context } from '../..'
+import { fetchParserXLSX, fetchParserRGK } from '../../http/paserAPI';
 import Loading from '../../components/Loading';
 import { observer } from 'mobx-react-lite';
+import InfoPage from '../info/InfoPage';
+
+import './ParserPage.css'
 
 
 const ParserPage = observer(() => {
 
-    // const { product } = useContext(Context)
-
-    // const [stateImages, setStateImages] = useState([])
-    // const [stateSizes, setStateSizes] = useState([])
-    // const [stateAll, setStateAll] = useState([])
-    // const [state, setState] = useState([])
-    // const [article, setArticle] = useState("")
-
     const [valueBefore, setValueBefore] = useState("")
     const [valueAfter, setValueAfter] = useState("")
     const [value, setValue] = useState("")
-    const [brand, setBrand] = useState("milwaukee")
+    const [ brand, setBrand ] = useState("")
     const [message, setMessage] = useState("")
     const [loading, setLoading] = useState(false)
     
-    // const [stateMailRu, setStateMailRu] = useState([])
-    // const [email, setEmail] = useState("")
-    // const [loadingEmail, setLoadingEmail] = useState(false)
-
-    // useEffect(() => {
-    //     if (stateImages[0]?.big !== undefined) {
-    //         console.log(stateImages)
-    //         setMessage(JSON.stringify(stateImages))
-    //     }
-    // },[stateImages])
-
-    // useEffect(() => {
-    //     if (stateSizes?.weight !== undefined) {
-    //         console.log(stateSizes)
-    //         setMessage(JSON.stringify(stateSizes))
-    //     }
-    // },[stateSizes])
-
-    // useEffect(() => {
-    //     if (stateAll?.sizes !== undefined) {
-    //         console.log(stateAll)
-    //         setMessage(JSON.stringify(stateAll))
-    //     }
-    // },[stateAll])
-
-    // useEffect(() => {
-    //     if (stateMailRu?.status !== undefined) {
-    //         console.log(stateMailRu)
-    //         setMessage(JSON.stringify(stateMailRu))
-    //     }
-    // },[stateMailRu])
-
-    // const onClickButtonParserImages = () => {
-    //     if (article) {
-    //         setLoading(true)
-    //         setMessage("")
-
-    //         fetchParserImages(brand, article).then(data => {
-    //             setStateImages(data)
-    //         }).finally(data => setLoading(false))
-    //     }
-    // }
-
-    // const onClickButtonParserSizes = () => {
-    //     if (article) {
-    //         setLoading(true)
-    //         setMessage("")
-
-    //         fetchParserSizes(article).then(data => {
-    //             setStateSizes(data)
-    //         }).finally(data => setLoading(false))
-    //     }
-    // }
-
-    // const onClickButtonParserAll = () => {
-    //     if (article) {
-    //         setLoading(true)
-    //         setMessage("")
     
-    //         fetchParserAll(brand, article).then(data => {
-    //             setStateAll(data)
-    //         }).finally(data => setLoading(false))
-    //     }
-    // }
-
-    // const onClickButtonParserMailRu = () => {
-    //     if (email) {
-    //         setLoadingEmail(true)
-    //         setMessage("")
-
-    //         fetchParserMailRu(email).then(data => {
-    //             setStateMailRu(data)
-    //         }).finally(data => setLoadingEmail(false))
-    //     }
-    // }
+    const [quantity, setQuantity] = useState(0)
+    const [number, setNumber] = useState(371)
     
-    const onClickButtonParser = async () => {
+    
+    const onClickButtonParserMLK = async () => {
         setMessage("")
         setLoading(true)
         let mess = ""
         for(let i = Number(valueBefore); i < Number(valueAfter); i=i+Number(value)) {
-            await fetchParser(brand, i, value)
+            await fetchParserXLSX(brand, i, value)
                 // eslint-disable-next-line
                 .then(data => {
                     mess += data
@@ -124,84 +42,138 @@ const ParserPage = observer(() => {
         setLoading(false)
         setMessage(mess + "Закончил.")
     }
+    
+    const onClickButtonParserRGK = async () => {
+        setMessage("")
+        setLoading(true)
+        await fetchParserRGK(undefined)
+            // eslint-disable-next-line
+            .then(data => {
+                // setMessage(data)
+                setQuantity(data)
+            })
+        setLoading(false)
+    }
 
-    //  useEffect(() => {
-    // },[state])
+    useEffect(() => {
+        if (quantity > 0 && number < quantity) {
+            fetchParserRGK(Number(number) + 1)
+                .then(data => {
+                    if (data?.error) {
+                        setMessage(" Не смог добавить!")
+                        setNumber(Number(number) + 1)
+                        setQuantity(0)
+                    }else {
+                        setMessage(" Успешно добавлен!")
+                        setNumber(data)
+                    }
+                })
+                .catch(() => {
+                    setMessage(" Не смог добавить!")
+                    setNumber(Number(number) + 1)
+                    setQuantity(0)
+                })
+        }
+        if (number === quantity) {
+            setNumber(null)
+            setMessage("Закончил!")
+        }
+    // eslint-disable-next-line
+    },[quantity, number])
+
+    // useEffect(() => {
+    //     if (number > 0) {
+    //         setMessage(`Номер записи: ${number}`)
+    //     }
+    // },[number])
+
+    if (!brand)
+        return (
+            <InfoPage>
+                <div className="ParserPage_Header">
+                    <label>Заведение товаров на сайт!</label>
+                    <button onClick={() => setBrand("milwaukee")} >Milwaukee</button>
+                    <button onClick={() => setBrand("rgk")} >RGK</button>
+                </div>
+            </InfoPage>
+        )
+
+    if (brand === "rgk")
+        return (
+            <InfoPage>
+                <div className="ParserPage_Header">
+                    <label>Заведение товаров RGK сайт!</label>
+
+                    {quantity && quantity !== 0
+                    ? "Общее количество товаров: " + quantity
+                    : null}
+
+                    <br />
 
 
-    return (
-        <div style={{backgroundColor:"white",padding:"50px"}}>
-            <div
-                className="d-flex flex-column justify-content-center align-items-center"
-            >
-                {/* <div className="inputBox d-flex flex-column justify-content-center align-items-center">
-                    <input className="m-3" value={article} onChange={(e) => setArticle(e.target.value)} placeholder="Введите артикул" />
-                    <input className="m-3" value={brand} onChange={(e) => setBrand(e.target.value)} placeholder="Введите бренд" />
-                    {loading ? <Loading /> : <button className="m-3" onClick={onClickButtonParserImages}>Начать парсинг изображений</button>}
-                </div> */}
-                {/* <div className="inputBox">
                     {message && message !== ""
-                    ? 
-                        message
-                    : "пусто"}
-                </div> */}
+                    ?
+                        <div className="inputBox">
+                            {number && number !== 0
+                            ? number + ": "
+                            : null}
+                            {ReactHtmlParser(message)}
+                        </div>
 
-                {/* {message && Array.isArray(message) && message[0]?.mess */}
-                {message && message !== ""
-                ?
-                    <div className="inputBox">
-                        {ReactHtmlParser(message)}
-                    </div>
+                    : null}
 
-                    // message.map(i =>  
-                    //     <div className="inputBox" key={uuid()}>
-                    //         {ReactHtmlParser(i.mess)}
-                    //     </div>
-                    // )
-                : null}
+                    {loading ? <Loading /> 
+                    : <button onClick={onClickButtonParserRGK} >Начать парсинг</button>
+                    }
+                    <button onClick={() => setBrand("")} >назад</button>
+                </div>
+            </InfoPage>
+        )
 
-                {loading ? <Loading /> 
-                : 
-                <div className="inputBox d-flex flex-column justify-content-center align-items-center">
-                    {/* <input className="m-3" value={article} onChange={(e) => setArticle(e.target.value)} placeholder="Введите артикул" /> */}
-                    <input className="m-3" value={valueBefore} onChange={(e) => setValueBefore(e.target.value)} placeholder="Введите значение ОТ" />
-                    <input className="m-3" value={valueAfter} onChange={(e) => setValueAfter(e.target.value)} placeholder="Введите значение ДО" />
-                    <input className="m-3" value={value} onChange={(e) => setValue(e.target.value)} placeholder="Введите количество ПО сколько" />
-                    <input className="m-3" value={brand} onChange={(e) => setBrand(e.target.value)} placeholder="Введите бренд" />
+    if (brand === "milwaukee")
+        return (
+            <div style={{backgroundColor:"white",padding:"50px"}}>
+                <div
+                    className="d-flex flex-column justify-content-center align-items-center"
+                >
                     
-                    <div
-                        className="d-flex flex-column justify-content-center align-items-center"
-                    >
-                        {/* <button className="m-3" onClick={onClickButtonParserImages}>Начать парсинг изображений</button>
-                        <button className="m-3" onClick={onClickButtonParserSizes}>Начать парсинг габаритов</button>
-                        <button className="m-3" onClick={onClickButtonParserAll}>Начать парсинг всего</button> */}
-                        <button className="m-3" onClick={onClickButtonParser}>Начать парсинг</button>
+                    {message && message !== ""
+                    ?
+                        <div className="inputBox">
+                            {ReactHtmlParser(message)}
+                        </div>
 
-                        {/* <input className="m-3" value={article} onChange={(e) => setArticle(e.target.value)} placeholder="Введите артикул" />
-                        <button className="m-3" onClick={onClickButtonParserSizes}>Начать парсинг mail.ru</button> */}
-                    </div>
-                </div>}
-                
-                {/* <div className="inputBox d-flex flex-column justify-content-center align-items-center">
-                <input className="m-3" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Введите почту mail.ru" />
-                    {loadingEmail ? <Loading /> 
+                    : null}
+
+                    {loading ? <Loading /> 
                     : 
-                    <div
-                        className="d-flex flex-column justify-content-center align-items-center"
-                    >
-                        <button className="m-3" onClick={onClickButtonParserMailRu}>Начать парсинг mail.ru</button>
+                    <div className="inputBox d-flex flex-column justify-content-center align-items-center">
+                        <input className="m-3" value={valueBefore} onChange={(e) => setValueBefore(e.target.value)} placeholder="Введите значение ОТ" />
+                        <input className="m-3" value={valueAfter} onChange={(e) => setValueAfter(e.target.value)} placeholder="Введите значение ДО" />
+                        <input className="m-3" value={value} onChange={(e) => setValue(e.target.value)} placeholder="Введите количество ПО сколько" />
+                        <input className="m-3" value={brand} onChange={(e) => setBrand(e.target.value)} placeholder="Введите бренд" />
+                        
+                        <div
+                            className="d-flex flex-column justify-content-center align-items-center"
+                        >
+                            
+                            <button className="m-3 p-2" onClick={onClickButtonParserMLK}>Начать парсинг</button>
+
+                        </div>
                     </div>}
-                </div> */}
 
-                {/* <div className="inputBox">
-                    {message && message !== "" ? message : "пусто"}
-                </div> */}
+                    <br />
+                    
+                    <button 
+                        className="d-flex flex-column justify-content-center align-items-center p-2"
+                        onClick={() => setBrand("")} 
+                    >назад</button>
 
-                
+                </div>
+
             </div>
-        </div>
-       
-    )
+        )
+
 })
 
 export default ParserPage;
