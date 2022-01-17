@@ -21,7 +21,7 @@ const ParserPage = observer(() => {
     
     
     const [quantity, setQuantity] = useState(0)
-    const [number, setNumber] = useState(371)
+    const [number, setNumber] = useState(0)
     
     
     const onClickButtonParserMLK = async () => {
@@ -74,8 +74,8 @@ const ParserPage = observer(() => {
                     setQuantity(0)
                 })
         }
-        if (number === quantity) {
-            setNumber(null)
+        if (Number(number) === Number(quantity) && number !== 0) {
+            setNumber(Number(quantity) + 1)
             setMessage("Закончил!")
         }
     // eslint-disable-next-line
@@ -102,7 +102,7 @@ const ParserPage = observer(() => {
         return (
             <InfoPage>
                 <div className="ParserPage_Header">
-                    <label>Заведение товаров RGK сайт!</label>
+                    <label>Заведение товаров RGK на сайт!</label>
 
                     {quantity && quantity !== 0
                     ? "Общее количество товаров: " + quantity
@@ -114,7 +114,7 @@ const ParserPage = observer(() => {
                     {message && message !== ""
                     ?
                         <div className="inputBox">
-                            {number && number !== 0
+                            {number && number !== 0 && number < quantity
                             ? number + ": "
                             : null}
                             {ReactHtmlParser(message)}
