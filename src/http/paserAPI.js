@@ -45,6 +45,29 @@ export const fetchHusqvarnaGetCharcteristic = async (article) => {
 }
 
 
+export const changePriceOneMilwaukee = async (number) => {
+    const {data} = await $authHost.get('api/parser/milwaukee', {params: {
+        change: true,
+        number
+    }})
+    return data
+}
+
+export const changePriceAllMilwaukee = async () => {
+    const {data} = await $authHost.get('api/parser/milwaukee', {params: {
+        change: true
+    }})
+    return data
+}
+
+export const changePriceRGK = async (number) => {
+    const {data} = await $authHost.get('api/parser/rgk', {params: {
+        change: true,
+        number
+    }})
+    return data
+}
+
 export const fetchParserRGK = async (number) => {
     const {data} = await $authHost.get('api/parser/rgk', {params: {
         number
