@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import ReactHtmlParser from 'react-html-parser'
 
-import { fetchParserXLSX, fetchParserRGK, changePriceOneMilwaukee, changePriceAllMilwaukee } from '../../http/paserAPI';
+import { fetchParserXLSX, fetchParserRGK, changePriceOneMilwaukee, changePriceAllMilwaukee, changePriceRGK } from '../../http/paserAPI';
 import Loading from '../../components/Loading';
 import { observer } from 'mobx-react-lite';
 import InfoPage from '../info/InfoPage';
@@ -89,8 +89,32 @@ const ParserPage = observer(() => {
     }
 
     const onClickButtonChangePricesRGK = async () => {
-        setMessage("")
+        setMessage("Начало:")
         setLoading(true)
+        
+        let volume
+        await fetchParserRGK(undefined)
+            // eslint-disable-next-line
+            .then(data => {
+                volume = data
+            })
+        
+        let mess = "Начало:"
+        for(let i = 0; i < volume; i++) {
+            await changePriceRGK(i + 1)
+                // eslint-disable-next-line
+                .then(data => {
+                    mess += "<br />" + data
+                    setMessage(data)
+                })
+                // eslint-disable-next-line
+                .catch(error => {
+                    mess += "<br />" + JSON.stringify(error)
+                    setMessage(JSON.stringify(error))
+                })
+        }
+        setMessage(mess + "<br />Конец.")
+        setLoading(false)
     }
     
     const onClickButtonParserRGK = async () => {
