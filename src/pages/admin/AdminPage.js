@@ -13,6 +13,7 @@ import { observer } from 'mobx-react-lite'
 import { Context } from '../..'
 
 import './AdminPage.css';
+import scrollUp from '../../utils/scrollUp'
 
 
 const Admin = observer(() => {
@@ -123,7 +124,10 @@ const Admin = observer(() => {
                 <Button 
                     variant={"outline-dark"} 
                     className="m-3 p-2 Admin_button"
-                    onClick={() => history.push("/parser")}
+                    onClick={() => {
+                        scrollUp()
+                        history.push("/parser")
+                    }} 
                 >
                     Парсер
                 </Button>
@@ -136,7 +140,10 @@ const Admin = observer(() => {
                 <Button 
                     variant={"outline-dark"} 
                     className="m-3 p-2 Admin_button"
-                    onClick={() => history.push("/tester")}
+                    onClick={() => {
+                        scrollUp()
+                        history.push("/tester")
+                    }}
                 >
                     Тестер
                 </Button>
