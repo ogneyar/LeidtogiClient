@@ -45,6 +45,15 @@ export const fetchHusqvarnaGetCharcteristic = async (article) => {
 }
 
 
+export const getLengthMilwaukee = async (feed) => {
+    const {data} = await $authHost.post('api/parser/milwaukee', feed, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+    })
+    return data
+}
+
 export const changePriceOneMilwaukee = async (number) => {
     const {data} = await $authHost.get('api/parser/milwaukee', {params: {
         change: true,

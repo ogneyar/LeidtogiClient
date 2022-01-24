@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import ReactHtmlParser from 'react-html-parser'
 
-import { fetchParserXLSX, fetchParserRGK, changePriceOneMilwaukee, changePriceAllMilwaukee, changePriceRGK } from '../../http/paserAPI';
+import { fetchParserXLSX, fetchParserRGK, getLengthMilwaukee, changePriceOneMilwaukee, changePriceAllMilwaukee, changePriceRGK } from '../../http/paserAPI';
 import Loading from '../../components/Loading';
 import { observer } from 'mobx-react-lite';
 import InfoPage from '../info/InfoPage';
@@ -11,6 +11,8 @@ import './ParserPage.css'
 
 
 const ParserPage = observer(() => {
+
+    const [feed, setFeed] = useState(null)
 
     const [valueBefore, setValueBefore] = useState("")
     const [valueAfter, setValueAfter] = useState("")
@@ -25,6 +27,19 @@ const ParserPage = observer(() => {
     
 
     const onClickButtonChangePricesMLK = async () => {
+
+        // console.log("feed",feed)
+        // var imagefile = document.querySelector('#file');
+
+        // const formData = new FormData()
+        // // formData.append("feed", feed)
+        // formData.append("feed", imagefile.files[0])
+
+        // let length = await getLengthMilwaukee(formData)
+        // let length = await getLengthMilwaukee()
+        // if (! length) setMessage("Файл пуст")
+        // else setMessage("Файл НЕ пуст - " + length)
+        // return
         if ( ! valueBefore || ! valueAfter ) {
             setMessage("")
             setLoading(true)
@@ -227,6 +242,8 @@ const ParserPage = observer(() => {
                     : 
                     <>
                         <div className="inputBox d-flex flex-column justify-content-center align-items-center">
+                            <input type="file" id="file" className="m-3" value={feed} onChange={(e) => setFeed(e.target.value)} placeholder="Выберите файл" />
+
                             <input className="m-3" value={valueBefore} onChange={(e) => setValueBefore(e.target.value)} placeholder="Введите значение ОТ" />
                             <input className="m-3" value={valueAfter} onChange={(e) => setValueAfter(e.target.value)} placeholder="Введите значение ДО" />
                             <input className="m-3" value={value} onChange={(e) => setValue(e.target.value)} placeholder="Введите ПО сколько" />
