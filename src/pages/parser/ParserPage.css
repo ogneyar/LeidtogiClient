@@ -11,3 +11,7 @@
     padding: 10px;
     margin: 5px;
 }
+
+.ParserPage_Header label {
+    text-align: center;
+}
