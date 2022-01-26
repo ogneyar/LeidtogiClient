@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import React, { useState, useEffect } from 'react'
 import ReactHtmlParser from 'react-html-parser'
-
+// eslint-disable-next-line
 import { fetchParserXLSX, fetchParserRGK, getLengthMilwaukee, changePriceOneMilwaukee, changePriceAllMilwaukee, changePriceRGK } from '../../http/paserAPI';
 import Loading from '../../components/Loading';
 import { observer } from 'mobx-react-lite';
@@ -27,23 +27,26 @@ const ParserPage = observer(() => {
     
 
     const onClickButtonChangePricesMLK = async () => {
+        setMessage("")
+        setLoading(true)
 
-        // console.log("feed",feed)
-        // var imagefile = document.querySelector('#file');
+        if (! feed ) {
+            setMessage("Файл пуст")
+            return
+        }
 
-        // const formData = new FormData()
-        // // formData.append("feed", feed)
-        // formData.append("feed", imagefile.files[0])
-
+        const formData = new FormData()
+        formData.append("feed", feed)
+        
         // let length = await getLengthMilwaukee(formData)
-        // let length = await getLengthMilwaukee()
         // if (! length) setMessage("Файл пуст")
         // else setMessage("Файл НЕ пуст - " + length)
+        // setLoading(false)
         // return
+
         if ( ! valueBefore || ! valueAfter ) {
-            setMessage("")
-            setLoading(true)
-            await changePriceAllMilwaukee()
+            // setLoading(true)
+            await changePriceAllMilwaukee(formData)
                 .then(data => {
                     if (data?.error) {
                         setMessage(data.error)
@@ -58,19 +61,20 @@ const ParserPage = observer(() => {
             
             return
         }
-        setMessage("Начало:")
-        setLoading(true)
+        // setLoading(true)
         let mess = "Начало:"
+        setMessage(mess)
         for(let i = Number(valueBefore); i <= Number(valueAfter); i++) {
-            await changePriceOneMilwaukee(i)
+            await changePriceOneMilwaukee(formData, i)
             // eslint-disable-next-line
                 .then(data => {
                     if (data?.error) {
                         mess += "<br />" + data.error
                         setMessage(data.error)
                     }else {
-                        mess += "<br />" + data
-                        setMessage(data)
+                        // console.log("data",data)
+                        mess += "<br />" + i + ": " + JSON.stringify(data)
+                        setMessage(i + ": " + JSON.stringify(data))
                     }
                 })
                 // eslint-disable-next-line
@@ -83,13 +87,24 @@ const ParserPage = observer(() => {
         setLoading(false)
     }
 
+
     const onClickButtonParserMLK = async () => {
-        if ( ! valueBefore || ! valueAfter || ! value ) return
         setMessage("")
         setLoading(true)
+
+        if (! feed ) {
+            setMessage("Файл пуст")
+            return
+        }
+
+        const formData = new FormData()
+        formData.append("feed", feed)
+
+        if ( ! valueBefore || ! valueAfter || ! value ) return
+        
         let mess = ""
         for(let i = Number(valueBefore); i < Number(valueAfter); i=i+Number(value)) {
-            await fetchParserXLSX(brand, i, value)
+            await fetchParserXLSX(formData, brand, i, value)
                 // eslint-disable-next-line
                 .then(data => {
                     mess += data
@@ -228,7 +243,8 @@ const ParserPage = observer(() => {
         return (
             <InfoPage>
                 <div className="ParserPage_Header">
-                    <label>Заведение товаров Milwaukee на сайт!</label>
+                    <label>Заведение новых товаров Milwaukee на сайт!</label>
+                    <label>Или обновление цен!</label>
                     
                     {message && message !== ""
                     ?
@@ -238,12 +254,18 @@ const ParserPage = observer(() => {
 
                     : null}
 
+                    <input 
+                        type="file" 
+                        className="m-3" 
+                        onChange={(e) => setFeed(e.target.files[0])} 
+                        placeholder="Выберите файл" 
+                    />
+
                     {loading ? <Loading /> 
                     : 
                     <>
                         <div className="inputBox d-flex flex-column justify-content-center align-items-center">
-                            <input type="file" id="file" className="m-3" value={feed} onChange={(e) => setFeed(e.target.value)} placeholder="Выберите файл" />
-
+                            
                             <input className="m-3" value={valueBefore} onChange={(e) => setValueBefore(e.target.value)} placeholder="Введите значение ОТ" />
                             <input className="m-3" value={valueAfter} onChange={(e) => setValueAfter(e.target.value)} placeholder="Введите значение ДО" />
                             <input className="m-3" value={value} onChange={(e) => setValue(e.target.value)} placeholder="Введите ПО сколько" />
@@ -251,15 +273,25 @@ const ParserPage = observer(() => {
                             <div
                                 className="d-flex flex-column justify-content-center align-items-center"
                             >
-                                
-
-                                <button className="m-3 p-2" onClick={onClickButtonParserMLK}>Начать парсинг</button>
+                                <button 
+                                    disabled={ ! valueBefore || ! valueAfter || ! value || ! feed }
+                                    className="m-3 p-2" 
+                                    onClick={onClickButtonParserMLK}
+                                >
+                                    Добавить товары
+                                </button>
+                                {/* <br /> */}
+                                <label>или</label>
+                                {/* <br /> */}
+                                <button 
+                                    disabled={ ! feed }
+                                    onClick={onClickButtonChangePricesMLK}
+                                >Обновить цены</button>
 
                             </div>
                         </div>
                         
-                        <br />
-                        <button onClick={onClickButtonChangePricesMLK}>Обновление цен</button>
+                        
                     </>}
                     
                     <br />
