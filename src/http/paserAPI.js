@@ -76,8 +76,8 @@ export const changePriceAllMilwaukee = async (formData) => {
 }
 
 
-export const fetchParserXLSX = async (formData, brand, number, party) => {
-    const {data} = await $authHost.post('api/parser/xlsx', formData, {params: {
+export const fetchParserMLK = async (formData, brand, number, party) => {
+    const {data} = await $authHost.post('api/parser/mlk_xlsx_feed', formData, {params: {
         brand, number, party
     }})
     return data
