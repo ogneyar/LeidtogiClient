@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import ReactHtmlParser from 'react-html-parser'
 // eslint-disable-next-line
-import { fetchParserXLSX, fetchParserRGK, getLengthMilwaukee, changePriceOneMilwaukee, changePriceAllMilwaukee, changePriceRGK } from '../../http/paserAPI';
+import { fetchParserMLK, fetchParserRGK, getLengthMilwaukee, changePriceOneMilwaukee, changePriceAllMilwaukee, changePriceRGK } from '../../http/paserAPI';
 import Loading from '../../components/Loading';
 import { observer } from 'mobx-react-lite';
 import InfoPage from '../info/InfoPage';
@@ -104,7 +104,7 @@ const ParserPage = observer(() => {
         
         let mess = ""
         for(let i = Number(valueBefore); i < Number(valueAfter); i=i+Number(value)) {
-            await fetchParserXLSX(formData, brand, i, value)
+            await fetchParserMLK(formData, brand, i, value)
                 // eslint-disable-next-line
                 .then(data => {
                     mess += data
