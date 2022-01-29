@@ -1,0 +1,17 @@
+.MilwaukeeParserPage {
+
+}
+
+.MilwaukeeParserPage_Header {
+    display: flex;
+    flex-direction: column;
+}
+
+.MilwaukeeParserPage_Header button {
+    padding: 10px;
+    margin: 5px;
+}
+
+.MilwaukeeParserPage_Header label {
+    text-align: center;
+}
