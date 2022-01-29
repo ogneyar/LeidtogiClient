@@ -1,20 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react'
-// import ReactDomServer from 'react-dom/server'
 import { Button } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 
-import { Alert, Input } from '../../components/myBootstrap'
-import { fetchHusqvarnaGetImage, fetchHusqvarnaGetCharcteristic } from '../../http/paserAPI'
-// eslint-disable-next-line
-import { fetchAllProducts, updateProduct, fetchProductSizes } from '../../http/productAPI'
+import { fetchAllProducts, updateProduct } from '../../http/productAPI'
+import { locationCitiesSdek, setFeed } from '../../http/testerAPI'
 import { getAllProductSizes } from '../../http/productSizeAPI'
 import { getAllProductInfos } from '../../http/productInfoAPI'
+import { Alert } from '../../components/myBootstrap'
+import Loading from '../../components/Loading'
 import translit from '../../utils/translite'
 import { API_URL } from '../../utils/consts'
 import InfoPage from '../info/InfoPage'
 import { Context } from '../..'
-import { locationCitiesSdek, setFeed } from '../../http/testerAPI'
-import Loading from '../../components/Loading'
 
 
 const TesterPage = () => {
@@ -23,7 +20,6 @@ const TesterPage = () => {
 
     const [ showAlert, setShowAlert ] = useState(false)
     const [ message, setMessage ] = useState("")
-    const [ article, setArticle ] = useState("9678968-01")
 
     const [ xml, setXML ] = useState("")
 
@@ -31,25 +27,6 @@ const TesterPage = () => {
     const [ loading, setLoading ] = useState(false)
     const [ page, setPage ] = useState(0)
 
-    const onClickButtonGetImage = () => {
-        if (article !== "") {
-            fetchHusqvarnaGetImage(article).then(data => {
-                setMessage(`<img src="${data}" alt="" />`)
-                setShowAlert(true)
-                setArticle("")
-            })
-        }
-    }
-
-    const onClickButtonGetCharcteristic = () => {
-        if (article !== "") {
-            fetchHusqvarnaGetCharcteristic(article).then(data => {
-            setMessage(data)
-                setShowAlert(true)
-                setArticle("")
-            })
-        }
-    }
 
     // eslint-disable-next-line
     const onClickButtonSetUrl = async () => {
@@ -245,20 +222,6 @@ const TesterPage = () => {
                 <Button onClick={getProductWithOutEquipment}>
                     Поcмотреть товары без комплектации
                 </Button>
-                <hr />
-                <br />
-                Husqvarana
-                <hr />
-                <Input type="text" value={article} onChange={(e) => setArticle(e.target.value)} />
-                <hr />
-                <Button onClick={onClickButtonGetImage}>
-                    Получить фото товара
-                </Button>
-                <hr />
-                <Button onClick={onClickButtonGetCharcteristic}>
-                    Получить характеристики товара
-                </Button>
-                
                 <hr />
 
                 {/* <Button onClick={onClickButtonSetUrl}>
