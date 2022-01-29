@@ -10,10 +10,10 @@ export const mlkAddNewProduct = async (formData, number, party) => {
     return data
 }
 
-// получение всех данных о товаре (пока не используется)
-export const mlkGetAll = async (brand, article) => {
+// получение всех данных о товаре
+export const mlkGetAll = async (article) => {
     const {data} = await $authHost.get('api/parser/milwaukee/get_all', {params: {
-        brand, article
+        article
     }})
     return data
 }
