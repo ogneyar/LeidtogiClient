@@ -3,7 +3,7 @@ import { Button, Form, Dropdown, Image } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 
 import { createProduct, fetchAllProducts, updateAllProduct, deleteProduct } from '../../../http/productAPI'
-import { fetchParserAll } from '../../../http/paserAPI'
+import { mlkGetAll } from '../../../http/parser/milwaukeeAPI'
 import { Context } from '../../..'
 
 import Size from './Size'
@@ -229,7 +229,7 @@ const ProductService = observer((props) => {
             // это парсер, в данный момент отключен
             // лишь для этого я сделал взаимоисключающее условие
             if (file === null && file === undefined) { 
-                await fetchParserAll(brand.selectedBrand.name.toLowerCase(), article)
+                await mlkGetAll(article)
                     .then(data => {
                         if (data?.error) {
                             console.log("error: ",data)
