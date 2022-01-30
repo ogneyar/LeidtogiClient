@@ -24,13 +24,12 @@ const MilwaukeeParserPage = observer((props) => {
 
     const onClickButtonChangePricesMLK = async () => {
         setMessage("")
-        setLoading(true)
-
         if (! feed ) {
             setMessage("Файл пуст")
             return
         }
-
+        setLoading(true)
+        
         const formData = new FormData()
         formData.append("feed", feed)
         
@@ -133,7 +132,7 @@ const MilwaukeeParserPage = observer((props) => {
                     type="file" 
                     className="m-3" 
                     onChange={(e) => setFeed(e.target.files[0])} 
-                    placeholder="Выберите файл" 
+                    placeholder="Выберите файл"  
                 />
 
                 {loading ? <Loading /> 
