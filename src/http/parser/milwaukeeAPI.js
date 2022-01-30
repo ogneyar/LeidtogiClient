@@ -4,9 +4,12 @@ import { $host, $authHost } from '../index'
 
 // добавление новых товаров
 export const mlkAddNewProduct = async (formData, number, party) => {
-    const {data} = await $authHost.post('api/parser/milwaukee/add_new_product', formData, {params: {
-        number, party
-    }})
+    const {data} = await $authHost.post('api/parser/milwaukee/add_new_product', formData, {
+        params: {
+            number, 
+            party
+        }
+    })
     return data
 }
 
