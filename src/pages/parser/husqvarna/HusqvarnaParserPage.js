@@ -37,13 +37,13 @@ const HusqvarnaParserPage = observer((props) => {
         }else {
             let length = await getLength(formData)
             mess = "Начало:"
-            for(let i = 0; i < length; i++) {
-                await addProduct(formData, i+1)
+            for(let i = 1; i <= length; i++) {
+                await addProduct(formData, i)
                     // eslint-disable-next-line
                     .then(data => {
                         if (data?.error) {
                             mess += "<br />" + data.error
-                            setMessage(data.error)
+                            setMessage(i + ": " + data.error)
                             console.log("data",data.error)
                         }else {
                             mess += "<br />" + i + ": " + JSON.stringify(data)
@@ -54,7 +54,7 @@ const HusqvarnaParserPage = observer((props) => {
                     // eslint-disable-next-line
                     .catch(error => {
                         mess += "<br />" + JSON.stringify(error)
-                        setMessage(JSON.stringify(error))
+                        setMessage(i + ": (Ошибка) " + JSON.stringify(error))
                         console.log("error",error)
                     })
             }
@@ -119,7 +119,7 @@ const HusqvarnaParserPage = observer((props) => {
                         onChange={(e) => setNumber(e.target.value)} 
                     />
                     <hr />
-
+                    <label>Укажи 0 для добавления всех товаров</label>
                     <button 
                         // disabled={ ! feed }
                         className="m-3 p-2" 
