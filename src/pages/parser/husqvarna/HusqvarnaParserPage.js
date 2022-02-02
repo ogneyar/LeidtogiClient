@@ -42,20 +42,20 @@ const HusqvarnaParserPage = observer((props) => {
                     // eslint-disable-next-line
                     .then(data => {
                         if (data?.error) {
-                            mess += "<br />" + data.error
+                            mess += "<br />" + i + ": " + data.error
                             setMessage(i + ": " + data.error)
-                            console.log("data",data.error)
+                            console.log(i + ": " + data.error)
                         }else {
                             mess += "<br />" + i + ": " + JSON.stringify(data)
                             setMessage(i + ": " + JSON.stringify(data))
-                            console.log("data",data)
+                            console.log(i + ": " + data)
                         }
                     })
                     // eslint-disable-next-line
                     .catch(error => {
-                        mess += "<br />" + JSON.stringify(error)
+                        mess += "<br />" + i + ": (Ошибка) " + JSON.stringify(error)
                         setMessage(i + ": (Ошибка) " + JSON.stringify(error))
-                        console.log("error",error)
+                        console.log(i + ": (Ошибка) " + error)
                     })
             }
             // await addAllProducts(formData).then(data => {
