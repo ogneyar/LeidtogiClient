@@ -88,6 +88,7 @@ const ButtonBuy = (props) => {
     return (
         <>
         <Button
+            disabled={props?.product?.brandId === 2}
             className={"ButtonBuy "+className}
             variant="outline-warning"
             onClick={e => {
