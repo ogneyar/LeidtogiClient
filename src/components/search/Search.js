@@ -40,7 +40,12 @@ const Search = observer((props) => {
     const onChangeSearchInputValue = (search) => {
         setValue(search)
         if (search) {
-            if (isNumber(search)) {
+            if (
+                isNumber(search.replace("-","").replace("rgk","").replace("hqv","")) 
+                // || search.includes("rgk") 
+                // || search.includes("hqv") 
+                // || search.includes("mlk")
+            ) {
                 setList(array.filter(i => i.article.includes(search)))
             }else {
                 setList(array.filter(i => i.name.toLowerCase().includes(search.toLowerCase())))
@@ -63,7 +68,7 @@ const Search = observer((props) => {
     }
 
     const onKeyDownInput = (e) => {
-        if (e.key === "Enter") redirectOnSearch("value", e.target.value)
+        if (e.key === "Enter") redirectOnSearch("value", e.target.value.trim())
     }
     
 
@@ -81,8 +86,8 @@ const Search = observer((props) => {
                             id="search" 
                             placeholder="Поиск" 
                             value={value}
-                            onChange={e => onChangeSearchInputValue(e.target.value)}
-                            onClick={e => onClickSearchInput(e.target.value)}
+                            onChange={e => onChangeSearchInputValue(e.target.value.trim())}
+                            onClick={e => onClickSearchInput(e.target.value.trim())}
                             onKeyDown={e => onKeyDownInput(e)}
                         />
 

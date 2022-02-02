@@ -39,7 +39,7 @@ const SearchPage = observer(() => {
             let length = 0
             product.setProducts(product.allProducts.filter(i => {
                 if (value) {
-                    if (isNumber(value)) {
+                    if (isNumber(value.replace("-","").replace("rgk","").replace("hqv",""))) {
                         if (i.article.includes(value)) {
                             length++
                             return true
