@@ -121,7 +121,7 @@ export default function Delivery(props) {
                     Boxberry
                 </button>
                 
-                <button
+                {/* <button
                     className={delivery === "dl" ? "DeliveryActionButton" : "DeliveryButton"}
                     disabled={delivery === "dl"}
                     onClick={() => {
@@ -131,7 +131,8 @@ export default function Delivery(props) {
                     }}
                 >
                     Деловые Линии
-                </button>
+                </button> */}
+                
                 {/* <button
                     className={delivery === "pek" ? "DeliveryActionButton" : "DeliveryButton"}
                     disabled={delivery === "pek"}
