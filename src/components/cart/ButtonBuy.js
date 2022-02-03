@@ -88,7 +88,8 @@ const ButtonBuy = (props) => {
     return (
         <>
         <Button
-            disabled={props?.product?.brandId === 2}
+            // это временный запрет на покупку товаров (в связи с обновлением цен)
+            // disabled={props?.product?.brandId === 2} // 2 - это Husqvarna
             className={"ButtonBuy "+className}
             variant="outline-warning"
             onClick={e => {
