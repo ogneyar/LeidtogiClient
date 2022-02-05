@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 
 import { fetchAllProducts, updateProduct } from '../../http/productAPI'
-import { locationCitiesSdek, setFeed } from '../../http/testerAPI'
+import { setLocationCitiesSdek, setFeed, setPlacesDl } from '../../http/testerAPI'
 import { getAllProductSizes } from '../../http/productSizeAPI'
 import { getAllProductInfos } from '../../http/productInfoAPI'
 import { Alert } from '../../components/myBootstrap'
@@ -22,6 +22,7 @@ const TesterPage = () => {
     const [ message, setMessage ] = useState("")
 
     const [ xml, setXML ] = useState("")
+    const [ places, setPlaces ] = useState("")
 
     const [ locationCities, setLocationCities ] = useState("")
     const [ loading, setLoading ] = useState(false)
@@ -137,7 +138,7 @@ const TesterPage = () => {
     const getLocationCities = async () => {
         // let page = 0
         setLoading(true)
-        await locationCitiesSdek({page}) 
+        await setLocationCitiesSdek({page}) 
             .then(data => {
                 if (data?.error !== undefined) {
                     setLocationCities("Ошибка: " + data?.error)
@@ -156,6 +157,13 @@ const TesterPage = () => {
             .finally(() => setLoading(false))
     }
 
+    // Создание файла places.csv для Деловых линий
+    const getPlacesDL = async () => {
+        setLoading(true)
+        setPlaces(await setPlacesDl())
+        setLoading(false)
+    }
+
     
     useEffect(() => {
         if (page && page > 0) {
@@ -170,39 +178,47 @@ const TesterPage = () => {
     return (
         <InfoPage>
             <div>
-                <br />
-                Создание locationCities.json для СДЭК
-                <hr />
-                {locationCities &&
-                <>
-                    {locationCities}
+                
+                <div>
                     <br />
-                </> 
-                }
-                {page ?
-                <>
-                    Номер страницы: {page}
-                    <br />
-                </> 
-                : null}
-                <Button onClick={() => getLocationCities(page)}>
-                    Создать locationCities
-                </Button>
-                <hr />
+                    Создание фида yml для Яндекс.Метрики
+                    <hr />
+                    {xml && <> {xml} <br /> </>}
+                    <Button onClick={getXML}> Создать фид </Button>
+                    <hr />
+                </div>
 
-                <br />
-                Создание фида yml для Яндекс.Метрики
-                <hr />
-                {xml &&
-                <>
-                    {xml}
+                <div>
                     <br />
-                </> 
-                }
-                <Button onClick={getXML}>
-                    Создать фид
-                </Button>
-                <hr />
+                    Создание places.csv для Деловых линий
+                    <hr />
+                    {places && <> {places} <br /> </>}
+                    <Button onClick={getPlacesDL}> Создать places </Button>
+                    <hr />
+                </div>
+
+                <div>
+                    <br />
+                    Создание locationCities.json для СДЭК
+                    <hr />
+                    {locationCities &&
+                    <>
+                        {locationCities}
+                        <br />
+                    </> 
+                    }
+                    {page ?
+                    <>
+                        Номер страницы: {page}
+                        <br />
+                    </> 
+                    : null}
+                    <Button onClick={() => getLocationCities(page)}>
+                        Создать locationCities
+                    </Button>
+                    <hr />
+                </div>
+
 
                 <br />
                 Поиск отсутствующих параметров
