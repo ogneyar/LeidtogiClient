@@ -79,7 +79,15 @@ export const DeliveryBusinessLines = (props) => {
         cart = JSON.parse(cart)
         let weight = 0
         cart.forEach( i => weight += (Number(i?.value) * Number(i?.size?.weight)) )
-        if (!weight) weight = 5
+        
+        // если вес не известен, расчитываем доставку 5ти килограммов
+        // лимит до 30 килограмм
+        let weightNull = false
+        if (!weight) {
+            weight = 5
+            weightNull = true
+        }
+
         weight = weight * 1000
         weight = Math.ceil(weight)
 
@@ -100,7 +108,8 @@ export const DeliveryBusinessLines = (props) => {
                                     getMicroCalc(i.code) 
                                         .then(dat => {
                                             let terminals_standard = dat?.data?.door_to_terminal_standard
-                                            setInfo({...terminals_standard, weight})
+                                            if (weightNull) setInfo({...terminals_standard, weight: 0})
+                                            else setInfo({...terminals_standard, weight})
                                         }).finally(() => setLoading(false))
                                 }} 
                             >
@@ -116,7 +125,8 @@ export const DeliveryBusinessLines = (props) => {
                     getMicroCalc(data[0].code) 
                         .then(data => {
                             let terminals_standard = data?.data?.door_to_terminal_standard
-                            setInfo({...terminals_standard, weight})
+                            if (weightNull) setInfo({...terminals_standard, weight: 0})
+                            else setInfo({...terminals_standard, weight})
                         }).finally(() => setLoading(false))
                     // localStorage.setItem('delivery_region', data[0].region_name.split(" ")[0])
                 }

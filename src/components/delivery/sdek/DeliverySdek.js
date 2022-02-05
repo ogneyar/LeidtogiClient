@@ -176,7 +176,15 @@ const DeliverySdek = observer((props) => {
             cart = JSON.parse(cart)
             let weight = 0
             cart.forEach( i => weight += (Number(i?.value) * Number(i?.size?.weight)) )
-            if (!weight) weight = 5
+            
+            // если вес не известен, расчитываем доставку 5ти килограммов
+            // лимит до 30 килограмм
+            let weightNull = false
+            if (!weight) {
+                weight = 5
+                weightNull = true
+            }
+
             weight = weight * 1000
             weight = Math.ceil(weight)
             setInfo({ total_sum:"", period_min:"", period_max:"", weight_calc:"", currency:"", delivery_sum:"" })
@@ -233,7 +241,10 @@ const DeliverySdek = observer((props) => {
                 }else {
                     props?.setTextAlert("Ошибка: " + response.errors[0]?.message)
                 }
-            }else setInfo(response)
+            }else {
+                if (weightNull) setInfo({...response, weight_calc: 0})
+                else setInfo(response)
+            }
 
         }else if (!name) {
             props?.setTextAlert(`В таком городе не найден склада СДЭК.`)

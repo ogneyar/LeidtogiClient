@@ -167,7 +167,15 @@ const DeliveryBoxberry = observer((props) => {
             cart = JSON.parse(cart)
             let weight = 0
             cart.forEach( i => weight += (Number(i?.value) * Number(i?.size?.weight)) )
-            if (!weight) weight = 5
+
+            // если вес не известен, расчитываем доставку 5ти килограммов
+            // лимит до 1000 кг (1 тонна)
+            let weightNull = false
+            if (!weight) {
+                weight = 5
+                weightNull = true
+            }
+
             weight = weight * 1000
             weight = Math.ceil(weight)
             setInfo({ price:"", price_base:"", price_service:"", delivery_period:"", weight:"" })
@@ -189,7 +197,10 @@ const DeliveryBoxberry = observer((props) => {
                         }else {
                             props?.setTextAlert("Ошибка: " + response.error)
                         }
-                    }else setInfo({...response, price: Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE, weight})
+                    }else {
+                        if (weightNull) setInfo({...response, price: Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE, weight: 0})
+                        else setInfo({...response, price: Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE, weight})
+                    }
                 }
             }else {
                 props?.setTextAlert(`В таком городе нет склада Boxberry`)
