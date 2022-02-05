@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ReactHtmlParser from 'react-html-parser'
 import { observer } from 'mobx-react-lite';
 // eslint-disable-next-line
-import { addProduct, getLength, addAllProducts, getImage, getCharcteristics, getDescription } from '../../../http/parser/husqvarnaAPI'
+import { addProduct, getLength, changePrices } from '../../../http/parser/husqvarnaAPI'
 import Loading from '../../../components/Loading';
 import InfoPage from '../../info/InfoPage';
 
@@ -69,10 +69,29 @@ const HusqvarnaParserPage = observer((props) => {
 
     const onClickButtonChangePrices =async () => {
         setMessage("")
+        const formData = new FormData()
+        if (feed) {
+            formData.append("feed", feed)
+        }
         setLoading(true)
-        setTimeout(() => {
-            setLoading(false)
-        }, 1000)
+        await changePrices(formData)
+            // eslint-disable-next-line
+            .then(data => {
+                if (data?.error) {
+                    setMessage(data.error)
+                    console.log(data.error)
+                }else {
+                    setMessage(JSON.stringify(data))
+                    console.log(data)
+                }
+            })
+            // eslint-disable-next-line
+            .catch(error => {
+                setMessage("(Ошибка) " + JSON.stringify(error))
+                console.log("(Ошибка) " + error)
+            })
+        setLoading(false)
+
     }
 
 
@@ -80,6 +99,7 @@ const HusqvarnaParserPage = observer((props) => {
         <InfoPage>
             <div className="HusqvarnaParserPage_Header">
                 <label>Заведение товаров Husqvarna на сайт!</label>
+                <label>Или обновление цен!</label>
 
                 {/* {quantity && quantity !== 0
                 ? "Общее количество товаров: " + quantity
@@ -113,13 +133,13 @@ const HusqvarnaParserPage = observer((props) => {
                 <>
                     {/* <input className="pl-3 pr-3" type="text" value={article} onChange={(e) => setArticle(e.target.value)} /> */}
                     <input 
-                        className="pl-3 pr-3" 
+                        className="m-3 pl-3 pr-3" 
                         type="text" 
                         value={number} 
                         onChange={(e) => setNumber(e.target.value)} 
                     />
                     <hr />
-                    <label>Укажи 0 для добавления всех товаров</label>
+                    <span>Укажи 0 для добавления всех товаров</span>
                     <button 
                         // disabled={ ! feed }
                         className="m-3 p-2" 
@@ -129,18 +149,25 @@ const HusqvarnaParserPage = observer((props) => {
                     </button>
                     
                     <label>или</label>
-                    
                     <button 
                         disabled={ ! feed }
+                        className="m-3 p-2" 
                         onClick={onClickButtonChangePrices}
                     >
                         Обновить цены
                     </button>
+                    <span>Для обавления цен не важно какая цифра указана</span>
 
                     <br />
-                </>
-                }
-                <button onClick={() => props?.setBrand("")} >назад</button>
+                </>}
+
+                <button 
+                    className="m-3 p-2" 
+                    onClick={() => props?.setBrand("")}
+                >
+                    назад
+                </button>
+
             </div>
         </InfoPage>
     )
