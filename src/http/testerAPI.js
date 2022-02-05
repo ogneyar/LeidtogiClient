@@ -1,12 +1,18 @@
+// eslint-disable-next-line
 import {$host,$authHost} from './index'
 
 
 export const setFeed = async (body) => {
-    const { data } = await $authHost.post('api/tester/feed', body)
+    const { data } = await $authHost.post('api/tester/set_feed', body)
     return data
 }
 
-export const locationCitiesSdek = async (params) => {
-    const { data } = await $host.get('api/tester/locationCitiesSdek', { params })
+export const setLocationCitiesSdek = async (params) => {
+    const { data } = await $authHost.get('api/tester/set_location_cities_sdek', { params })
+    return data
+}
+
+export const setPlacesDl = async () => {
+    const { data } = await $authHost.get('api/tester/set_places_dl')
     return data
 }
