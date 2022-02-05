@@ -15,3 +15,8 @@
 .HusqvarnaParserPage_Header label {
     text-align: center;
 }
+
+.HusqvarnaParserPage_Header span {
+    text-align: center;
+    font-size: small;
+}
