@@ -1,13 +1,22 @@
 // eslint-disable-next-line
 import { $host, $authHost } from '../index'
-import { DELIVERY_DL_DERIVAL_CITY } from '../../utils/consts'
+// import { DELIVERY_DL_DERIVAL_CITY } from '../../utils/consts'
 
+
+// Калькулятор стоимости и сроков заказа
+export const calculator = async (delivery, cargo) => {
+    const { data } = await $host.get('api/delivery/dl/calculator',{ params: {
+        delivery, // информация о доставке
+        cargo // информация о товаре
+    }})
+    return data
+}
 
 // Калькулятор ориентировочной стоимости и сроков заказа
-export const getMicroCalc = async (arrival_city) => {
+export const getMicroCalc = async (arrival_city, derival_city) => {
     const { data } = await $host.get('api/delivery/dl/micro_calc',{ params: {
         arrival_city, // город прибытия
-        derival_city: DELIVERY_DL_DERIVAL_CITY // отправка (г. Котельники)
+        derival_city // отправка
     }})
     return data
 }
