@@ -63,7 +63,7 @@ const Cart = () => {
                 let totalValue = 0
                 cart = cart.filter(i => {
                     if (i.id !== item.id) {
-                        totalValue += i.total
+                        totalValue += Number(i.total)
                         return true
                     }
                     return false
@@ -100,10 +100,10 @@ const Cart = () => {
                     else if (action === "minus") newValue = i.value - 1
                     if (newValue === 0) newValue = 1
                     let newTotal = newValue * i.price
-                    totalValue += newTotal
+                    totalValue += Number(newTotal)
                     return {...i, value: newValue, total: newTotal}
                 }
-                totalValue += i.total
+                totalValue += Number(i.total)
                 return i
             })
             if (action === "plus") {
@@ -258,7 +258,7 @@ const Cart = () => {
                                 <div
                                     className="CartThDivRow"
                                 >
-                                    {amount}
+                                    {Number(amount)}
                                 </div>
                                 
                             </th>
