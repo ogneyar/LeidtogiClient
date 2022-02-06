@@ -17,7 +17,7 @@ import './Delivery.css'
 
 export default function Delivery(props) {
 
-    const [delivery, setDelivery] = useState("sdek")
+    const [delivery, setDelivery] = useState("dl")
 
     const [ latitude, setLatitude ] = useState(55.75) // Долгота Белой Калитвы - 48.177645
     const [ longitude, setLongitude ] = useState(37.615) // Широта Белой Калитвы - 48.177645
@@ -35,7 +35,7 @@ export default function Delivery(props) {
 
     
     useEffect(() => {
-        if (textAlert) {
+        if (textAlert !== "") {
             setAlertVisible(true)
         }
     },[textAlert])
@@ -98,17 +98,19 @@ export default function Delivery(props) {
             <div
                 className="DeliveryChoise"
             >
+                
                 <button
-                    className={delivery === "sdek" ? "DeliveryActionButton" : "DeliveryButton"}
-                    disabled={delivery === "sdek"}
+                    className={delivery === "dl" ? "DeliveryActionButton" : "DeliveryButton"}
+                    disabled={delivery === "dl"}
                     onClick={() => {
-                        setDelivery("sdek")
+                        setDelivery("dl")
                         setPlacemark([])
                         setIconImageHref("")
                     }}
                 >
-                    СДЭК
+                    Деловые Линии
                 </button>
+
                 <button
                     className={delivery === "boxberry" ? "DeliveryActionButton" : "DeliveryButton"}
                     disabled={delivery === "boxberry"}
@@ -122,15 +124,15 @@ export default function Delivery(props) {
                 </button>
                 
                 <button
-                    className={delivery === "dl" ? "DeliveryActionButton" : "DeliveryButton"}
-                    disabled={delivery === "dl"}
+                    className={delivery === "sdek" ? "DeliveryActionButton" : "DeliveryButton"}
+                    disabled={delivery === "sdek"}
                     onClick={() => {
-                        setDelivery("dl")
+                        setDelivery("sdek")
                         setPlacemark([])
                         setIconImageHref("")
                     }}
                 >
-                    Деловые Линии
+                    СДЭК
                 </button>
                 
                 {/* <button
@@ -196,7 +198,7 @@ export default function Delivery(props) {
                         setTextAlert={setTextAlert} 
                         setPlacemark={setPlacemark}
                         setLoadingDelivery={setLoading}
-                        setIconImageHref={setIconImageHref}
+                        setIconImageHref={setIconImageHref} 
                     />
                 : null}
 
