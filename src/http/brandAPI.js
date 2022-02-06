@@ -11,6 +11,13 @@ export const fetchBrands = async () => {
     return data
 }
 
+export const getOneBrand = async (id) => {
+    const {data} = await $host.get('api/brand/get_one', {
+        params: { id }
+    })
+    return data
+}
+
 export const deleteBrand = async (id) => {
     const {data} = await $authHost.delete('api/brand/' + id)
     return data
