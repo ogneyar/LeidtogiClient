@@ -17,7 +17,7 @@ import './Delivery.css'
 
 export default function Delivery(props) {
 
-    const [delivery, setDelivery] = useState("dl")
+    const [delivery, setDelivery] = useState("boxberry")
 
     const [ latitude, setLatitude ] = useState(55.75) // Долгота Белой Калитвы - 48.177645
     const [ longitude, setLongitude ] = useState(37.615) // Широта Белой Калитвы - 48.177645
@@ -100,18 +100,6 @@ export default function Delivery(props) {
             >
                 
                 <button
-                    className={delivery === "dl" ? "DeliveryActionButton" : "DeliveryButton"}
-                    disabled={delivery === "dl"}
-                    onClick={() => {
-                        setDelivery("dl")
-                        setPlacemark([])
-                        setIconImageHref("")
-                    }}
-                >
-                    Деловые Линии
-                </button>
-
-                <button
                     className={delivery === "boxberry" ? "DeliveryActionButton" : "DeliveryButton"}
                     disabled={delivery === "boxberry"}
                     onClick={() => {
@@ -121,6 +109,18 @@ export default function Delivery(props) {
                     }}
                 >
                     Boxberry
+                </button>
+                
+                <button
+                    className={delivery === "dl" ? "DeliveryActionButton" : "DeliveryButton"}
+                    disabled={delivery === "dl"}
+                    onClick={() => {
+                        setDelivery("dl")
+                        setPlacemark([])
+                        setIconImageHref("")
+                    }}
+                >
+                    Деловые Линии
                 </button>
                 
                 <button
