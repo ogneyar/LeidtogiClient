@@ -133,7 +133,7 @@ export const DeliveryBusinessLines = (props) => {
                                     
                                     calculator(delivery, cargo)
                                         .then(data => {
-                                            setInfo({price: data.data.price, weight: cargo.totalWeight})
+                                            setInfo({price: data?.data?.price, weight: cargo?.totalWeight})
                                         }).finally(() => setLoading(false))
 
                                     // getMicroCalc(i.code, derival_city) 
@@ -164,7 +164,7 @@ export const DeliveryBusinessLines = (props) => {
                     
                     calculator(delivery, cargo)
                         .then(data => {
-                            setInfo({price: data.data.price, weight: cargo.totalWeight})
+                            setInfo({price: data?.data?.price, weight: cargo?.totalWeight})
                         }).finally(() => setLoading(false))
 
                     // getMicroCalc(data[0].code, derival_city) 
