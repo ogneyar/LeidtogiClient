@@ -1,5 +1,6 @@
 // import Notification from "../../components/myBootstrap/Notification"
 import { fetchProductSizes } from "../../http/productAPI"
+import { getOneBrand } from "../../http/brandAPI"
 
 
 export const onClickButtonBuy = async (e, product, type = "add") => {
@@ -18,17 +19,17 @@ export const onClickButtonBuy = async (e, product, type = "add") => {
             cart = cart.map(i => {
                 if (i.id === product.id) {
                     yes = "yes"
-                    let newValue
-                    if (type === "add") {newValue = i.value + 1}
+                    let newValue = 0
+                    if (type === "add") {newValue = Number(i.value) + 1}
                     if (type === "remove") {
                         if (i.value > 1) {
-                            newValue = i.value - 1
+                            newValue = Number(i.value) - 1
                         }else {
-                            newValue = i.value
+                            newValue = Number(i.value)
                         }
                     }
                     
-                    return {...i, value: newValue, total: i.price * newValue}
+                    return {...i, value: newValue, total: Number(i.price) * newValue}
                 } else return i
             })
             if (!yes && type === "add") {
@@ -38,9 +39,9 @@ export const onClickButtonBuy = async (e, product, type = "add") => {
                     value: 1,
                     name: product.name,
                     article: product.article,
-                    price: product.price,
+                    price: Number(product.price),
                     img: product.img[0].small,
-                    total: product.price,
+                    total: Number(product.price),
                     size
                 }]
             }
@@ -54,16 +55,18 @@ export const onClickButtonBuy = async (e, product, type = "add") => {
     }else {
 
         if (type === "add") {
+            let brand = await getOneBrand(product.brandId)
             size = await fetchProductSizes(product.id)
             cart = [{
                 id:product.id,
                 value:1,
                 name:product.name,
                 article:product.article,
-                price:product.price,
+                price: Number(product.price),
                 img:product.img[0].small,
-                total: product.price,
-                size
+                total: Number(product.price),
+                size,
+                brand: brand.name.toLowerCase()
             }]
         }
 
