@@ -341,9 +341,9 @@ const CreateOrderPage = () => {
                                         <div style={{border:"1px solid grey", padding:"15px 0 5px 0",width:"100%",textAlign:"center"}}>
                                             {cart?.cart.map(i => {
                                                 if (i.name.length > 20) {
-                                                    return <p>{i.name.substring(0,20)+"... - "+ i.value + "шт. - "}<strong>{i.price}р.</strong></p>
+                                                    return <p key={i.id+33}>{i.name.substring(0,20)+"... - "+ i.value + "шт. - "}<strong>{i.price}р.</strong></p>
                                                 }
-                                                return <p>{i.name + i.value + "шт. - "}<strong>{i.price}р.</strong></p>
+                                                return <p key={i.id+33}>{i.name + i.value + "шт. - "}<strong>{i.price}р.</strong></p>
                                             })}
                                         </div>
                                         <br />
