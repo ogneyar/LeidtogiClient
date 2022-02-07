@@ -44,7 +44,7 @@ const Cart = () => {
             cart = JSON.parse(cart)
             setState(cart)
             let totalValue = 0
-            cart.forEach(i => totalValue += i.total)
+            cart.forEach(i => totalValue += Number(i.total))
             setAmount(totalValue)
         }
         setLoading(false)
@@ -96,10 +96,10 @@ const Cart = () => {
             cart = cart.map(i => {
                 if (i.id === item.id) {
                     let newValue = 0
-                    if (action === "plus") newValue = i.value + 1
-                    else if (action === "minus") newValue = i.value - 1
+                    if (action === "plus") newValue = Number(i.value) + 1
+                    else if (action === "minus") newValue = Number(i.value) - 1
                     if (newValue === 0) newValue = 1
-                    let newTotal = newValue * i.price
+                    let newTotal = newValue * Number(i.price)
                     totalValue += Number(newTotal)
                     return {...i, value: newValue, total: newTotal}
                 }
