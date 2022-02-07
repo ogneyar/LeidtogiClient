@@ -41,14 +41,14 @@ const Search = observer((props) => {
         setValue(search)
         if (search) {
             if (
-                isNumber(search.replace("-","").replace("rgk","").replace("hqv","")) 
+                isNumber(search.replace("-","").replace("rgk","").replace("hqv","").trim()) 
                 // || search.includes("rgk") 
                 // || search.includes("hqv") 
                 // || search.includes("mlk")
             ) {
-                setList(array.filter(i => i.article.includes(search)))
+                setList(array.filter(i => i.article.includes(search.trim())))
             }else {
-                setList(array.filter(i => i.name.toLowerCase().includes(search.toLowerCase())))
+                setList(array.filter(i => i.name.toLowerCase().includes(search.toLowerCase().trim())))
             }
         }else setList([])
     }
@@ -86,8 +86,8 @@ const Search = observer((props) => {
                             id="search" 
                             placeholder="Поиск" 
                             value={value}
-                            onChange={e => onChangeSearchInputValue(e.target.value.trim())}
-                            onClick={e => onClickSearchInput(e.target.value.trim())}
+                            onChange={e => onChangeSearchInputValue(e.target.value)}
+                            onClick={e => onClickSearchInput(e.target.value)}
                             onKeyDown={e => onKeyDownInput(e)}
                         />
 
