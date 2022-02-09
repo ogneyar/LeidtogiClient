@@ -6,6 +6,8 @@ import LkPage from '../pages/lk/LkPage'
 import LoginPage from '../pages/login/LoginPage'
 import RegistrationPage from '../pages/registration/RegistrationPage'
 import ConfirmPage from '../pages/confirm/ConfirmPage'
+import ForgotPasswordPage from '../pages/password/ForgotPasswordPage'
+import ChangePasswordPage from '../pages/password/ChangePasswordPage'
 import ShopPage from '../pages/shop/ShopPage'
 import ProductPage from '../pages/product/ProductPage'
 import CartPage from '../pages/cart/CartPage'
@@ -35,7 +37,7 @@ import {
     PRODUCT_ROUTE, LK_ROUTE, CONFIRM_ROUTE, SEARCH_ROUTE, SUCCESS_ROUTE, ERROR_ROUTE, ABOUT_US_ROUTE, 
     DELIVERY_ROUTE, PAYMENT_ROUTE, PRIVACY_POLICY_ROUTE, RETURNS_POLICY_ROUTE, CREATE_ORDER_ROUTE,
     TERMS_OF_USE_ROUTE, WARRANTY_ROUTE, CONTACTS_ROUTE, SPECIALS_ROUTE, DELETE_ROUTE, CONGRATULATION_ROUTE,
-    SUPPORT_ROUTE, MESSAGE_ROUTE
+    SUPPORT_ROUTE, MESSAGE_ROUTE, FORGOT_PASSWORD_ROUTE, CHANGE_PASSWORD_ROUTE
 } from './consts'
 
 // brandRoutes находится в src/components/AppRouter.js
@@ -63,6 +65,14 @@ export const publicRoutes = [
     {
         path: LK_ROUTE,
         Component: LkPage
+    },
+    {
+        path: FORGOT_PASSWORD_ROUTE,
+        Component: ForgotPasswordPage
+    },
+    {
+        path: CHANGE_PASSWORD_ROUTE + '/:url',
+        Component: ChangePasswordPage
     },
     {
         path: CART_ROUTE,
