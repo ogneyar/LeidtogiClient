@@ -36,14 +36,14 @@ const Lk = observer(() => {
 
     useEffect(() => {
         let time = 1000
-        for(let i = 60; i >= 0; i--) {
+        for(let i = 30; i >= 0; i--) {
             setTimeout(() => {
                 setSecond(i)
             },time)
             time += 1000
         }
     },[])
-
+ 
     const onClickButtonRetryMail = async () => {
         setError(null)
         setLoading(true)
