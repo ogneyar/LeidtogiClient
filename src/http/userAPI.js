@@ -8,7 +8,7 @@ export const registration = async (body) => {
 }
 
 export const login = async (email, password) => {
-    const {data} = await $host.post('api/user/login', {email, password})
+    const {data} = await $host.post('api/user/login', { email, password })
     localStorage.setItem('token', data.token)
     return jwt_decode(data.token)
 }
@@ -47,6 +47,16 @@ export const activate = async (id, link) => {
 
 export const retryMail = async (id) => {
     const {data}  = await $authHost.post('api/user/retry_mail/'+ id)
+    return data
+}
+
+export const forgotPassword = async (email) => {
+    const {data}  = await $host.post('api/user/forgot_password/', { email })
+    return data
+}
+
+export const changePassword = async (url, password) => {
+    const {data}  = await $host.post('api/user/change_password/', { url, password })
     return data
 }
 
