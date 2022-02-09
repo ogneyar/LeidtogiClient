@@ -3,14 +3,14 @@ import { Button, Card, Container, Form, Row } from 'react-bootstrap'
 import { useQueryParam, StringParam } from 'use-query-params'
 import { NavLink, useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
-import $ from 'jquery'
+// import $ from 'jquery'
 
-
+import { REGISTRATION_ROUTE, LK_ROUTE, CONFIRM_ROUTE, FORGOT_PASSWORD_ROUTE } from '../../utils/consts'
 import { login, getUserInfo } from '../../http/userAPI'
-// eslint-disable-next-line
-import { REGISTRATION_ROUTE, SHOP_ROUTE, LK_ROUTE, CONFIRM_ROUTE } from '../../utils/consts'
 import { Alert } from '../../components/myBootstrap'
+import scrollUp from '../../utils/scrollUp'
 import { Context } from '../..'
+import './LoginPage.css'
 
 
 const LoginPage = observer((props) => {
@@ -49,41 +49,35 @@ const LoginPage = observer((props) => {
         }
     }
 
-    const scrollUp = () => {
-        $('html, body').animate(
-            {scrollTop: 0}, 
-            700, 
-            function(){}
-        )
-    }
-
     return (
         <Container 
-            className="d-flex justify-content-center align-items-center"
+            className="LoginPage"
         >
-            <Card style={{width: 600}} className="p-5">
-                <h2 className="m-auto">
+            <Card className="LoginPage_Card">
+                <h2 className="LoginPage_Card_header">
                     Авторизация
                 </h2>
-                <Form className="d-flex flex-column">
+                <Form className="LoginPage_Card_Form">
 
                     <label>Email:</label>
                     <Form.Control 
-                        className=""
                         placeholder="Введите Ваш email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                     />
                     <label>Пароль:</label>
                     <Form.Control 
-                        className=""
                         placeholder="Введите пароль"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                         type="password"
                     />
 
-                    <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
+                    <div className="LoginPage_changePassword">
+                        <NavLink onClick={scrollUp} to={FORGOT_PASSWORD_ROUTE}>Забыли пароль?!</NavLink>
+                    </div>
+
+                    <Row className="LoginPage_Card_Form_Row">
                         {props?.confirm 
                         ? 'Войдите, для подтверждения.'
                         :
