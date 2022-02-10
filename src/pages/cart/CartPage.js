@@ -200,7 +200,7 @@ const Cart = () => {
                                         <div
                                             className="CartThDivRow"
                                         >
-                                            {i.price}
+                                            {i.price}&nbsp;р.
                                         </div>
                                     </th>
                                     <th>
@@ -242,7 +242,7 @@ const Cart = () => {
                                         <div
                                             className="CartThDivRow"
                                         >
-                                            {i.total}
+                                            {i.total}&nbsp;р.
                                         </div>
                                     </th>
                                 </tr>
@@ -258,7 +258,7 @@ const Cart = () => {
                                 <div
                                     className="CartThDivRow"
                                 >
-                                    {Number(amount)}
+                                    {Number(amount)}&nbsp;р.
                                 </div>
                                 
                             </th>
