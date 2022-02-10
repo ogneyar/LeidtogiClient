@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Modal, Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 
 import { getAllOrders, editOrder } from '../../http/orderAPI'
+import { ADMIN_ROUTE } from '../../utils/consts'
 import Loading from '../Loading'
 
 
 const OrderAdmin = (props) => {
+
+    const history = useHistory()
 
     const [ loading, setLoading ] = useState(true)
     const [ error, setError ] = useState("")
@@ -34,7 +38,8 @@ const OrderAdmin = (props) => {
                         if (i.id === id) return {...i, state: "delivered"}
                         return i
                     })
-                    alert("Изменил, обнови страницу...")
+                    alert("Статус заказа изменён!")
+                    history.push(ADMIN_ROUTE)
                 }else setError(data.error)
             })
             .catch(err => {

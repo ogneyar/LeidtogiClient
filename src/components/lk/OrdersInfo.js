@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import { getOrderForUser, setTaken } from '../../http/orderAPI'
 
+import { ADDRESS, LK_ROUTE } from '../../utils/consts'
 import Loading from '../Loading'
-import { ADDRESS } from '../../utils/consts'
 import { Context } from '../..'
 import './OrdersInfo.css'
 
@@ -11,6 +12,8 @@ import './OrdersInfo.css'
 const OrdersInfo = () => {
         
     const { user } = useContext(Context) 
+
+    const history = useHistory()
 
     const [ oders, setOrders ] = useState(null)
     const [ loading, setLoading ] = useState(true)
@@ -37,6 +40,7 @@ const OrdersInfo = () => {
                         return i
                     })
                     alert("Статус заказа изменён!")
+                    history.push(LK_ROUTE)
                 }
             })
             .finally(() => setLoading(false))
