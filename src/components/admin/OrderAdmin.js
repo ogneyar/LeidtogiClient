@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import { Modal, Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 
@@ -10,7 +10,7 @@ import Loading from '../Loading'
 
 const OrderAdmin = (props) => {
 
-    const history = useHistory()
+    // const history = useHistory()
 
     const [ loading, setLoading ] = useState(true)
     const [ error, setError ] = useState("")
@@ -39,7 +39,8 @@ const OrderAdmin = (props) => {
                         return i
                     })
                     alert("Статус заказа изменён!")
-                    history.push(ADMIN_ROUTE)
+                    // history.push(ADMIN_ROUTE)
+                    window.open(ADMIN_ROUTE,'_self',false)
                 }else setError(data.error)
             })
             .catch(err => {
