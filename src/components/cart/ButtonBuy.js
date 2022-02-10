@@ -157,7 +157,7 @@ const ButtonBuy = (props) => {
                     >
                         <div>
                             <label>Цена</label>
-                            {props?.product?.price}
+                            {props?.product?.price}&nbsp;р.
                         </div>
                         <div className="NotificationCart_price_value">
                             <label>Количество</label>
@@ -168,7 +168,7 @@ const ButtonBuy = (props) => {
                         </div>
                         <div>
                             <label>Итого</label>
-                            {props?.product?.price * value}
+                            {props?.product?.price * value}&nbsp;р.
                         </div>
                         <div>
                             <label>&nbsp;</label>
