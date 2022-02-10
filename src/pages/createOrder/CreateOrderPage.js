@@ -286,15 +286,21 @@ const CreateOrderPage = () => {
                                         <br />
                                         <p><strong>Ваш заказ:</strong></p>
                                         <div style={{border:"1px solid grey", padding:"15px 0 5px 0",width:"100%",textAlign:"center"}}>
-                                            {cart?.cart.map(i => {
+                                            {cart?.cart.map((i,index) => {
                                                 if (i.name.length > 20) {
-                                                    return <p>{i.name.substring(0,20)+"... - "+ i.value + "шт. - "}<strong>{i.price}р.</strong></p>
+                                                    return <>
+                                                        <span style={{fontSize:"0.8rem"}}>{i.article}</span>
+                                                        <p>{index+1}.&nbsp;{i.name.substring(0,20)+"... - "+ i.value + "шт. - "}<strong>{i.price}&nbsp;р.</strong></p>
+                                                    </>
                                                 }
-                                                return <p>{i.name + i.value + "шт. - "}<strong>{i.price}р.</strong></p>
+                                                return <>
+                                                    <span style={{fontSize:"0.8rem"}}>{i.article}</span>
+                                                    <p>{index+1}.&nbsp;{i.name + i.value + "шт. - "}<strong>{i.price}&nbsp;р.</strong></p>
+                                                </>
                                             })}
                                         </div>
                                         <br />
-                                        <p>Итого к оплате: <strong>{amount}р.</strong></p>
+                                        <p>Итого к оплате: <strong>{amount}&nbsp;р.</strong></p>
                                     </div>
                                     <Payment 
                                         text="Оплатить картой" 
