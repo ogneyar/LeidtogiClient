@@ -5,8 +5,9 @@ import { useHistory } from 'react-router-dom'
 import { CREATE_ORDER_ROUTE, SCROLL_TOP } from '../../utils/consts'
 import scrollUp from '../../utils/scrollUp'
 
+
 const CreateOrder = (props) => {
-    // eslint-disable-next-line
+    
     const history = useHistory()
 
     return (
@@ -16,9 +17,9 @@ const CreateOrder = (props) => {
                 <Button
                     onClick={() => {
                         props?.setLoad()
+                        scrollUp(SCROLL_TOP)
                         history.push(CREATE_ORDER_ROUTE)
                         // window.open(CREATE_ORDER_ROUTE,'_self',false)
-                        scrollUp(SCROLL_TOP)
                     }}
                     className="CreateOrderButton"
                     size="lg"
