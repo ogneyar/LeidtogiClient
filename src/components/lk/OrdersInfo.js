@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { getOrderForUser } from '../../http/orderAPI'
+import { getOrderForUser, setTaken } from '../../http/orderAPI'
 
 import Loading from '../Loading'
 import { ADDRESS } from '../../utils/consts'
@@ -27,6 +27,21 @@ const OrdersInfo = () => {
         }
     }, [user?.user])
 
+    const onClickButtonConfirm = async (id) => {
+        setLoading(true)
+        await setTaken(id)
+            .then(data => {
+                if (data.error === undefined) {
+                    oders.map(i => {
+                        if (i.id === id) return {...i, state: "taken"}
+                        return i
+                    })
+                    alert("Статус заказа изменён!")
+                }
+            })
+            .finally(() => setLoading(false))
+    }
+
     if (loading) return <Loading />
 
     return (
@@ -47,8 +62,18 @@ const OrdersInfo = () => {
                                 Cтатус:&nbsp;
                                 {i?.state === "forming" && <strong>формируется...</strong>} 
                                 {i?.state === "onway" && <strong>в пути.</strong>} 
-                                {i?.state === "delivered" && <strong>прибыл на склад.</strong>} 
-                                {i?.state === "taken" && <strong>забран.</strong>} 
+                                {i?.state === "delivered" && 
+                                <>
+                                    <strong>прибыл на склад.</strong>
+                                    &nbsp;
+                                    <button
+                                        style={{borderRadius:"5px",padding:"5px 10px"}}
+                                        onClick={() => onClickButtonConfirm(i.id)}
+                                    >
+                                        Подтвердить получение
+                                    </button>
+                                </>}
+                                {i?.state === "taken" && <><strong>получен.</strong><hr /></>} 
                                 <br />
                                 {i?.state !== "taken" && 
                                 <>
