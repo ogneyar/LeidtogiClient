@@ -61,7 +61,8 @@ const App = observer(() => {
 
         fetchAllProducts()
             .then(
-                data => product.setAllProducts(data),
+                data => product.setAllProducts(data.filter(i => i.have === 1)),
+                // data => product.setAllProducts(data),
                 err => console.log(err))
         
         fetchBrands()
