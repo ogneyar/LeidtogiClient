@@ -85,7 +85,7 @@ const ProductItem = ({product}) => {
                         </div> */}
 
                         <div className="product-price">
-                            {product.price}
+                            {product.price}&nbsp;р.
                         </div>
 
                         {product.rating 
