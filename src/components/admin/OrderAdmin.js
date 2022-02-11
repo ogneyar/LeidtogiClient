@@ -4,7 +4,7 @@ import { Modal, Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 
 import { getAllOrders, editOrder } from '../../http/orderAPI'
-import { ADMIN_ROUTE } from '../../utils/consts'
+// import { ADMIN_ROUTE } from '../../utils/consts'
 import Loading from '../Loading'
 
 
@@ -34,13 +34,13 @@ const OrderAdmin = (props) => {
         await editOrder(id, { state: "delivered"})
             .then(data => {
                 if (data.error === undefined) {
-                    orders.map(i => {
+                    setOrders(orders.map(i => {
                         if (i.id === id) return {...i, state: "delivered"}
                         return i
-                    })
-                    alert("Статус заказа изменён!")
+                    }))
+                    // alert("Статус заказа изменён!")
                     // history.push(ADMIN_ROUTE)
-                    window.open(ADMIN_ROUTE,'_self',false)
+                    // window.open(ADMIN_ROUTE,'_self',false)
                 }else setError(data.error)
             })
             .catch(err => {
