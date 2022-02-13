@@ -1,0 +1,15 @@
+.OrderAdmin {
+
+}
+
+.OrderAdmin_block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* justify-content: center; */
+}
+
+.OrderAdmin_block_button {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
