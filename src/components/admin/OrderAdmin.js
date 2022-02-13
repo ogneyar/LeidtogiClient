@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 // import { useHistory } from 'react-router-dom'
 import { Modal, Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
@@ -6,9 +6,13 @@ import { observer } from 'mobx-react-lite'
 import { getAllOrders, editOrder } from '../../http/orderAPI'
 // import { ADMIN_ROUTE } from '../../utils/consts'
 import Loading from '../Loading'
+import { Context } from '../..'
+import './OrderAdmin.css'
 
 
 const OrderAdmin = (props) => {
+
+    const { user } = useContext(Context) 
 
     // const history = useHistory()
 
@@ -29,7 +33,7 @@ const OrderAdmin = (props) => {
     }, []);
 
     const onClickButtonOrderEnd = async (id) => {
-        setLoading(true)
+        // setLoading(true)
         // forming, onway, delivered, taken
         await editOrder(id, { state: "delivered"})
             .then(data => {
@@ -46,12 +50,35 @@ const OrderAdmin = (props) => {
             .catch(err => {
                 setError(err)
             })
-            .finally(() => setLoading(false))
+            // .finally(() => setLoading(false))
+    }
+
+    const onClickSetPay = async (id) => {
+        let confirm = window.confirm("Вы уверены что хотите изменить статус заказа №" + id + " на ОПЛАЧЕННЫЙ?")
+        if (confirm) {
+            if (user.user.id === 1) {
+                await editOrder(id, { pay: 1})
+                    .then(data => {
+                        if (data.error === undefined) {
+                            setOrders(orders.map(i => {
+                                if (i.id === id) return {...i, pay: 1}
+                                return i
+                            }))
+                        }else setError(data.error)
+                    })
+                    .catch(err => {
+                        setError(err)
+                    })
+            }else {
+                alert("У Вас не достаточно прав доступа, обратитесь к разработчику!")
+            }
+        }
     }
 
 
     return (
         <Modal
+            className="OrderAdmin"
             closeButton
             show={props?.show}
             onHide={props?.onHide}
@@ -76,14 +103,20 @@ const OrderAdmin = (props) => {
             :
             error ? <div>{error}</div>
             :
-            <div className='d-flex flex-column'>
+            <div className='OrderAdmin_block'>
                 {orders && Array.isArray(orders) && orders.map(i => {
                     return <>
                         <p>
-                            {i.id}&nbsp;{i.state}&nbsp;{i.pay}&nbsp;
-                            <button
-                                onClick={() => onClickButtonOrderEnd(i.id)}
-                            >Доставлен?</button>
+                            {i.id})&nbsp;Статус:&nbsp;{i.state}&nbsp;
+                            {i.pay === 1 ? "Оплачен:  ДА " : <>Оплачен: <span style={{cursor:"pointer"}} onClick={() => onClickSetPay(i.id)}>НЕТ</span></>}&nbsp;
+                            {i.state !== "taken" && i.state !== "delivered" ?
+                                <button
+                                    className='OrderAdmin_block_button'
+                                    onClick={() => onClickButtonOrderEnd(i.id)}
+                                >
+                                    Доставлен?
+                                </button>
+                            : ""}
                         </p>
                     </>
                 })}
