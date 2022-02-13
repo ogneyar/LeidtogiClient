@@ -3,15 +3,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import ReactHtmlParser from 'react-html-parser'
 
-<<<<<<< HEAD
 import { getOrderForUser, setTaken } from '../../http/orderAPI'
-import { ADDRESS, LK_ROUTE } from '../../utils/consts'
-=======
 import { ADDRESS
     //, LK_ROUTE 
 } from '../../utils/consts'
-
->>>>>>> 044a46ee299aa231c1511b23653a0b5f5812e96a
 import Loading from '../Loading'
 import { Context } from '../..'
 import './OrdersInfo.css'
@@ -39,7 +34,7 @@ const OrdersInfo = () => {
     }, [user?.user])
 
     const onClickButtonConfirm = async (id) => {
-        setLoading(true)
+        // setLoading(true)
         await setTaken(id)
             .then(data => {
                 if (data.error === undefined) {
@@ -52,7 +47,7 @@ const OrdersInfo = () => {
                     // window.open(LK_ROUTE,'_self',false)
                 }
             })
-            .finally(() => setLoading(false))
+            // .finally(() => setLoading(false))
     }
 
     if (loading) return <Loading />
@@ -64,17 +59,13 @@ const OrdersInfo = () => {
             {orders && Array.isArray(orders) && orders.length > 0
             ? 
                 <div>
-                    {oders.filter(j => j.state !== "taken").length > 0 ?
+                    {orders.filter(j => j.state !== "taken").length > 0 ?
                     <div className="OrdersInfo_Title">
                         <h4>Ваши актуальные заказы:</h4>
                     </div>
                     : ""}
                     <div className="OrdersInfo_Body">
-<<<<<<< HEAD
-                        {oders.filter(j => j.state !== "taken").map(i => 
-=======
-                        {orders.map(i => 
->>>>>>> 044a46ee299aa231c1511b23653a0b5f5812e96a
+                    {orders.filter(j => j.state !== "taken").map(i => 
                             <p>
                                 Номер:&nbsp;<strong>{i?.id}</strong> - оплачен.
                                 <br />
@@ -93,6 +84,22 @@ const OrdersInfo = () => {
                                     </button>
                                 </>}
                                 {i?.state === "taken" && <><strong>получен.</strong><hr /></>} 
+                                <br />
+                                Состав заявки:&nbsp;
+                                {ReactHtmlParser(
+                                    JSON.parse(i.cart).map(k => {
+                                        // return k
+                                        let id = k.positionId
+                                        let name = k.name
+                                        let article = k.itemCode
+                                        let value = Number(k.quantity.value)
+                                        let price = Number(k.itemPrice) / 100
+                                        let amount = price * value
+
+                                        return `<br />${id}. ${name}${article !== "0001" ? ` (${article})` : ""}:  ${value} x  ${price} р. =  ${amount} р.`
+
+                                    })
+                                )}
                                 <br />
                                 {i?.state !== "taken" && 
                                 <>
@@ -119,22 +126,20 @@ const OrdersInfo = () => {
                             </p>
                         )}
                     </div>
-                    {oders.filter(j => j.state === "taken").length > 0 ?
+                    {orders.filter(j => j.state === "taken").length > 0 ?
                     <div className="OrdersInfo_Title">
                         <h4>Ваши прошлые заказы:</h4>
                     </div>
                     : ""}
                     <div className="OrdersInfo_Body">
-                        {oders.filter(j => j.state === "taken").map(i => 
+                        {orders.filter(j => j.state === "taken").map(i => 
                             <p>
                                 Номер:&nbsp;<strong>{i?.id}</strong> - оплачен.
                                 <br />
                                 Cтатус:&nbsp;<strong style={{color:"red"}}>получен.</strong>
                                 <br />
                                 Состав заявки:&nbsp;
-                                
-                                {
-                                ReactHtmlParser(
+                                {ReactHtmlParser(
                                     JSON.parse(i.cart).map(k => {
                                         // return k
                                         let id = k.positionId
@@ -144,11 +149,10 @@ const OrdersInfo = () => {
                                         let price = Number(k.itemPrice) / 100
                                         let amount = price * value
 
-                                        return `<br />${id}. ${name}${article !== "0001" ? ` (${article})` : ""}:  ${value} x  ${price} =  ${amount}`
+                                        return `<br />${id}. ${name}${article !== "0001" ? ` (${article})` : ""}:  ${value} x  ${price} р. =  ${amount} р.`
 
                                     })
-                                )
-                                }
+                                )}
                                 <br />
                                 <div>
                                     Доставка:&nbsp;
