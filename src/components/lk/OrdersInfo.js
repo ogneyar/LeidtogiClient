@@ -3,8 +3,15 @@ import React, { useContext, useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import ReactHtmlParser from 'react-html-parser'
 
+<<<<<<< HEAD
 import { getOrderForUser, setTaken } from '../../http/orderAPI'
 import { ADDRESS, LK_ROUTE } from '../../utils/consts'
+=======
+import { ADDRESS
+    //, LK_ROUTE 
+} from '../../utils/consts'
+
+>>>>>>> 044a46ee299aa231c1511b23653a0b5f5812e96a
 import Loading from '../Loading'
 import { Context } from '../..'
 import './OrdersInfo.css'
@@ -16,7 +23,7 @@ const OrdersInfo = () => {
 
     // const history = useHistory()
 
-    const [ oders, setOrders ] = useState(null)
+    const [ orders, setOrders ] = useState(null)
     const [ loading, setLoading ] = useState(true)
 
     useEffect(() => {
@@ -36,13 +43,13 @@ const OrdersInfo = () => {
         await setTaken(id)
             .then(data => {
                 if (data.error === undefined) {
-                    oders.map(i => {
+                    setOrders(orders.map(i => {
                         if (i.id === id) return {...i, state: "taken"}
                         return i
-                    })
-                    alert("Статус заказа изменён!")
+                    }))
+                    // alert("Статус заказа изменён!")
                     // history.push(LK_ROUTE)
-                    window.open(LK_ROUTE,'_self',false)
+                    // window.open(LK_ROUTE,'_self',false)
                 }
             })
             .finally(() => setLoading(false))
@@ -54,7 +61,7 @@ const OrdersInfo = () => {
         <div
             className="OrdersInfo"
         >
-            {oders && Array.isArray(oders) && oders.length > 0
+            {orders && Array.isArray(orders) && orders.length > 0
             ? 
                 <div>
                     {oders.filter(j => j.state !== "taken").length > 0 ?
@@ -63,7 +70,11 @@ const OrdersInfo = () => {
                     </div>
                     : ""}
                     <div className="OrdersInfo_Body">
+<<<<<<< HEAD
                         {oders.filter(j => j.state !== "taken").map(i => 
+=======
+                        {orders.map(i => 
+>>>>>>> 044a46ee299aa231c1511b23653a0b5f5812e96a
                             <p>
                                 Номер:&nbsp;<strong>{i?.id}</strong> - оплачен.
                                 <br />
