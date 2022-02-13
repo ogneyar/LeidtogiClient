@@ -10,8 +10,9 @@ import Delivery from '../../components/delivery/Delivery'
 import Payment from '../../components/payment/Payment'
 import { Context } from '../..'
 // import { Input } from '../../components/myBootstrap'
-// eslint-disable-next-line
-import { LOGIN_ROUTE, CREATE_ORDER_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE, REGISTRATION_ROUTE, ADDRESS, PHONE_ONE, MAIL } from '../../utils/consts'
+import { LOGIN_ROUTE, CREATE_ORDER_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE, ADDRESS, PHONE_ONE, MAIL } from '../../utils/consts'
+import { createGuest } from '../../http/userAPI'
+import { createCart } from '../../http/cartAPI'
 import Loading from '../../components/Loading'
 import scrollUp from '../../utils/scrollUp'
 import InfoPage from '../info/InfoPage'
@@ -32,6 +33,7 @@ const CreateOrderPage = () => {
     const [ pickup, setPickup ] = useState(false)
     const [ email, setEmail ] = useState("")
     const [ client, setClient ] = useState("")
+    const [ role, setRole ] = useState("")
     const [ newEmail, setNewEmail ] = useState("")
     const [ address, setAddress ] = useState("")
     const [ deliverySum, setDeliverySum ] = useState("")
@@ -54,13 +56,12 @@ const CreateOrderPage = () => {
     useEffect(() => {
         if (user?.user?.email) {
             setEmail(user.user?.email)
-            if (user.user?.phone) setPhone(user.user.phone.toString().substring(1,user.user.phone.length))
-            if (user.user?.name) setName(user.user?.name)
             setLoad(false)
         }
-        if (user?.user?.id) {
-            setClient(user.user.id);
-        }
+        if (user.user?.name) setName(user.user?.name)
+        if (user.user?.phone) setPhone(user.user.phone.toString().substring(1,user.user.phone.length))
+        if (user?.user?.id) setClient(user.user.id)
+        if (user?.user?.role) setRole(user.user.role)
        
     }, [user?.user, user?.loading])
 
@@ -150,6 +151,33 @@ const CreateOrderPage = () => {
         }else setPhoneSelection(start)
     }
     
+    const onClickCreateGuest = async () => {
+            const guest = await createGuest({
+                name, phone: "7" + phone.match(/\d/g).join('').toString(), email: newEmail
+            })
+            setClient(guest.id)
+            setRole(guest.role)
+            setEmail(newEmail)
+            window.innerWidth > 991 ? scrollUp(SCROLL_TOP) : scrollUp(SCROLL_TOP_MOBILE)
+    }
+    
+    const onClickPickupButton = async () => {
+        await createCart(client, cart?.cart)
+
+        setСhoiseDelivery(false)
+        setPickup(true)
+        setMessage("")
+        window.innerWidth > 991 ? scrollUp(SCROLL_TOP) : scrollUp(SCROLL_TOP_MOBILE)
+    }
+    
+    const onClickDeliveryButton = async () => {
+        await createCart(client, cart?.cart)
+        
+        setСhoiseDelivery(false)
+        setPayment(false)
+        setMessage("")
+        window.innerWidth > 991 ? scrollUp(SCROLL_TOP) : scrollUp(SCROLL_TOP_MOBILE)
+    }
 
     if (load) return <Loading />
 
@@ -225,10 +253,7 @@ const CreateOrderPage = () => {
                             <Button 
                                 disabled={!newEmail || !phone || !name}
                                 size="lg" 
-                                onClick={()=>{
-                                    setEmail(newEmail)
-                                    window.innerWidth > 991 ? scrollUp(SCROLL_TOP) : scrollUp(SCROLL_TOP_MOBILE)
-                                }}
+                                onClick={onClickCreateGuest}
                             >
                                 Далее
                             </Button>
@@ -243,12 +268,7 @@ const CreateOrderPage = () => {
                                     <Button 
                                         variant="success"
                                         size="lg" 
-                                        onClick={()=>{
-                                            setСhoiseDelivery(false)
-                                            setPickup(true)
-                                            setMessage("")
-                                            window.innerWidth > 991 ? scrollUp(SCROLL_TOP) : scrollUp(SCROLL_TOP_MOBILE)
-                                        }}
+                                        onClick={onClickPickupButton}
                                     >
                                         Самовывоз
                                     </Button>
@@ -256,12 +276,7 @@ const CreateOrderPage = () => {
                                 <label>&nbsp;или&nbsp;</label>
                                 <Button 
                                     size="lg" 
-                                    onClick={()=>{
-                                        setСhoiseDelivery(false)
-                                        setPayment(false)
-                                        setMessage("")
-                                        window.innerWidth > 991 ? scrollUp(SCROLL_TOP) : scrollUp(SCROLL_TOP_MOBILE)
-                                    }}
+                                    onClick={onClickDeliveryButton}
                                 >
                                     С доставкой
                                 </Button>
@@ -310,6 +325,7 @@ const CreateOrderPage = () => {
                                         amount={amount} 
                                         email={email} 
                                         client={client} 
+                                        role={role} 
                                         name={name} 
                                         phone={"7" + phone.replace(/\D/g, "")} 
                                         setMessage={setMessage}
@@ -367,6 +383,7 @@ const CreateOrderPage = () => {
                                         // amount={props?.amount} 
                                         email={email}
                                         client={client}
+                                        role={role}
                                         name={name} 
                                         phone={"7" + phone.replace(/\D/g, "")} 
                                         setMessage={setMessage}
