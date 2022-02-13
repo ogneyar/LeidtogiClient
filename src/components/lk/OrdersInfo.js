@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 // import { useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
-import { getOrderForUser, setTaken } from '../../http/orderAPI'
+import ReactHtmlParser from 'react-html-parser'
 
+import { getOrderForUser, setTaken } from '../../http/orderAPI'
 import { ADDRESS, LK_ROUTE } from '../../utils/consts'
 import Loading from '../Loading'
 import { Context } from '../..'
@@ -56,11 +57,13 @@ const OrdersInfo = () => {
             {oders && Array.isArray(oders) && oders.length > 0
             ? 
                 <div>
+                    {oders.filter(j => j.state !== "taken").length > 0 ?
                     <div className="OrdersInfo_Title">
-                        <h4>Ваши заказы:</h4>
+                        <h4>Ваши актуальные заказы:</h4>
                     </div>
+                    : ""}
                     <div className="OrdersInfo_Body">
-                        {oders.map(i => 
+                        {oders.filter(j => j.state !== "taken").map(i => 
                             <p>
                                 Номер:&nbsp;<strong>{i?.id}</strong> - оплачен.
                                 <br />
@@ -102,6 +105,55 @@ const OrdersInfo = () => {
                                     }
                                     <hr />
                                 </>}
+                            </p>
+                        )}
+                    </div>
+                    {oders.filter(j => j.state === "taken").length > 0 ?
+                    <div className="OrdersInfo_Title">
+                        <h4>Ваши прошлые заказы:</h4>
+                    </div>
+                    : ""}
+                    <div className="OrdersInfo_Body">
+                        {oders.filter(j => j.state === "taken").map(i => 
+                            <p>
+                                Номер:&nbsp;<strong>{i?.id}</strong> - оплачен.
+                                <br />
+                                Cтатус:&nbsp;<strong style={{color:"red"}}>получен.</strong>
+                                <br />
+                                Состав заявки:&nbsp;
+                                
+                                {
+                                ReactHtmlParser(
+                                    JSON.parse(i.cart).map(k => {
+                                        // return k
+                                        let id = k.positionId
+                                        let name = k.name
+                                        let article = k.itemCode
+                                        let value = Number(k.quantity.value)
+                                        let price = Number(k.itemPrice) / 100
+                                        let amount = price * value
+
+                                        return `<br />${id}. ${name}${article !== "0001" ? ` (${article})` : ""}:  ${value} x  ${price} =  ${amount}`
+
+                                    })
+                                )
+                                }
+                                <br />
+                                <div>
+                                    Доставка:&nbsp;
+                                        {i?.delivery === "pickup" && <strong>самовывоз</strong>}
+                                        {i?.delivery === "sdek" && <strong>СДЭК</strong>}
+                                        {i?.delivery === "boxberry" && <strong>Боксбери</strong>}
+                                        {i?.delivery === "dl" && <strong>Деловые Линии</strong>}
+                                        {i?.delivery === "pek" && <strong>ПЭК</strong>}
+                                        {i?.delivery === "pochta" && <strong>Почта России</strong>}
+                                    <br />
+                                    Адрес склада:&nbsp;
+                                        {i?.delivery === "pickup" 
+                                        ? <strong>{ADDRESS}</strong> 
+                                        : <strong>{i?.address}</strong>}
+                                    <hr />
+                                </div>
                             </p>
                         )}
                     </div>
