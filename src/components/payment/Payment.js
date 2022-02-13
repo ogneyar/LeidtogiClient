@@ -40,6 +40,7 @@ const Payment = (props) => {
         if (props?.client) order = {...order, client: props?.client}
         if (props?.name) order = {...order, name: props?.name}
         if (props?.phone) order = {...order, phone: props?.phone}
+        if (props?.role) order = {...order, role: props?.role}
         
         let open = false
         await createOrder(order)
