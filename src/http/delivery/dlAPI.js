@@ -32,7 +32,7 @@ export const getKladr = async (q, limit = 5) => {
 
 // Справочник терминалов (метод возвращает hash и url)
 export const getUrlTerminals = async () => {
-    const { data } = await $host.get('api/delivery/dl/url_terminals')
+    const { data } = await $host.get('api/delivery/dl/terminals')
     return data
 }
 
@@ -46,7 +46,7 @@ export const getTerminalsCatalog = async (url) => {
 
 // Поиск терминалов
 export const getTerminal = async (kladr) => {
-    const { data } = await $host.get('api/delivery/dl/search_terminals', { params: {
+    const { data } = await $host.get('api/delivery/dl/request_terminals', { params: {
         code: kladr
     }})
     return data

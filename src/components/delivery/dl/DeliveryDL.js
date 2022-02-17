@@ -186,12 +186,12 @@ export const DeliveryBusinessLines = (props) => {
         if (kladr) {
             setLoading(true)
             getTerminal(kladr).then(data => {
-                if (data && Array.isArray(data) && data[0]?.city !== undefined) {
+                if (data && data?.terminals !== undefined && Array.isArray(data.terminals) && data.terminals[0]?.city !== undefined) {
                     getUrlTerminals().then(response => {
                         getTerminalsCatalog(response.url).then(catalog => {
                             catalog.forEach(i => {
                                 
-                                if (i.name === data[0]?.city) {
+                                if (i.name === data.terminals[0]?.city) {
 
                                     props?.setLatitude(i?.latitude)
                                     props?.setLongitude(i?.longitude)
