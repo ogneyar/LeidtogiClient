@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
-// import { observer } from 'mobx-react-lite'
-// eslint-disable-next-line
-import { calculator, getMicroCalc, getKladr, getUrlTerminals, getTerminalsCatalog, getTerminal } from '../../../http/delivery/dlAPI' 
+
+import { calculator, getKladr, getUrlTerminals, getTerminalsCatalog, getTerminal } from '../../../http/delivery/dlAPI'
 import Loading from '../../Loading'
 import './DeliveryDL.css'
 import getDerivalCity from '../../../service/delivery/dl/getDerivalCity'
@@ -12,9 +11,7 @@ import getBrandName from '../../../service/delivery/dl/getBrandName'
 
 
 export const DeliveryBusinessLines = (props) => {
-    // eslint-disable-next-line
-    const [allCities, setAllCities] = useState([])
-    // eslint-disable-next-line
+    
     const [listCities, setListCities] = useState([])
     
     const [ loading, setLoading ] = useState(false)
@@ -22,8 +19,6 @@ export const DeliveryBusinessLines = (props) => {
         price:"", period_from:"", period_to:"", weight:""
     })
     const [ name, setName ] = useState("")
-    // eslint-disable-next-line
-    const [ listCitiesNull, setListCitiesNull ] = useState(false)
     
     const [kladr, setKladr] = useState("")
     const [terminals, setTerminals] = useState([])
@@ -85,7 +80,8 @@ export const DeliveryBusinessLines = (props) => {
         }
     }
 
-    const onClickButtonMicroCalc = async (name) => {
+    // нажатие кнопки "Стоимость доставки"
+    const onClickButtonCalculate = async (name) => {
         setLoading(true)
 
         setInfo({price:"", period_from:"", period_to:"", weight:""})
@@ -95,23 +91,12 @@ export const DeliveryBusinessLines = (props) => {
         let brand = await getBrandName(cart)
         let cargo = getCargo(cart)
         
-        // let weight = cargo.totalWeight
-
-        // если вес не известен, расчитываем доставку 5ти килограммов
-        // лимит до 30 килограмм
-        // let weightNull = false
-        // if (!weight) {
-        //     weight = 5
-        //     weightNull = true
-        // }
-
-        // weight = weight * 1000
-        // weight = Math.ceil(weight)
         let delivery
         await getKladr(name).then(data => {
-            if (data && Array.isArray(data) && data[0]?.code !== undefined) {
-                if (data.length > 1) {
-                    setListCities(data.map(i => {
+
+            if (data && data?.cities !== undefined && Array.isArray(data.cities) && data.cities[0]?.code !== undefined) {
+                if (data.cities.length > 1) {
+                    setListCities(data.cities.map(i => {
                         return <>
                             <p 
                                 style={{position:"relative",margin:0,padding:0}}
@@ -119,9 +104,7 @@ export const DeliveryBusinessLines = (props) => {
                                     setLoading(true)
                                     setName(i.searchString)
                                     localStorage.setItem('delivery_city', i.searchString)
-                                    // localStorage.setItem('delivery_region', i.region_name.split(" ")[0])
                                     setListCities(undefined)
-                                    // setKladr(i.code)
                                     
                                     delivery = {
                                         derival: {
@@ -136,12 +119,6 @@ export const DeliveryBusinessLines = (props) => {
                                             setInfo({price: data?.data?.price, weight: cargo?.totalWeight})
                                         }).finally(() => setLoading(false))
 
-                                    // getMicroCalc(i.code, derival_city) 
-                                    //     .then(dat => {
-                                    //         let terminals_standard = dat?.data?.door_to_terminal_standard
-                                    //         if (weightNull) setInfo({...terminals_standard, weight: 0})
-                                    //         else setInfo({...terminals_standard, weight})
-                                    //     }).finally(() => setLoading(false))
                                 }} 
                             >
                                 <div style={{paddingBottom:"10px"}}>{i.searchString}</div>
@@ -152,14 +129,13 @@ export const DeliveryBusinessLines = (props) => {
                     }))
                     setLoading(false)
                 }else {
-                    // setKladr(data[0].code)
                     
                     delivery = {
                         derival: {
                             address: { street: getDerivalCity(brand) },
                             produceDate: getDate()
                         },
-                        arrival: { address: { street: data[0].code } }
+                        arrival: { address: { street: data.cities[0].code } }
                     }
                     
                     calculator(delivery, cargo)
@@ -167,18 +143,11 @@ export const DeliveryBusinessLines = (props) => {
                             setInfo({price: data?.data?.price, weight: cargo?.totalWeight})
                         }).finally(() => setLoading(false))
 
-                    // getMicroCalc(data[0].code, derival_city) 
-                    //     .then(data => {
-                    //         let terminals_standard = data?.data?.door_to_terminal_standard
-                    //         if (weightNull) setInfo({...terminals_standard, weight: 0})
-                    //         else setInfo({...terminals_standard, weight})
-                    //     }).finally(() => setLoading(false))
                 }
             }else {
                 props?.setTextAlert(`Такой город в списке городов Деловых Линий не найден!`)
             }
         }).catch(() => setLoading(false))
-        // .finally(() => setLoading(false))
     }
     
 
@@ -186,6 +155,7 @@ export const DeliveryBusinessLines = (props) => {
         if (kladr) {
             setLoading(true)
             getTerminal(kladr).then(data => {
+
                 if (data && data?.terminals !== undefined && Array.isArray(data.terminals) && data.terminals[0]?.city !== undefined) {
                     getUrlTerminals().then(response => {
                         getTerminalsCatalog(response.url).then(catalog => {
@@ -205,6 +175,7 @@ export const DeliveryBusinessLines = (props) => {
                     }).catch(() => setLoading(false))
 
                 }
+
             }).catch(() => setLoading(false))
         }
         // eslint-disable-next-line
@@ -216,20 +187,17 @@ export const DeliveryBusinessLines = (props) => {
 
         setInfo({price:"", period_from:"", period_to:"", weight:""})
 
-        // let region = localStorage.getItem('delivery_region')
-        // if (region) q = q + " " + region
-
         await getKladr(q).then(data => {
-            if (data && Array.isArray(data) && data[0]?.code !== undefined) {
-                if (data.length > 1) {
-                    setListCities(data.map(i => {
-                        return <>
+
+            if (data && data?.cities !== undefined && Array.isArray(data.cities) && data.cities[0]?.code !== undefined) {
+                if (data.cities.length > 1) {
+                    setListCities(data.cities.map(i => {
+                        return <div key={i.code}>
                             <p 
                                 style={{position:"relative",margin:0,padding:0}}
                                 onClick={() => {
                                     setName(i.searchString)
                                     localStorage.setItem('delivery_city', i.searchString)
-                                    // localStorage.setItem('delivery_region', i.region_name.split(" ")[0])
                                     setListCities(undefined)
                                     setKladr(i.code)
                                 }} 
@@ -238,11 +206,10 @@ export const DeliveryBusinessLines = (props) => {
                                 <small style={{position:"absolute",left:"0px",top:"15px",color:"grey"}}>{i.region_name}</small>
                             </p>
                             <hr />
-                        </>
+                        </div>
                     }))
                 }else {
-                    setKladr(data[0].code)
-                    // localStorage.setItem('delivery_region', data[0].region_name.split(" ")[0])
+                    setKladr(data.cities[0].code)
                 }
             }else {
                 props?.setTextAlert(`Такой город в списке городов Деловых Линий не найден!`)
@@ -308,7 +275,6 @@ export const DeliveryBusinessLines = (props) => {
                                 setName(e.target.value)
                                 if (e.target.value) localStorage.setItem('delivery_city', e.target.value)
                                 else localStorage.removeItem('delivery_city')
-                                // localStorage.removeItem('delivery_region')
                             }}
                             className='' 
                             placeholder="Город" 
@@ -332,7 +298,7 @@ export const DeliveryBusinessLines = (props) => {
                         <Button
                             disabled={!name}
                             variant="outline-primary"
-                            onClick={() => onClickButtonMicroCalc(name)}
+                            onClick={() => onClickButtonCalculate(name)}
                         >
                             Стоимость доставки
                         </Button>
