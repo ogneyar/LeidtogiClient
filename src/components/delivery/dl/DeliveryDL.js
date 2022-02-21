@@ -69,7 +69,7 @@ export const DeliveryBusinessLines = (props) => {
                     props?.setPayment(true)
                 }
 
-            }else {
+            }else { 
                 props?.setTextAlert(`Не известен номер склада Деловых Линий`)
             }
                 
@@ -97,7 +97,7 @@ export const DeliveryBusinessLines = (props) => {
             if (data && data?.cities !== undefined && Array.isArray(data.cities) && data.cities[0]?.code !== undefined) {
                 if (data.cities.length > 1) {
                     setListCities(data.cities.map(i => {
-                        return <>
+                        return <div key={i.code}>
                             <p 
                                 style={{position:"relative",margin:0,padding:0}}
                                 onClick={() => {
@@ -111,13 +111,25 @@ export const DeliveryBusinessLines = (props) => {
                                             address: { street: getDerivalCity(brand) },
                                             produceDate: getDate()
                                         },
-                                        arrival: { address: { street: i.code } }
+                                        arrival: { variant: "terminal", address: { street: i.code } }
                                     }
                                     
                                     calculator(delivery, cargo)
                                         .then(data => {
-                                            setInfo({price: data?.data?.price, weight: cargo?.totalWeight})
-                                        }).finally(() => setLoading(false))
+                                            if (data?.error) {
+                                                if (data.error?.message) {
+                                                    props?.setTextAlert(`Ошибка! ${data.error.message}`)
+                                                }else {
+                                                    props?.setTextAlert(`Ошибка! ${data.error}`)
+                                                }
+                                            }else {
+                                                setInfo({price: data?.data?.price, weight: cargo?.totalWeight})
+                                            }
+                                        })
+                                        .catch(error => {
+                                            props?.setTextAlert(`Ошибка! ${error}`)
+                                        })
+                                        .finally(() => setLoading(false))
 
                                 }} 
                             >
@@ -125,7 +137,7 @@ export const DeliveryBusinessLines = (props) => {
                                 <small style={{position:"absolute",left:"0px",top:"15px",color:"grey"}}>{i.region_name}</small>
                             </p>
                             <hr />
-                        </>
+                        </div>
                     }))
                     setLoading(false)
                 }else {
@@ -135,13 +147,25 @@ export const DeliveryBusinessLines = (props) => {
                             address: { street: getDerivalCity(brand) },
                             produceDate: getDate()
                         },
-                        arrival: { address: { street: data.cities[0].code } }
+                        arrival: { variant: "terminal", address: { street: data.cities[0].code } }
                     }
                     
                     calculator(delivery, cargo)
                         .then(data => {
-                            setInfo({price: data?.data?.price, weight: cargo?.totalWeight})
-                        }).finally(() => setLoading(false))
+                            if (data?.error) {
+                                if (data.error?.message) {
+                                    props?.setTextAlert(`Ошибка! ${data.error.message}`)
+                                }else {
+                                    props?.setTextAlert(`Ошибка! ${data.error}`)
+                                }
+                            }else {
+                                setInfo({price: data?.data?.price, weight: cargo?.totalWeight})
+                            }
+                        })
+                        .catch(error => {
+                            props?.setTextAlert(`Ошибка! ${error}`)
+                        })
+                        .finally(() => setLoading(false))
 
                 }
             }else {
