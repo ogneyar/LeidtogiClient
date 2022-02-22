@@ -51,3 +51,12 @@ export const getTerminal = async (kladr) => {
     }})
     return data // { terminals: [] }
 }
+
+// Поиск даты отправки груза
+export const getDate = async (delivery, cargo) => {
+    const { data } = await $host.get('api/delivery/dl/request_address_dates', { params: {
+        delivery: { ...delivery, deliveryType: { type: "auto" } }, // информация о доставке
+        cargo // информация о товаре
+    }})
+    return data.data // { dates: [] }
+}

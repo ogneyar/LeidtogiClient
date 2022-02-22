@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 
-import { calculator, getKladr, getUrlTerminals, getTerminalsCatalog, getTerminal } from '../../../http/delivery/dlAPI'
+import { calculator, getKladr, getUrlTerminals, getTerminalsCatalog, getTerminal, getDate } from '../../../http/delivery/dlAPI'
 import Loading from '../../Loading'
 import './DeliveryDL.css'
 import getDerivalCity from '../../../service/delivery/dl/getDerivalCity'
-import getDate from '../../../service/delivery/dl/getDate'
+// import getDate from '../../../service/delivery/dl/getDate'
 import getCargo from '../../../service/delivery/dl/getCargo'
 import getBrandName from '../../../service/delivery/dl/getBrandName'
 
@@ -22,6 +22,8 @@ export const DeliveryBusinessLines = (props) => {
     
     const [kladr, setKladr] = useState("")
     const [terminals, setTerminals] = useState([])
+    // eslint-disable-next-line
+    const [variant, setVariant] = useState("address") // "address" || "terminal"
 
     useEffect(() => {
         props?.setIconImageHref("images/delivery/dl/dl.png")
@@ -41,32 +43,35 @@ export const DeliveryBusinessLines = (props) => {
             setLoading(true)
            
             if (code) {
-                
                 cart = JSON.parse(cart)
-
                 let brand = await getBrandName(cart)
-                
-                let delivery = {
-                    derival: {
-                        address: { street: getDerivalCity(brand) },
-                        produceDate: getDate()
-                    },
-                    arrival: { address: { street: code } }
-                }
                 let cargo = getCargo(cart)
+                let street = getDerivalCity(brand)
+                let derival = { address: { street } }
+                let { dates } = await getDate( { derival }, cargo)
 
-                let response = await calculator(delivery, cargo)
+                let delivery = {
+                    derival: { ...derival, produceDate: dates[0] },
+                    arrival: { variant, address: { street: code } }
+                }
+
+                let response
+                try {
+                    response = await calculator(delivery, cargo)
                 
-                if (response?.error) {
-                    if (response.error?.message) {
-                        props?.setTextAlert("Ошибка: " + response.error.message)
+                    if (response?.error) {
+                        if (response.error?.message) {
+                            props?.setTextAlert("Ошибка: " + response.error.message)
+                        }else {
+                            props?.setTextAlert("Ошибка: " + response.error)
+                        }
                     }else {
-                        props?.setTextAlert("Ошибка: " + response.error)
+                        props?.setDelivery("dl")
+                        props?.setDeliverySum(Number(response?.data?.price))
+                        props?.setPayment(true)
                     }
-                }else {
-                    props?.setDelivery("dl")
-                    props?.setDeliverySum(Number(response?.data?.price))
-                    props?.setPayment(true)
+                }catch(e) {
+                    props?.setTextAlert(`Ошибка! ${e}`)
                 }
 
             }else { 
@@ -90,6 +95,11 @@ export const DeliveryBusinessLines = (props) => {
         cart = JSON.parse(cart)
         let brand = await getBrandName(cart)
         let cargo = getCargo(cart)
+        let street = getDerivalCity(brand)
+        let derival = { address: { street } }
+        let { dates } = await getDate( { derival }, cargo)
+
+        // console.log("dates",dates)
         
         let delivery
         await getKladr(name).then(data => {
@@ -107,11 +117,8 @@ export const DeliveryBusinessLines = (props) => {
                                     setListCities(undefined)
                                     
                                     delivery = {
-                                        derival: {
-                                            address: { street: getDerivalCity(brand) },
-                                            produceDate: getDate()
-                                        },
-                                        arrival: { variant: "terminal", address: { street: i.code } }
+                                        derival: { ...derival, produceDate: dates[0] },
+                                        arrival: { variant, address: { street: i.code } }
                                     }
                                     
                                     calculator(delivery, cargo)
@@ -143,11 +150,8 @@ export const DeliveryBusinessLines = (props) => {
                 }else {
                     
                     delivery = {
-                        derival: {
-                            address: { street: getDerivalCity(brand) },
-                            produceDate: getDate()
-                        },
-                        arrival: { variant: "terminal", address: { street: data.cities[0].code } }
+                        derival: { ...derival, produceDate: dates[0] },
+                        arrival: { variant, address: { street: data.cities[0].code } }
                     }
                     
                     calculator(delivery, cargo)
@@ -191,6 +195,7 @@ export const DeliveryBusinessLines = (props) => {
                                     props?.setLongitude(i?.longitude)
 
                                     setTerminals(i?.terminals?.terminal)
+                                    // console.log(i);
                                 }
                             })
                             setLoading(false)
@@ -245,6 +250,9 @@ export const DeliveryBusinessLines = (props) => {
     
     useEffect(() => {
         if (terminals && Array.isArray(terminals) && terminals[0]?.name !== undefined) {
+            // if (variant === "terminal") {
+            //     setKladr(terminals[0].addressCode.street_code)
+            // }
             props?.setPlacemark(
                 terminals.map(i => {
                     let phone = null
@@ -256,7 +264,13 @@ export const DeliveryBusinessLines = (props) => {
                         phone,
                         id: i?.id,
                         description: i?.calcSchedule?.arrival,
-                        onClick: () => calculateAndOpenPayment(kladr)
+                        onClick: () => {
+                            if (variant === "terminal") {
+                                calculateAndOpenPayment(i.addressCode.street_code)
+                            }else {
+                                calculateAndOpenPayment(kladr)
+                            }
+                        }
                     }
                 })
             )

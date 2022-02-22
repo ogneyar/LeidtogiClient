@@ -86,10 +86,12 @@ export const DELIVERY_INDEX_FROM = 140055 // - г. Котельники // 10100
 
 export const DELIVERY_BOXBERRY_CURIER_PRICE = 250  // по г. Москва 
 
+// необходимы в файле service/delivery/dl/getDerivalCity.js
 export const DELIVERY_DL_DERIVAL_CITY_MILWAUKEE = "5000003200000000000000000"  // Milwaukee - г. Котельники
-export const DELIVERY_DL_DERIVAL_CITY_RGK = ""  // RGK - 
+export const DELIVERY_DL_DERIVAL_CITY_RGK = "7700000000003560000000000"  // RGK - 
 export const DELIVERY_DL_DERIVAL_CITY_HUSQVARNA = "5000003000000000000000000"  // Husqvarna - г. Химки
 export const DELIVERY_DL_DERIVAL_CITY_GEDORE = "7700000000003560000000000"  // Gedore - г. Москва, 2-й Лихачевский переулок, д. 7
+export const DELIVERY_DL_DERIVAL_CITY_KVT = "7700000000003560000000000"  // KVT - 
 
 
 // телеграм
