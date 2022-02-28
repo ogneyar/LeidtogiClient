@@ -31,3 +31,10 @@ export const rgkAddSizes = async () => {
     return data
 }
 
+// обновление файла feed.csv (пока не работает)
+export const rgkUpdateFeed = async () => {
+    const {data} = await $authHost.get('api/parser/rgk', {params: {
+        update: true
+    }})
+    return data
+}

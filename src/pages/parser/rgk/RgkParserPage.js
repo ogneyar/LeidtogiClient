@@ -20,6 +20,7 @@ const RgkParserPage = observer((props) => {
     
 
     const onClickButtonChangePricesRGK = async () => {
+        // await rgkUpdateFeed()
         setMessage("Начало:")
         setLoading(true)
         
