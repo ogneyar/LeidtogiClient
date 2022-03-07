@@ -18,3 +18,13 @@ export const getLength = async (formData) => {
     const { data } = await $authHost.post('api/parser/kvt/', formData)
     return data
 }
+
+// смена цен
+export const changePrices = async (formData) => {
+    const { data } = await $authHost.post('api/parser/kvt/', formData, {
+        params: { 
+            change: true
+        }
+    })
+    return data
+}

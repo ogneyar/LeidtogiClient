@@ -67,7 +67,7 @@ const HusqvarnaParserPage = observer((props) => {
         setLoading(false)
     }
 
-    const onClickButtonChangePrices =async () => {
+    const onClickButtonChangePrices = async () => {
         setMessage("")
         const formData = new FormData()
         if (feed) {
@@ -97,12 +97,12 @@ const HusqvarnaParserPage = observer((props) => {
 
     return (
         <InfoPage>
-            <div className="HusqvarnaParserPage_Header">
+            <div className="HusqvarnaParserPage">
                 <label>Заведение товаров Husqvarna на сайт!</label>
                 <label>Или обновление цен!</label>
 
                 {/* {quantity && quantity !== 0
-                ? "Общее количество товаров: " + quantity
+                ? "Общее количество товаров: " + quantity 
                 : null}
 
                 <br /> */}

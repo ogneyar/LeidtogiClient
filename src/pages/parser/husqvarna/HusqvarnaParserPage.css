@@ -1,22 +1,18 @@
 .HusqvarnaParserPage {
-
-}
-
-.HusqvarnaParserPage_Header {
     display: flex;
     flex-direction: column;
 }
 
-.HusqvarnaParserPage_Header button {
+.HusqvarnaParserPage button {
     padding: 10px;
     margin: 5px;
 }
 
-.HusqvarnaParserPage_Header label {
+.HusqvarnaParserPage label {
     text-align: center;
 }
 
-.HusqvarnaParserPage_Header span {
+.HusqvarnaParserPage span {
     text-align: center;
     font-size: small;
 }
