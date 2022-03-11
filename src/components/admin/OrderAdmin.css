@@ -13,3 +13,11 @@
     padding: 5px 10px;
     border-radius: 5px;
 }
+
+.OrderAdmin_details {
+    /* text-align: center; */
+}
+
+.OrderAdmin_block_details {
+    cursor: pointer;
+}
