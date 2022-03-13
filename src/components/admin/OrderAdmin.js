@@ -135,11 +135,17 @@ const OrderAdmin = (props) => {
                     <strong>Ф.И.О.:</strong>&nbsp;{details.name}&nbsp;
                     <br />
                 </>}
-                {details.trackNumber && 
+                {details.trackNumber ? 
                 <>
                     <strong>Трек номер:</strong>&nbsp;{details.trackNumber}&nbsp;
                     <br />
-                </>}                
+                </>
+                : 
+                <>
+                    <strong>Добавить трек номер</strong>
+                    <br />
+                </>
+                }
                 <strong>Корзина:</strong>&nbsp;
                 <br />
                 {JSON.parse(details.cart).map(i => {
