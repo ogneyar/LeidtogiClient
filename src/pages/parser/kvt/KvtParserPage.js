@@ -104,7 +104,7 @@ const KvtParserPage = observer((props) => {
 
     return (
         <InfoPage>
-            <div className="KVTParserPage">
+            <div className="KVTParserPage"> 
                  
                 {message && message !== ""
                 ?

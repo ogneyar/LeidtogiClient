@@ -3,25 +3,26 @@ import { $host, $authHost } from '../index'
 
 
 // добавление новых товаров
-export const mlkAddNewProduct = async (formData, number, party) => {
-    const {data} = await $authHost.post('api/parser/milwaukee/add_new_product', formData, {
+export const mlkAddProduct = async (formData, number, party = 10) => {
+    const {data} = await $authHost.post('api/parser/milwaukee', formData, {
         params: {
             number, 
-            party
+            add: true,
+            party // если надо добавить один товар, то передать 0
         }
     })
     return data
 }
 
 // получение всех данных о товаре
-export const mlkGetAll = async (article) => {
-    const {data} = await $authHost.get('api/parser/milwaukee/get_all', {params: {
-        article
-    }})
-    return data
-}
+// export const mlkGetAll = async (article) => {
+//     const {data} = await $authHost.get('api/parser/milwaukee/get_all', {params: {
+//         article
+//     }})
+//     return data
+// }
 
-// узнать количество товаров в файле (пока не используется)
+// узнать количество товаров в файле
 export const mlkGetLength = async (formData) => {
     const {data} = await $authHost.post('api/parser/milwaukee', formData)
     return data
@@ -47,3 +48,15 @@ export const mlkChangePriceAll = async (formData) => {
     })
     return data
 }
+
+
+// добавление новых товаров (старый роут)
+// export const mlkAddNewProduct = async (formData, number, party) => {
+//     const {data} = await $authHost.post('api/parser/milwaukee/add_new_product', formData, {
+//         params: {
+//             number, 
+//             party
+//         }
+//     })
+//     return data
+// }

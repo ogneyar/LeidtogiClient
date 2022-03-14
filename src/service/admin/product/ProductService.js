@@ -3,7 +3,7 @@ import { Button, Form, Dropdown, Image } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 
 import { createProduct, fetchAllProducts, updateAllProduct, deleteProduct } from '../../../http/productAPI'
-import { mlkGetAll } from '../../../http/parser/milwaukeeAPI'
+// import { mlkGetAll } from '../../../http/parser/milwaukeeAPI'
 import { Context } from '../../..'
 
 import Size from './Size'
@@ -228,31 +228,31 @@ const ProductService = observer((props) => {
         if (action === "add") {
             // это парсер, в данный момент отключен
             // лишь для этого я сделал взаимоисключающее условие
-            if (file === null && file === undefined) { 
-                await mlkGetAll(article)
-                    .then(data => {
-                        if (data?.error) {
-                            console.log("error: ",data)
-                        }else {
-                            formData.append('files', JSON.stringify(data?.images))
-                            if (size?.weight === "" && size?.volume === "" && size?.width === "" && size?.height === "" && size?.length === "") {
-                                formData.append('size', JSON.stringify(data?.sizes))
-                            }else formData.append('size', JSON.stringify(size))
-                            if (price === "") formData.append('price', data?.price)
-                            else formData.append('price', `${price}`)
-                            let desc = {title:"description",body:""}
-                            if (description === "") desc.body = data?.description
-                            else desc.body = description
-                            let char = {title:"characteristics",body:""}
-                            if (characteristics === "") char.body = data?.characteristics
-                            else char.body = characteristics
-                            let equip = {title:"equipment",body:""}
-                            if (equipment === "") equip.body = data?.equipment
-                            else equip.body = equipment
-                            formData.append('info', JSON.stringify([desc,char,equip]))
-                        }
-                    })
-            }
+            // if (file === null && file === undefined) { 
+            //     await mlkGetAll(article)
+            //         .then(data => {
+            //             if (data?.error) {
+            //                 console.log("error: ",data)
+            //             }else {
+            //                 formData.append('files', JSON.stringify(data?.images))
+            //                 if (size?.weight === "" && size?.volume === "" && size?.width === "" && size?.height === "" && size?.length === "") {
+            //                     formData.append('size', JSON.stringify(data?.sizes))
+            //                 }else formData.append('size', JSON.stringify(size))
+            //                 if (price === "") formData.append('price', data?.price)
+            //                 else formData.append('price', `${price}`)
+            //                 let desc = {title:"description",body:""}
+            //                 if (description === "") desc.body = data?.description
+            //                 else desc.body = description
+            //                 let char = {title:"characteristics",body:""}
+            //                 if (characteristics === "") char.body = data?.characteristics
+            //                 else char.body = characteristics
+            //                 let equip = {title:"equipment",body:""}
+            //                 if (equipment === "") equip.body = data?.equipment
+            //                 else equip.body = equipment
+            //                 formData.append('info', JSON.stringify([desc,char,equip]))
+            //             }
+            //         })
+            // }
         }
 
         formData.append('size', JSON.stringify(size))
