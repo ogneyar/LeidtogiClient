@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useHistory } from 'react-router'
-import $ from 'jquery'
 
+import scrollUp from '../../utils/scrollUp'
 import { onClickButtonBuy } from '../../service/cart/CartBuyService'
 // eslint-disable-next-line
 import { CART_ROUTE, CREATE_ORDER_ROUTE, API_URL } from '../../utils/consts'
@@ -185,13 +185,7 @@ const ButtonBuy = (props) => {
                         variant="warning"
                         onClick={() => {
                             history.push(CART_ROUTE)
-                            $('html, body').animate(
-                                {
-                                    scrollTop: 200
-                                }, 
-                                700, 
-                                function(){}
-                            )
+                            scrollUp(200)
                         }}
                     >
                         Перейти в корзину!

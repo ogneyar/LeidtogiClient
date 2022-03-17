@@ -14,6 +14,7 @@ import Rating from '../../components/rating/Rating'
 import detailDataLayer from '../../service/dataLayer/detail'
 import { Context } from '../..'
 import './ProductPage.css'
+import RequestPrice from '../../components/cart/RequestPrice'
 
 
 const ProductPage =  observer((props) => {
@@ -24,7 +25,7 @@ const ProductPage =  observer((props) => {
 
     const history = useHistory()
     
-    const [product, setProduct] = useState({name: "", article: "", img: "", price: "", info: [], size: []})
+    const [product, setProduct] = useState({name: "", article: "", img: "", price: "", info: [], size: [], have: 1, request: 0})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
     
@@ -122,13 +123,29 @@ const ProductPage =  observer((props) => {
                 </div>
                 <div md={4} className="ProductColCard">
                     <Card className="ProductCard">
-                        <h3>Цена: {product.price} руб.</h3>
+                        {product.request ? 
+                            <h3>Цена: По запросу</h3>
+                        :
+                            <h3>Цена: {product.price} руб.</h3>
+                        }
                         <div
                             className="ProductCardDivButtonBuy"
                         >
-                            <ButtonBuy className="ProductCardButtonBuy" product={product}>
-                                Добавить в корзину
-                            </ButtonBuy>
+                            {product.request ? 
+                                <RequestPrice
+                                    // className="ProductCardButtonBuy" 
+                                    product={product}
+                                >
+                                    Запросить цену
+                                </RequestPrice>
+                            : 
+                                <ButtonBuy 
+                                    className="ProductCardButtonBuy" 
+                                    product={product}
+                                >
+                                    Добавить в корзину
+                                </ButtonBuy>
+                            }
                         </div>
                     </Card>
                 </div>
