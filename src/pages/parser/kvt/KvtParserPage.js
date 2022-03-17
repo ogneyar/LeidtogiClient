@@ -74,6 +74,7 @@ const KvtParserPage = observer((props) => {
         setLoading(false)
     }
 
+    // оновление цен
     let onClickButtonChangePrices = async () => {
         setMessage("")
         const formData = new FormData()
