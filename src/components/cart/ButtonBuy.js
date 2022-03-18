@@ -93,6 +93,8 @@ const ButtonBuy = (props) => {
             className={"ButtonBuy "+className}
             variant="outline-warning"
             onClick={e => {
+                e.preventDefault()
+                e.stopPropagation()
                 setNotificationVisible(true)
                 if (props?.product) {
                     addDataLayer({

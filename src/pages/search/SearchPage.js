@@ -13,6 +13,7 @@ import Loading from '../../components/Loading'
 // import Search from '../../components/search/Search'
 
 import { Context } from '../..'
+import deleteAbbreviation from '../../utils/deleteAbbreviation';
 
 
 const SearchPage = observer(() => {
@@ -39,7 +40,8 @@ const SearchPage = observer(() => {
             let length = 0
             product.setProducts(product.allProducts.filter(i => {
                 if (value) {
-                    if (isNumber(value.replace("-","").replace("rgk","").replace("hqv",""))) {
+                     // функция deleteAbbreviation убирает сокращённые названия бренда (hqv, rgk, kvt)
+                    if ( isNumber( deleteAbbreviation(value) ) ) {
                         if (i.article.includes(value)) {
                             length++
                             return true

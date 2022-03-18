@@ -85,7 +85,9 @@ const RequestPrice = (props) => {
         <Button
             className={"RequestPrice "+className}
             variant="outline-warning"
-            onClick={() => {
+            onClick={e => {
+                e.preventDefault()
+                e.stopPropagation()
                 setNotificationVisible(true)
             }}
         >

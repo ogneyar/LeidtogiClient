@@ -133,7 +133,6 @@ const ProductPage =  observer((props) => {
                         >
                             {product.request ? 
                                 <RequestPrice
-                                    // className="ProductCardButtonBuy" 
                                     product={product}
                                 >
                                     Запросить цену

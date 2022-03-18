@@ -10,6 +10,7 @@ import { PRODUCT_ROUTE, API_URL, ERROR_ROUTE } from '../../utils/consts'
 import ButtonBuy from '../cart/ButtonBuy'
 import { Context } from '../..'
 import './Product.css'
+import RequestPrice from '../cart/RequestPrice'
 
 
 const ProductItem = ({product}) => {
@@ -18,7 +19,6 @@ const ProductItem = ({product}) => {
 
     const { brand } = useContext(Context)
 
-    // if (product.article === "4933459271") console.log(product.name.length)
 
     return (
         <div
@@ -67,25 +67,16 @@ const ProductItem = ({product}) => {
                             product.name
                         }
 
-                        {/* {product.name.length < 100  */}
-                        {/* &&  */}
                         <p>артикул: {product.article}</p>
-                        {/* } */}
                         
                     </div> 
  
-                    {/* <div className="product-article">
-                        артикул: {product.article}
-                    </div> */}
-
                     <div className="product-text">
-
-                        {/* <div className="product-description">
-                            Описание &#9734; товара
-                        </div> */}
-
+                        
                         <div className="product-price">
-                            {product.price}&nbsp;р.
+                            {product.request 
+                            ? `Цена по запросу` 
+                            : <>{product.price}&nbsp;р.</>}
                         </div>
 
                         {product.rating 
@@ -98,9 +89,16 @@ const ProductItem = ({product}) => {
 
                     </div>
                     
+                    {product.request 
+                    ? 
+                    <RequestPrice product={product}>
+                        ЗАПРОСИТЬ
+                    </RequestPrice> 
+                    : 
                     <ButtonBuy product={product}>
                         КУПИТЬ
-                    </ButtonBuy>
+                    </ButtonBuy>}
+                    
 
                 </div>
 

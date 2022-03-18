@@ -6,11 +6,14 @@ import { API_URL } from '../../utils/consts';
 
 import { Context } from '../..'
 import './Search.css'
+import deleteAbbreviation from '../../utils/deleteAbbreviation';
 
 
 const Search = observer((props) => {
 
-    const { product } = useContext(Context)
+    const { product, brand } = useContext(Context)
+
+    const [ admin, setAdmin ] =  useState(false)
 
     const [value, setValue] = useState("")
     const [list, setList] = useState([])
@@ -40,16 +43,15 @@ const Search = observer((props) => {
     const onChangeSearchInputValue = (search) => {
         setValue(search)
         if (search) {
-            if (
-                isNumber(search.replace("-","").replace("rgk","").replace("hqv","").trim()) 
-                // || search.includes("rgk") 
-                // || search.includes("hqv") 
-                // || search.includes("mlk")
-            ) {
+            if (search.indexOf("!") === 0) setAdmin(true)
+            search = search.replace("!","")
+            // функция deleteAbbreviation убирает сокращённые названия бренда (hqv, rgk, kvt)
+            if ( isNumber( deleteAbbreviation(search) ) ) {
                 setList(array.filter(i => i.article.includes(search.trim())))
             }else {
                 setList(array.filter(i => i.name.toLowerCase().includes(search.toLowerCase().trim())))
             }
+
         }else setList([])
     }
 
@@ -64,7 +66,14 @@ const Search = observer((props) => {
         if (key === "value" && val !== "")
             history.push(`/search?${key}=${val}`)
         else if (key === "article")
-            history.push(`/product/${val.id}`)
+            if (admin) history.push(`/product/${val.id}`)
+            else {
+                let brandName
+                brand.allBrands.forEach(i => {
+                    if (val.brandId === i.id) brandName = i.name.toLowerCase()
+                })
+                history.push(`/${brandName}/${val.url}`)
+            }
     }
 
     const onKeyDownInput = (e) => {
