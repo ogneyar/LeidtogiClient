@@ -16,6 +16,7 @@ import addDataLayer from '../../service/dataLayer/add'
 import removeDataLayer from '../../service/dataLayer/remove'
 import { Context } from '../..'
 import './CartPage.css'
+import { getPrice } from '../../http/productAPI'
 
 
 const Cart = () => {
@@ -34,6 +35,21 @@ const Cart = () => {
     const [response, setResponse] = useState(null)
     //
     const [item, setItem] = useState(null)
+    
+    // изменилась ли цена
+    const [yes, setYes] = useState(false)
+    
+    const [newCart, setNewCart] = useState([])
+
+    useEffect(() => {
+        // если изменилась цена и новая корзина не пуста
+        if (yes && newCart[0] !== undefined) {
+            // console.log("newCart", newCart)
+            setState(newCart)
+            localStorage.setItem('cart', JSON.stringify(newCart))
+            context.cart.setCart(newCart)
+        }
+    },[yes, newCart, context.cart])
 
     let cart
 
@@ -44,8 +60,21 @@ const Cart = () => {
             cart = JSON.parse(cart)
             setState(cart)
             let totalValue = 0
-            cart.forEach(i => totalValue += Number(i.total))
-            setAmount(totalValue)
+            setNewCart([])
+            cart.forEach(async i => {
+                let price = i.price
+                let total = i.total
+                await getPrice(i.id).then(data => {
+                    if(price !== data) {
+                        price = data
+                        total = i.value * price
+                        setYes(true)
+                    }
+                })
+                totalValue += Number(total)
+                setAmount(totalValue)
+                setNewCart([...newCart,{...i, price, total}])
+            })
         }
         setLoading(false)
     }, [])

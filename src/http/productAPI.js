@@ -1,4 +1,4 @@
-import {$host,$authHost} from './index'
+import { $host, $authHost } from './index'
 
 
 export const createProduct = async (product) => {
@@ -95,5 +95,10 @@ export const updateAllProduct = async (id, body) => {
 
 export const updateRatingProduct = async (id, rating) => {
     const {data} = await $authHost.put('api/product/rating/' + id, {rating})
+    return data
+}
+
+export const getPrice = async (id) => {
+    const { data } = await $host.get('api/product/price/' + id)
     return data
 }

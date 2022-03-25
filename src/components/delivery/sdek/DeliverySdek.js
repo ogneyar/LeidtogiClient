@@ -126,38 +126,44 @@ const DeliverySdek = observer((props) => {
     const calculateAndOpenPayment = async (address) => {
         let cart
         cart = localStorage.getItem('cart')
+        
         if (cart) {
-            cart = JSON.parse(cart)
-            let weight = 0
-            cart.forEach( i => weight += (Number(i?.value) * Number(i?.size?.weight)) )
-            if (!weight) weight = 5
-            weight = weight * 1000
-            weight = Math.ceil(weight)
-            
-            let response
-            if (address) {
-                response = await sdekCalculate({
-                    tariff_code: tariff,
-                    from_location: { postal_code: DELIVERY_INDEX_FROM }, 
-                    to_location: { address }, 
-                    packages: [{ weight }] 
-                })
-            }else {
-                response = {error: {message: "Нет данных об адресе склада СДЭК"} }
-            }
-
-            if (response?.error) {
-                if (response.error?.message) {
-                    props?.setTextAlert(`Ошибка: ${response.error.message}`)
+            if (info.total_sum !== "") {
+                cart = JSON.parse(cart)
+                let weight = 0
+                cart.forEach( i => weight += (Number(i?.value) * Number(i?.size?.weight)) )
+                if (!weight) weight = 5
+                weight = weight * 1000
+                weight = Math.ceil(weight)
+                
+                let response
+                if (address) {
+                    response = await sdekCalculate({
+                        tariff_code: tariff,
+                        from_location: { postal_code: DELIVERY_INDEX_FROM }, 
+                        to_location: { address }, 
+                        packages: [{ weight }] 
+                    })
                 }else {
-                    props?.setTextAlert(`Ошибка: ${response.error}`)
+                    response = {error: {message: "Нет данных об адресе склада СДЭК"} }
                 }
-            }else if (response?.errors) {
-                props?.setTextAlert(`Ошибка: ${response.errors[0].message}`)
+
+                if (response?.error) {
+                    if (response.error?.message) {
+                        props?.setTextAlert(`Ошибка: ${response.error.message}`)
+                    }else {
+                        props?.setTextAlert(`Ошибка: ${response.error}`)
+                    }
+                }else if (response?.errors) {
+                    props?.setTextAlert(`Ошибка: ${response.errors[0].message}`)
+                }else {
+                    props?.setDelivery("sdek")
+                    let total_sum = Math.round( ( Number(response.total_sum) * DELIVERY_EXTRA_CHARGE ) * 100 ) / 100
+                    props?.setDeliverySum(total_sum)
+                    props?.setPayment(true)
+                }
             }else {
-                props?.setDelivery("sdek")
-                props?.setDeliverySum(Number(response.total_sum) * DELIVERY_EXTRA_CHARGE)
-                props?.setPayment(true)
+                props?.setTextAlert(`Отсутствуют данные о стоимости доставки!`)
             }
 
         }else {
@@ -241,16 +247,22 @@ const DeliverySdek = observer((props) => {
                     props?.setTextAlert("Ошибка: " + response.errors[0]?.message)
                 }
             }else {
-                if (weightNull) setInfo({...response, weight_calc: 0, total_sum: Number(response.total_sum) * DELIVERY_EXTRA_CHARGE})
-                else setInfo({...response, total_sum: Number(response.total_sum) * DELIVERY_EXTRA_CHARGE})
+                if (response.total_sum) {
+                    let total_sum = Math.round( ( Number(response.total_sum) * DELIVERY_EXTRA_CHARGE ) * 100 ) / 100
+                    if (weightNull) setInfo({...response, weight_calc: 0, total_sum})
+                    else setInfo({...response, total_sum})
+                }else {
+                    props?.setTextAlert(`Нет данных о стоимости доставки!`)
+                }
             }
-
+            
         }else if (!name) {
             props?.setTextAlert(`В таком городе не найден склада СДЭК.`)
         }
         // }else if (index && index.length < 6) {
         //     props?.setTextAlert(`Введите правильный индекс!`)
         // }
+
         setLoading(false)
     }
 

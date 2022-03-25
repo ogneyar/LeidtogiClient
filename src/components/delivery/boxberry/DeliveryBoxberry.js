@@ -106,7 +106,7 @@ const DeliveryBoxberry = observer((props) => {
                     }
                 }else {
                     props?.setDelivery("boxberry")
-                    props?.setDeliverySum((Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE) * DELIVERY_EXTRA_CHARGE)
+                    props?.setDeliverySum(Math.round( ( (Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE) * DELIVERY_EXTRA_CHARGE ) * 100 ) / 100)
                     props?.setPayment(true)
                 }
             }else {
@@ -198,7 +198,7 @@ const DeliveryBoxberry = observer((props) => {
                             props?.setTextAlert("Ошибка: " + response.error)
                         }
                     }else {
-                        let price = (Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE) * DELIVERY_EXTRA_CHARGE
+                        let price = Math.round( ( (Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE) * DELIVERY_EXTRA_CHARGE ) * 100 ) / 100
                         if (weightNull) setInfo({...response, price, weight: 0})
                         else setInfo({...response, price, weight})
                     }
