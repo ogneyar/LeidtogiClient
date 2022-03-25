@@ -52,7 +52,7 @@ export const DeliveryBusinessLines = (props) => {
                 let { dates } = await getDate( { derival }, cargo)
 
                 let delivery = {
-                    derival: { ...derival, produceDate: dates[0] },
+                    derival: { ...derival, produceDate: dates[1] || dates[0] },
                     arrival: { variant, address: { street: code } }
                 }
 
@@ -118,7 +118,7 @@ export const DeliveryBusinessLines = (props) => {
                                     setListCities(undefined)
                                     
                                     delivery = {
-                                        derival: { ...derival, produceDate: dates[0] },
+                                        derival: { ...derival, produceDate: dates[1] || dates[0] },
                                         arrival: { variant, address: { street: i.code } }
                                     }
                                     
@@ -126,7 +126,7 @@ export const DeliveryBusinessLines = (props) => {
                                         .then(data => {
                                             if (data?.error) {
                                                 if (data.error?.message) {
-                                                    props?.setTextAlert(`Ошибка! ${data.error.message}`)
+                                                    props?.setTextAlert(`Ошибка!! ${data.error.message}`)
                                                 }else {
                                                     props?.setTextAlert(`Ошибка! ${data.error}`)
                                                 }
@@ -135,7 +135,7 @@ export const DeliveryBusinessLines = (props) => {
                                             }
                                         })
                                         .catch(error => {
-                                            props?.setTextAlert(`Ошибка! ${error}`)
+                                            props?.setTextAlert(`Ошибка ${error}`)
                                         })
                                         .finally(() => setLoading(false))
 
@@ -151,7 +151,7 @@ export const DeliveryBusinessLines = (props) => {
                 }else {
                     
                     delivery = {
-                        derival: { ...derival, produceDate: dates[0] },
+                        derival: { ...derival, produceDate: dates[1] || dates[0] },
                         arrival: { variant, address: { street: data.cities[0].code } }
                     }
                     
@@ -159,16 +159,16 @@ export const DeliveryBusinessLines = (props) => {
                         .then(data => {
                             if (data?.error) {
                                 if (data.error?.message) {
-                                    props?.setTextAlert(`Ошибка! ${data.error.message}`)
+                                    props?.setTextAlert(`ОШИБКА!! ${data.error.message}`)
                                 }else {
-                                    props?.setTextAlert(`Ошибка! ${data.error}`)
+                                    props?.setTextAlert(`ОШИБКА! ${data.error}`)
                                 }
                             }else {
                                 setInfo({price: Number(data?.data?.price) * DELIVERY_EXTRA_CHARGE, weight: cargo?.totalWeight})
                             }
                         })
                         .catch(error => {
-                            props?.setTextAlert(`Ошибка! ${error}`)
+                            props?.setTextAlert(`ОШИБКА ${error}`)
                         })
                         .finally(() => setLoading(false))
 
