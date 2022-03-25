@@ -8,6 +8,7 @@ import getDerivalCity from '../../../service/delivery/dl/getDerivalCity'
 // import getDate from '../../../service/delivery/dl/getDate'
 import getCargo from '../../../service/delivery/dl/getCargo'
 import getBrandName from '../../../service/delivery/dl/getBrandName'
+import { DELIVERY_EXTRA_CHARGE } from '../../../utils/consts'
 
 
 export const DeliveryBusinessLines = (props) => {
@@ -67,7 +68,7 @@ export const DeliveryBusinessLines = (props) => {
                         }
                     }else {
                         props?.setDelivery("dl")
-                        props?.setDeliverySum(Number(response?.data?.price))
+                        props?.setDeliverySum(Number(response?.data?.price) * DELIVERY_EXTRA_CHARGE)
                         props?.setPayment(true)
                     }
                 }catch(e) {
@@ -130,7 +131,7 @@ export const DeliveryBusinessLines = (props) => {
                                                     props?.setTextAlert(`Ошибка! ${data.error}`)
                                                 }
                                             }else {
-                                                setInfo({price: data?.data?.price, weight: cargo?.totalWeight})
+                                                setInfo({price: Number(data?.data?.price) * DELIVERY_EXTRA_CHARGE, weight: cargo?.totalWeight})
                                             }
                                         })
                                         .catch(error => {
@@ -163,7 +164,7 @@ export const DeliveryBusinessLines = (props) => {
                                     props?.setTextAlert(`Ошибка! ${data.error}`)
                                 }
                             }else {
-                                setInfo({price: data?.data?.price, weight: cargo?.totalWeight})
+                                setInfo({price: Number(data?.data?.price) * DELIVERY_EXTRA_CHARGE, weight: cargo?.totalWeight})
                             }
                         })
                         .catch(error => {

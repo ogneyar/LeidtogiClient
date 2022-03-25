@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 
 import { getListCities, getListCitiesByName, getListPointsByCityCode, getDeliveryCosts } from '../../../http/delivery/boxberryAPI'
 import Loading from '../../Loading'
-import { DELIVERY_BOXBERRY_CURIER_PRICE } from '../../../utils/consts'
+import { DELIVERY_EXTRA_CHARGE, DELIVERY_BOXBERRY_CURIER_PRICE } from '../../../utils/consts'
 import './DeliveryBoxberry.css'
 
 
@@ -106,7 +106,7 @@ const DeliveryBoxberry = observer((props) => {
                     }
                 }else {
                     props?.setDelivery("boxberry")
-                    props?.setDeliverySum(Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE)
+                    props?.setDeliverySum((Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE) * DELIVERY_EXTRA_CHARGE)
                     props?.setPayment(true)
                 }
             }else {
@@ -198,8 +198,9 @@ const DeliveryBoxberry = observer((props) => {
                             props?.setTextAlert("Ошибка: " + response.error)
                         }
                     }else {
-                        if (weightNull) setInfo({...response, price: Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE, weight: 0})
-                        else setInfo({...response, price: Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE, weight})
+                        let price = (Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE) * DELIVERY_EXTRA_CHARGE
+                        if (weightNull) setInfo({...response, price, weight: 0})
+                        else setInfo({...response, price, weight})
                     }
                 }
             }else {

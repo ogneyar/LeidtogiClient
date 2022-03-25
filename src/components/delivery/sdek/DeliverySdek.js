@@ -12,7 +12,7 @@ import {
     sdekOrder, sdekGetOrder, sdekEditOrder, sdekDeleteOrder, sdekRefusalOrder, sdekNewIntakes, sdekPrintOrders, sdekGetPrintOrders,
 } from '../../../http/delivery/sdekAPI'
 
-import { DELIVERY_INDEX_FROM } from '../../../utils/consts'
+import { DELIVERY_EXTRA_CHARGE, DELIVERY_INDEX_FROM } from '../../../utils/consts'
 // eslint-disable-next-line
 import { Alert } from '../../myBootstrap'
 import Loading from '../../Loading'
@@ -156,7 +156,7 @@ const DeliverySdek = observer((props) => {
                 props?.setTextAlert(`Ошибка: ${response.errors[0].message}`)
             }else {
                 props?.setDelivery("sdek")
-                props?.setDeliverySum(response.total_sum)
+                props?.setDeliverySum(Number(response.total_sum) * DELIVERY_EXTRA_CHARGE)
                 props?.setPayment(true)
             }
 
@@ -219,7 +219,6 @@ const DeliverySdek = observer((props) => {
                 }
             }
             
-
             if (response?.error) {
                 if (response.error?.message) {
                     props?.setTextAlert("Ошибка: " + response.error.message)
@@ -242,8 +241,8 @@ const DeliverySdek = observer((props) => {
                     props?.setTextAlert("Ошибка: " + response.errors[0]?.message)
                 }
             }else {
-                if (weightNull) setInfo({...response, weight_calc: 0})
-                else setInfo(response)
+                if (weightNull) setInfo({...response, weight_calc: 0, total_sum: Number(response.total_sum) * DELIVERY_EXTRA_CHARGE})
+                else setInfo({...response, total_sum: Number(response.total_sum) * DELIVERY_EXTRA_CHARGE})
             }
 
         }else if (!name) {

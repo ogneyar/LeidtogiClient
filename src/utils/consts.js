@@ -84,7 +84,11 @@ export const TIME_TO_WORK = `<div><p>пн - пт: 09:00 - 18:00</p><p>сб - в�
 // индекс, от куда идёт доставка товаров
 export const DELIVERY_INDEX_FROM = 140055 // - г. Котельники // 101000 - г. Москва // 305044 - г. Курск
 
-export const DELIVERY_BOXBERRY_CURIER_PRICE = 250  // по г. Москва 
+// надбавка в % на расчёт доставки (если не нужна надбавка, поставь 1)
+export const DELIVERY_EXTRA_CHARGE = 1.3 // 30%
+
+// стоимость доставки курьером по г. Москва 
+export const DELIVERY_BOXBERRY_CURIER_PRICE = 250 // в рублях
 
 // необходимы в файле service/delivery/dl/getDerivalCity.js
 export const DELIVERY_DL_DERIVAL_CITY_MILWAUKEE = "5000003200000000000000000"   // Milwaukee    - г. Котельники
