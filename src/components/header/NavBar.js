@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite'
 
 import { NavLink } from '../myBootstrap'
 import { Context } from '../..'
-import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE, CART_ROUTE, LK_ROUTE, NAME, ADDRESS, PHONE_ONE, MAIL } from '../../utils/consts'
+import { ADMIN_ROUTE, LOGIN_ROUTE, CART_ROUTE, LK_ROUTE, NAME, ADDRESS, PHONE_ONE, MAIL } from '../../utils/consts'
 import logo from '../../assets/logo.png'
 import basket from '../../assets/cart.png'
 import { logout } from '../../http/userAPI'
@@ -52,7 +52,7 @@ const NavBar = observer(() => {
                         className="NavBar_Col_Logo"
                     >
                         <NavLink className="NavLink NavBar_NavLink"
-                            to={SHOP_ROUTE}
+                            to="/"
                         >
 
                             <Image src={logo} className="NavBar_Logo" />

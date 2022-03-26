@@ -21,11 +21,11 @@ const BrandBar =  observer((props) => {
 
     const tempFunction = (br) => { // временная функция, пока один бренд
         if (br) {
-            brand.setSelectedBrand(br)
+            // brand.setSelectedBrand(br)
             history.push("/"+br?.name.toLowerCase())
         }else {
-            brand.setSelectedBrand({})
-            history.push("/")
+            // brand.setSelectedBrand({})
+            history.push("/shop")
         }
     }
 
@@ -43,7 +43,7 @@ const BrandBar =  observer((props) => {
                 Все бренды
             </Card>
             {info.map((br,index) => {
-                // if (index === 0) {
+                if (br.name === "Milwaukee" || br.name === "Husqvarna" || br.name === "RGK" || br.name === "KVT") {
                     // if (brand.selectedBrand.id === undefined) brand.setSelectedBrand(br)
                     return <Card
                         style={{cursor: "pointer"}}
@@ -55,9 +55,13 @@ const BrandBar =  observer((props) => {
                         key={br.id}
                         className="p-3"
                     >
-                        {br.name}
+                        {br.name === "RGK" 
+                        ? "РусГеоКом" 
+                        : br.name === "KVT" 
+                        ? "К В Т" 
+                        : br.name}
                     </Card>
-                // }else 
+                }else return null
                     // return <Card
                     //     style={{cursor: "default",backgroundColor: "lightgrey"}}
                     //     key={br.id}

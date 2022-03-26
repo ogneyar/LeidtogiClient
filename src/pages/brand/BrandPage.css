@@ -1,1 +1,9 @@
-.BrandPage {}
+.BrandPage {
+    text-align: center;
+    color: #fff;
+    font-size: 2rem;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    margin-bottom: 20px;
+    padding: 10px;
+}

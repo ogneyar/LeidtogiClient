@@ -183,12 +183,13 @@ const OrderAdmin = (props) => {
                             </div>
                             <br />
                             {i.pay === 1 ? "Оплачен:  ДА " : <>Оплачен:&nbsp;<span style={{cursor:"pointer"}} onClick={() => onClickSetPay(i.id)} title="Установить статус - оплачен.">НЕТ</span></>}&nbsp;
-                            {i.state !== "taken" && i.state !== "delivered" ?
+                            {i.state !== "taken" && i.state !== "delivered" && i.pay === 1 ?
                             <>
                                 <br /><br />
                                 <button
                                     className='OrderAdmin_block_button'
                                     onClick={() => onClickButtonOrderEnd(i.id)}
+                                    title="Изменить статус на 'Доставлен'"
                                 >
                                     Доставлен?
                                 </button>

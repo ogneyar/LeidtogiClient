@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Container, NavLink } from '../myBootstrap'
 import { 
-    ABOUT_US_ROUTE, DELIVERY_ROUTE, PAYMENT_ROUTE, 
+    SHOP_ROUTE, DELIVERY_ROUTE, PAYMENT_ROUTE, 
     CONTACTS_ROUTE, SPECIALS_ROUTE, SUPPORT_ROUTE 
 } from '../../utils/consts'
 
@@ -21,10 +21,11 @@ const Top = () => {
                         <div className="TopDivLink">
                             <strong className="TopLinkStrong">
                                 <NavLink
-                                    className="NavLink NavLink_Top"
-                                    to={ABOUT_US_ROUTE}
+                                    className="NavLink NavLink_Top_Shop"
+                                    // to={ABOUT_US_ROUTE}
+                                    to={SHOP_ROUTE}
                                 >
-                                    О компании
+                                    Магазин
                                 </NavLink>
                             </strong>
                             <strong className="TopLinkStrong">

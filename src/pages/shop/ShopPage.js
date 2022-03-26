@@ -29,6 +29,10 @@ const Shop = observer((props) => {
     let { name } = useParams()
 
     useEffect(() => {
+        brand.setSelectedBrand({})
+    },[brand])
+
+    useEffect(() => {
 
         if (name) {product.setPage(1)}
 

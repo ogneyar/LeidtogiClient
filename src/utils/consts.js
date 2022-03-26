@@ -1,9 +1,11 @@
 export const LIMIT = 12
 
+export const MAIN_ROUTE = '/' // главная страница
+
 export const ADMIN_ROUTE = '/admin' // администрация
 export const LOGIN_ROUTE = '/login' // вход
 export const REGISTRATION_ROUTE = '/registration' // регистрация
-export const SHOP_ROUTE = '/' // главная
+export const SHOP_ROUTE = '/shop' // магазин
 export const CART_ROUTE = '/cart' // корзина
 export const CREATE_ORDER_ROUTE = '/create_order' // оформление заказа
 export const PRODUCT_ROUTE = '/product' // товар
@@ -31,6 +33,12 @@ export const TERMS_OF_USE_ROUTE = '/terms_of_use' // пользовательс�
 export const WARRANTY_ROUTE = '/warranty' // гарантия и сервис
 export const CONTACTS_ROUTE = '/contacts' // контакты
 export const SPECIALS_ROUTE = '/specials' // акции
+
+// страницы брендов
+export const MILWAUKEE_ROUTE = '/milwaukee' // milwaukee brand
+export const HUSQVARNA_ROUTE = '/husqvarna' //  husqvarna brand
+export const RGK_ROUTE = '/rgk' //  РусГеоКом бренд
+export const KVT_ROUTE = '/kvt' //  КВТ бренд
 
 // странный юмор программиста
 export const DELETE_ROUTE = '/delete' // удаление сайта
