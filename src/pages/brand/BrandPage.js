@@ -6,6 +6,8 @@ import ShopPage from '../shop/ShopPage'
 
 import { Context } from '../..'
 import './BrandPage.css'
+import { API_URL } from '../../utils/consts'
+import { Container } from 'react-bootstrap'
 
 
 const BrandPage = (props) => {
@@ -15,6 +17,7 @@ const BrandPage = (props) => {
     const { brand } = useContext(Context)
     
     // const [ info, setInfo ] = useState([])
+    // console.log("jhjgjghjghj");
     
     useEffect(() => {
         // setInfo(brand.brands)
@@ -26,25 +29,41 @@ const BrandPage = (props) => {
     if (url) return <ProductPage brandName={props?.brandName} />
 
     return (<>
-        <div
+        <Container
             className="BrandPage"
         >
             {
                 props?.brandName === "milwaukee" 
-                ? <>Milwaukee - бренд высокого уровня полёта (:</>
+                ? 
+                <div>
+                    {/* Milwaukee */}
+                    <img src={API_URL + "/milwaukee/Milwaukee_logo_middle.jpg"}  alt="logo_milwaukee" />
+                </div>
                 :
                 props?.brandName === "husqvarna"
-                ? <>Husqvarna - бренд средего уровня полёта (:</>
+                ? 
+                <div>
+                    {/* Husqvarna */}
+                    <img src={API_URL + "/husqvarna/Husqvarna_logo_mini.jpg"}  alt="logo_husqvarna" />
+                </div>
                 :
                 props?.brandName === "rgk" 
-                ? <>РусГеоКом - бренд низкого уровня полёта (:</>
+                ?
+                <div>
+                    {/* РусГеоКом */}
+                    <img src={API_URL + "/rgk/RGK_logo_middle.jpg"}  alt="logo_rgk" />
+                </div>
                 : 
                 props?.brandName === "kvt" 
-                ? <>К В Т - бренд совсем не летает (:</>
+                ?
+                <div>
+                    {/* К В Т */}
+                    <img src={API_URL + "/kvt/KVT_logo_middle.jpg"}  alt="logo_kvt" />
+                </div>
                 : 
                 props?.brandName.replace(props?.brandName[0], props?.brandName[0].toUpperCase())
             }
-        </div>
+        </Container>
 
         <ShopPage brandName={props?.brandName} />
 

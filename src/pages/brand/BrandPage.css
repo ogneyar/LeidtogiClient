@@ -2,8 +2,19 @@
     text-align: center;
     color: #fff;
     font-size: 2rem;
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
+    padding: 10px 10px;
     margin-bottom: 20px;
-    padding: 10px;
+    background-color: var(--main-white-color);
+    width: 100%;
+    height: auto;
+}
+
+.BrandPage img {
+    width: 100%;
+}
+
+@media(max-width: 991px) {
+    .BrandPage {
+        margin-bottom: 10px;
+    }
 }

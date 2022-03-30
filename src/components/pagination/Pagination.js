@@ -1,23 +1,24 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useMemo } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Pagination } from 'react-bootstrap'
 import uuid from 'react-uuid'
-import $ from 'jquery'
 
 import { Context } from '../..'
 import './Pagination.css'
 import { SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
+import scrollUp from '../../utils/scrollUp'
 
 const MINIMAL_WIDTH_SCREEN_FOR_QUANTITY = 480
 const MIDDLE_WIDTH_SCREEN_FOR_QUANTITY = 768
 
 const MINIMAL_WIDTH_SCREEN_FOR_SIZE = 450
 
+
 const Pages = observer(() => {
 
     const { product } = useContext(Context)
 
-    // const [ doted, setDoted ] = useState(false)
+    // const [ pages, setPages ] = useState([])
     
     const [ twoOrthreeOrFour, setTwoOrthreeOrFour ] = useState(
         window.innerWidth < MINIMAL_WIDTH_SCREEN_FOR_QUANTITY
@@ -38,41 +39,40 @@ const Pages = observer(() => {
     
     const [ sizePagination, setSizePagination ] = useState(window.innerWidth < MINIMAL_WIDTH_SCREEN_FOR_SIZE ? "sm" : null)
     
+    // так и оставь как есть
+    // сделал чезез стэйт и потом замучался искать причину поломки
     let doted = false
     
-    const pageCount = Math.ceil(product.totalCount / product.limit)
-    const pages = []
-    
-    for (let i = 0; i < pageCount; i++) {
-        pages.push(i + 1)
-    }
-    
-    // const [ mobile, setMobile ] = useState(false)
+    // let pages = []
+    // let pageCount = Math.ceil(product.totalCount / product.limit)    
+    // for (let i = 0; i < pageCount; i++) {
+    //     pages.push(i + 1)
+    // }
 
-    // useEffect(() => {
-    //     if (window.innerWidth < MINIMAL_WIDTH_SCREEN_FOR_SIZE) setMobile(true)
-    //     else setMobile(false)
-    // }, [window.innerWidth])
+    const getArrayPages = (totalCount, limit) => {
+        let pages = []
+        let pageCount = Math.ceil(totalCount / limit)
+        
+        for (let i = 0; i < pageCount; i++) {
+            pages.push(i + 1)
+        }
+        // console.log("pages",pages)
+        return pages
+    }
+    let pages = useMemo(() => getArrayPages(product.totalCount, product.limit),[product.totalCount, product.limit])
+    
     
     const onClick = (page) => {
         if (window.innerWidth > 991) {
-            $('html, body').animate(
-                {scrollTop: SCROLL_TOP}, 
-                700, 
-                function(){}
-            )
+            scrollUp(SCROLL_TOP)
         }else {
-            $('html, body').animate(
-                {scrollTop: SCROLL_TOP_MOBILE}, 
-                700, 
-                function(){}
-            )
+            scrollUp(SCROLL_TOP_MOBILE)
         }
         product.setPage(page)
     }
 
     
-    const resize = () => {        
+    const resize = () => {
         setTwoOrthreeOrFour(
             window.innerWidth < MINIMAL_WIDTH_SCREEN_FOR_QUANTITY
             ? 2
@@ -144,6 +144,7 @@ const Pages = observer(() => {
                                     disabled
                                     >
                                     ...
+                                    {/* {setDoted(true)} */}
                                     {doted = true}
                                 </Pagination.Item>
                             : null
@@ -173,6 +174,7 @@ const Pages = observer(() => {
                                         disabled
                                         >
                                         ...
+                                        {/* {setDoted(true)} */}
                                         {doted = true}
                                     </Pagination.Item>
                                 : null
@@ -189,7 +191,8 @@ const Pages = observer(() => {
                                     onClick={() => onClick(page)}
                                 >
                                     {page}
-                                    {doted = false}
+                                    {/* {setDoted(false)} */}
+                                    {doted = true}
                                 </Pagination.Item>
                             : 
                                 !doted // если ещё небыло показано троеточие
@@ -199,6 +202,7 @@ const Pages = observer(() => {
                                         disabled
                                         >
                                         ...
+                                        {/* {setDoted(true)} */}
                                         {doted = true}
                                     </Pagination.Item>
                                 : null

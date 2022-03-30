@@ -32,6 +32,11 @@ const Shop = observer((props) => {
         brand.setSelectedBrand({})
     },[brand])
 
+    // let Paginations = useMemo(() => {
+    //     // console.log("hz")
+    //     return () => <Pagination />
+    // },[])
+
     useEffect(() => {
 
         if (name) {product.setPage(1)}
@@ -178,7 +183,7 @@ const Shop = observer((props) => {
                     {loadingCategory ? <Loading /> : <CategoryBar />}
                 </div>
                 <div className="ShopColContent">
-                    {/* {loadingBrand ? <Loading /> : <BrandBar />} */}
+                    {loadingBrand ? <Loading /> : <BrandBar />}
                     <Filter />
                     {loadingProduct 
                     ? <Loading /> 

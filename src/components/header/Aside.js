@@ -49,6 +49,13 @@ const Aside = observer(() => {
     }
 
     useEffect(() => {
+        if (brand.selectedBrand?.id !== undefined) {
+            setBreadCrumbsState([])
+        }
+
+    },[brand.selectedBrand])
+
+    useEffect(() => {
         // eslint-disable-next-line
         breadCrumbs = []
 

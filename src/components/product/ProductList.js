@@ -8,22 +8,35 @@ import './Product.css'
 
 const ProductList = observer((props) => {
 
-    const { product } = useContext(Context)
+    const { product, brand } = useContext(Context)
 
     const [info, setInfo] = useState([])
-
+    
     useEffect(() => {
         let offset = product.page * product.limit - product.limit // отступ
         let limit = 0
-        
-        setInfo(product.products.filter((i,index) => {
-            if (index + 1 > offset) {
-                limit += 1
-                if (limit <= product.limit) return true
-            }
-            return false
-        }))
-    },[product.limit, product.page, product.products]) 
+        // console.log("brand.selectedBrand?.id",brand.selectedBrand?.id)
+        if (brand.selectedBrand?.id !== undefined) {
+            let newArray = product.products.filter(k => k.brandId === brand.selectedBrand.id)
+            setInfo(newArray.filter((i,index) => {
+                if (index + 1 > offset) {
+                    limit += 1
+                    if (limit <= product.limit) return true
+                }
+                return false
+            }))
+            product.setTotalCount(newArray.length)
+        }else {
+            setInfo(product.products.filter((i,index) => {
+                if (index + 1 > offset) {
+                    limit += 1
+                    if (limit <= product.limit) return true
+                }
+                return false
+            }))
+            product.setTotalCount(product.products.length)
+        }
+    },[product, product.products, product.page, product.limit, brand.selectedBrand]) 
     
 
     return (
@@ -31,9 +44,7 @@ const ProductList = observer((props) => {
 
             {info && product.totalCount > 0 && Array.isArray(info)
             ?
-                info.map(product => 
-                    <ProductItem key={product.id} product={product}/>
-                )
+                info.map(product => <ProductItem key={product.id} product={product}/>)
             :
                 <div className="m-4 p-4">
                     {props?.search ? <p>Поиск не дал результатов.</p> : <p>Таких товаров ещё нет...</p>}

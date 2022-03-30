@@ -5,11 +5,13 @@ import { Card } from 'react-bootstrap'
 
 import { Context } from '../..'
 import './BrandBar.css'
+import scrollUp from '../../utils/scrollUp'
+import { SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
 
 
 const BrandBar =  observer((props) => {
 
-    const { brand } = useContext(Context)
+    const { product, brand } = useContext(Context)
 
     const [info, setInfo] = useState([])
 
@@ -19,7 +21,7 @@ const BrandBar =  observer((props) => {
         setInfo(brand.brands)
     },[brand.brands])
 
-    const tempFunction = (br) => { // временная функция, пока один бренд
+    const onClickCard = (br) => { 
         if (br) {
             // brand.setSelectedBrand(br)
             history.push("/"+br?.name.toLowerCase())
@@ -27,6 +29,12 @@ const BrandBar =  observer((props) => {
             // brand.setSelectedBrand({})
             history.push("/shop")
         }
+        if (window.innerWidth > 991) {
+            scrollUp(SCROLL_TOP)
+        }else {
+            scrollUp(SCROLL_TOP_MOBILE)
+        }
+        product.setPage(1)
     }
 
 
@@ -36,7 +44,7 @@ const BrandBar =  observer((props) => {
                 style={{cursor: "pointer"}}
                 border={undefined === brand.selectedBrand.id ? 'warning' : 'light'}
                 bg={undefined === brand.selectedBrand.id ? 'warning' : ''}
-                onClick={() => tempFunction(null)}
+                onClick={() => onClickCard(null)}
                 key={0}
                 className="p-3"
             >
@@ -51,14 +59,18 @@ const BrandBar =  observer((props) => {
                         bg={br.id === brand.selectedBrand.id ? 'warning' : ''}
                         // border={props?.search ? 'light' : 'warning'}
                         // bg={props?.search ? '' : 'warning'}
-                        onClick={() => tempFunction(br)}
+                        onClick={() => onClickCard(br)}
                         key={br.id}
                         className="p-3"
                     >
                         {br.name === "RGK" 
-                        ? "РусГеоКом" 
+                        ? "R G K" 
                         : br.name === "KVT" 
                         ? "К В Т" 
+                        : br.name === "Milwaukee" && window.innerWidth < 992
+                        ? "M L K" 
+                        : br.name === "Husqvarna" && window.innerWidth < 992
+                        ? "H Q V" 
                         : br.name}
                     </Card>
                 }else return null
