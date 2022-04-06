@@ -15,6 +15,7 @@ import detailDataLayer from '../../service/dataLayer/detail'
 import { Context } from '../..'
 import './ProductPage.css'
 import RequestPrice from '../../components/cart/RequestPrice'
+import priceFormater from '../../utils/priceFormater'
 
 
 const ProductPage =  observer((props) => {
@@ -24,6 +25,13 @@ const ProductPage =  observer((props) => {
     const { id, url } = useParams()
 
     const history = useHistory()
+
+    const [image, setImage] = useState(API_URL + "unknown.jpg")
+    const [visibleMagnifier, setVisibleMagnifier] = useState(false)
+    const [x, setX] = useState(0)
+    const [y, setY] = useState(0)
+
+    const [price, setPrice] = useState(null)
     
     const [product, setProduct] = useState({name: "", article: "", img: "", price: "", info: [], size: [], have: 1, request: 0})
     const [loading, setLoading] = useState(true)
@@ -45,16 +53,29 @@ const ProductPage =  observer((props) => {
         }
     // eslint-disable-next-line
     },[id])
+
+
+    useEffect(() => {
+        setPrice(priceFormater(product.price))
+    },[product.price])
+
+
+    useEffect(() => {
+        if (product.img && Array.isArray(product.img) && product.img[0]?.big !== undefined) {
+            setImage(API_URL + product.img[0].big)
+        }
+    },[product.img])
     
+    useEffect(() => {
+
+    },[])
     
     useEffect(() => {
         if (url) {
             fetchOneProductOnUrl(url)
                 .then(data => {
                     if (!data?.id) history.push("/error")
-
                     
-                    // console.log(data?.brandId);
                     brand.allBrands.forEach(i => {
                         if (data?.brandId === i?.id) 
                             if (i?.name.toLowerCase() !== props?.brandName) history.push("/" + props?.brandName)
@@ -92,12 +113,33 @@ const ProductPage =  observer((props) => {
             </div>
             <div className="ProductMainBox">
                 <div md={4} className="ProductImage">
-                    {/* <Image width={300} height={300} src={API_URL + product.img} /> */}
                     <Image 
+                        className="ProductImage_ImageBig"
                         width={300} 
-                        src={product.img && Array.isArray(product.img) && product.img[0]?.big !== undefined
-                            ? API_URL + product.img[0].big 
-                            : API_URL + "unknown.jpg"} 
+                        src={image} 
+                        // onClick={(e) => {
+                        //     console.log(e)
+                        //     console.log(window)
+                        // }}
+                        onMouseOver={(e) => {
+                        // onMouseEnter={(e) => {
+                            // alert(e.clientY)
+                            setX(e.pageX - e.target.offsetLeft)
+                            setY(e.pageY - e.target.offsetTop)
+                            setVisibleMagnifier(true)
+                        }}
+                        onMouseMove={e => {
+                            if (visibleMagnifier) {
+                                setX(e.pageX - e.target.offsetLeft)
+                                setY(e.pageY - e.target.offsetTop)
+                            }
+                        }}
+                        onMouseOut={() => {
+                            setTimeout(() => {
+                                setVisibleMagnifier(false)
+                            },[10])
+                        }}
+                        // onMouseLeave={() => setVisibleMagnifier(false)}
                     />
                     <div
                         className="ProductImageDiv" 
@@ -109,6 +151,9 @@ const ProductPage =  observer((props) => {
                                     key={i.small + new Date()}
                                     className="ProductImageSmall" 
                                     width={80} 
+                                    onClick={() => {
+                                        setImage(API_URL + i.big)
+                                    }}
                                     src={API_URL + i.small} 
                                 />
                             )
@@ -123,11 +168,15 @@ const ProductPage =  observer((props) => {
                 </div>
                 <div md={4} className="ProductColCard">
                     <Card className="ProductCard">
-                        {product.request ? 
-                            <h3>Цена: По запросу</h3>
-                        :
-                            <h3>Цена: {product.price} руб.</h3>
-                        }
+                        <div
+                            className="ProductCard_Price"
+                        >
+                            {product.request ? 
+                                <h3>Цена: По запросу</h3>
+                            :
+                                <h3>Цена: {price} руб.</h3>
+                            }
+                        </div>
                         <div
                             className="ProductCardDivButtonBuy"
                         >
@@ -208,6 +257,19 @@ const ProductPage =  observer((props) => {
                 <div className={"ProductInfoRowLight"}>Длина: {product.size[0].length} мм</div>
             </div>
             : null}
+
+            {visibleMagnifier && <div
+                className="ProductPage_ImagesMagnifier"
+                style={{top:window.innerHeight /2 - 260 + "px", left:window.innerWidth /2 - 260 + "px"}}
+            >
+                <img 
+                    style={{objectPosition: `-${x*2}px -${y*2}px`}}
+                    className="ProductImageSmall"
+                    src={image} 
+                    alt="ImagesMagnifier"
+                />
+
+            </div>}
             
         </Container>
     )

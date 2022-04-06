@@ -48,7 +48,15 @@ const Shop = observer((props) => {
 
         if (product.allProducts.length) {
             if (!name) { // если в url указан корневой каталог /
-                product.setProducts(product.allProducts)
+                let array = product.allProducts
+                // array.sort(() => Math.random() - 0.5)
+                // алгоритм под названием "Тасование Фишера — Йетса"
+                for (let i = array.length - 1; i > 0; i--) {
+                    let j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                  }
+                product.setProducts(array)
+                // product.setProducts(product.allProducts)
                 product.setTotalCount(product.allProducts.length) // указываем общее количество товаров
                 setLoadingProduct(false)
             }

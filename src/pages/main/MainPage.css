@@ -1,7 +1,7 @@
 :root {
-    --max-height-box-mainpage: 200px;
-    --mid-height-box-mainpage: 150px;
-    --min-height-box-mainpage: 100px;
+    --max-height-box-mainpage: 120px;
+    --mid-height-box-mainpage: 100px;
+    --min-height-box-mainpage: 80px;
 }
 
 .MainPage {
@@ -41,6 +41,7 @@
     width: 80%;
     margin-bottom: 10px;
     border-radius: 10px;
+    text-align: center;
 }
 .MainPage_box_header:hover {
     opacity: 0.5;
@@ -78,6 +79,10 @@
     flex-direction: column;
     height: 270px;
     padding-top: 10px;
+}
+
+.MainPage_box_body_item_examples p {
+    padding: 0 5px;
 }
 
 .MainPage_box_body_item_image {
@@ -150,28 +155,6 @@
 }
 
 @media(max-width: 700px) {
-    .MainPage_box_body_item_image {
-        width: 180px;
-        height: 180px;
-    }
-}
-@media(max-width: 650px) {
-    .MainPage_box_header {
-        font-size: 1.2rem;
-    }
-    .MainPage_box_body_item {
-        width: 47%; /* 2шт на экране */
-    }
-    .MainPage_box_body_item_examples {
-        height: 300px;
-    }
-    .MainPage_box_header,
-    .MainPage_box_body_brand_item {
-        height: var(--min-height-box-mainpage);
-    }
-}
-
-@media(max-width: 390px) {
     .MainPage_box{
         margin: 10px 0;
     }
@@ -182,6 +165,38 @@
     .MainPage_box_body {
         margin: 10px 0;
     }
+    .MainPage_box_body_item_image {
+        width: 180px;
+        height: 180px;
+    }
+    .MainPage_box_body_item_examples {
+        height: 335px;
+    }
+}
+@media(max-width: 650px) {    
+    .MainPage_box_header {
+        font-size: 1.2rem;
+    }
+    .MainPage_box_body_item {
+        width: 47%; /* 2шт на экране */
+    }
+    .MainPage_box_header,
+    .MainPage_box_body_brand_item {
+        height: var(--min-height-box-mainpage);
+    }
+}
+
+@media(max-width: 390px) {
+    /* .MainPage_box{
+        margin: 10px 0;
+    } */
+    .MainPage_box_header {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+    /* .MainPage_box_body {
+        margin: 10px 0;
+    } */
     .MainPage_box_body_item_title {
         height: 80px;
     }

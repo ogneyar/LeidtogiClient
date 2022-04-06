@@ -1,16 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import {  Image } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import $ from 'jquery'
 
 import star from '../../assets/star.png'
 import { Card } from '../myBootstrap'
-// eslint-disable-next-line
-import { PRODUCT_ROUTE, API_URL, ERROR_ROUTE } from '../../utils/consts'
+import { API_URL, ERROR_ROUTE } from '../../utils/consts'
 import ButtonBuy from '../cart/ButtonBuy'
 import { Context } from '../..'
 import './Product.css'
 import RequestPrice from '../cart/RequestPrice'
+import priceFormater from '../../utils/priceFormater'
 
 
 const ProductItem = ({product}) => {
@@ -18,6 +18,12 @@ const ProductItem = ({product}) => {
     const history = useHistory()
 
     const { brand } = useContext(Context)
+
+    const [ price, setPrice ] = useState(null)
+
+    useEffect(() => {
+        setPrice(priceFormater(product.price))
+    },[product.price])
 
 
     return (
@@ -76,7 +82,7 @@ const ProductItem = ({product}) => {
                         <div className="product-price">
                             {product.request 
                             ? `Цена по запросу` 
-                            : <>{product.price}&nbsp;р.</>}
+                            : <>{price}&nbsp;р.</>}
                         </div>
 
                         {product.rating 

@@ -112,3 +112,7 @@ export const TELEGRAM_CHAT_ID_ADMIN = 1038937592 //
 
 // Яндекс.Метрика
 export const PURCHASE_GOAL_ID = 226560302 // номер цели "успешная оплата"
+
+
+
+export const PRICE_SEPARATOR = " " // разделитель тысячных значений цены (пример: 1 345 678)
