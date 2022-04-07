@@ -16,6 +16,7 @@ import { Context } from '.'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './styles/App.css'
+import scrollUp from './utils/scrollUp'
 
 
 const App = observer(() => {
@@ -78,6 +79,8 @@ const App = observer(() => {
             cart.setCart(JSON.parse(basket))
         }
         
+        scrollUp(0)
+
     // eslint-disable-next-line
     }, [])
     // }, [brand, category, product, user])

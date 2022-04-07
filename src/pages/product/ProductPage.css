@@ -1,3 +1,4 @@
+
 .ProductPage {
     background-color: var(--main-white-color);
     padding: 40px 20px 30px 20px;
@@ -5,6 +6,7 @@
 .ProductMainBox {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     flex-wrap: wrap;
 }
 
@@ -13,6 +15,7 @@
 }
 .ProductName,
 .ProductImage, 
+.ProductImageDiv,
 .ProductRating,
 .ProductColCard,
 .ProductCard {
@@ -22,19 +25,21 @@
 }
 .ProductImage {
     padding-bottom: 10px;
-}
-.ProductImageDiv {    
-    display: flex;
     flex-direction: row; 
-    align-items: center; 
+}
+.ProductImageDiv {
     padding-top:5px;
 }
 .ProductImage_ImageBig {
-    /* cursor: zoom-in; */
+    cursor: zoom-in;
+    border: 1px dashed lightgrey;
 }
+
 .ProductImageSmall {
     padding: 5px;
     cursor: pointer;
+    margin: 5px;
+    border: 1px solid lightgrey;
 }
 
 .ProductCard {
@@ -114,8 +119,8 @@
 
 @media(min-width: 520px) {
 .ProductPage_ImagesMagnifier {
-    visibility: hidden;
-    display: none;
+    /* visibility: hidden;
+    display: none; */
     position: fixed;
     z-index: 10000;
     width: 500px;

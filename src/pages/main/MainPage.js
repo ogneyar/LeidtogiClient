@@ -373,7 +373,7 @@ const MainPage = () => {
 
         setInfo(array)
 
-        scrollUp(0)
+        // scrollUp(0)
     },[])
 
     return (
