@@ -28,7 +28,7 @@ const Limit = observer(() => {
 
     return (
         <div
-            className="d-flex justify-content-end align-items-center Limit"
+            className="Limit"
         >            
             Показать:&nbsp;
 

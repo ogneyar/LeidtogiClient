@@ -48,14 +48,15 @@ const Shop = observer((props) => {
 
         if (product.allProducts.length) {
             if (!name) { // если в url указан корневой каталог /
-                let array = product.allProducts
-                // array.sort(() => Math.random() - 0.5)
-                // алгоритм под названием "Тасование Фишера — Йетса"
-                for (let i = array.length - 1; i > 0; i--) {
-                    let j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                  }
-                product.setProducts(array)
+                let data = product.allProducts
+                if (product.sort) { // перемешать?
+                    // алгоритм под названием "Тасование Фишера — Йетса"
+                    for (let i = data.length - 1; i > 0; i--) {
+                        let j = Math.floor(Math.random() * (i + 1));
+                        [data[i], data[j]] = [data[j], data[i]];
+                    }
+                }
+                product.setProducts(data)
                 // product.setProducts(product.allProducts)
                 product.setTotalCount(product.allProducts.length) // указываем общее количество товаров
                 setLoadingProduct(false)
@@ -170,7 +171,7 @@ const Shop = observer((props) => {
     
         }
     // eslint-disable-next-line
-    },[product.allProducts, category.allCategories, name])
+    },[product.allProducts, category.allCategories, name, product.sort])
 
     useEffect(() => {
         if (brand.allBrands.length) {

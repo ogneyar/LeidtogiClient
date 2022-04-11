@@ -17,14 +17,17 @@ import { Context } from '.'
 import 'bootstrap/dist/css/bootstrap.css'
 import './styles/App.css'
 import scrollUp from './utils/scrollUp'
+// import { MIX_PRODUCTS } from './utils/consts'
 
 
-const App = observer(() => {
+const App = observer(() => { 
 
     const { user, product, category, brand, cart } = useContext(Context)
+
     const [loading, setLoading] = useState(false)
     // eslint-disable-next-line
     const [error, setError] = useState(false)
+    
 
     useEffect(() => {
 
@@ -62,8 +65,16 @@ const App = observer(() => {
 
         fetchAllProducts()
             .then(
-                data => product.setAllProducts(data.filter(i => i.have === 1)),
-                // data => product.setAllProducts(data),
+                data => {
+                    // if (product.sort) { // перемешать?
+                    //     // алгоритм под названием "Тасование Фишера — Йетса"
+                    //     for (let i = data.length - 1; i > 0; i--) {
+                    //         let j = Math.floor(Math.random() * (i + 1));
+                    //         [data[i], data[j]] = [data[j], data[i]];
+                    //     }
+                    // }
+                    product.setAllProducts(data.filter(i => i.have === 1))
+                },
                 err => console.log(err))
         
         fetchBrands()
@@ -81,9 +92,8 @@ const App = observer(() => {
         
         scrollUp(0)
 
-    // eslint-disable-next-line
-    }, [])
-    // }, [brand, category, product, user])
+    // }, [product.sort])
+    }, [brand, category, product, user, cart])
 
   
   if (loading) return <Loading />

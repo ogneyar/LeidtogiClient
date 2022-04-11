@@ -1,3 +1,6 @@
+
+export const MIX_PRODUCTS = true // перемешать ли все товары?
+
 export const LIMIT = 12
 
 export const MAIN_ROUTE = '/' // главная страница

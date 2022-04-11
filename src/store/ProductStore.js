@@ -9,6 +9,7 @@ export default class ProductStore {
         this._page = 1 // номер отображаемой страницы
         this._totalCount = 0 // общее количество искомых товаров
         this._limit =  localStorage.getItem('limit') || LIMIT // сколько товаров отобразить на странице
+        this._sort =  localStorage.getItem('sort') === "false" ? false : true // перемешать ли товары на странице?
         makeAutoObservable(this)
     }
 
@@ -27,6 +28,9 @@ export default class ProductStore {
     setLimit(limit) {
         this._limit = limit
     }
+    setSort(sort) {
+        this._sort = sort
+    }
 
     get products() {
         return this._products
@@ -42,5 +46,8 @@ export default class ProductStore {
     }
     get limit() {
         return this._limit
+    }
+    get sort() {
+        return this._sort
     }
 }
