@@ -1,6 +1,4 @@
 
-export const MIX_PRODUCTS = true // перемешать ли все товары?
-
 export const LIMIT = 12
 
 export const MAIN_ROUTE = '/' // главная страница
@@ -39,9 +37,10 @@ export const SPECIALS_ROUTE = '/specials' // акции
 
 // страницы брендов
 export const MILWAUKEE_ROUTE = '/milwaukee' // milwaukee brand
-export const HUSQVARNA_ROUTE = '/husqvarna' //  husqvarna brand
-export const RGK_ROUTE = '/rgk' //  РусГеоКом бренд
-export const KVT_ROUTE = '/kvt' //  КВТ бренд
+export const HUSQVARNA_ROUTE = '/husqvarna' // husqvarna brand
+export const RGK_ROUTE = '/rgk' // РусГеоКом бренд
+export const KVT_ROUTE = '/kvt' // КВТ бренд
+export const GEDORE_ROUTE = '/gedore' // Gedore бренд
 
 // странный юмор программиста
 export const DELETE_ROUTE = '/delete' // удаление сайта

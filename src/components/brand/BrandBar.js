@@ -51,7 +51,17 @@ const BrandBar =  observer((props) => {
                 Все бренды
             </Card>
             {info.map((br,index) => {
-                if (br.name === "Milwaukee" || br.name === "Husqvarna" || br.name === "RGK" || br.name === "KVT") {
+                if (
+                    br.name === "Milwaukee" 
+                    || 
+                    br.name === "Husqvarna" 
+                    || 
+                    br.name === "RGK" 
+                    || 
+                    br.name === "KVT" 
+                    // || 
+                    // br.name === "Gedore"
+                ) {
                     // if (brand.selectedBrand.id === undefined) brand.setSelectedBrand(br)
                     return <Card
                         style={{cursor: "pointer"}}
@@ -71,6 +81,8 @@ const BrandBar =  observer((props) => {
                         ? "M L K" 
                         : br.name === "Husqvarna" && window.innerWidth < 992
                         ? "H Q V" 
+                        : br.name === "Gedore" && window.innerWidth < 992
+                        ? "G E D" 
                         : br.name}
                     </Card>
                 }else return null
