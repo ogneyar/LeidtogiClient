@@ -61,6 +61,13 @@ const BrandPage = (props) => {
                     <img src={API_URL + "/kvt/KVT_logo_middle.jpg"}  alt="logo_kvt" />
                 </div>
                 : 
+                props?.brandName === "gedore" 
+                ?
+                <div>
+                    {/* Gedore */}
+                    <img src={API_URL + "/gedore/Gedore_logo_middle.jpg"}  alt="logo_gedore" />
+                </div>
+                : 
                 props?.brandName.replace(props?.brandName[0], props?.brandName[0].toUpperCase())
             }
         </Container>

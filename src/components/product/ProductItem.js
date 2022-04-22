@@ -1,16 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react'
 import {  Image } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
-import $ from 'jquery'
 
 import star from '../../assets/star.png'
 import { Card } from '../myBootstrap'
 import { API_URL, ERROR_ROUTE } from '../../utils/consts'
 import ButtonBuy from '../cart/ButtonBuy'
-import { Context } from '../..'
-import './Product.css'
 import RequestPrice from '../cart/RequestPrice'
 import priceFormater from '../../utils/priceFormater'
+import scrollUp from '../../utils/scrollUp'
+import { Context } from '../..'
+import './Product.css'
 
 
 const ProductItem = ({product}) => {
@@ -42,14 +42,7 @@ const ProductItem = ({product}) => {
                 if (brandName) url = brandName.toLowerCase() + '/' + product?.url
                 
                 history.push(url)
-                // console.log("brand", brand);
-                $('html, body').animate(
-                    {
-                        scrollTop: 0
-                    }, 
-                    700, 
-                    function(){}
-                )
+                scrollUp()
             }}
         >
             <Card 
@@ -80,7 +73,7 @@ const ProductItem = ({product}) => {
                     <div className="product-text">
                         
                         <div className="product-price">
-                            {product.request 
+                            {product.request || price === 0
                             ? `Цена по запросу` 
                             : <>{price}&nbsp;р.</>}
                         </div>
@@ -95,7 +88,7 @@ const ProductItem = ({product}) => {
 
                     </div>
                     
-                    {product.request 
+                    {product.request || price === 0
                     ? 
                     <RequestPrice product={product}>
                         ЗАПРОСИТЬ

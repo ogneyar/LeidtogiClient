@@ -193,16 +193,15 @@ const ProductPage =  observer((props) => {
                         <div
                             className="ProductCard_Price"
                         >
-                            {product.request ? 
-                                <h3>Цена: По запросу</h3>
-                            :
-                                <h3>Цена: {price} руб.</h3>
-                            }
+                            {product.request || price === 0
+                            ? <h3>Цена: По запросу</h3>
+                            : <h3>Цена: {price} руб.</h3>}
                         </div>
                         <div
                             className="ProductCardDivButtonBuy"
                         >
-                            {product.request ? 
+                            {product.request || price === 0
+                            ?
                                 <RequestPrice
                                     product={product}
                                 >

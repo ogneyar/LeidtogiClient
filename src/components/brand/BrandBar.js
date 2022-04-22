@@ -59,8 +59,8 @@ const BrandBar =  observer((props) => {
                     br.name === "RGK" 
                     || 
                     br.name === "KVT" 
-                    // || 
-                    // br.name === "Gedore"
+                    || 
+                    br.name === "Gedore"
                 ) {
                     // if (brand.selectedBrand.id === undefined) brand.setSelectedBrand(br)
                     return <Card

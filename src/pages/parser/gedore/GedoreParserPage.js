@@ -16,7 +16,7 @@ const GedoreParserPage = observer((props) => {
     const [ checkUpdatePrice, setCheckUpdatePrice ] = useState(false)
     const [ message, setMessage ] = useState("")
     const [ loading, setLoading ] = useState(false)
-    const [ number, setNumber ] = useState(1)
+    const [ number, setNumber ] = useState(0)
 
     
     const onClickButtonAddNewProduct = async () => {
@@ -42,19 +42,13 @@ const GedoreParserPage = observer((props) => {
                     .then(data => {
                         if (data?.error) {
                             mess += "<br />" + i + ": " + data.error
-                            // setMessage(i + ": " + data.error)
-                            // console.log(i + ": " + data.error)
                         }else {
                             mess += "<br />" + data.map(i => i + "<br />").join("")
-                            // setMessage(data.map(i => i + "<br />").join(""))
-                            // console.log(data.map(i => i + "<br />").join(""))
                         }
                     })
                     // eslint-disable-next-line
                     .catch(error => {
                         mess += "<br />" + i + ": (Ошибка) " + JSON.stringify(error)
-                        // setMessage(i + ": (Ошибка) " + JSON.stringify(error))
-                        // console.log(i + ": (Ошибка) " + error)
                     })
                     // eslint-disable-next-line
                     .finally(() => {
