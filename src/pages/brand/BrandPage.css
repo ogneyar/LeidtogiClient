@@ -18,3 +18,33 @@
         margin-bottom: 10px;
     }
 }
+
+@media(min-width: 1200px) {
+    .BrandPage_image {
+        min-height: 158px; /* 188 - padding */
+    }
+}
+
+@media(min-width: 992px) and (max-width: 1199px) {
+    .BrandPage_image {
+        min-height: 132px; /* 152 - padding */
+    }
+}
+
+@media(min-width: 768px) and (max-width: 991px) {
+    .BrandPage_image {
+        min-height: 99px; /* 119 - padding */
+    }
+}
+
+@media(min-width: 576px) and (max-width: 767px) {
+    .BrandPage_image {
+        min-height: 73px; /* 93 - padding */
+    }
+}
+
+@media(max-width: 575px) {
+    .BrandPage_image {
+        /* min-height: auto; */
+    }
+}

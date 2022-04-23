@@ -1,40 +1,31 @@
 .Aside {
     background-color: var(--main-orange-color);
-    /* background-color: green; */
-    
-    /* height: 45px; */
     display: flex;
     flex-direction: row;
     align-items: center;
     color: white;
-    /* margin: 5px 0; */
-    /* color: var(--main-white-color); */
 }
 
 .AsideDiv {
-    /* width:100vw; */
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /* background-color: green; */
 }
 
 .AsideDivNavLink {
     border: 1px solid white;
     padding: 0 5px;
     border-radius: 10px;
-    /* margin-right: 3px; */
-    
     margin: 5px 3px 5px 0;
 }
 
 /* более 991 */
-@media(min-width: 991px) {
+@media(min-width: 992px) {
     .Aside {
         margin: 10px 0;
     }
 }
-/* менее 991 */
+/* менее 992 */
 @media(max-width: 991px) {
     .Aside {
         padding: 10px 15px;
@@ -46,16 +37,3 @@
         padding: 5px 15px;
     }
 }
-/* между (: */
-/* @media(min-width: 575px) and (max-width: 991px) {
-    .Aside {
-        margin: 10px 0;
-    }
-} */
-
-
-/* @media(max-width: 991px) {
-    .Aside {
-        height: 15px;
-    }
-} */

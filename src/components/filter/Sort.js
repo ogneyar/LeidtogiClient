@@ -23,11 +23,14 @@ const Sort = observer(() => {
             <input 
                 type="checkbox" 
                 checked={value} 
-                onClick={() => {
+                onChange={()=>{
                     // alert(product.sort)
                     localStorage.setItem('sort', !value)
                     setValue(!value)
                     product.setSort(!value)
+                }}
+                onClick={() => {
+                    
                 }} 
             />
         </div>
