@@ -23,10 +23,8 @@ const BrandBar =  observer((props) => {
 
     const onClickCard = (br) => { 
         if (br) {
-            // brand.setSelectedBrand(br)
             history.push("/"+br?.name.toLowerCase())
         }else {
-            // brand.setSelectedBrand({})
             history.push("/shop")
         }
         if (window.innerWidth > 991) {
@@ -48,9 +46,9 @@ const BrandBar =  observer((props) => {
                 key={0}
                 className="p-3"
             >
-                Все бренды
+                {window.innerWidth < 992 ? "В С Е" : "Все бренды"}
             </Card>
-            {info.map((br,index) => {
+            {info.map(br => {
                 if (
                     br.name === "Milwaukee" 
                     || 
@@ -62,13 +60,11 @@ const BrandBar =  observer((props) => {
                     || 
                     br.name === "Gedore"
                 ) {
-                    // if (brand.selectedBrand.id === undefined) brand.setSelectedBrand(br)
+
                     return <Card
                         style={{cursor: "pointer"}}
                         border={br.id === brand.selectedBrand.id ? 'warning' : 'light'}
                         bg={br.id === brand.selectedBrand.id ? 'warning' : ''}
-                        // border={props?.search ? 'light' : 'warning'}
-                        // bg={props?.search ? '' : 'warning'}
                         onClick={() => onClickCard(br)}
                         key={br.id}
                         className="p-3"
@@ -86,13 +82,7 @@ const BrandBar =  observer((props) => {
                         : br.name}
                     </Card>
                 }else return null
-                    // return <Card
-                    //     style={{cursor: "default",backgroundColor: "lightgrey"}}
-                    //     key={br.id}
-                    //     className="p-3"
-                    // >
-                    //     {br.name}
-                    // </Card>
+                
             })}
         </div>
     )
