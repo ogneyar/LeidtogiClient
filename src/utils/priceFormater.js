@@ -11,13 +11,17 @@ export default function priceFormater(productPrice){
         quantity = Math.floor(quantity) // отбросил остаток
         let remains = priceLength % 3 // остаток
         
-        return productPrice.toString().split("").map((i, idx) => {
-            if (remains === idx + 1) return i + PRICE_SEPARATOR
-            if (quantity > 1 && remains + 3 === idx + 1) return i + PRICE_SEPARATOR
-            if (quantity > 2 && remains + 6 === idx + 1) return i + PRICE_SEPARATOR
-            if (quantity > 3 && remains + 9 === idx + 1) return i + PRICE_SEPARATOR
-            return i
-        })
+        return productPrice
+            .toString()
+            .split("")
+            .map((i, idx) => {
+                if (remains === idx + 1) return i + PRICE_SEPARATOR
+                if (quantity > 1 && remains + 3 === idx + 1) return i + PRICE_SEPARATOR
+                if (quantity > 2 && remains + 6 === idx + 1) return i + PRICE_SEPARATOR
+                if (quantity > 3 && remains + 9 === idx + 1) return i + PRICE_SEPARATOR
+                return i
+            })
+            .join("")
     }else {
         return 0
     }
