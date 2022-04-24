@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom'
 
 import ProductPage from '../product/ProductPage'
 import ShopPage from '../shop/ShopPage'
-// eslint-disable-next-line
-import { API_URL } from '../../utils/consts'
 import { Container } from 'react-bootstrap'
 
 import { Context } from '../..'
@@ -20,9 +18,9 @@ const BrandPage = (props) => {
     const [ images ] = useState(document.getElementsByClassName("BrandPage_image"))
     
     useEffect(() => {
-        // console.log(images)
-        // alert(Math.round(window.innerWidth * 0.173))
-        if (window.innerWidth < 576) images[0].style.height = Math.round(window.innerWidth * 0.173) - 20 + "px"
+        if (images && images[0] !== undefined && window.innerWidth < 576) {
+            images[0].style.height = Math.round(window.innerWidth * 0.173) - 20 + "px"
+        }
     },[images])
     
     useEffect(() => {
@@ -41,35 +39,35 @@ const BrandPage = (props) => {
                 props?.brandName === "milwaukee" 
                 ? 
                 <div className="BrandPage_image">
-                    {/* <img src={API_URL + "/milwaukee/Milwaukee_logo_middle.jpg"}  alt="logo_milwaukee" /> */}
+                    {/* Пропорции лого бренда 7:1 */}
                     <img src={"images/brands/milwaukee/Milwaukee_logo.jpg"}  alt="logo_milwaukee" />
                 </div>
                 :
                 props?.brandName === "husqvarna"
                 ? 
                 <div className="BrandPage_image">
-                    {/* <img src={API_URL + "/husqvarna/Husqvarna_logo_mini.jpg"}  alt="logo_husqvarna" /> */}
+                    {/* Пропорции лого бренда 7:1 */}
                     <img src={"images/brands/husqvarna/Husqvarna_logo.jpg"}  alt="logo_husqvarna" />
                 </div>
                 :
                 props?.brandName === "gedore" 
                 ?
                 <div className="BrandPage_image">
-                    {/* <img src={API_URL + "/gedore/Gedore_logo_middle.jpg"}  alt="logo_gedore" /> */}
+                    {/* Пропорции лого бренда 7:1 */}
                     <img src={"images/brands/gedore/Gedore_logo.jpg"}  alt="logo_gedore" />
                 </div>
                 : 
                 props?.brandName === "rgk" 
                 ?
                 <div className="BrandPage_image">
-                    {/* <img src={API_URL + "/rgk/RGK_logo_middle.jpg"}  alt="logo_rgk" /> */}
+                    {/* Пропорции лого бренда 7:1 */}
                     <img src={"images/brands/rgk/RGK_logo.jpg"}  alt="logo_rgk" />
                 </div>
                 : 
                 props?.brandName === "kvt" 
                 ?
                 <div className="BrandPage_image">
-                    {/* <img src={API_URL + "/kvt/KVT_logo_middle.jpg"}  alt="logo_kvt" /> */}
+                    {/* Пропорции лого бренда 7:1 */}
                     <img src={"images/brands/kvt/KVT_logo.jpg"}  alt="logo_kvt" />
                 </div>
                 : 
