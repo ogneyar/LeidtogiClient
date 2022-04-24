@@ -74,6 +74,7 @@ const ProductPage =  observer((props) => {
 
 
     useEffect(() => {
+        // alert(window.innerWidth)
         setPrice(priceFormater(product.price))
     },[product.price])
 
@@ -88,11 +89,10 @@ const ProductPage =  observer((props) => {
         if (image !== API_URL + "unknown.jpg") {
             const img = document.createElement('img')
             img.onload = e => {
-                // alert('image: ' + img.width + " " + img.height)
-                // setPropotionX(img.width / widthHeightInt - 1)
-                // setPropotionY(img.height / widthHeightInt - 1)
-                setPropotionX(Math.round(img.width / widthHeightInt - 1))
-                setPropotionY(Math.round(img.height / widthHeightInt - 1))
+                // setPropotionX(Math.round(img.width / widthHeightInt - 1))
+                // setPropotionY(Math.round(img.height / widthHeightInt - 1))
+                setPropotionX(img.width / widthHeightInt - 1)
+                setPropotionY(img.height / widthHeightInt - 1)
             }
             img.src = image
         }
@@ -146,16 +146,13 @@ const ProductPage =  observer((props) => {
                         className="ProductImageDiv" 
                     >
                         {product.img && Array.isArray(product.img) && product.img[0]?.big !== undefined
-                        ? product.img.map((i, idx) => {
+                        ? product.img.map(i => {
                             return (
                                 <Image 
                                     key={i.small + new Date()}
                                     className="ProductImageSmall"
-                                    // style={idx === 0 ? {border:"none",cursor:"default"} : {}}
                                     width={80} 
                                     onClick={(e) => {
-                                        // e.target.style.border = "none"
-                                        // e.target.style.cursor = "default"
                                         setImage(API_URL + i.big)
                                     }}
                                     src={API_URL + i.small} 
