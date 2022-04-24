@@ -64,30 +64,30 @@ const GedoreParserPage = observer((props) => {
 
     // оновление цен
     let onClickButtonChangePrices = async () => {
-        alert("Не реализованно (:")
-        // setMessage("")
-        // const formData = new FormData()
-        // if (feed) {
-        //     formData.append("feed", feed)
-        // }
-        // setLoading(true)
-        // await changePrices(formData)
-        //     // eslint-disable-next-line
-        //     .then(data => {
-        //         if (data?.error) {
-        //             setMessage(data.error)
-        //             console.log(data.error)
-        //         }else {
-        //             setMessage(JSON.stringify(data))
-        //             console.log(data)
-        //         }
-        //     })
-        //     // eslint-disable-next-line
-        //     .catch(error => {
-        //         setMessage("(Ошибка) " + JSON.stringify(error))
-        //         console.log("(Ошибка) " + error)
-        //     })
-        // setLoading(false)
+        // alert("Не реализованно (:")
+        setMessage("")
+        const formData = new FormData()
+        if (feed) {
+            formData.append("feed", feed)
+        }
+        setLoading(true)
+        await changePrices(formData)
+            // eslint-disable-next-line
+            .then(data => {
+                if (data?.error) {
+                    setMessage(data.error)
+                    console.log(data.error)
+                }else {
+                    setMessage(JSON.stringify(data))
+                    console.log(data)
+                }
+            })
+            // eslint-disable-next-line
+            .catch(error => {
+                setMessage("(Ошибка) " + JSON.stringify(error))
+                console.log("(Ошибка) " + error)
+            })
+        setLoading(false)
     }
 
 
