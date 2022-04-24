@@ -3,10 +3,11 @@ import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react-lite'
 
 import { API_URL } from '../../utils/consts';
+import deleteAbbreviation from '../../utils/deleteAbbreviation';
+import priceFormater from '../../utils/priceFormater';
 
 import { Context } from '../..'
 import './Search.css'
-import deleteAbbreviation from '../../utils/deleteAbbreviation';
 
 
 const Search = observer((props) => {
@@ -161,7 +162,7 @@ const Search = observer((props) => {
                                             className="SearchListItemBodyPrice"
                                         >
                                             <div>
-                                                {i.price} р.
+                                                {i.price > 0 ? "Цена: " + priceFormater(i.price) + " р." : "Цена по запросу"}
                                             </div>
                                         </div>
                                     </div>
