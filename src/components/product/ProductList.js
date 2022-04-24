@@ -15,8 +15,8 @@ const ProductList = observer((props) => {
     useEffect(() => {
         let offset = product.page * product.limit - product.limit // отступ
         let limit = 0
-        // console.log("brand.selectedBrand?.id",brand.selectedBrand?.id)
-        if (brand.selectedBrand?.id !== undefined) {
+        
+        if (brand.selectedBrand?.id !== undefined && ! props?.search) {
             let newArray = product.products.filter(k => k.brandId === brand.selectedBrand.id)
             setInfo(newArray.filter((i,index) => {
                 if (index + 1 > offset) {
@@ -36,7 +36,8 @@ const ProductList = observer((props) => {
             }))
             product.setTotalCount(product.products.length)
         }
-    },[product, product.products, product.page, product.limit, brand.selectedBrand]) 
+
+    },[product, product.products, product.page, product.limit, brand.selectedBrand, props?.search]) 
     
 
     return (

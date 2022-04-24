@@ -47,8 +47,9 @@ const Search = observer((props) => {
             if (search.indexOf("!") === 0) setAdmin(true)
             search = search.replace("!","")
             // функция deleteAbbreviation убирает сокращённые названия бренда (hqv, rgk, kvt)
-            if ( isNumber( deleteAbbreviation(search) ) ) {
-                setList(array.filter(i => i.article.includes(search.trim())))
+            let searchNumber = deleteAbbreviation(search)
+            if ( isNumber( searchNumber ) ) {
+                setList(array.filter(i => i.article.includes( searchNumber )))
             }else {
                 setList(array.filter(i => i.name.toLowerCase().includes(search.toLowerCase().trim())))
             }

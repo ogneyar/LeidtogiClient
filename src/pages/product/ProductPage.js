@@ -5,17 +5,17 @@ import { observer } from 'mobx-react-lite'
 import ReactHtmlParser from 'react-html-parser'
 
 import { fetchOneProduct, fetchOneProductOnUrl } from '../../http/productAPI'
-
 import { API_URL } from '../../utils/consts'
 import Error from '../error/ErrorPage'
 import Loading from '../../components/Loading'
 import ButtonBuy from '../../components/cart/ButtonBuy'
 import Rating from '../../components/rating/Rating'
 import detailDataLayer from '../../service/dataLayer/detail'
-import { Context } from '../..'
-import './ProductPage.css'
 import RequestPrice from '../../components/cart/RequestPrice'
 import priceFormater from '../../utils/priceFormater'
+
+import { Context } from '../..'
+import './ProductPage.css'
 
 
 const ProductPage =  observer((props) => {

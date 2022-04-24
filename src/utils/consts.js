@@ -76,7 +76,6 @@ export const API_URL =
         API_URL_DEVELOPMENT
         
 
-
 // прокрутка страницы при нажатии на категорию
 export const SCROLL_TOP = 200 // до aside
 export const SCROLL_TOP_MOBILE = 160 // для мобильной версии сайта

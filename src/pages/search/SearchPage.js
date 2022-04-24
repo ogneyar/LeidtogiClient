@@ -11,9 +11,9 @@ import Pagination from '../../components/pagination/Pagination'
 import Filter from '../../components/filter/Filter'
 import Loading from '../../components/Loading'
 // import Search from '../../components/search/Search'
+import deleteAbbreviation from '../../utils/deleteAbbreviation';
 
 import { Context } from '../..'
-import deleteAbbreviation from '../../utils/deleteAbbreviation';
 
 
 const SearchPage = observer(() => {
@@ -23,8 +23,8 @@ const SearchPage = observer(() => {
     const [ loadingCategory, setLoadingCategory ] = useState(true)
     // const [ loadingBrand, setLoadingBrand ] = useState(true)
     const [ loadingProduct, setLoadingProduct ] = useState(true)
-    // eslint-disable-next-line
-    const [value, setValue] = useQueryParam('value', StringParam)
+    
+    const [ value ] = useQueryParam('value', StringParam)
 
     function isNumber(n){
         // eslint-disable-next-line
@@ -35,14 +35,16 @@ const SearchPage = observer(() => {
 
     useEffect(() => {
         if (product.allProducts.length) {
+            // alert(product.allProducts.length)
             product.setPage(1)
             // setLoadingProduct(true)
             let length = 0
             product.setProducts(product.allProducts.filter(i => {
                 if (value) {
-                     // функция deleteAbbreviation убирает сокращённые названия бренда (hqv, rgk, kvt)
-                    if ( isNumber( deleteAbbreviation(value) ) ) {
-                        if (i.article.includes(value)) {
+                    // функция deleteAbbreviation убирает сокращённые названия бренда (hqv, rgk, kvt)
+                    let valueNumber = deleteAbbreviation(value)
+                    if ( isNumber( valueNumber ) ) {
+                        if (i.article.includes( valueNumber )) {
                             length++
                             return true
                         }
@@ -96,9 +98,6 @@ const SearchPage = observer(() => {
                     <h3>
                         Поиск - {value}
                     </h3>
-                    {/* <br /> */}
-                    
-                    {/* <Search label="Новый поиск:" value=""/> */}
 
                     <br />
                     <h5>
