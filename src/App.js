@@ -32,7 +32,7 @@ const App = observer(() => {
     useEffect(() => {
 
         if (process.env.REACT_APP_ENV === 'production') {
-            if (window.location.hostname !== "leidtogi.ru") {
+            if (window.location.hostname !== "leidtogi.ru" && window.location.hostname !== "www.leidtogi.ru") {
                 document.getElementById("repair").style.display = "flex"
             }
         }
