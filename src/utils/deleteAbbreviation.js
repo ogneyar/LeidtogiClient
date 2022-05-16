@@ -11,5 +11,6 @@ export default function deleteAbbreviation(string){
         .replace("tmk","")
         .replace("erb","")
         .replace("esa","")
+        .replace("aeg","")
         .trim()
 }
