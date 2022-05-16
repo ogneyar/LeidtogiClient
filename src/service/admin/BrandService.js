@@ -95,7 +95,7 @@ const BrandService = observer(({information}) => {
                             <Button
                                 variant="outline-primary"
                                 onClick={() => editBrand(i.id)}
-                                style={{display:state[number].bEdit}}
+                                style={{display:state[number]?.bEdit}}
                                 className='mt-1'
                                 id={"button_" + i.id}
                                 title="Изменить название бренда"
@@ -106,7 +106,7 @@ const BrandService = observer(({information}) => {
                             <Button
                                 variant="outline-warning"
                                 onClick={() => editBrandApply(i.id, i.name)}
-                                style={{display:state[number].bApply}}
+                                style={{display:state[number]?.bApply}}
                                 className='mt-1'
                                 id={"button_warning_" + i.id}
                                 title="Применить изменение названия"
