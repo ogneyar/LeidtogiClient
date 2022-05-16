@@ -11,6 +11,8 @@ const ProductList = observer((props) => {
     const { product, brand } = useContext(Context)
 
     const [info, setInfo] = useState([])
+
+    const [ arrayPromo ] = useState(props?.arrayPromo)
     
     useEffect(() => {
         let offset = product.page * product.limit - product.limit // отступ
@@ -27,17 +29,29 @@ const ProductList = observer((props) => {
             }))
             product.setTotalCount(newArray.length)
         }else {
-            setInfo(product.products.filter((i,index) => {
+            let data = product.products
+
+            if (arrayPromo[0] !== undefined) {
+                // рандом от 0 до 2х
+                let start = Math.floor( 0 + Math.random() * (2 + 1 - 0) )
+                arrayPromo.forEach((i,idx) => {
+                    [data[i], data[idx + start]] = [data[idx + start], data[i]]
+                    start += 3
+                })
+            }
+
+            setInfo(data.filter((i,index) => {
                 if (index + 1 > offset) {
                     limit += 1
                     if (limit <= product.limit) return true
                 }
                 return false
             }))
+            
             product.setTotalCount(product.products.length)
         }
 
-    },[product, product.products, product.page, product.limit, brand.selectedBrand, props?.search]) 
+    },[product, product.products, product.page, product.limit, brand.selectedBrand, props?.search, arrayPromo]) 
     
 
     return (

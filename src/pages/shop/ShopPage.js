@@ -24,6 +24,8 @@ const Shop = observer((props) => {
     const [ loadingBrand, setLoadingBrand ] = useState(true)
     const [ loadingProduct, setLoadingProduct ] = useState(true)
     
+    const [ arrayPromo, setArrayPromo ] = useState([])
+    
     const history = useHistory()
     
     let { name } = useParams()
@@ -56,6 +58,12 @@ const Shop = observer((props) => {
                         [data[i], data[j]] = [data[j], data[i]];
                     }
                 }
+                // выборка акционных товаров
+                let array = []
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].promo) array.push(i)
+                }
+                setArrayPromo(array)
                 product.setProducts(data)
                 // product.setProducts(product.allProducts)
                 product.setTotalCount(product.allProducts.length) // указываем общее количество товаров
@@ -199,7 +207,7 @@ const Shop = observer((props) => {
                     : <>
                         <Pagination />
                         <div className="ShopProductList">
-                            <ProductList />
+                            <ProductList arrayPromo={arrayPromo} />
                         </div>
                         <Pagination />
                     </>}
