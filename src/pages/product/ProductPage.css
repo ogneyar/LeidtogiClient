@@ -138,3 +138,14 @@
 }
 }
 /*----------------------------------------------*/
+
+
+.ProductCard_Price_redPrice {
+    /* color: rgb(212, 2, 2); */
+    color: var(--main-red-color);
+    font-weight: 700;
+}
+
+.ProductCard_Price_oldPrice {
+    text-decoration: line-through;
+}

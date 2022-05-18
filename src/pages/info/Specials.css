@@ -27,3 +27,52 @@
     padding-left: 10px;
     margin-left: 10px;
 }
+
+.Specials_PromoItem {
+    display: flex;
+    cursor: pointer;
+    /* background-color: rgb(216, 216, 216); */
+    background-color: var(--main-silver-color);
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.Specials_PromoItem img {
+    margin: 5px;
+}
+
+.Specials_PromoItem_Body {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.Specials_PromoItem_Body_name {
+    color: green;
+}
+
+.Specials_PromoItem_Body p {
+    font-size: 0.8rem;
+    /* color: #000; */
+    color: var(--main-white-color);
+}
+.Specials_PromoItem_Body_article {}
+
+.Specials_PromoItem_Body_price {
+    /* color: var(--main-white-color); */
+    /* color: var(--main-orange-color); */
+    color: #000;
+}
+.Specials_PromoItem_Body_price_old {
+    text-decoration: line-through;
+    margin-right: 10px;
+    color: var(--main-grey-color);
+}
+.Specials_PromoItem_Body_price_red {
+    /* color: rgb(212, 2, 2); */
+    color: var(--main-red-color);
+    font-weight: 700;
+}
+
+.Specials_PromoItem_Body_ButtonBuy {
+    width: 100%;
+    text-align: end;
+}

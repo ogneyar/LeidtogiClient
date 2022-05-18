@@ -30,6 +30,9 @@
     display: flex; 
     justify-content:space-between; 
 }
+.NotificationCart_product_body {
+    margin: 0 10px;
+}
 .NotificationCart_product_name {
     color: green;
 }

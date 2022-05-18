@@ -9,6 +9,7 @@ import ButtonBuy from '../cart/ButtonBuy'
 import RequestPrice from '../cart/RequestPrice'
 import priceFormater from '../../utils/priceFormater'
 import scrollUp from '../../utils/scrollUp'
+
 import { Context } from '../..'
 import './Product.css'
 
@@ -24,7 +25,6 @@ const ProductItem = ({product}) => {
 
     useEffect(() => {
         if (product.promo && JSON.parse(product.promo)?.old_price !== undefined) {
-            // alert(Number(JSON.parse(product.promo)?.old_price))
             setOldPrice(priceFormater(Number(JSON.parse(product.promo)?.old_price.replace(",", "."))))
         }
         setPrice(priceFormater(product.price))
@@ -82,8 +82,8 @@ const ProductItem = ({product}) => {
                             ? `Цена по запросу` 
                             : oldPrice
                                 ? <>
-                                    <span class="redPrice">{price}&nbsp;р.</span>
-                                    <span class="oldPrice">{oldPrice}&nbsp;р.</span>
+                                    <span class="product-price_redPrice">{price}&nbsp;р.</span>
+                                    <span class="product-price_oldPrice">{oldPrice}&nbsp;р.</span>
                                 </>
                                 : <>{price}&nbsp;р.</>}
                         </div>

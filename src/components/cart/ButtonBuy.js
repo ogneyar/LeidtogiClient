@@ -4,15 +4,13 @@ import { useHistory } from 'react-router'
 
 import scrollUp from '../../utils/scrollUp'
 import { onClickButtonBuy } from '../../service/cart/CartBuyService'
-// eslint-disable-next-line
-import { CART_ROUTE, CREATE_ORDER_ROUTE, API_URL } from '../../utils/consts'
+import { CART_ROUTE, API_URL } from '../../utils/consts'
 import Notification from '../myBootstrap/Notification'
-// eslint-disable-next-line
-import { Button, NavLink } from '../myBootstrap'
+import { Button } from '../myBootstrap'
 import addDataLayer from '../../service/dataLayer/add'
 import removeDataLayer from '../../service/dataLayer/remove'
-// eslint-disable-next-line
-import CreateOrder from '../order/CreateOrder'
+// import priceFormater from '../../utils/priceFormater'
+
 import { Context } from '../..'
 import './ButtonBuy.css'
 
@@ -138,9 +136,20 @@ const ButtonBuy = (props) => {
                         className="NotificationCart_product"
                     >
                         <div>
-                            <img src={API_URL + props?.product?.img[0]?.big} width="200" alt="изображение товара" />
+                            {props?.product?.img && typeof(props?.product?.img) === "string"
+                            ? 
+                                <img 
+                                    src={API_URL + JSON.parse(props.product.img)[0]?.big} 
+                                    width="200" 
+                                    alt="изображение товара" 
+                                />
+                            :
+                            <img src={API_URL + props.product.img[0]?.big} width="200" alt="изображение товара" />
+                            }
                         </div>
-                        <div>
+                        <div
+                            className="NotificationCart_product_body"
+                        >
                             <div
                                 className="NotificationCart_product_name"
                             >
@@ -159,6 +168,7 @@ const ButtonBuy = (props) => {
                     >
                         <div>
                             <label>Цена</label>
+                            {/* {priceFormater(props?.product?.price)}&nbsp;р. */}
                             {props?.product?.price}&nbsp;р.
                         </div>
                         <div className="NotificationCart_price_value">
@@ -170,6 +180,7 @@ const ButtonBuy = (props) => {
                         </div>
                         <div>
                             <label>Итого</label>
+                            {/* {priceFormater(props?.product?.price * value)}&nbsp;р. */}
                             {props?.product?.price * value}&nbsp;р.
                         </div>
                         <div>

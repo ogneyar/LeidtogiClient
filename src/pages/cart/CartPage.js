@@ -44,7 +44,7 @@ const Cart = () => {
     useEffect(() => {
         // если изменилась цена и новая корзина не пуста
         if (yes && newCart[0] !== undefined) {
-            // console.log("newCart", newCart)
+            console.log("Изменилась цена на товар, поэтому он из корзины удалён!")
             setState(newCart)
             localStorage.setItem('cart', JSON.stringify(newCart))
             context.cart.setCart(newCart)
@@ -65,7 +65,8 @@ const Cart = () => {
                 let price = i.price
                 let total = i.total
                 await getPrice(i.id).then(data => {
-                    if(price !== data) {
+                    // eslint-disable-next-line
+                    if(price != data) {
                         price = data
                         total = i.value * price
                         setYes(true)

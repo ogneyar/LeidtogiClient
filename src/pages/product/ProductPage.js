@@ -49,6 +49,7 @@ const ProductPage =  observer((props) => {
     const [propotionY, setPropotionY] = useState(null)
 
     const [price, setPrice] = useState(null)
+    const [oldPrice, setOldPrice] = useState(null)
     
     const [product, setProduct] = useState({name: "", article: "", img: "", price: "", info: [], size: [], have: 1, request: 0})
     const [loading, setLoading] = useState(true)
@@ -74,9 +75,11 @@ const ProductPage =  observer((props) => {
 
 
     useEffect(() => {
-        // alert(window.innerWidth)
+        if (product.promo && JSON.parse(product.promo)?.old_price !== undefined) {
+            setOldPrice(priceFormater(Number(JSON.parse(product.promo)?.old_price.replace(",", "."))))
+        }
         setPrice(priceFormater(product.price))
-    },[product.price])
+    },[product.price, product.promo])
 
 
     useEffect(() => {
@@ -192,7 +195,13 @@ const ProductPage =  observer((props) => {
                         >
                             {product.request || price === 0
                             ? <h3>Цена: По запросу</h3>
-                            : <h3>Цена: {price} руб.</h3>}
+                            : oldPrice
+                                ? <>
+                                    <h3>Цена:&nbsp;<span class="ProductCard_Price_oldPrice">{oldPrice} руб.</span></h3>
+                                    <h3 class="ProductCard_Price_redPrice">{price} руб.</h3>
+                                </>
+                                :<h3>Цена: {price} руб.</h3>
+                            }
                         </div>
                         <div
                             className="ProductCardDivButtonBuy"

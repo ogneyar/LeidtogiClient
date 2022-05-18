@@ -136,12 +136,13 @@
     display:flex;
 }
 
-.redPrice {
-    color: rgb(212, 2, 2);
+.product-price_redPrice {
+    /* color: rgb(212, 2, 2); */
+    color: var(--main-red-color);
     font-weight: 700;
     margin-right: 10px;
 }
 
-.oldPrice {
+.product-price_oldPrice {
     text-decoration:line-through;
 }

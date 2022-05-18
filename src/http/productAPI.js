@@ -102,3 +102,9 @@ export const getPrice = async (id) => {
     const { data } = await $host.get('api/product/price/' + id)
     return data
 }
+
+export const getPromo = async () => {
+    const { data } = await $host.get('api/product/promo')
+    if (data?.img && typeof(data?.img) === "string") return { ...data, img: JSON.parse(data.img) }
+    return data
+}
