@@ -82,8 +82,8 @@ const ProductItem = ({product}) => {
                             ? `Цена по запросу` 
                             : oldPrice
                                 ? <>
-                                    <span class="product-price_redPrice">{price}&nbsp;р.</span>
-                                    <span class="product-price_oldPrice">{oldPrice}&nbsp;р.</span>
+                                    <span className="product-price_redPrice">{price}&nbsp;р.</span>
+                                    <span className="product-price_oldPrice">{oldPrice}&nbsp;р.</span>
                                 </>
                                 : <>{price}&nbsp;р.</>}
                         </div>
