@@ -6,7 +6,7 @@ import InfoPage from './InfoPage'
 import { getPromo } from '../../http/productAPI'
 import Loading from '../../components/Loading'
 import { API_URL, ERROR_ROUTE } from '../../utils/consts'
-import priceFormater from '../../utils/priceFormater'
+// import priceFormater from '../../utils/priceFormater'
 import ButtonBuy from '../../components/cart/ButtonBuy'
 import scrollUp from '../../utils/scrollUp'
 
@@ -53,19 +53,22 @@ const Specials = () => {
             <div className="Specials">
                 <header>Акции!</header>
                 
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;Уважаемые посетители сайта, на этой странице будут размещаться акционные товары, скидки и акционные предложения.</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;Уважаемые посетители сайта, на этой странице будут размещаться акционные товары, скидки и акционные предложения.</p><br />
                           
 
-                {loading ? <Loading />
+                {loading ? <Loading width={200} />
 
                 : promo && Array.isArray(promo) && promo.map(i => {
                     // alert(JSON.stringify(i.img))
                     let img = JSON.parse(i.img)
-                    let price = priceFormater(i.price)
+                    let price = i.price // priceFormater(i.price)
                     let oldPrice
                     if (i.promo && JSON.parse(i.promo)?.old_price !== undefined) {
-                        oldPrice = priceFormater(Number(JSON.parse(i.promo)?.old_price.replace(",", ".")))
+                        // oldPrice = priceFormater(Number(JSON.parse(i.promo)?.old_price.replace(",", ".")))
+                        oldPrice = JSON.parse(i.promo)?.old_price.replace(",", ".")
                     }
+                    let width = window.innerWidth > 450 ? "150px" 
+                        :  window.innerWidth > 350 ? "100px" : "80px"
 
                     return (
                         <div 
@@ -73,30 +76,36 @@ const Specials = () => {
                             onClick={() => onClickProduct(i)}
                             className="Specials_PromoItem"
                         >
-                            <img 
-                                src={API_URL + img[0]?.big} 
-                                alt={`Изображение товара с артикулом ${i.article}`} 
-                                width="150px"
-                            />
-                            <div className="Specials_PromoItem_Body">
-                                <span className="Specials_PromoItem_Body_name">
-                                    {i.name}
-                                </span>
-                                <p className="Specials_PromoItem_Body_article">
-                                    артикул:&nbsp;{i.article}
-                                </p>
-                                <div className="Specials_PromoItem_Body_price">
-                                    <span>Цена:&nbsp;</span>
-                                    {oldPrice &&
-                                    <span className="Specials_PromoItem_Body_price_old">
-                                        {oldPrice}
-                                    </span>}
-                                    <span className="Specials_PromoItem_Body_price_red">
-                                        {price}
-                                    </span>
-                                    <span>&nbsp;руб.</span>
+                            <div className="Specials_PromoItem_Header">
+                                <div className="Specials_PromoItem_Image">
+                                    <img 
+                                        src={API_URL + img[0]?.big} 
+                                        alt={`Изображение товара с артикулом ${i.article}`} 
+                                        width={width}
+                                    />
                                 </div>
-                                <div className="Specials_PromoItem_Body_ButtonBuy">
+                                <div className="Specials_PromoItem_Body">
+                                    <span className="Specials_PromoItem_Body_name">
+                                        {i.name}
+                                    </span>
+                                    <p className="Specials_PromoItem_Body_article">
+                                        артикул:&nbsp;{i.article}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="Specials_PromoItem_Footer">
+                                <div className="Specials_PromoItem_Footer_price">
+                                    {/* <span>Цена:&nbsp;</span> */}
+                                    {oldPrice ?
+                                    <div className="Specials_PromoItem_Footer_price_old">
+                                        Цена:&nbsp;<span>{oldPrice}&nbsp;руб.&nbsp;</span>
+                                    </div>
+                                    : <span>Цена:&nbsp;</span>}
+                                    <span className="Specials_PromoItem_Footer_price_red">
+                                        {price}&nbsp;руб.
+                                    </span>
+                                </div>
+                                <div className="Specials_PromoItem_Footer_ButtonBuy">
                                     <ButtonBuy 
                                         product={i}
                                     >
