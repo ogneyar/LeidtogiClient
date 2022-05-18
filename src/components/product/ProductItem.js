@@ -20,10 +20,15 @@ const ProductItem = ({product}) => {
     const { brand } = useContext(Context)
 
     const [ price, setPrice ] = useState(null)
+    const [ oldPrice, setOldPrice ] = useState(null)
 
     useEffect(() => {
+        if (product.promo && JSON.parse(product.promo)?.old_price !== undefined) {
+            // alert(Number(JSON.parse(product.promo)?.old_price))
+            setOldPrice(priceFormater(Number(JSON.parse(product.promo)?.old_price.replace(",", "."))))
+        }
         setPrice(priceFormater(product.price))
-    },[product.price])
+    },[product.price, product.promo])
 
 
     return (
@@ -75,7 +80,12 @@ const ProductItem = ({product}) => {
                         <div className="product-price">
                             {product.request || price === 0
                             ? `Цена по запросу` 
-                            : <>{price}&nbsp;р.</>}
+                            : oldPrice
+                                ? <>
+                                    <span class="redPrice">{price}&nbsp;р.</span>
+                                    <span class="oldPrice">{oldPrice}&nbsp;р.</span>
+                                </>
+                                : <>{price}&nbsp;р.</>}
                         </div>
 
                         {product.rating 

@@ -135,3 +135,13 @@
 .product-rating {
     display:flex;
 }
+
+.redPrice {
+    color: rgb(212, 2, 2);
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+.oldPrice {
+    text-decoration:line-through;
+}
