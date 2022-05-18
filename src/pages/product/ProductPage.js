@@ -197,8 +197,8 @@ const ProductPage =  observer((props) => {
                             ? <h3>Цена: По запросу</h3>
                             : oldPrice
                                 ? <>
-                                    <h3>Цена:&nbsp;<span class="ProductCard_Price_oldPrice">{oldPrice} руб.</span></h3>
-                                    <h3 class="ProductCard_Price_redPrice">{price} руб.</h3>
+                                    <h3>Цена:&nbsp;<span className="ProductCard_Price_oldPrice">{oldPrice} руб.</span></h3>
+                                    <h3 className="ProductCard_Price_redPrice">{price} руб.</h3>
                                 </>
                                 :<h3>Цена: {price} руб.</h3>
                             }
