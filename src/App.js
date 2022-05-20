@@ -30,10 +30,12 @@ const App = observer(() => {
     
 
     useEffect(() => {
-
+        let prod = false
         if (process.env.REACT_APP_ENV === 'production') {
             if (window.location.hostname !== "leidtogi.ru" && window.location.hostname !== "www.leidtogi.ru") {
                 document.getElementById("repair").style.display = "flex"
+            }else {
+                prod = true
             }
         }
 
@@ -73,7 +75,8 @@ const App = observer(() => {
                     //         [data[i], data[j]] = [data[j], data[i]];
                     //     }
                     // }
-                    product.setAllProducts(data.filter(i => i.have === 1))
+                    if (prod) product.setAllProducts(data.filter(i => i.have === 1))
+                    else product.setAllProducts(data)
                 },
                 err => console.log(err))
         
