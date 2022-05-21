@@ -81,6 +81,24 @@ const BrandBar =  observer((props) => {
                         ? "G E D" 
                         : br.name}
                     </Card>
+
+                }else if (br.name === "Leidtogi") {
+
+                    let prod = false
+                    if (process.env.REACT_APP_ENV === 'production' && (window.location.hostname === "leidtogi.ru" || window.location.hostname === "www.leidtogi.ru") ) prod = true
+                    if ( ! prod ) {
+                        return <Card
+                            style={{cursor: "pointer", color: br.id === brand.selectedBrand.id ? "#000" : "#ff9900"}}
+                            border={br.id === brand.selectedBrand.id ? 'warning' : 'light'}
+                            bg={br.id === brand.selectedBrand.id ? 'warning' : ''}
+                            onClick={() => onClickCard(br)}
+                            key={br.id}
+                            className="p-3"
+                        >
+                            {"LeidTogi"}
+                        </Card>
+                    }
+
                 }else return null
                 
             })}

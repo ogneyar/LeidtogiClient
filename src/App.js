@@ -68,21 +68,25 @@ const App = observer(() => {
         fetchAllProducts()
             .then(
                 data => {
-                    // if (product.sort) { // перемешать?
-                    //     // алгоритм под названием "Тасование Фишера — Йетса"
-                    //     for (let i = data.length - 1; i > 0; i--) {
-                    //         let j = Math.floor(Math.random() * (i + 1));
-                    //         [data[i], data[j]] = [data[j], data[i]];
-                    //     }
-                    // }
-                    if (prod) product.setAllProducts(data.filter(i => i.have === 1))
-                    else product.setAllProducts(data)
+                    if ( ! prod ) 
+                        product.setAllProducts(data) // if NOT production
+                    else 
+                        product.setAllProducts(data.filter(i => i.have === 1)) // if production mode
                 },
                 err => console.log(err))
         
         fetchBrands()
             .then(
                 data => {
+                    let leidtogi
+                    data = data.filter(i => {
+                        if (i.name === "Leidtogi") {
+                            leidtogi = i
+                            return false
+                        }else return true
+                    })
+                    if (leidtogi) data.unshift(leidtogi) // Leidtogi на первое место
+
                     brand.setAllBrands(data)
                     brand.setSelectedBrand(data[0])
                 },

@@ -24,6 +24,8 @@ const Specials = () => {
     
     const [ promo, setPromo ] = useState([])
 
+    const [ prod ] = useState(process.env.REACT_APP_ENV === 'production' && (window.location.hostname === "leidtogi.ru" || window.location.hostname === "www.leidtogi.ru") ? true : false)
+
     useEffect(() => {
         setLoading(true)
         getPromo()
@@ -70,6 +72,8 @@ const Specials = () => {
                     let width = window.innerWidth > 450 ? "150px" 
                         :  window.innerWidth > 350 ? "100px" : "80px"
 
+                    if ( ! i.have && prod ) return null
+                    
                     return (
                         <div 
                             key={i.id} 

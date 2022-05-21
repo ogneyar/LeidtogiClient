@@ -52,11 +52,13 @@ const Shop = observer((props) => {
             if (!name) { // если в url указан корневой каталог /
                 let data = product.allProducts
                 if (product.sort) { // перемешать?
+
                     // алгоритм под названием "Тасование Фишера — Йетса"
                     for (let i = data.length - 1; i > 0; i--) {
                         let j = Math.floor(Math.random() * (i + 1));
                         [data[i], data[j]] = [data[j], data[i]];
                     }
+                    
                 }
                 // выборка акционных товаров
                 let array = []

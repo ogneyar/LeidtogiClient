@@ -35,7 +35,7 @@ const ProductService = observer((props) => {
     const [image3, setImage3] = useState(null)
     const [image4, setImage4] = useState(null)
     
-    const [have, setHave] = useState(props?.have || 1)
+    const [have, setHave] = useState(props?.have === null ? 1 : props?.have)
     const [promo, setPromo] = useState(props?.promo || "")
     const [country, setCountry] = useState(props?.country || "Германия")
     
@@ -301,6 +301,7 @@ const ProductService = observer((props) => {
             </div>
         )
     }
+    
     return (
         <div  className="mb-2">
             <div className="inputBox d-flex flex-wrap">
