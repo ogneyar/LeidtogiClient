@@ -239,7 +239,20 @@ const ProductPage =  observer((props) => {
                         <h2>Характеристики</h2>
                         <table>
                         { 
-                            ReactHtmlParser(info?.body)
+                            info?.body.includes("<") || info?.body.includes(">") 
+                            ?
+                                ReactHtmlParser(info?.body)
+                            : 
+                                info?.body.includes(";") 
+                                ? ReactHtmlParser(info?.body.split(";").map((i, idx) => {
+                                    let jsx = ""
+                                    if (idx === 0) jsx += `<tbody><tr><td>${i}</td>`
+                                    else if ((idx+1) % 2 === 0) jsx += `<td>${i}</td></tr>` // если чётный элемент
+                                    else jsx += `<tr><td>${i}</td>` // если не чётный элемент
+                                    if ((idx+1) === info?.body.split(";").length) jsx += `</tbody>`
+                                    return jsx
+                                }).join(""))
+                                : info?.body
                         }
                         </table>    
                         </>

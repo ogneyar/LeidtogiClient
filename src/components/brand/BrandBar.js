@@ -97,7 +97,7 @@ const BrandBar =  observer((props) => {
                         >
                             {"LeidTogi"}
                         </Card>
-                    }
+                    }else return null
 
                 }else return null
                 
