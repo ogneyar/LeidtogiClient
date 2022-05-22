@@ -64,24 +64,19 @@ const Specials = () => {
 					
 					if ( ! i.have && prod ) return null
 					
-                    let img = JSON.parse(i.img)
-					
                     let price = i.price // priceFormater(i.price)
 					
+                    let img = i.img && JSON.parse(i.img)
 					let pro = i.promo && JSON.parse(i.promo)
 					
 					// if ( pro?.our_brand !== undefined ) return null
-					
 					if (pro?.old_price === undefined) return null
 						
-                    let oldPrice
-                    
-                    // oldPrice = priceFormater(Number(JSON.parse(i.promo)?.old_price.replace(",", ".")))
-                    oldPrice = JSON.parse(i.promo)?.old_price.replace(",", ".")
+                    // let oldPrice = priceFormater(Number(pro?.old_price.replace(",", ".")))
+                    let oldPrice = pro?.old_price.replace(",", ".")
                     
                     let width = window.innerWidth > 450 ? "150px" 
                         :  window.innerWidth > 350 ? "100px" : "80px"
-                    
                     
                     return (
                         <div 
