@@ -36,7 +36,10 @@ const ProductList = observer((props) => {
                 let start = Math.floor( 0 + Math.random() * (2 + 1 - 0) )
                 arrayPromo.forEach((i,idx) => {
                     [data[i], data[idx + start]] = [data[idx + start], data[i]]
-                    start += 3
+                    if ((start+1) % 3 === 0) 
+                        start += 1
+                    else 
+                        start += 3
                 })
             }
 
