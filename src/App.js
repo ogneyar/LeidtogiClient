@@ -71,7 +71,7 @@ const App = observer(() => {
                     if ( ! prod ) 
                         product.setAllProducts(data) // if NOT production
                     else 
-                        product.setAllProducts(data.filter(i => i.have === 1)) // if production mode
+                        product.setAllProducts(data.filter(i => i.have === 1 && i.brandId !== 10)) // if production mode and NOT LeidTogi brand
                 },
                 err => console.log(err))
         

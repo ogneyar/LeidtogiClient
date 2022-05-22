@@ -61,18 +61,27 @@ const Specials = () => {
                 {loading ? <Loading width={200} />
 
                 : promo && Array.isArray(promo) && promo.map(i => {
-                    // alert(JSON.stringify(i.img))
+					
+					if ( ! i.have && prod ) return null
+					
                     let img = JSON.parse(i.img)
+					
                     let price = i.price // priceFormater(i.price)
+					
+					let pro = i.promo && JSON.parse(i.promo)
+					
+					// if ( pro?.our_brand !== undefined ) return null
+					
+					if (pro?.old_price === undefined) return null
+						
                     let oldPrice
-                    if (i.promo && JSON.parse(i.promo)?.old_price !== undefined) {
-                        // oldPrice = priceFormater(Number(JSON.parse(i.promo)?.old_price.replace(",", ".")))
-                        oldPrice = JSON.parse(i.promo)?.old_price.replace(",", ".")
-                    }
+                    
+                    // oldPrice = priceFormater(Number(JSON.parse(i.promo)?.old_price.replace(",", ".")))
+                    oldPrice = JSON.parse(i.promo)?.old_price.replace(",", ".")
+                    
                     let width = window.innerWidth > 450 ? "150px" 
                         :  window.innerWidth > 350 ? "100px" : "80px"
-
-                    if ( ! i.have && prod ) return null
+                    
                     
                     return (
                         <div 
