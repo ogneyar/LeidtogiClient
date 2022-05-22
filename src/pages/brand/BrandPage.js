@@ -36,6 +36,13 @@ const BrandPage = (props) => {
             className="BrandPage"
         >
             {
+                props?.brandName === "leidtogi" 
+                ? 
+                <div className="BrandPage_image">
+                    {/* Пропорции лого бренда 7:1 */}
+                    <img src={"images/brands/leidtogi/LeidTogi_logo.jpg"}  alt="logo_leidtogi" />
+                </div>
+                :
                 props?.brandName === "milwaukee" 
                 ? 
                 <div className="BrandPage_image">
