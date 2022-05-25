@@ -4,7 +4,6 @@ import { useHistory, useParams } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
 import CategoryBar from '../../components/category/CategoryBar'
-// eslint-disable-next-line
 import BrandBar from '../../components/brand/BrandBar'
 import ProductList from '../../components/product/ProductList'
 import Pagination from '../../components/pagination/Pagination'
@@ -20,28 +19,26 @@ const Shop = observer((props) => {
     const { product, category, brand } = useContext(Context)
 
     const [ loadingCategory, setLoadingCategory ] = useState(true)
-    // eslint-disable-next-line
     const [ loadingBrand, setLoadingBrand ] = useState(true)
     const [ loadingProduct, setLoadingProduct ] = useState(true)
-    
-    const [ arrayPromo, setArrayPromo ] = useState([])
     
     const history = useHistory()
     
     let { name } = useParams()
 
+
     useEffect(() => {
         brand.setSelectedBrand({})
+        if (brand.allBrands.length) {
+            brand.setBrands(brand.allBrands)
+            setLoadingBrand(false)
+        }
     },[brand])
 
-    // let Paginations = useMemo(() => {
-    //     // console.log("hz")
-    //     return () => <Pagination />
-    // },[])
 
     useEffect(() => {
 
-        if (name) {product.setPage(1)}
+        if (name) { product.setPage(1) }
 
         // это для роута /shop
         // хотя в принципе этот роут не используется (:
@@ -50,24 +47,7 @@ const Shop = observer((props) => {
 
         if (product.allProducts.length) {
             if (!name) { // если в url указан корневой каталог /
-                let data = product.allProducts
-                if (product.sort) { // перемешать?
-
-                    // алгоритм под названием "Тасование Фишера — Йетса"
-                    for (let i = data.length - 1; i > 0; i--) {
-                        let j = Math.floor(Math.random() * (i + 1));
-                        [data[i], data[j]] = [data[j], data[i]];
-                    }
-                    
-                }
-                // выборка акционных товаров
-                let array = []
-                for (let i = 0; i < data.length; i++) {
-                    if (data[i].promo) array.push(i)
-                }
-                setArrayPromo(array)
-                product.setProducts(data)
-                // product.setProducts(product.allProducts)
+                product.setProducts(product.allProducts)
                 product.setTotalCount(product.allProducts.length) // указываем общее количество товаров
                 setLoadingProduct(false)
             }
@@ -180,16 +160,8 @@ const Shop = observer((props) => {
             }
     
         }
-    // eslint-disable-next-line
-    },[product.allProducts, category.allCategories, name, product.sort])
 
-    useEffect(() => {
-        if (brand.allBrands.length) {
-            brand.setBrands(brand.allBrands)
-            setLoadingBrand(false)
-        }
-        // eslint-disable-next-line
-    },[brand.allBrands])
+    },[product.allProducts, category.allCategories, name, product.sort])
 
 
 
@@ -209,7 +181,7 @@ const Shop = observer((props) => {
                     : <>
                         <Pagination />
                         <div className="ShopProductList">
-                            <ProductList arrayPromo={arrayPromo} />
+                            <ProductList />
                         </div>
                         <Pagination />
                     </>}

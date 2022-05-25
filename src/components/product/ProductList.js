@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 
-import { Context } from '../..'
 import ProductItem from './ProductItem'
+import { Context } from '../..'
 import './Product.css'
 
 
@@ -12,7 +12,6 @@ const ProductList = observer((props) => {
 
     const [info, setInfo] = useState([])
 
-    const [ arrayPromo ] = useState(props?.arrayPromo)
     
     useEffect(() => {
         let offset = product.page * product.limit - product.limit // отступ
@@ -29,21 +28,7 @@ const ProductList = observer((props) => {
             }))
             product.setTotalCount(newArray.length)
         }else {
-            let data = product.products
-
-            if (arrayPromo[0] !== undefined) {
-                // рандом от 0 до 2х
-                let start = Math.floor( 0 + Math.random() * (2 + 1 - 0) )
-                arrayPromo.forEach((i,idx) => {
-                    [data[i], data[idx + start]] = [data[idx + start], data[i]]
-                    if ((start+1) % 3 === 0) 
-                        start += 1
-                    else 
-                        start += 3
-                })
-            }
-
-            setInfo(data.filter((i,index) => {
+            setInfo(product.products.filter((i,index) => {
                 if (index + 1 > offset) {
                     limit += 1
                     if (limit <= product.limit) return true
@@ -54,7 +39,7 @@ const ProductList = observer((props) => {
             product.setTotalCount(product.products.length)
         }
 
-    },[product, product.products, product.page, product.limit, brand.selectedBrand, props?.search, arrayPromo]) 
+    },[product, product.products, product.page, product.limit, brand.selectedBrand, props?.search]) 
     
 
     return (

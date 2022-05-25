@@ -7,17 +7,16 @@ import AppRouter from './components/AppRouter'
 import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
 import Loading from './components/Loading'
-import Error from './pages/error/ErrorPage'
 import { getUserInfo } from './http/userAPI'
 import { fetchAllProducts } from './http/productAPI'
 import { fetchAllCategories } from './http/categoryAPI'
 import { fetchBrands } from './http/brandAPI'
 import { Context } from '.'
+import scrollUp from './utils/scrollUp'
+import { mixPromo, sortAllProducts, leidtogiFirst } from './service/app'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './styles/App.css'
-import scrollUp from './utils/scrollUp'
-// import { MIX_PRODUCTS } from './utils/consts'
 
 
 const App = observer(() => { 
@@ -25,9 +24,7 @@ const App = observer(() => {
     const { user, product, category, brand, cart } = useContext(Context)
 
     const [loading, setLoading] = useState(false)
-    // eslint-disable-next-line
-    const [error, setError] = useState(false)
-    
+
 
     useEffect(() => {
         let prod = false
@@ -59,7 +56,6 @@ const App = observer(() => {
             .then(
                 data => category.setAllCategories(data),
                 err => {
-                    // alert("Не удалось загрузить категории. "+err)
                     console.log("Не удалось загрузить категории",err)
                     category.setAllCategories([{}])
                 })
@@ -68,24 +64,20 @@ const App = observer(() => {
         fetchAllProducts()
             .then(
                 data => {
-                    if ( ! prod ) 
-                        product.setAllProducts(data) // if NOT production
-                    else 
-                        product.setAllProducts(data.filter(i => i.have === 1 && i.brandId !== 10)) // if production mode and NOT LeidTogi brand
+                    // перемешать?
+                    if (product.sort) sortAllProducts(data)
+                    // cмешиваем акционные товары с остальными
+                    mixPromo(data) 
+                    if ( ! prod ) product.setAllProducts(data) // if NOT production
+                    else product.setAllProducts(data.filter(i => i.have === 1 && i.brandId !== 10)) // if production mode and NOT LeidTogi brand
                 },
                 err => console.log(err))
         
         fetchBrands()
             .then(
                 data => {
-                    let leidtogi
-                    data = data.filter(i => {
-                        if (i.name === "Leidtogi") {
-                            leidtogi = i
-                            return false
-                        }else return true
-                    })
-                    if (leidtogi) data.unshift(leidtogi) // Leidtogi на первое место
+                    // устанавливаем бренд LeidTogi на первое место
+                    data = leidtogiFirst(data)
 
                     brand.setAllBrands(data)
                     brand.setSelectedBrand(data[0])
@@ -98,8 +90,7 @@ const App = observer(() => {
         }
         
         scrollUp(0)
-
-    // }, [product.sort])
+    
     }, [brand, category, product, user, cart])
 
   
@@ -111,9 +102,7 @@ const App = observer(() => {
             <QueryParamProvider ReactRouterRoute={Route}>
                 <Header />
 
-                {error 
-                ? <Error /> 
-                : <AppRouter />}
+                <AppRouter />
 
                 <Footer />
             </QueryParamProvider>
