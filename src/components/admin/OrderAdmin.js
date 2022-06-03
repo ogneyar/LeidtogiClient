@@ -172,8 +172,8 @@ const OrderAdmin = (props) => {
             :
             <div className='OrderAdmin_block'>
                 {orders && Array.isArray(orders) && orders.map(i => {
-                    return <>
-                        <p>
+                    return (
+                        <p key={i.id + i.state}>
                             <div
                                 className="OrderAdmin_block_details"
                                 onClick={() => setDetails(i)}
@@ -197,7 +197,7 @@ const OrderAdmin = (props) => {
                             : ""}
                             <hr />
                         </p>
-                    </>
+                   )
                 }).reverse()}
             </div>
             }

@@ -162,8 +162,8 @@ const Search = observer((props) => {
                                         <div
                                             className="SearchListItemBodyPrice"
                                         >
-                                            <div>
-                                                {i.price > 0 ? "Цена: " + priceFormater(i.price) + " р." : "Цена по запросу"}
+                                            <div> 
+                                                {i.price > 0 && i.request === 0 ? "Цена: " + priceFormater(i.price) + " р." : "Цена по запросу"}
                                             </div>
                                         </div>
                                     </div>
