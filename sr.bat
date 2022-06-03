@@ -2,6 +2,5 @@
 
 cd ..
 cd LeidtogiServer
-cd server
 
 s
