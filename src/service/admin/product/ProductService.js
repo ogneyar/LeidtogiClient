@@ -50,6 +50,8 @@ const ProductService = observer((props) => {
     const [fileReader3, setFileReader3] = useState(null)
     const [fileReader4, setFileReader4] = useState(null)
 
+	const [request, setRequest] = useState(props?.request ? 1 : 0)
+	
     
     useEffect(() => {
     },[])
@@ -257,6 +259,7 @@ const ProductService = observer((props) => {
 
         formData.append('size', JSON.stringify(size))
         formData.append('price', `${price}`)
+		formData.append('request', request)
         let array = []
         if (description) array.push({title:"description",body:description})
         if (characteristics) array.push({title:"characteristics",body:characteristics})
@@ -455,7 +458,31 @@ const ProductService = observer((props) => {
                     setPrice={setPrice} 
                     action={action}
                 />
+            </div>			
+			 
+            <div className="inputBox">
+                <label>Цена по запросу: </label>
+                <Dropdown className=''>
+                    <Dropdown.Toggle>{request ? "Да" : "Нет"}</Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item 
+                            onClick={() => setRequest(1)} 
+                            active={request}
+                            key={"1zZ"}
+                        >
+                            Да
+                        </Dropdown.Item>
+                        <Dropdown.Item 
+                            onClick={() => setRequest(0)} 
+                            active={!request}
+                            key={"2zZ"}
+                        >
+                            Нет
+                        </Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
             </div>
+			
             <div className="inputBox">
                 <Size // габариты
                     size={size}
