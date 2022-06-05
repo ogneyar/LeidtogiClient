@@ -77,6 +77,13 @@ const BrandPage = (props) => {
                     {/* Пропорции лого бренда 7:1 */}
                     <img src={"images/brands/kvt/KVT_logo.jpg"}  alt="logo_kvt" />
                 </div>
+                :
+                props?.brandName === "tmk" 
+                ?
+                <div className="BrandPage_image">
+                    {/* Пропорции лого бренда 7:1 */}
+                    <img src={"images/brands/tmk/TMK_logo.jpg"}  alt="logo_tmk" />
+                </div>
                 : 
                 props?.brandName.replace(props?.brandName[0], props?.brandName[0].toUpperCase())
             }
