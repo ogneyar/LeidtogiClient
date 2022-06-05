@@ -9,6 +9,7 @@ import RgkParserPage from './rgk/RgkParserPage';
 import HusqvarnaParserPage from './husqvarna/HusqvarnaParserPage';
 import KvtParserPage from './kvt/KvtParserPage';
 import GedoreParserPage from './gedore/GedoreParserPage';
+import TmkParserPage from './tmk/TmkParserPage';
 import { ADMIN_ROUTE } from '../../utils/consts';
 
 import './ParserPage.css'
@@ -32,6 +33,7 @@ const ParserPage = observer(() => {
                 <button onClick={() => setBrand("husqvarna")} >Husqvarna</button>
                 <button onClick={() => setBrand("kvt")} >КВТ</button>
                 <button onClick={() => setBrand("gedore")} >Gedore</button>
+                <button onClick={() => setBrand("tmk")} >TMK</button>
                 <br />
                 <button onClick={() => history.push(ADMIN_ROUTE)} >Назад</button>
             </div>
@@ -49,6 +51,8 @@ const ParserPage = observer(() => {
     if (brand === "kvt") return <KvtParserPage setBrand={setBrand} />
     
     if (brand === "gedore") return <GedoreParserPage setBrand={setBrand} />
+
+    if (brand === "tmk") return <TmkParserPage setBrand={setBrand} brand={brand} />
 
 })
 

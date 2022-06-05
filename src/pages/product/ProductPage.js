@@ -239,7 +239,7 @@ const ProductPage =  observer((props) => {
                         <h2>Характеристики</h2>
                         <table>
                         { 
-                            info?.body.includes("<") || info?.body.includes(">") 
+                            info?.body.includes("<") && info?.body.includes(">") 
                             ?
                                 ReactHtmlParser(info?.body)
                             : 
@@ -264,19 +264,28 @@ const ProductPage =  observer((props) => {
                             {
                                 ReactHtmlParser(info?.body)
                             }
-                            </div>    
+                            </div>
                             </>
                             : info?.title === "equipment" 
                                 ? 
                                 <>
                                 <h2>Комплектация</h2>
-                                <table 
-                                    // className={index % 2 === 0 ? "ProductInfoRowLight" : "ProductInfoRowTansparent"}
-                                >
-                                    
-                                    {
-                                    ReactHtmlParser(info?.body)
-                                    }
+                                <table>
+                                {
+                                    info?.body.includes("<") && info?.body.includes(">") 
+                                    ?
+                                        ReactHtmlParser(info?.body)
+                                    :
+                                        info?.body.includes(";") 
+                                        ? ReactHtmlParser(info?.body.split(";").map((i, idx) => {
+                                            let jsx = ""
+                                            if (idx === 0) jsx += `<tbody>`
+                                            else jsx += `<tr><td>${i}</td></tr>`
+                                            if ((idx+1) === info?.body.split(";").length) jsx += `</tbody>`
+                                            return jsx
+                                        }).join(""))
+                                        : info?.body
+                                }
                                 </table>
                                 </> 
                                 : null
