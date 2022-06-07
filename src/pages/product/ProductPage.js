@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite'
 import ReactHtmlParser from 'react-html-parser'
 
 import { fetchOneProduct, fetchOneProductOnUrl } from '../../http/productAPI'
-import { API_URL } from '../../utils/consts'
+import { URL, API_URL } from '../../utils/consts'
 import Error from '../error/ErrorPage'
 import Loading from '../../components/Loading'
 import ButtonBuy from '../../components/cart/ButtonBuy'
@@ -85,11 +85,13 @@ const ProductPage =  observer((props) => {
     useEffect(() => {
         if (product.img && Array.isArray(product.img) && product.img[0]?.big !== undefined) {
             setImage(API_URL + product.img[0].big)
+        }else if (product.brandId === 9) {
+            setImage(URL + "images/brands/tmk/TMK_logo_big.jpg")
         }
-    },[product.img])
+    },[product.img, product.brandId])
     
     useEffect(() => {
-        if (image !== API_URL + "unknown.jpg") {
+        if (image !== API_URL + "unknown.jpg" && image !== URL + "images/brands/tmk/TMK_logo_big.jpg") {
             const img = document.createElement('img')
             img.onload = e => {
                 // setPropotionX(Math.round(img.width / widthHeightInt - 1))

@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useHistory } from 'react-router'
 
 import scrollUp from '../../utils/scrollUp'
 import { onClickButtonBuy } from '../../service/cart/CartBuyService'
-import { CART_ROUTE, API_URL } from '../../utils/consts'
+import { CART_ROUTE, API_URL, URL } from '../../utils/consts'
 import Notification from '../myBootstrap/Notification'
 import { Button } from '../myBootstrap'
 import addDataLayer from '../../service/dataLayer/add'
@@ -26,9 +26,35 @@ const ButtonBuy = (props) => {
 
     const [ value, setValue ] = useState(1) // количество единиц товара
     const [ quantity, setQuantity ] = useState(1) // общее количество товаров в корзине
+    
+    const [ image, setImage ] = useState(API_URL + "unknown.jpg") // по умолчанию пустое фото
 
     let className
     if (props?.className) className = props?.className
+
+    useEffect(() => {
+        let img
+        if (props?.product?.img && typeof(props?.product?.img) === "string") {
+            img = JSON.parse(props.product.img)
+        }else {
+            img = props.product.img
+        }
+            
+        if (img[0]?.big !== undefined) {
+            if (img[0]?.small !== undefined) {
+                setImage(API_URL + img[0]?.small)
+            }else {
+                setImage(API_URL + img[0]?.big)
+            }
+        }else {
+            if (props.product.brandId === 9) {
+                setImage(URL + "images/brands/tmk/TMK_logo_big.jpg")
+            }else {
+                // значение по умолчанию
+                // setImage(API_URL + "unknown.jpg")
+            }
+        }
+    }, [props?.product])
 
     const onClickValue = (e, arg) => {
         if (arg === "plus") {
@@ -136,16 +162,11 @@ const ButtonBuy = (props) => {
                         className="NotificationCart_product"
                     >
                         <div>
-                            {props?.product?.img && typeof(props?.product?.img) === "string"
-                            ? 
-                                <img 
-                                    src={API_URL + JSON.parse(props.product.img)[0]?.big} 
-                                    width="200" 
-                                    alt="изображение товара" 
-                                />
-                            :
-                            <img src={API_URL + props.product.img[0]?.big} width="200" alt="изображение товара" />
-                            }
+                            <img 
+                                src={image} 
+                                width="200" 
+                                alt="изображение товара" 
+                            />
                         </div>
                         <div
                             className="NotificationCart_product_body"

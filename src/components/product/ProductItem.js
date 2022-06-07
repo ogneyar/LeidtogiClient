@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 
 import star from '../../assets/star.png'
 import { Card } from '../myBootstrap'
-import { API_URL, ERROR_ROUTE } from '../../utils/consts'
+import { URL, API_URL, ERROR_ROUTE } from '../../utils/consts'
 import ButtonBuy from '../cart/ButtonBuy'
 import RequestPrice from '../cart/RequestPrice'
 import priceFormater from '../../utils/priceFormater'
@@ -58,7 +58,10 @@ const ProductItem = ({product}) => {
                     className="product-image" 
                     src={product.img && Array.isArray(product.img)  && product.img[0]?.big !== undefined
                         ? API_URL + product.img[0].big 
-                        : API_URL + "unknown.jpg"} 
+                        : product.brandId === 9
+                            ? URL + "images/brands/tmk/TMK_logo_big.jpg"
+                            : API_URL + "unknown.jpg"
+                    } 
                 />
 
                 <div className="product-body">

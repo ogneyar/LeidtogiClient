@@ -13,7 +13,7 @@ import { fetchAllCategories } from './http/categoryAPI'
 import { fetchBrands } from './http/brandAPI'
 import { Context } from '.'
 import scrollUp from './utils/scrollUp'
-import { mixPromo, sortAllProducts, leidtogiFirst } from './service/app'
+import { mixPromo, sortAllProducts, leidtogiFirst, productsWithOutImageRemoveInEnd } from './service/app'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './styles/App.css'
@@ -66,6 +66,8 @@ const App = observer(() => {
                 data => {
                     // перемешать?
                     if (product.sort) sortAllProducts(data)
+                    // добавление товаров без изображений в конец списка
+                    data = productsWithOutImageRemoveInEnd(data) 
                     // cмешиваем акционные товары с остальными
                     mixPromo(data) 
                     if ( ! prod ) product.setAllProducts(data) // if NOT production

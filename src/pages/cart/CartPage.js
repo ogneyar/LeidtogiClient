@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Card } from 'react-bootstrap'
 
-import { API_URL } from '../../utils/consts'
+import { URL, API_URL } from '../../utils/consts'
 import { Container, Button } from '../../components/myBootstrap'
 // eslint-disable-next-line
 import Delivery from '../../components/delivery/Delivery'
@@ -223,7 +223,17 @@ const Cart = () => {
                                         <div
                                             className="CartThDivRow"
                                         >
-                                            <img src={API_URL + i.img} width="50" alt={i.name} />
+                                            <img 
+                                                src={
+                                                    i.img !== undefined
+                                                    ? API_URL + i.img
+                                                    : i.article.indexOf("tmk") === 0
+                                                        ? URL + "images/brands/tmk/TMK_logo_big.jpg"
+                                                        : API_URL + "unknown.jpg"
+                                                } 
+                                                width="50" 
+                                                alt={i.name} 
+                                            />
                                         </div>
                                     </th>
                                     <th>
