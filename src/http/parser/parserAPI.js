@@ -3,29 +3,42 @@ import { $host, $authHost } from '../index'
 
 
 // добавление товара
-export const addProduct = async (brand, formData, number, quantity = 1) => {
-    const { data } = await $authHost.post(`api/parser/${brand}/`, formData, {
-        params: { 
-            add: quantity,
-            number
-        }
-    })
+export const addProduct = async (args) => {
+    let { brand, formData, number, quantity, chapter } = args
+
+    let params = { 
+        add: quantity || 1,
+        number,
+        chapter
+    }
+
+    const { data } = await $authHost.post(`api/parser/${brand}/`, formData, { params })
+
     return data
 }
 
 // возвращает количество всех товаров в файле
-export const getLength = async (brand, formData) => {
-    const { data } = await $authHost.post(`api/parser/${brand}/`, formData)
+export const getLength = async (args) => {
+    let { brand, formData, chapter } = args
+    
+    let params = { 
+        chapter
+    }
+
+    const { data } = await $authHost.post(`api/parser/${brand}/`, formData, { params })
     return data
 }
 
 // смена цен
-export const changePrices = async (brand, formData) => {
-    const { data } = await $authHost.post(`api/parser/${brand}/`, formData, {
-        params: { 
-            change: true
-        }
-    })
+export const changePrices = async (args) => {
+    let { brand, formData, chapter } = args
+    
+    let params = { 
+        change: true,
+        chapter
+    }
+
+    const { data } = await $authHost.post(`api/parser/${brand}/`, formData, { params })
     return data
 }
 

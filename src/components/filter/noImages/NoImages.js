@@ -1,33 +1,33 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 
-import { Context } from '../..'
-import './Sort.css'
+import { Context } from '../../..'
+import './NoImages.css'
 
-const Sort = observer(() => {
+const NoImages = observer(() => {
 
     const { user, product } = useContext(Context)
 
-    const [ value, setValue ] = useState(product.sort === false ? false : true)
+    const [ value, setValue ] = useState(product.mixNoImg === false ? false : true)
 
     useEffect(() => {
     },[])
 
     return (
         <div
-            className='Sort'
+            className='NoImages'
             style={user.user.id!==1 ? {display:"none",visible:"hidden"} : {}}
         >
-            Перемешать&nbsp;
+            MixNoImg&nbsp;
 
             <input 
                 type="checkbox" 
                 checked={value} 
                 onChange={()=>{
-                    // alert(product.sort)
-                    localStorage.setItem('sort', !value)
+                    // alert(product.mixNoImg)
+                    localStorage.setItem('mixNoImg', !value)
                     setValue(!value)
-                    product.setSort(!value)
+                    product.setMixNoImg(!value)
                 }}
                 onClick={() => {
                     
@@ -37,4 +37,4 @@ const Sort = observer(() => {
     )
 })
 
-export default Sort
+export default NoImages

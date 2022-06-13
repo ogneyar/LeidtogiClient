@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import ReactHtmlParser from 'react-html-parser'
 import { observer } from 'mobx-react-lite';
@@ -6,11 +7,12 @@ import { addProduct, getLength, changePrices } from '../../../http/parser/parser
 import Loading from '../../../components/Loading';
 import InfoPage from '../../info/InfoPage';
 
-import './TmkParserPage.css'
+import './BrandParserPage.css'
 import '../ParserPage.css'
+import getChapters from '../advanta/getChapters';
 
 
-const TmkParserPage = observer((props) => {
+const BrandParserPage = observer((props) => {
     
     const [ feed, setFeed ] = useState(null)
     const [ checkFeed, setCheckFeed ] = useState(false)
@@ -18,6 +20,9 @@ const TmkParserPage = observer((props) => {
     const [ message, setMessage ] = useState("")
     const [ loading, setLoading ] = useState(false)
     const [ number, setNumber ] = useState(0)
+
+    /* для Адванта-М */
+    const [ chapter, setChapter ] = useState("gpo")
 
     
     const onClickButtonAddNewProduct = async () => {
@@ -29,16 +34,16 @@ const TmkParserPage = observer((props) => {
         setLoading(true)
         let mess
         if (number > 0) {
-            await addProduct({brand: props.brand, formData, number}).then(data => {
+            await addProduct({brand: props.brand, formData, number, chapter}).then(data => {
                 setMessage(data)
             })
         }else {
-            let length = await getLength({brand: props.brand, formData})
+            let length = await getLength({brand: props.brand, formData, chapter})
             let quantity = 10
             mess = "Начало:"
             for(let i = 1; i <= length; i = i + quantity) {
 
-                await addProduct({brand: props.brand, formData, number: i, quantity})
+                await addProduct({brand: props.brand, formData, number: i, quantity, chapter})
                     // eslint-disable-next-line
                     .then(data => {
                         if (data?.error) {
@@ -72,7 +77,7 @@ const TmkParserPage = observer((props) => {
         //     formData.append("feed", feed)
         // }
         // setLoading(true)
-        // await changePrices({brand: props.brand, formData})
+        // await changePrices({brand: props.brand, formData, chapter})
         //     // eslint-disable-next-line
         //     .then(data => {
         //         if (data?.error) {
@@ -112,6 +117,9 @@ const TmkParserPage = observer((props) => {
                     <label>Заведение товаров {props.brand.toUpperCase()} на сайт!</label>
                     <br />
                     <div className="ParserPage_box">
+
+                        {props.brand === "advanta" && getChapters({chapter,setChapter})}
+
                         <span>Файл с товарами</span>
                         <input 
                             type="file"
@@ -202,4 +210,4 @@ const TmkParserPage = observer((props) => {
 
 })
 
-export default TmkParserPage
+export default BrandParserPage

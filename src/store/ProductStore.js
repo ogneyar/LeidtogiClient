@@ -10,6 +10,7 @@ export default class ProductStore {
         this._totalCount = 0 // общее количество искомых товаров
         this._limit =  localStorage.getItem('limit') || LIMIT // сколько товаров отобразить на странице
         this._sort =  localStorage.getItem('sort') === "false" ? false : true // перемешать ли товары на странице?
+        this._mixNoImg =  localStorage.getItem('mixNoImg') === "false" ? false : true // перемешать ли товары на странице?
         makeAutoObservable(this)
     }
 
@@ -31,6 +32,9 @@ export default class ProductStore {
     setSort(sort) {
         this._sort = sort
     }
+    setMixNoImg(mixNoImg) {
+        this._mixNoImg = mixNoImg
+    }
 
     get products() {
         return this._products
@@ -49,5 +53,8 @@ export default class ProductStore {
     }
     get sort() {
         return this._sort
+    }
+    get mixNoImg() {
+        return this._mixNoImg
     }
 }

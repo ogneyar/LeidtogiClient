@@ -55,6 +55,8 @@ const ProductPage =  observer((props) => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
 
+    // const [light, setLight] = useState(true)
+
     
     useEffect(() => {
         if (id) {
@@ -137,6 +139,7 @@ const ProductPage =  observer((props) => {
         })
     }
 
+    let light =true
 
     return ( 
         <Container className="ProductPage">
@@ -301,11 +304,41 @@ const ProductPage =  observer((props) => {
             ?
             <div className="ProductSize">
                 <h2>Габариты</h2>
-                <div className={"ProductInfoRowLight"}>Вес: {product.size[0].weight} кг</div>
-                <div className={"ProductInfoRowTansparent"}>Объём: {product.size[0].volume} м.куб</div>
-                <div className={"ProductInfoRowLight"}>Ширина: {product.size[0].width} мм</div>
-                <div className={"ProductInfoRowTansparent"}>Высота: {product.size[0].height} мм</div>
-                <div className={"ProductInfoRowLight"}>Длина: {product.size[0].length} мм</div>
+                {product.size[0].weight 
+                ?
+                <>
+                    <div className={light ? "ProductInfoRowLight" : "ProductInfoRowTansparent"}>Вес: {product.size[0].weight} кг</div> 
+                    {light = ! light}
+                </>
+                : null}
+                {product.size[0].volume 
+                ?
+                <>
+                    <div className={light ? "ProductInfoRowLight" : "ProductInfoRowTansparent"}>Объём: {product.size[0].volume} м.куб</div>
+                    {light = ! light}
+                </>
+                : null}
+                {product.size[0].width 
+                ?
+                <>
+                    <div className={light ? "ProductInfoRowLight" : "ProductInfoRowTansparent"}>Ширина: {product.size[0].width} мм</div>
+                    {light = ! light}
+                </>
+                : null}
+                {product.size[0].height 
+                ?
+                <>
+                    <div className={light ? "ProductInfoRowLight" : "ProductInfoRowTansparent"}>Высота: {product.size[0].height} мм</div>
+                    {light = ! light}
+                </>
+                : null}
+                {product.size[0].length 
+                ?
+                <>
+                    <div className={light ? "ProductInfoRowLight" : "ProductInfoRowTansparent"}>Длина: {product.size[0].length} мм</div>
+                    {light = ! light}
+                </>
+                : null}
             </div>
             : null}
             
