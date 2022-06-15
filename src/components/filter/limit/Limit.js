@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 
-import { LIMIT } from '../../utils/consts'
-import { Context } from '../..'
+import { LIMIT } from '../../../utils/consts'
+import { Context } from '../../..'
 
-import './Limit'
+import './Limit.css'
 
 
 const Limit = observer(() => {

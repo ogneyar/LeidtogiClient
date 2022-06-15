@@ -67,7 +67,7 @@ const App = observer(() => {
                     // перемешать?
                     if (product.sort) sortAllProducts(data)
                     // добавление товаров без изображений в конец списка
-                    data = productsWithOutImageRemoveInEnd(data) 
+                    if (product.mixNoImg) data = productsWithOutImageRemoveInEnd(data) 
                     // cмешиваем акционные товары с остальными
                     mixPromo(data) 
                     if ( ! prod ) product.setAllProducts(data) // if NOT production
