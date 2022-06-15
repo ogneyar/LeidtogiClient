@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { Container } from 'react-bootstrap'
+// eslint-disable-next-line
 import { useHistory, useParams } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
@@ -22,7 +23,7 @@ const Shop = observer((props) => {
     const [ loadingBrand, setLoadingBrand ] = useState(true)
     const [ loadingProduct, setLoadingProduct ] = useState(true)
     
-    const history = useHistory()
+    //const history = useHistory()
     
     let { name } = useParams()
 
@@ -94,7 +95,8 @@ const Shop = observer((props) => {
     
             if (!returnSelectedCategory) { // если категория не найдена
     
-                history.push("/error")
+                //history.push("/error")
+				window.location.href = "/404.html"
     
             }else {
     

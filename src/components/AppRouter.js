@@ -8,6 +8,7 @@ import BrandPage from '../pages/brand/BrandPage'
 import { SHOP_ROUTE } from '../utils/consts'
 import { Context } from '..'
 import Loading from './Loading'
+import { echo } from '../http/testerAPI'
 
 
 const AppRouter = observer(() => {
@@ -25,6 +26,14 @@ const AppRouter = observer(() => {
             }
         }))
     }, [brand.allBrands])
+	
+	useEffect(() => {
+        echo()
+			.then(data => {
+				if (data?.ok !== true) alert("Отсутствует связь с сервером!")
+			})
+			.catch(() => alert("Отсутствует связь с сервером!"))
+    }, [])
 
     if (brandRoutes[0]?.path === undefined) return <Loading />
 
