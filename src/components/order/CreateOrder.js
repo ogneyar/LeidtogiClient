@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 
 import { CREATE_ORDER_ROUTE, SCROLL_TOP } from '../../utils/consts'
 import scrollUp from '../../utils/scrollUp'
@@ -8,7 +8,7 @@ import scrollUp from '../../utils/scrollUp'
 
 const CreateOrder = (props) => {
     
-    const history = useHistory()
+    // const history = useHistory()
 
     return (
         <div
@@ -18,8 +18,9 @@ const CreateOrder = (props) => {
                     onClick={() => {
                         props?.setLoad()
                         scrollUp(SCROLL_TOP)
-                        history.push(CREATE_ORDER_ROUTE)
-                        // window.open(CREATE_ORDER_ROUTE,'_self',false)
+                        // history.push(CREATE_ORDER_ROUTE)
+                        // window.open(CREATE_ORDER_ROUTE,'_self',false) 
+                        window.location.href = CREATE_ORDER_ROUTE
                     }}
                     className="CreateOrderButton"
                     size="lg"
