@@ -15,6 +15,5 @@ Disallow: /congratulation
 Disallow: /product
 Disallow: /admin
 Disallow: /lk
-Disallow: /shop
 
-# Sitemap: https://leidtogi.ru/sitemap.xml
+Sitemap: https://leidtogi.ru/sitemap.xml
