@@ -111,15 +111,15 @@ export const publicRoutes = [
         Component: ProductPage
     },
     {
-        path: SEARCH_ROUTE,
+        path: SEARCH_ROUTE, // поиск
         Component: SearchPage
     },
     {
-        path: SUPPORT_ROUTE,
+        path: SUPPORT_ROUTE, // тех. поддержка
         Component: SupportPage
     },
     {
-        path: MESSAGE_ROUTE,
+        path: MESSAGE_ROUTE, // 
         Component: MessagePage
     },
     // {
@@ -127,29 +127,29 @@ export const publicRoutes = [
     //     Component: SuccessPage
     // },
     {
-        path: SUCCESS_ROUTE,
+        path: SUCCESS_ROUTE, // успешная оплата
         Component: SuccessPage
     },
     {
-        path: CONGRATULATION_ROUTE,
+        path: CONGRATULATION_ROUTE, // поздравления
         Component: CongratulationPage
     },
     {
-        path: ERROR_ROUTE,
+        path: ERROR_ROUTE, // ошибка
         Component: ErrorPage
     },
     
     // отдел Информация
     {
-        path: ABOUT_US_ROUTE,
+        path: ABOUT_US_ROUTE, // о нас
         Component: AboutUs
     },
     {
-        path: DELIVERY_ROUTE,
+        path: DELIVERY_ROUTE, // о доставке
         Component: Delivery
     },
     {
-        path: PAYMENT_ROUTE,
+        path: PAYMENT_ROUTE, // об оплате
         Component: Payment
     },
     {
@@ -165,21 +165,21 @@ export const publicRoutes = [
         Component: TermsOfUse
     },
     {
-        path: WARRANTY_ROUTE,
+        path: WARRANTY_ROUTE, // о гарантии
         Component: Warranty
     },
     {
-        path: CONTACTS_ROUTE,
+        path: CONTACTS_ROUTE, // контакты
         Component: Contacts
     },
     {
-        path: SPECIALS_ROUTE,
+        path: SPECIALS_ROUTE, // акции
         Component: Specials
     },
 
      // юмор It отдела
     {
-        path: DELETE_ROUTE,
+        path: DELETE_ROUTE, // удаление сайта
         Component: DeletePage
     }
 ]
