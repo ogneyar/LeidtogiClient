@@ -153,15 +153,15 @@ export const publicRoutes = [
         Component: Payment
     },
     {
-        path: PRIVACY_POLICY_ROUTE,
+        path: PRIVACY_POLICY_ROUTE, // политика конфиденциальности
         Component: PrivacyPolicy
     },
     {
-        path: RETURNS_POLICY_ROUTE,
+        path: RETURNS_POLICY_ROUTE, // условия возврата
         Component: ReturnsPolicy
     },
     {
-        path: TERMS_OF_USE_ROUTE,
+        path: TERMS_OF_USE_ROUTE, // пользовательское соглашение
         Component: TermsOfUse
     },
     {

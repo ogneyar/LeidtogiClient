@@ -55,25 +55,17 @@ const API_URL_DEVELOPMENT = process.env.REACT_APP_API_URL_DEVELOPMENT || "http:/
 
 export const URL = 
     process.env.REACT_APP_ENV === 'production' 
-    ? 
-        window.location.hostname === "leidtogi.ru"
-        ?
-            URL_PRODUCTION
-        :
-            URL_TEST
-    :
-        URL_DEVELOPMENT
+    ? window.location.hostname === "leidtogi.ru"
+        ? URL_PRODUCTION
+        : URL_TEST
+    : URL_DEVELOPMENT
 
 export const API_URL = 
     process.env.REACT_APP_ENV === 'production' 
-    ? 
-        window.location.hostname === "leidtogi.ru"
-        ?
-            API_URL_PRODUCTION
-        :
-            API_URL_TEST
-    : 
-        API_URL_DEVELOPMENT
+    ? window.location.hostname === "leidtogi.ru"
+        ? API_URL_PRODUCTION
+        : API_URL_TEST
+    : API_URL_DEVELOPMENT
         
 
 // прокрутка страницы при нажатии на категорию

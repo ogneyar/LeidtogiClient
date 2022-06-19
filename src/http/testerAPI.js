@@ -7,8 +7,8 @@ export const setFeed = async (body) => {
     return data
 }
 
-export const setSitemap = async () => {
-    const { data } = await $authHost.post('api/tester/set_sitemap')
+export const setSiteMap = async (body) => {
+    const { data } = await $authHost.post('api/tester/set_sitemap', body)
     return data
 }
 

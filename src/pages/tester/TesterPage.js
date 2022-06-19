@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 
 import { fetchAllProducts, updateProduct } from '../../http/productAPI'
-import { setLocationCitiesSdek, setFeed, setPlacesDl } from '../../http/testerAPI'
+import { setLocationCitiesSdek, setFeed, setPlacesDl, setSiteMap } from '../../http/testerAPI'
 import { getAllProductSizes } from '../../http/productSizeAPI'
 import { getAllProductInfos } from '../../http/productInfoAPI'
 import { Alert } from '../../components/myBootstrap'
@@ -22,6 +22,9 @@ const TesterPage = () => {
     const [ message, setMessage ] = useState("")
 
     const [ xml, setXML ] = useState("")
+
+    const [ map, setMap ] = useState("")
+
     const [ places, setPlaces ] = useState("")
 
     const [ locationCities, setLocationCities ] = useState("")
@@ -135,6 +138,30 @@ const TesterPage = () => {
         }else setXML("")
     }
 
+    const getSiteMap = async () => {
+        if (product?.allProducts) {
+            setMap("...")
+
+            let response = await setSiteMap({
+                routes: [
+                    "/about_us",
+                    "/delivery",
+                    "/payment",
+                    "/privacy_policy",
+                    "/returns_policy",
+                    "/terms_of_use",
+                    "/warranty",
+                    "/contacts",
+                    "/specials",
+                ]
+            })
+
+            if (response?.error) setMap("ошибка")
+            else setMap("успех")
+
+        }else setMap("")
+    }
+
     const getLocationCities = async () => {
         // let page = 0
         setLoading(true)
@@ -185,6 +212,15 @@ const TesterPage = () => {
                     <hr />
                     {xml && <> {xml} <br /> </>}
                     <Button onClick={getXML}> Создать фид </Button>
+                    <hr />
+                </div>
+
+                <div>
+                    <br />
+                    Создание карты сайта (siteMap)
+                    <hr />
+                    {map && <> {map} <br /> </>}
+                    <Button onClick={getSiteMap}> Создать siteMap </Button>
                     <hr />
                 </div>
 
