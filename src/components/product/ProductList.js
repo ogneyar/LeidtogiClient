@@ -84,29 +84,30 @@ const ProductList = observer((props) => {
 
             }
             /* если тут закомментитьб то... */
-            else { // загрузка товаров по роуту /shop - пока грузится весь контент
+            // else { // загрузка товаров по роуту /shop - пока грузится весь контент
 
-                if (fetchTimeOut !== null) {
-                    clearTimeout(fetchTimeOut)
-                }
-                setFetchTimeOut(setTimeout(() => {
-                    // alert("else else")
-                    fetchProducts({page: product.page, limit: product.limit, sort: product.sort})
-                        .then(data => {
-                            setInfo(data.rows)
-                            product.setTotalCount(data.count)
-                            setLoading(false)
-                        })
-                        // .finally(() => setLoading(false))
-                }, 500))
+            //     if (fetchTimeOut !== null) {
+            //         clearTimeout(fetchTimeOut)
+            //     }
+            //     setFetchTimeOut(setTimeout(() => {
+            //         // alert("else else")
+            //         fetchProducts({page: product.page, limit: product.limit, sort: product.sort})
+            //             .then(data => {
+            //                 setInfo(data.rows)
+            //                 product.setTotalCount(data.count)
+            //                 setLoading(false)
+            //             })
+            //             // .finally(() => setLoading(false))
+            //     }, 500))
                 
-            }
+            // }
              /* если тут закомментить, то в зависимости (ниже) добавить - props?.loading */
+             /* а если разкомментить, то из зависимостей (ниже) убрать - props?.loading */
 
         }
 
     // eslint-disable-next-line
-    }, [ product.page, product.limit, brand.selectedBrand, category.selectedCategory ]) // , props?.loading
+    }, [ product.page, product.limit, brand.selectedBrand, category.selectedCategory, props?.loading ]) // 
     // }, [ product, product.products, product.page, product.limit, 
     //     brand.selectedBrand, props?.search, props?.loading, props, 
     //     category.selectedCategory, loading ]) 
