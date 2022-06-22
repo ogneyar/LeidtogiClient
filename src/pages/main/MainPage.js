@@ -103,7 +103,7 @@ const MainPage = () => {
             : null}
 
 
-            <ShopButton />
+            {info[0] !== undefined && <ShopButton />}
 
         </div>
     </div>

@@ -5,6 +5,7 @@ export default class CategoryStore {
         this._categories = []
         this._allCategories = []
         this._selectedCategory = {}
+        this._loading = false
         makeAutoObservable(this)
     }
 
@@ -17,6 +18,9 @@ export default class CategoryStore {
     setSelectedCategory(category) {
         this._selectedCategory = category
     }
+    setLoading(loading) {
+        this._loading = loading
+    }
 
     get categories() {
         return this._categories
@@ -26,5 +30,8 @@ export default class CategoryStore {
     }
     get selectedCategory() {
         return this._selectedCategory
+    }
+    get loading() {
+        return this._loading
     }
 }

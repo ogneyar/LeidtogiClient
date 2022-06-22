@@ -6,14 +6,16 @@ import { observer } from 'mobx-react-lite'
 import AppRouter from './components/AppRouter'
 import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
-import Loading from './components/Loading'
+import { Alert } from './components/myBootstrap'
+// import Loading from './components/Loading'
 import { getUserInfo } from './http/userAPI'
 import { fetchAllProducts } from './http/productAPI'
 import { fetchAllCategories } from './http/categoryAPI'
 import { fetchBrands } from './http/brandAPI'
-import { Context } from '.'
+import { echo } from './http/testerAPI'
 import scrollUp from './utils/scrollUp'
 import { mixPromo, sortAllProducts, leidtogiFirst, productsWithOutImageRemoveInEnd } from './service/app'
+import { Context } from '.'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './styles/App.css'
@@ -23,8 +25,25 @@ const App = observer(() => {
 
     const { user, product, category, brand, cart } = useContext(Context)
 
-    const [loading, setLoading] = useState(false)
+    // const [ loading, setLoading ] = useState(false)
+    const [ alertVisible, setAlertVisible ] = useState(false)
+    const [ messageAlert, setMessageAlert ] = useState("")
 
+    const getError = (text, error) => {
+        if (error && typeof(error) === "string") setMessageAlert(`${text} Error: ${error}`)
+        else if (error && typeof(error) === "object") setMessageAlert(`${text} Error: ${JSON.stringify(error.message)}`)
+        else setMessageAlert(text)
+        setAlertVisible(true)
+    }
+
+    useEffect(() => {
+        echo()
+			.then(data => {
+				if (data?.ok !== true) getError(`Отсутствует связь с сервером!`)// alert("Отсутствует связь с сервером!")
+			})
+			.catch(() => getError(`Отсутствует связь с сервером!`))
+    // eslint-disable-next-line
+    }, [])
 
     useEffect(() => {
         let prod = false
@@ -37,7 +56,7 @@ const App = observer(() => {
         }
 
         if (localStorage.getItem('token')) {
-            setLoading(true)
+            // setLoading(true)
             getUserInfo()
                 .then(
                     data => {
@@ -48,18 +67,35 @@ const App = observer(() => {
                             localStorage.removeItem('token')
                         }
                     },
-                    err => console.log(err))
+                    error =>  getError(`Не удалось загрузить информацию о пользователях!`, error)
+                )
+                .catch(error => getError(`Не удалось загрузить данные о пользователях!`, error))
                 .finally(() => user.setLoading(false))
         }else user.setLoading(false)
 
         fetchAllCategories()
             .then(
                 data => category.setAllCategories(data),
-                err => {
-                    console.log("Не удалось загрузить категории",err)
+                error => {
+                   getError(`Не удалось загрузить категории!`, error)
                     category.setAllCategories([{}])
-                })
-            .finally(() => setLoading(false))
+                }
+            )
+            .catch(error => getError( `Не удалось загрузить данные о категориях!`, error))
+            // .finally(() => setLoading(false))
+        
+        fetchBrands()
+            .then(
+                data => {
+                    // устанавливаем бренд LeidTogi на первое место
+                    data = leidtogiFirst(data)
+                    // сохраняем бренды в сторе
+                    brand.setAllBrands(data)
+                    // brand.setSelectedBrand(data[0])
+                },
+                error => getError(`Не удалось загрузить бренды!`, error)
+            )
+            .catch(error => getError(`Не удалось загрузить данные о брендах!`, error))
 
         fetchAllProducts()
             .then(
@@ -73,18 +109,9 @@ const App = observer(() => {
                     if ( ! prod ) product.setAllProducts(data) // if NOT production
                     else product.setAllProducts(data.filter(i => i.have === 1 && i.brandId !== 10)) // if production mode and NOT LeidTogi brand
                 },
-                err => console.log(err))
-        
-        fetchBrands()
-            .then(
-                data => {
-                    // устанавливаем бренд LeidTogi на первое место
-                    data = leidtogiFirst(data)
-
-                    brand.setAllBrands(data)
-                    brand.setSelectedBrand(data[0])
-                },
-                err => console.log(err))
+                error => getError(`Не удалось загрузить товары!`, error)
+            )
+            .catch(error => getError(`Не удалось загрузить данные о товарах!`, error))
         
         let basket = localStorage.getItem('cart')
         if (basket) {
@@ -92,11 +119,12 @@ const App = observer(() => {
         }
         
         scrollUp(0)
-    
+    // eslint-disable-next-line
     }, [brand, category, product, user, cart])
 
   
-  if (loading) return <Loading />
+//   if (loading) return <Loading />
+  if (alertVisible) return <Alert show={alertVisible} onHide={() => setAlertVisible(false)} message={messageAlert} />
   
 
     return (

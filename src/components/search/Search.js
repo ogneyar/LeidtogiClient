@@ -1,34 +1,42 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+// eslint-disable-next-line
+import React, { useEffect, useState, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
-import { API_URL } from '../../utils/consts';
-import deleteAbbreviation from '../../utils/deleteAbbreviation';
-import priceFormater from '../../utils/priceFormater';
+import { API_URL } from '../../utils/consts'
+import deleteAbbreviation from '../../utils/deleteAbbreviation'
+import priceFormater from '../../utils/priceFormater'
+import { searchArticle, searchName } from '../../http/searchAPI'
+// import Loading from '../Loading'
 
 import { Context } from '../..'
 import './Search.css'
+import { Spinner } from 'react-bootstrap'
 
 
 const Search = observer((props) => {
-
+    // eslint-disable-next-line
     const { product, brand } = useContext(Context)
 
     const [ admin, setAdmin ] =  useState(false)
 
-    const [value, setValue] = useState("")
-    const [list, setList] = useState([])
-    const [array, setArray] = useState([])
+    const [ value, setValue ] = useState("")
+    const [ list, setList ] = useState([])
+    // const [array, setArray] = useState([])
+    const [ searchTimeOut, setSearchTimeOut ] = useState(null)
+    const [ loading, setLoading ] = useState(false)
+    // если поиск не дал результатов
+    const [ noSearch, setNoSearch ] = useState(false)
 
     const history = useHistory()
 
-    useEffect(() => {
-        if (product.allProducts.length) {
-            setArray(product.allProducts)
-        }
-    },[product.allProducts])
-
     // useEffect(() => {
+    //     if (product.allProducts.length) {
+    //         setArray(product.allProducts)
+    //     }
+    // },[product.allProducts])
+
+    // useEffect(() => { 
     //     if (list.length) {
     //         document.addEventListener("click", () => {
     //             setList([])
@@ -38,33 +46,62 @@ const Search = observer((props) => {
 
     function isNumber(n){
         // eslint-disable-next-line
-        return Number(n) == n;
+        return Number(n) == n
     }
 
-    const onChangeSearchInputValue = (search) => {
+    // производим поиск на сервере
+    const setChangesSearch = async (search) => {
+        setLoading(true)
+        setNoSearch(false)
+        setList([])
+        if (search.indexOf("!") === 0) setAdmin(true)
+        search = search.replace("!","")
+        // функция deleteAbbreviation убирает сокращённые названия бренда (hqv, rgk, kvt)
+        let searchNumber = deleteAbbreviation(search)
+        if ( isNumber( searchNumber ) ) {
+            setList(await searchArticle({text:searchNumber, limit: 6}))
+            // setList(array.filter(i => i.article.includes( searchNumber )))
+        }else {
+            setList(await searchName({text:search, limit: 6}))
+            // setList(array.filter(i => i.name.toLowerCase().includes(search.toLowerCase().trim())))
+        }
+        if (list && list.length === 0) setNoSearch(true)
+        // else setNoSearch(false)
+        setLoading(false)
+        // if (list && list.length > 0) setNoSearch(false)
+    }
+
+    // при изменении значения в поле поиска устанавливаем таймаут
+    const onChangeSearchInputValue = async (search) => {
         setValue(search)
         if (search) {
-            if (search.indexOf("!") === 0) setAdmin(true)
-            search = search.replace("!","")
-            // функция deleteAbbreviation убирает сокращённые названия бренда (hqv, rgk, kvt)
-            let searchNumber = deleteAbbreviation(search)
-            if ( isNumber( searchNumber ) ) {
-                setList(array.filter(i => i.article.includes( searchNumber )))
-            }else {
-                setList(array.filter(i => i.name.toLowerCase().includes(search.toLowerCase().trim())))
+            if (searchTimeOut !== null) {
+                clearTimeout(searchTimeOut)
             }
-
+            setSearchTimeOut(setTimeout(async (search) => {
+                await setChangesSearch(search)
+            }, 500, search))
         }else setList([])
     }
 
-    const onClickSearchInput = (search) => {onChangeSearchInputValue(search)}
+    // при нажатии на поле поиска
+    const onClickSearchInput = async (search) => {
+        setValue(search)
+        if (search) {
+           await setChangesSearch(search)
+        }else setList([])
+    }
+
 
     const onClickFon = (e) => {
         setList([])
+        setNoSearch(false)
     }
 
     const redirectOnSearch = (key, val) => {
+        if (loading) return
         setList([])
+        setNoSearch(false)
         if (key === "value" && val !== "")
             history.push(`/search?${key}=${val}`)
         else if (key === "article")
@@ -82,6 +119,7 @@ const Search = observer((props) => {
         if (e.key === "Enter") redirectOnSearch("value", e.target.value.trim())
     }
     
+    // if (loading) return <Loading width={150} />
 
     return (
         <div className="SearchComponent">
@@ -98,21 +136,23 @@ const Search = observer((props) => {
                             placeholder="Поиск" 
                             value={value}
                             onChange={e => onChangeSearchInputValue(e.target.value)}
-                            onClick={e => onClickSearchInput(e.target.value)}
+                            onClick={async (e) => await onClickSearchInput(e.target.value)}
                             onKeyDown={e => onKeyDownInput(e)}
                         />
 
                         <span className="InputGroupButton">
-
                             <button 
                                 type="text" 
                                 className="SearchButton btn btn-default"
                                 onClick={() => redirectOnSearch("value", value)}
-                            >
-                                <i className="fa fa-search " />
+                            > 
+                                {loading 
+                                ? <Spinner size="sm" animation="border" variant="secondary" />
+                                : <i className="fa fa-search " />
+                            }
                             </button>
-
                         </span>
+
                     </div>
                 </div>
                 
@@ -136,9 +176,14 @@ const Search = observer((props) => {
                                 >
                                     <img 
                                         className="SearchListItemImg" 
-                                        src={Array.isArray(i.img)  && i.img[0]?.big !== undefined
+                                        src={Array.isArray(i.img) && i.img[0]?.big !== undefined
                                             ? API_URL + i.img[0].small
-                                            : API_URL + "unknown.jpg"} 
+                                            : typeof(i.img) === "string" 
+                                                ? JSON.parse(i.img)[0].small !== undefined 
+                                                    ? API_URL + JSON.parse(i.img)[0].small
+                                                    : API_URL + "unknown.jpg"
+                                                : API_URL + "unknown.jpg"
+                                        } 
                                         alt={i.name}
                                     />
                                     <div
@@ -189,12 +234,25 @@ const Search = observer((props) => {
                         
                     </div>
                 :
-                    null
+                    noSearch 
+                    ? 
+                    <div className="SearchListBox">
+                        <div className="SearchList">
+                            <div className="SearchListItem">
+                                <div className="SearchListItemBody">
+                                    <div className="SearchListItemBodyPrice">
+                                        Поиск не дал результата...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    : null
                 }
 
             </div>
 
-            {list && list.length > 0 
+            {(list && list.length > 0) || noSearch
             ? <div className="fon" onClick={e => onClickFon(e)} />
             : null}
 

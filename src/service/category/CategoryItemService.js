@@ -2,9 +2,9 @@ import React, { useState, useContext, useEffect } from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 import { useHistory } from 'react-router-dom'
-import $ from 'jquery'
 
 import { SCROLL_TOP } from '../../utils/consts'
+import scrollUp from '../../utils/scrollUp'
 import { Context } from '../..'
 
 import './CategoryService.css'
@@ -15,7 +15,7 @@ const CategoryItemService = observer((props) => {
     const { category } = useContext(Context)
     const history = useHistory()
 
-    const [open, setOpen] = useState(false)
+    const [ open, setOpen ] = useState(false)
 
     useEffect(() => {
         setOpen(props.item.open)
@@ -35,7 +35,7 @@ const CategoryItemService = observer((props) => {
             return i
         }))
     }
-
+    
     return (
         <div
             className="CategoryItemService"
@@ -43,19 +43,11 @@ const CategoryItemService = observer((props) => {
             <ListGroup.Item 
                 active={props?.item?.id === category.selectedCategory.id}
                 onClick={(e) => {
-                    // console.log(e);
                     props.funcOnClick(props?.item)
-                    history.push(props?.item?.url)
                     onClickListItem()
+                    history.push(props?.item?.url)
                     if (window.innerWidth > 991) {
-                        // window.scrollTo(0,260)
-                        $('html, body').animate(
-                            {
-                                scrollTop: SCROLL_TOP
-                            }, 
-                            700, 
-                            function(){}
-                        )
+                        scrollUp(SCROLL_TOP)
                     }else if (props?.item?.is_product) props?.onHide()
                 }}
                 key={props?.item?.id}
@@ -86,7 +78,7 @@ const CategoryItemService = observer((props) => {
             >
                 {open && category.categories.map(i => {
                     if (i.sub_category_id === props?.item.id)
-                        return <CategoryItemService key={i.id} item={i} onHide={props?.onHide} funcOnClick={props?.funcOnClick}  />
+                        return <CategoryItemService key={i.id} item={i} onHide={props?.onHide} funcOnClick={props?.funcOnClick} />
                     return null
                 })}
             </div>

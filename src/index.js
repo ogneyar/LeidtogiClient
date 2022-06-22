@@ -8,15 +8,11 @@ import BrandStore from './store/BrandStore'
 import RatingStore from './store/RatingStore'
 import BreadCrumbsStore from './store/BreadCrumbsStore'
 import CartStore from './store/CartStore'
-
 import './styles/index.css'
-
 
 export const Context = createContext(null)
 
-
-ReactDOM.render(
-  <Context.Provider value={{
+let contextValue = {
     user: new UserStore(),
     product: new ProductStore(),
     category: new CategoryStore(),
@@ -24,8 +20,12 @@ ReactDOM.render(
     rating: new RatingStore(),
     bread: new BreadCrumbsStore(),
     cart: new CartStore()
-  }}>
-    <App />
-  </Context.Provider>,
-  document.getElementById('root')
+}
+
+let jsx = (
+    <Context.Provider value={contextValue}>
+        <App />
+    </Context.Provider>
 )
+
+ReactDOM.render(jsx, document.getElementById('root'))

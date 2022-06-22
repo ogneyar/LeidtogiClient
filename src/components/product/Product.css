@@ -13,6 +13,11 @@
     flex-wrap: wrap;
 }
 
+.ProductList_noProducts {
+    margin: 20px;
+    padding: 20px;
+}
+
 .ProductItem {
     display:flex;
     justify-content:space-around; 
@@ -45,9 +50,6 @@
     border: 2px dotted rgb(255, 255, 255);
 }
 
-.product-image-small {
-
-}
 
 @media (max-width: 1199px) {
     .product-card {

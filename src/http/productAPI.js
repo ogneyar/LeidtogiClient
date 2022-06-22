@@ -6,19 +6,23 @@ export const createProduct = async (product) => {
     return data
 }
 
-export const fetchProducts = async (categoryId, brandId, page, limit) => {
-    const {data} = await $host.get('api/product', {params: {
+export const fetchProducts = async ({categoryId, brandId, page, limit}) => {
+    let { data } = await $host.get('api/product', {params: {
         categoryId, brandId, page, limit
     }})    
-    return data.map(i => { 
-        let img
-        try {
-            img = JSON.parse(i.img)
-        }catch(e) {
-            img = [{}]
-        }
-        return {...i, img} 
-    })
+    return { 
+        count: data.count,
+        rows: data.rows.map(i => { 
+            let img
+            try {
+                if (typeof(i.img) === "string") img = JSON.parse(i.img)
+                else img = i.img
+            }catch(e) {
+                img = [{}]
+            }
+            return {...i, img} 
+        })
+    }
 }
 
 export const fetchAllProducts = async () => {
@@ -28,7 +32,8 @@ export const fetchAllProducts = async () => {
     return data.map(i => { 
         let img
         try {
-            img = JSON.parse(i.img)
+            if (typeof(i.img) === "string") img = JSON.parse(i.img)
+            else img = i.img
         }catch(e) {
             img = [{}]
         }
@@ -40,7 +45,8 @@ export const fetchOneProduct = async (id) => {
     const {data} = await $host.get('api/product/' + id)
     let img
     try {
-        img = JSON.parse(data.img)
+        if (typeof(data.img) === "string") img = JSON.parse(data.img)
+        else img = data.img
     }catch(e) {
         img = [{}]
     }
@@ -51,7 +57,8 @@ export const fetchOneProductOnUrl = async (url) => {
     const {data} = await $host.get('api/product/url/' + url)
     let img
     try {
-        img = JSON.parse(data.img)
+        if (typeof(data.img) === "string") img = JSON.parse(data.img)
+        else img = data.img
     }catch(e) {
         img = [{}]
     }

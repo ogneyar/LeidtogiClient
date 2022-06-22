@@ -1,4 +1,5 @@
-import React, { useContext } from 'react'
+// eslint-disable-next-line
+import React, { useContext, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { ListGroup } from 'react-bootstrap'
 // import { NavLink } from 'react-router-dom'
@@ -7,6 +8,7 @@ import CategoryItemService from './CategoryItemService'
 // import { SHOP_ROUTE } from '../../utils/consts'
 // import { NavLink } from '../myBootstrap'
 
+// import Loading from '../../components/Loading'
 import { Context } from '../..'
 import './CategoryService.css'
 
@@ -14,11 +16,16 @@ import './CategoryService.css'
 const CategoryService = observer((props) => {
     
     const { product, category } = useContext(Context)
+    
+    // const [ loading, setLoading ] = useState(false)
 
     const onClickSelectedCategory = (id) => {
+        // category.setLoading(true)
         category.setSelectedCategory(id)
         product.setPage(1)
     }
+
+    // if (loading) return <Loading />
 
     return (
         <ListGroup 

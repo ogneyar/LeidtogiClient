@@ -6,9 +6,9 @@ import { authRoutes, publicRoutes } from '../utils/routes'
 import ShopPage from '../pages/shop/ShopPage'
 import BrandPage from '../pages/brand/BrandPage'
 import { SHOP_ROUTE } from '../utils/consts'
-import { Context } from '..'
+// import { echo } from '../http/testerAPI'
 import Loading from './Loading'
-import { echo } from '../http/testerAPI'
+import { Context } from '..'
 
 
 const AppRouter = observer(() => {
@@ -17,6 +17,7 @@ const AppRouter = observer(() => {
 
     const [ brandRoutes, setBrandRoutes ] = useState([])
 
+    
     useEffect(() => {
         setBrandRoutes(brand.allBrands.map(i => {
             let brandName = i?.name.toLowerCase()
@@ -27,14 +28,15 @@ const AppRouter = observer(() => {
         }))
     }, [brand.allBrands])
 	
-	useEffect(() => {
-        echo()
-			.then(data => {
-				if (data?.ok !== true) alert("Отсутствует связь с сервером!")
-			})
-			.catch(() => alert("Отсутствует связь с сервером!"))
-    }, [])
+	// useEffect(() => {
+    //     echo()
+	// 		.then(data => {
+	// 			if (data?.ok !== true) alert("Отсутствует связь с сервером!")
+	// 		})
+	// 		.catch(() => alert("Отсутствует связь с сервером!"))
+    // }, [])
 
+    // ожидание загрузки роутов брендов (Этот лоадинг на оранжевом фоне)
     if (brandRoutes[0]?.path === undefined) return <Loading />
 
     return (
@@ -43,6 +45,7 @@ const AppRouter = observer(() => {
             {user.isAuth && authRoutes.map(({path, Component}) => 
                 <Route key={path} path={path} component={Component} exact />
             )}
+
             {/* общедоступные роуты */}
             {publicRoutes.map(({path, Component}) => 
                 <Route key={path} path={path} component={Component} exact />
@@ -52,6 +55,8 @@ const AppRouter = observer(() => {
             {brandRoutes.map(({path, Component}) => 
                 <Route key={path} path={path} component={Component} exact />
             )}
+
+            {/* роуты товаров, начинаются с имени бренда - /nazvanie-brenda/nazvanie-tovara */}
             {brandRoutes.map(({path, Component}) => 
                 <Route key={path + '/:url'} path={path + '/:url'} component={Component} />
             )}

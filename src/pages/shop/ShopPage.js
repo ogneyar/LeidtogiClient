@@ -7,7 +7,6 @@ import { observer } from 'mobx-react-lite'
 import CategoryBar from '../../components/category/CategoryBar'
 import BrandBar from '../../components/brand/BrandBar'
 import ProductList from '../../components/product/ProductList'
-import Pagination from '../../components/pagination/Pagination'
 import Filter from '../../components/filter/Filter'
 import Loading from '../../components/Loading'
 
@@ -66,6 +65,9 @@ const Shop = observer((props) => {
 
         if (product.allProducts.length && category.allCategories.length && name) {
 
+            // category.setLoading(true)
+            // console.log("start")
+
             const reOpenCategory = (array, item) => { // рекурсивная функция для открытия выбраных подкаталогов
                 let response = []
                 array.forEach(i => {
@@ -96,7 +98,7 @@ const Shop = observer((props) => {
             if (!returnSelectedCategory) { // если категория не найдена
     
                 //history.push("/error")
-				window.location.href = "/404.html"
+                window.location.href = "/404.html"
     
             }else {
     
@@ -137,7 +139,6 @@ const Shop = observer((props) => {
                         reArray(array) // наращиваем массив рекурсивной функцией
                     )
                 }
-
                 
                 let returnArrayProducts =[]
                 if (Array.isArray(selectedCategory)) {
@@ -157,15 +158,21 @@ const Shop = observer((props) => {
                 product.setTotalCount(returnArrayProducts.length)
                 category.setCategories(returnArrayCategories)
                 
+
+                // setTimeout(() => {
+                //     console.log("stop")
                 setLoadingProduct(false)
                 setLoadingCategory(false)
+                // }, 500)
+
+                // category.setLoading(false)
             }
     
         }
 
     },[product.allProducts, category.allCategories, name, product.sort])
 
-
+    // if (loadingProduct) return <Loading />
 
     return (
         <Container
@@ -173,20 +180,17 @@ const Shop = observer((props) => {
         >
             <div className="ShopRow">
                 <div className="ShopColCategory">
-                    {loadingCategory ? <Loading /> : <CategoryBar />}
+                    {loadingCategory || category.loading ? <Loading variant="warning" /> : <CategoryBar />}
                 </div>
                 <div className="ShopColContent">
-                    {loadingBrand ? <Loading /> : <BrandBar />}
+                    {loadingBrand ? <Loading variant="warning" /> : <BrandBar />}
                     <Filter />
-                    {loadingProduct 
-                    ? <Loading /> 
-                    : <>
-                        <Pagination />
+                    {/* {loadingProduct ? <Loading variant="success" /> 
+                    :  */}
                         <div className="ShopProductList">
-                            <ProductList />
+                            <ProductList loading={loadingProduct} setLoading={setLoadingProduct} /> 
                         </div>
-                        <Pagination />
-                    </>}
+                    {/* } */}
                     
                 </div>
             </div>
