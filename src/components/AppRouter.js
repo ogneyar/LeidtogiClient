@@ -5,7 +5,8 @@ import { observer } from 'mobx-react-lite'
 import { authRoutes, publicRoutes } from '../utils/routes'
 import ShopPage from '../pages/shop/ShopPage'
 import BrandPage from '../pages/brand/BrandPage'
-import { SHOP_ROUTE } from '../utils/consts'
+// eslint-disable-next-line
+import { SHOP_ROUTE, ERROR_ROUTE } from '../utils/consts'
 // import { echo } from '../http/testerAPI'
 import Loading from './Loading'
 import { Context } from '..'
@@ -42,29 +43,30 @@ const AppRouter = observer(() => {
     return (
         <Switch> 
             {/* роуты зарегистрированных пользователей */}
-            {user.isAuth && authRoutes.map(({path, Component}) => 
-                <Route key={path} path={path} component={Component} exact />
+            {user.isAuth && authRoutes.map(({ path, component, status }) => 
+                <Route key={path} path={path} component={component} status={status || 200} exact />
             )}
 
             {/* общедоступные роуты */}
-            {publicRoutes.map(({path, Component}) => 
-                <Route key={path} path={path} component={Component} exact />
+            {publicRoutes.map(({ path, component, status }) => 
+                <Route key={path} path={path} component={component} status={status || 200} exact />
             )}
 
             {/* роуты брендов - /nazvanie-brenda */}
-            {brandRoutes.map(({path, Component}) => 
-                <Route key={path} path={path} component={Component} exact />
+            {brandRoutes.map(({ path, component, status }) => 
+                <Route key={path} path={path} component={component} status={status || 200} exact />
             )}
 
             {/* роуты товаров, начинаются с имени бренда - /nazvanie-brenda/nazvanie-tovara */}
-            {brandRoutes.map(({path, Component}) => 
-                <Route key={path + '/:url'} path={path + '/:url'} component={Component} />
+            {brandRoutes.map(({ path, component, status }) => 
+                <Route key={path + '/:url'} path={path + '/:url'} component={component} status={status || 200} />
             )}
 
             {/* роут категорий - /nazvanie-kategorii */}
-            <Route key={'/:name'} path={'/:name'} component={ShopPage} exact />
+            <Route key={'/:name'} path={'/:name'} component={ShopPage} status={200} exact />
 
-            <Redirect to={SHOP_ROUTE} /> 
+            {/* <Redirect to={SHOP_ROUTE} />  */}
+            <Redirect to={ERROR_ROUTE} /> 
         </Switch>
     )
 })

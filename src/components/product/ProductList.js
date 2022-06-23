@@ -26,7 +26,7 @@ const ProductList = observer((props) => {
         
         if (brand.selectedBrand?.id !== undefined && ! props?.search) { // срабатывает при выборе бренда
             
-            if ( ! props?.loading ) { // && loading ) { // ) { 
+            if ( ! props?.loading || product.allProducts ) { // ) { 
                 // alert("props?.loading")
                 let newArray = product.products.filter(k => k.brandId === brand.selectedBrand.id)
                 setInfo(newArray.filter((i,index) => {

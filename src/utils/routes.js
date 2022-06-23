@@ -48,15 +48,15 @@ import {
 export const authRoutes = [
     {
         path: ADMIN_ROUTE,
-        Component: AdminPage
+        component: AdminPage
     },
     {
         path: PARSER_ROUTE,
-        Component: ParserPage
+        component: ParserPage
     },
     {
         path: TESTER_ROUTE,
-        Component: TesterPage
+        component: TesterPage
     }
 ]
 
@@ -64,122 +64,123 @@ export const publicRoutes = [
     {
         path: MAIN_ROUTE,
         // Component: ShopPage
-        Component: MainPage
+        component: MainPage
     },
     {
         path: SHOP_ROUTE,
-        Component: ShopPage
+        component: ShopPage
     },
     {
         path: LK_ROUTE,
-        Component: LkPage
+        component: LkPage
     },
     {
         path: FORGOT_PASSWORD_ROUTE,
-        Component: ForgotPasswordPage
+        component: ForgotPasswordPage
     },
     {
         path: CHANGE_PASSWORD_ROUTE + '/:url',
-        Component: ChangePasswordPage
+        component: ChangePasswordPage
     },
     {
         path: CART_ROUTE,
-        Component: CartPage
+        component: CartPage
     },
     {
         path: PAY_ROUTE,
-        Component: PayPage
+        component: PayPage
     },
     {
         path: CREATE_ORDER_ROUTE,
-        Component: CreateOrderPage
+        component: CreateOrderPage
     },
     {
         path: LOGIN_ROUTE,
-        Component: LoginPage
+        component: LoginPage
     },
     {
         path: REGISTRATION_ROUTE,
-        Component: RegistrationPage
+        component: RegistrationPage
     },
     {
         path: CONFIRM_ROUTE + '/:url',
-        Component: ConfirmPage
+        component: ConfirmPage
     },
     {
         path: PRODUCT_ROUTE + '/:id',
-        Component: ProductPage
+        component: ProductPage
     },
     {
         path: SEARCH_ROUTE, // поиск
-        Component: SearchPage
+        component: SearchPage
     },
     {
         path: SUPPORT_ROUTE, // тех. поддержка
-        Component: SupportPage
+        component: SupportPage
     },
     {
         path: MESSAGE_ROUTE, // 
-        Component: MessagePage
+        component: MessagePage
     },
     // {
     //     path: SUCCESS_ROUTE + '/:uuid/:id',
-    //     Component: SuccessPage
+    //     component: SuccessPage
     // },
     {
         path: SUCCESS_ROUTE, // успешная оплата
-        Component: SuccessPage
+        component: SuccessPage
     },
     {
         path: CONGRATULATION_ROUTE, // поздравления
-        Component: CongratulationPage
+        component: CongratulationPage
     },
     {
         path: ERROR_ROUTE, // ошибка
-        Component: ErrorPage
+        component: ErrorPage,
+        status: 404
     },
     
     // отдел Информация
     {
         path: ABOUT_US_ROUTE, // о нас
-        Component: AboutUs
+        component: AboutUs
     },
     {
         path: DELIVERY_ROUTE, // о доставке
-        Component: Delivery
+        component: Delivery
     },
     {
         path: PAYMENT_ROUTE, // об оплате
-        Component: Payment
+        component: Payment
     },
     {
         path: PRIVACY_POLICY_ROUTE, // политика конфиденциальности
-        Component: PrivacyPolicy
+        component: PrivacyPolicy
     },
     {
         path: RETURNS_POLICY_ROUTE, // условия возврата
-        Component: ReturnsPolicy
+        component: ReturnsPolicy
     },
     {
         path: TERMS_OF_USE_ROUTE, // пользовательское соглашение
-        Component: TermsOfUse
+        component: TermsOfUse
     },
     {
         path: WARRANTY_ROUTE, // о гарантии
-        Component: Warranty
+        component: Warranty
     },
     {
         path: CONTACTS_ROUTE, // контакты
-        Component: Contacts
+        component: Contacts
     },
     {
         path: SPECIALS_ROUTE, // акции
-        Component: Specials
+        component: Specials
     },
 
      // юмор It отдела
     {
         path: DELETE_ROUTE, // удаление сайта
-        Component: DeletePage
+        component: DeletePage
     }
 ]
