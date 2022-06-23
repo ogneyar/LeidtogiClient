@@ -57,18 +57,25 @@ const ProductPage =  observer((props) => {
 
     // const [light, setLight] = useState(true)
 
+    const alertError = (err) => {
+        if (typeof(err) === "string") alert(err)
+        if (typeof(err) === "object") alert(JSON.stringify(err))
+    }
     
     useEffect(() => {
         if (id) {
             fetchOneProduct(id)
                 .then(data => {
-                    if (!data?.id) history.push("/error")
-
-                    setProduct(data)
-                    
-                    rating.setRate(data.rating)
+                    if (!data?.id) {
+                        // history.push("/error")
+                        window.location.href = "/error"
+                    }else {
+                        setProduct(data)                        
+                        rating.setRate(data.rating)
+                    }
                 },err => {
                     setError(true)
+                    alertError(err)
                 })
                 .finally(() => setLoading(false))
         }
@@ -109,18 +116,22 @@ const ProductPage =  observer((props) => {
         if (url) {
             fetchOneProductOnUrl(url)
                 .then(data => {
-                    if (!data?.id) history.push("/error")
-                    
-                    brand.allBrands.forEach(i => {
-                        if (data?.brandId === i?.id) 
-                            if (i?.name.toLowerCase() !== props?.brandName) history.push("/" + props?.brandName)
-                    })
-                    
-                    setProduct(data)
+                    if (!data?.id) {
+                        // history.push("/error")
+                        window.location.href = "/error"
+                    }else {
+                        brand.allBrands.forEach(i => {
+                            if (data?.brandId === i?.id) 
+                                if (i?.name.toLowerCase() !== props?.brandName) history.push("/" + props?.brandName)
+                        })
+                        
+                        setProduct(data)
 
-                    rating.setRate(data.rating)
+                        rating.setRate(data.rating)
+                    }
                 },err => {
                     setError(true)
+                    alertError(err)
                 })
                 .finally(() => setLoading(false))
         }
@@ -129,7 +140,9 @@ const ProductPage =  observer((props) => {
 
     if (loading) return <Loading />
 
-    if (error) return <Error />
+    if (error) {
+        return <Error />
+    }
 
     if (!loading && !error) {
         detailDataLayer({ // Яндекс.Метрика

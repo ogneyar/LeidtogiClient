@@ -26,7 +26,7 @@ const ProductList = observer((props) => {
         
         if (brand.selectedBrand?.id !== undefined && ! props?.search) { // срабатывает при выборе бренда
             
-            if ( ! props?.loading ) {
+            if ( ! props?.loading ) { // && loading ) { // ) { 
                 // alert("props?.loading")
                 let newArray = product.products.filter(k => k.brandId === brand.selectedBrand.id)
                 setInfo(newArray.filter((i,index) => {
@@ -39,6 +39,7 @@ const ProductList = observer((props) => {
                 product.setTotalCount(newArray.length)
                 setLoading(false) 
                 
+            // }else if (loading) {
             }else {
 
                 if (fetchTimeOut !== null) {
@@ -46,7 +47,10 @@ const ProductList = observer((props) => {
                 }
                 setFetchTimeOut(setTimeout(() => {
                     // alert("! props?.loading")
-                    fetchProducts({page: product.page, limit: product.limit, brandId: brand.selectedBrand.id})
+                    let body = { page: product.page, limit: product.limit, brandId: brand.selectedBrand.id }
+                    if (product.sort) body = { ...body, sort: product.sort }
+                    if (product.mixNoImg) body = { ...body, mix_no_img: product.mixNoImg }
+                    fetchProducts(body)
                         .then(data => {
                             setInfo(data.rows)
                             product.setTotalCount(data.count)
@@ -56,16 +60,6 @@ const ProductList = observer((props) => {
                 }, 500))
                 
             }
-       
-        // }else  if (category.selectedCategory?.id !== undefined && ! props?.search) {
-
-        //     if (product.products && Array.isArray(product.products) && product.products[0] !== undefined) {
-        //         setInfo(product.products)
-        //         product.setTotalCount(product.products.length)
-        //     }else {
-        //         setInfo([])
-        //         product.setTotalCount(0)
-        //     }
        
         }else {
             
@@ -84,30 +78,33 @@ const ProductList = observer((props) => {
 
             }
             /* если тут закомментитьб то... */
-            // else { // загрузка товаров по роуту /shop - пока грузится весь контент
+            else { // загрузка товаров по роуту /shop - пока грузится весь контент
 
-            //     if (fetchTimeOut !== null) {
-            //         clearTimeout(fetchTimeOut)
-            //     }
-            //     setFetchTimeOut(setTimeout(() => {
-            //         // alert("else else")
-            //         fetchProducts({page: product.page, limit: product.limit, sort: product.sort})
-            //             .then(data => {
-            //                 setInfo(data.rows)
-            //                 product.setTotalCount(data.count)
-            //                 setLoading(false)
-            //             })
-            //             // .finally(() => setLoading(false))
-            //     }, 500))
+                if (fetchTimeOut !== null) {
+                    clearTimeout(fetchTimeOut)
+                }
+                setFetchTimeOut(setTimeout(() => {
+                    // alert("else else")
+                    let body = { page: product.page, limit: product.limit }
+                    if (product.sort) body = { ...body, sort: product.sort }
+                    if (product.mixNoImg) body = { ...body, mix_no_img: product.mixNoImg }
+                    fetchProducts(body)
+                        .then(data => {
+                            setInfo(data.rows)
+                            product.setTotalCount(data.count)
+                            setLoading(false)
+                        })
+                        // .finally(() => setLoading(false))
+                }, 500))
                 
-            // }
+            }
              /* если тут закомментить, то в зависимости (ниже) добавить - props?.loading */
              /* а если разкомментить, то из зависимостей (ниже) убрать - props?.loading */
 
         }
 
     // eslint-disable-next-line
-    }, [ product.page, product.limit, brand.selectedBrand, category.selectedCategory, props?.loading ]) // 
+    }, [ product.page, product.limit, brand.selectedBrand, category.selectedCategory ]) // , props?.loading
     // }, [ product, product.products, product.page, product.limit, 
     //     brand.selectedBrand, props?.search, props?.loading, props, 
     //     category.selectedCategory, loading ]) 

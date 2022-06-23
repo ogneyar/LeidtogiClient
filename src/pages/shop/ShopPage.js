@@ -98,7 +98,7 @@ const Shop = observer((props) => {
             if (!returnSelectedCategory) { // если категория не найдена
     
                 //history.push("/error")
-                window.location.href = "/404.html"
+                window.location.href = "/error"
     
             }else {
     

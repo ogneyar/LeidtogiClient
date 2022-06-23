@@ -6,10 +6,11 @@ export const createProduct = async (product) => {
     return data
 }
 
-export const fetchProducts = async ({categoryId, brandId, page, limit}) => {
+export const fetchProducts = async ({categoryId, brandId, page, limit, sort, mix_no_img}) => {
     let { data } = await $host.get('api/product', {params: {
-        categoryId, brandId, page, limit
+        categoryId, brandId, page, limit, sort, mix_no_img
     }})    
+    if (data.count === undefined) return { count: 0, rows: [] }
     return { 
         count: data.count,
         rows: data.rows.map(i => { 

@@ -10,7 +10,7 @@ export default class ProductStore {
         this._totalCount = 0 // общее количество искомых товаров
         this._limit =  localStorage.getItem('limit') || LIMIT // сколько товаров отобразить на странице
         this._sort =  localStorage.getItem('sort') === "false" ? false : true // перемешать ли товары на странице?
-        this._mixNoImg =  localStorage.getItem('mixNoImg') === "false" ? false : true // перемешать ли товары на странице?
+        this._mixNoImg =  localStorage.getItem('mixNoImg') === "false" ? false : true // поместить ли товары без изображений в конец страницы?
         makeAutoObservable(this)
     }
 
