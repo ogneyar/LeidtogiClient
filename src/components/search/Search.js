@@ -22,7 +22,7 @@ const Search = observer((props) => {
 
     const [ value, setValue ] = useState("")
     const [ list, setList ] = useState([])
-    // const [array, setArray] = useState([])
+    const [ array, setArray ] = useState([])
     const [ searchTimeOut, setSearchTimeOut ] = useState(null)
     const [ loading, setLoading ] = useState(false)
     // если поиск не дал результатов
@@ -30,11 +30,11 @@ const Search = observer((props) => {
 
     const history = useHistory()
 
-    // useEffect(() => {
-    //     if (product.allProducts.length) {
-    //         setArray(product.allProducts)
-    //     }
-    // },[product.allProducts])
+    useEffect(() => {
+        if (product.allProducts.length) {
+            setArray(product.allProducts)
+        }
+    },[product.allProducts])
 
     // useEffect(() => { 
     //     if (list.length) {
@@ -58,12 +58,13 @@ const Search = observer((props) => {
         search = search.replace("!","")
         // функция deleteAbbreviation убирает сокращённые названия бренда (hqv, rgk, kvt)
         let searchNumber = deleteAbbreviation(search)
+        // alert("array.length: " + array.length)
         if ( isNumber( searchNumber ) ) {
-            setList(await searchArticle({text:searchNumber, limit: 6}))
-            // setList(array.filter(i => i.article.includes( searchNumber )))
+            if (array && array.length) setList(array.filter(i => i.article.includes( searchNumber )))
+            else setList(await searchArticle({text:searchNumber, limit: 6}))
         }else {
-            setList(await searchName({text:search, limit: 6}))
-            // setList(array.filter(i => i.name.toLowerCase().includes(search.toLowerCase().trim())))
+            if (array && array.length) setList(array.filter(i => i.name.toLowerCase().includes(search.toLowerCase().trim())))
+            else setList(await searchName({text:search, limit: 6}))
         }
         if (list && list.length === 0) setNoSearch(true)
         // else setNoSearch(false)

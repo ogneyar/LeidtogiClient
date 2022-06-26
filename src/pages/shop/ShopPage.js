@@ -38,7 +38,9 @@ const Shop = observer((props) => {
 
     useEffect(() => {
 
-        if (name) { product.setPage(1) }
+        if (name) { product.setPage(1) } 
+
+        let selectedCategory // выбрана категория
 
         // это для роута /shop
         // хотя в принципе этот роут не используется (:
@@ -63,7 +65,8 @@ const Shop = observer((props) => {
             }
         }
 
-        if (product.allProducts.length && category.allCategories.length && name) {
+        if (category.allCategories.length && name) {
+        // if (product.allProducts.length && category.allCategories.length && name) {
 
             // category.setLoading(true)
             // console.log("start")
@@ -83,7 +86,7 @@ const Shop = observer((props) => {
             
             let arr = category.allCategories.filter(i => {
                 if (i.url === name) { // если в url указан категория (напиример: /instrumenti)
-                    category.setSelectedCategory(i) // то сделать её выделенной (таким образом fetchProducts вызовится в следующем useEffect)
+                    category.setSelectedCategory(i) // то сделать её выделенной
                     
                     arrayCategory = [...arrayCategory, i.id]
                     arrayCategory = [...arrayCategory, ...reOpenCategory(category.allCategories, i.sub_category_id)]
@@ -130,7 +133,7 @@ const Shop = observer((props) => {
                     return newArray
                 }
         
-                let selectedCategory // выбрана категория
+                
                 if (returnSelectedCategory?.is_product) { // если выбранная категория содержит товар 
                     selectedCategory = returnSelectedCategory?.id
                 }else {
@@ -140,34 +143,42 @@ const Shop = observer((props) => {
                     )
                 }
                 
-                let returnArrayProducts =[]
-                if (Array.isArray(selectedCategory)) {
-                    returnArrayProducts = product.allProducts.filter(i => {
-                        let yes = false
-                        selectedCategory.forEach(k => {
-                            if (i.categoryId === k) yes = true
-                        })
-                        if (yes) return true
-                        return false
-                    })
-                }else {
-                    returnArrayProducts = product.allProducts.filter(i => i.categoryId === selectedCategory)
-                }
-
-                product.setProducts(returnArrayProducts)
-                product.setTotalCount(returnArrayProducts.length)
+               
                 category.setCategories(returnArrayCategories)
                 
 
                 // setTimeout(() => {
                 //     console.log("stop")
-                setLoadingProduct(false)
                 setLoadingCategory(false)
                 // }, 500)
 
                 // category.setLoading(false)
             }
     
+        }
+
+        if (product.allProducts.length && selectedCategory && name) {
+
+            let returnArrayProducts =[]
+            if (Array.isArray(selectedCategory)) {
+                returnArrayProducts = product.allProducts.filter(i => {
+                    let yes = false
+                    selectedCategory.forEach(k => {
+                        if (i.categoryId === k) yes = true
+                    })
+                    if (yes) return true
+                    return false
+                })
+            }else {
+                returnArrayProducts = product.allProducts.filter(i => i.categoryId === selectedCategory)
+            }
+
+            product.setProducts(returnArrayProducts)
+            product.setTotalCount(returnArrayProducts.length)
+
+            
+            setLoadingProduct(false)
+
         }
 
     },[product.allProducts, category.allCategories, name, product.sort])
@@ -188,7 +199,7 @@ const Shop = observer((props) => {
                     {/* {loadingProduct ? <Loading variant="success" /> 
                     :  */}
                         <div className="ShopProductList">
-                            <ProductList loading={loadingProduct} setLoading={setLoadingProduct} /> 
+                            <ProductList loading={loadingProduct} setLoading={setLoadingProduct} categoryUrl={name ? true : false} /> 
                         </div>
                     {/* } */}
                     

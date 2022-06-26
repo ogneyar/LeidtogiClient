@@ -24,68 +24,34 @@ const ProductList = observer((props) => {
         let offset = product.page * product.limit - product.limit // отступ
         let limit = 0
         
-        if (brand.selectedBrand?.id !== undefined && ! props?.search) { // срабатывает при выборе бренда
+        if ( ! props?.loading || product.allProducts.length ) { // если уже подгружены товары
+            // alert("setInfo")
+            let newArray
+            if (brand.selectedBrand?.id !== undefined) newArray = product.products.filter(k => k.brandId === brand.selectedBrand.id)
+            else newArray = product.products
+            setInfo(newArray.filter((i,index) => {
+                if (index + 1 > offset) {
+                    limit += 1
+                    if (limit <= product.limit) return true
+                }
+                return false
+            }))
+            product.setTotalCount(newArray.length)
+            setLoading(false) 
             
-            if ( ! props?.loading || product.allProducts ) { // ) { 
-                // alert("props?.loading")
-                let newArray = product.products.filter(k => k.brandId === brand.selectedBrand.id)
-                setInfo(newArray.filter((i,index) => {
-                    if (index + 1 > offset) {
-                        limit += 1
-                        if (limit <= product.limit) return true
-                    }
-                    return false
-                }))
-                product.setTotalCount(newArray.length)
-                setLoading(false) 
-                
-            // }else if (loading) {
-            }else {
+        }else {//if (!props?.categoryUrl) {  // если ещё не подгружены товары, загружаем с сервера одну страничку
+            
+            // если есть пропс categoryUrl, то ждём подгрузки selectedCategory.id
+            if ((props?.categoryUrl && category.selectedCategory?.id) || !props?.categoryUrl) {
 
                 if (fetchTimeOut !== null) {
                     clearTimeout(fetchTimeOut)
                 }
                 setFetchTimeOut(setTimeout(() => {
-                    // alert("! props?.loading")
-                    let body = { page: product.page, limit: product.limit, brandId: brand.selectedBrand.id }
-                    if (product.sort) body = { ...body, sort: product.sort }
-                    if (product.mixNoImg) body = { ...body, mix_no_img: product.mixNoImg }
-                    fetchProducts(body)
-                        .then(data => {
-                            setInfo(data.rows)
-                            product.setTotalCount(data.count)
-                            setLoading(false)
-                        })
-                        // .finally(() => setLoading(false))
-                }, 500))
-                
-            }
-       
-        }else {
-            
-            if ( ! props?.loading ) {
-                // alert("else")
-                setInfo(product.products.filter((i,index) => {
-                    if (index + 1 > offset) {
-                        limit += 1
-                        if (limit <= product.limit) return true
-                    }
-                    return false
-                }))
-                
-                product.setTotalCount(product.products.length)
-                setLoading(false)
-
-            }
-            /* если тут закомментитьб то... */
-            else { // загрузка товаров по роуту /shop - пока грузится весь контент
-
-                if (fetchTimeOut !== null) {
-                    clearTimeout(fetchTimeOut)
-                }
-                setFetchTimeOut(setTimeout(() => {
-                    // alert("else else")
+                    // alert("fetchProducts")
                     let body = { page: product.page, limit: product.limit }
+                    if (brand.selectedBrand?.id !== undefined) body = { ...body, brandId: brand.selectedBrand.id }
+                    if (category.selectedCategory?.id !== undefined) body = { ...body, categoryId: category.selectedCategory.id }
                     if (product.sort) body = { ...body, sort: product.sort }
                     if (product.mixNoImg) body = { ...body, mix_no_img: product.mixNoImg }
                     fetchProducts(body)
@@ -96,15 +62,13 @@ const ProductList = observer((props) => {
                         })
                         // .finally(() => setLoading(false))
                 }, 500))
-                
+
             }
-             /* если тут закомментить, то в зависимости (ниже) добавить - props?.loading */
-             /* а если разкомментить, то из зависимостей (ниже) убрать - props?.loading */
 
         }
-
+       
     // eslint-disable-next-line
-    }, [ product.page, product.limit, brand.selectedBrand, category.selectedCategory ]) // , props?.loading
+    }, [ product.page, product.limit, brand.selectedBrand, category.selectedCategory ])
     // }, [ product, product.products, product.page, product.limit, 
     //     brand.selectedBrand, props?.search, props?.loading, props, 
     //     category.selectedCategory, loading ]) 

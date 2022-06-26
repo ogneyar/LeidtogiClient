@@ -24,7 +24,7 @@ const AppRouter = observer(() => {
             let brandName = i?.name.toLowerCase()
             return {
                 path: '/' + brandName,
-                Component: () => BrandPage({ brandName })
+                component: () => BrandPage({ brandName })
             }
         }))
     }, [brand.allBrands])

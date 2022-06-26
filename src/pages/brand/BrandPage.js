@@ -29,7 +29,9 @@ const BrandPage = (props) => {
         })
     },[brand, props?.brandName])
     
+    
     if (url) return <ProductPage brandName={props?.brandName} />
+
 
     return (<>
         <Container
