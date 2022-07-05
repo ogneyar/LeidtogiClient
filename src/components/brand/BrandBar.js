@@ -54,7 +54,7 @@ const BrandBar =  observer((props) => {
 
                     let prod = false
                     if (process.env.REACT_APP_ENV === 'production' && (window.location.hostname === "leidtogi.ru" || window.location.hostname === "www.leidtogi.ru") ) prod = true
-                    if ( ! prod ) {
+                    if ( ! prod ) {} // отключил, теперь бренд LeidTogi показывается всегда
                         return <Card
                             style={{cursor: "pointer", color: br.id === brand.selectedBrand.id ? "#000" : "#ff9900"}}
                             border={br.id === brand.selectedBrand.id ? 'warning' : 'light'}
@@ -65,7 +65,7 @@ const BrandBar =  observer((props) => {
                         >
                             {"LeidTogi"}
                         </Card>
-                    }else return null
+                    // }else return null
 
                 }else if (
                     br.name === "Milwaukee" 
@@ -79,6 +79,8 @@ const BrandBar =  observer((props) => {
                     br.name === "Gedore"
                     || 
                     br.name === "TMK"
+                    // || 
+                    // br.name === "Advanta"
                 ) {
 
                     return <Card
@@ -101,6 +103,8 @@ const BrandBar =  observer((props) => {
                         ? "G E D" 
                         : br.name === "TMK"
                         ? "T M K" 
+                        // : br.name === "Advanta" && window.innerWidth < 992
+                        // ? "A D V" 
                         : br.name}
                     </Card>
 

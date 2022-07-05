@@ -106,8 +106,8 @@ const App = observer(() => {
                     if (product.mixNoImg) data = productsWithOutImageRemoveInEnd(data) 
                     // cмешиваем акционные товары с остальными
                     mixPromo(data) 
-                    if ( ! prod ) product.setAllProducts(data) // if NOT production
-                    else product.setAllProducts(data.filter(i => i.have === 1 && i.brandId !== 10)) // if production mode and NOT LeidTogi brand
+                    if ( ! prod ) product.setAllProducts(data) // if NOT production 
+                    else product.setAllProducts(data.filter(i => i.have === 1)) // && i.brandId !== 10)) // if production mode and NOT LeidTogi brand
                 },
                 error => getError(`Не удалось загрузить товары!`, error)
             )
