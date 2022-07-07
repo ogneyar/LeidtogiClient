@@ -68,7 +68,8 @@ const Cart = () => {
                     // eslint-disable-next-line
                     if(price != data) {
                         price = data
-                        total = i.value * price
+                        // total = i.value * price
+                        total =  Math.round((i.value * price) * 100) / 100
                         setYes(true)
                     }
                 })
@@ -129,8 +130,8 @@ const Cart = () => {
                     if (action === "plus") newValue = Number(i.value) + 1
                     else if (action === "minus") newValue = Number(i.value) - 1
                     if (newValue === 0) newValue = 1
-                    let newTotal = newValue * Number(i.price)
-                    totalValue += Number(newTotal)
+                    let newTotal = Math.round((newValue * Number(i.price)) * 100) / 100
+                    totalValue += newTotal
                     return {...i, value: newValue, total: newTotal}
                 }
                 totalValue += Number(i.total)

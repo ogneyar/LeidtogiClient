@@ -41,11 +41,11 @@ const ButtonBuy = (props) => {
         }
             
         if (img[0]?.big !== undefined) {
-            if (img[0]?.small !== undefined) {
-                setImage(API_URL + img[0]?.small)
-            }else {
+            // if (img[0]?.small !== undefined) {
+            //     setImage(API_URL + img[0]?.small)
+            // }else {
                 setImage(API_URL + img[0]?.big)
-            }
+            // }
         }else {
             if (props.product.brandId === 9) {
                 setImage(URL + "images/brands/tmk/TMK_logo_big.jpg")
@@ -58,21 +58,23 @@ const ButtonBuy = (props) => {
 
     const onClickValue = (e, arg) => {
         if (arg === "plus") {
-            let cart = onClickButtonBuy(e, props?.product)
-            cart.then(data => {
-                data.forEach(i => {
-                    if (i.id === props?.product?.id) {
-                        setValue(i.value)
-                    }
+            if (value < 1e6) { // 1e6 - 1 * 10^6 = 1 000 000
+                let cart = onClickButtonBuy(e, props?.product)
+                cart.then(data => {
+                    data.forEach(i => {
+                        if (i.id === props?.product?.id) {
+                            setValue(i.value)
+                        }
+                    })
+                    context.cart.setCart(data)
                 })
-                context.cart.setCart(data)
-            })
-            addDataLayer({
-                article: props?.product?.article,
-                name: props?.product?.name,
-                price: props?.product?.price,
-                value: 1
-            })
+                addDataLayer({
+                    article: props?.product?.article,
+                    name: props?.product?.name,
+                    price: props?.product?.price,
+                    value: 1
+                })
+            }
         }
         if (arg === "minus") {
             if (value > 1) {
@@ -107,7 +109,39 @@ const ButtonBuy = (props) => {
                 value
             })
         }
+        if (arg === "change") {
+            if (Number(e.target.value) && e.target.value !== value) {
+                // если введённое значение больше чем 1 000 000
+                if (Number(e.target.value) > 1e6) return // выходим
+                if (e.target.value > value) {
+                    addDataLayer({
+                        article: props?.product?.article,
+                        name: props?.product?.name,
+                        price: props?.product?.price,
+                        value: e.target.value - value
+                    })
+                }
+                if (e.target.value < value) {
+                    removeDataLayer({
+                        article: props?.product?.article,
+                        name: props?.product?.name,
+                        price: props?.product?.price,
+                        value: value - e.target.value
+                    })
+                }
+                let cart = onClickButtonBuy(e, props?.product, "change")
+                cart.then(data => {
+                    data.forEach(i => {
+                        if (i.id === props?.product?.id) {
+                            setValue(i.value)
+                        }
+                    })
+                    context.cart.setCart(data)
+                })
+            }
+        }
     }
+
 
     return (
         <>
@@ -189,20 +223,33 @@ const ButtonBuy = (props) => {
                     >
                         <div>
                             <label>Цена</label>
+                            <br />
                             {/* {priceFormater(props?.product?.price)}&nbsp;р. */}
                             {props?.product?.price}&nbsp;р.
                         </div>
                         <div className="NotificationCart_price_value">
                             <label>Количество</label>
+                            <br />
                             
                             <small onClick={(e) => onClickValue(e, "minus")} className="NotificationCart_price_value_minus">-</small>
-                            <small className="NotificationCart_price_value_data">{value}</small>
+
+                            {/* <small className="NotificationCart_price_value_data">{value}</small> */}
+                            <input 
+                                // className="NotificationCart_price_value_data" 
+                                style={{display: "inline-block"}}
+                                type="text" 
+                                value={value} 
+                                onChange={(e) => onClickValue(e, "change")}
+                                size="2"
+                            />
+
                             <small onClick={(e) => onClickValue(e, "plus")} className="NotificationCart_price_value_plus">+</small>
                         </div>
                         <div>
                             <label>Итого</label>
+                            <br />
                             {/* {priceFormater(props?.product?.price * value)}&nbsp;р. */}
-                            {props?.product?.price * value}&nbsp;р.
+                            {Math.round((props?.product?.price * value) * 100) / 100}&nbsp;р.  
                         </div>
                         <div>
                             <label>&nbsp;</label>

@@ -14,7 +14,7 @@ export const onClickButtonBuy = async (e, product, type = "add") => {
     if (cart) {
         cart = JSON.parse(cart)
 
-        if (type === "add" || type === "remove") {
+        if (type === "add" || type === "remove" || type === "change") {
             let yes 
             cart = cart.map(i => {
                 if (i.id === product.id) {
@@ -28,8 +28,13 @@ export const onClickButtonBuy = async (e, product, type = "add") => {
                             newValue = Number(i.value)
                         }
                     }
+                    if (type === "change") {newValue = Number(e.target.value)}
                     
-                    return {...i, value: newValue, total: Number(i.price) * newValue}
+                    return {
+                        ...i, 
+                        value: newValue, 
+                        total: Math.round((Number(i.price) * newValue) * 100) / 100
+                    }
                 } else return i
             })
             if (!yes && type === "add") {

@@ -4,10 +4,6 @@
     padding: 5px 10px;
 }
 
-.ButtonBuyNotification {
-    /* width: 1000px; */
-}
-
 .NotificationDiv {
     display: flex; 
     justify-content:center; 
@@ -41,23 +37,17 @@
     color: grey;
 }
 
-.NotificationCart_price {
+.NotificationCart_price { 
     display: flex; 
     justify-content:space-between; 
     align-items: center;
     text-align: center;
 }
 .NotificationCart_price div {
-    /* background-color: aqua; */
-    margin: 10px;
+    margin: 5px;
 }
 .NotificationCart_price label {
-    /* background-color: greenyellow; */
     font-size: 14px;
-}
-
-.NotificationDiv span {
-    /* font-size: 22px; */
 }
 
 .NotificationDivButtons {
@@ -72,9 +62,16 @@
     font-weight: 700;
 }
 
+.NotificationCart_price_value {
+    min-width: 120px;
+}
 .NotificationCart_price_value small {
-    /* border: 1px solid grey; */
     padding: 0 10px;
+}
+.NotificationCart_price_value input {
+    padding: 0 5px;
+    margin: 0 2px;
+    text-align: center;
 }
 .NotificationCart_price_value_minus,
 .NotificationCart_price_value_plus,
