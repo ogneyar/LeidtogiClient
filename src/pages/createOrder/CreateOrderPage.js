@@ -49,7 +49,8 @@ const CreateOrderPage = () => {
         if (cart?.cart) {
             let totalValue = 0
             cart?.cart.forEach(i => totalValue += i.total)
-            setAmount(totalValue)
+            // setAmount(totalValue)
+            setAmount(Math.round(totalValue * 100) / 100)
         }
     }, [cart?.cart])
 
@@ -152,13 +153,17 @@ const CreateOrderPage = () => {
     }
     
     const onClickCreateGuest = async () => {
-            const guest = await createGuest({
-                name, phone: "7" + phone.match(/\d/g).join('').toString(), email: newEmail
-            })
-            setClient(guest.id)
-            setRole(guest.role)
-            setEmail(newEmail)
-            window.innerWidth > 991 ? scrollUp(SCROLL_TOP) : scrollUp(SCROLL_TOP_MOBILE)
+        if (!newEmail.includes("@") || !newEmail.includes(".")) {
+            alert("Введён неверный Email адрес!")
+            return
+        }
+        const guest = await createGuest({
+            name, phone: "7" + phone.match(/\d/g).join('').toString(), email: newEmail
+        })
+        setClient(guest.id)
+        setRole(guest.role)
+        setEmail(newEmail)
+        window.innerWidth > 991 ? scrollUp(SCROLL_TOP) : scrollUp(SCROLL_TOP_MOBILE)
     }
     
     const onClickPickupButton = async () => {
@@ -178,6 +183,8 @@ const CreateOrderPage = () => {
         setMessage("")
         window.innerWidth > 991 ? scrollUp(SCROLL_TOP) : scrollUp(SCROLL_TOP_MOBILE)
     }
+
+    // const onChangeNewEmail = (value) => {}
 
     if (load) return <Loading />
 
@@ -305,12 +312,18 @@ const CreateOrderPage = () => {
                                                 if (i.name.length > 20) {
                                                     return <>
                                                         <span style={{fontSize:"0.8rem"}}>{i.article}</span>
-                                                        <p>{index+1}.&nbsp;{i.name.substring(0,20)+"... - "+ i.value + "шт. - "}<strong>{i.price}&nbsp;р.</strong></p>
+                                                        <p>
+                                                            {index+1}.&nbsp;{i.name.substring(0,20)+"... - "+ i.value + "шт. x " + i.price + "р. - "}
+                                                            <strong>{Math.round((i.price * i.value) * 100) / 100}&nbsp;р.</strong>
+                                                        </p>
                                                     </>
                                                 }
                                                 return <>
                                                     <span style={{fontSize:"0.8rem"}}>{i.article}</span>
-                                                    <p>{index+1}.&nbsp;{i.name + i.value + "шт. - "}<strong>{i.price}&nbsp;р.</strong></p>
+                                                    <p>
+                                                        {index+1}.&nbsp;{i.name + i.value + "шт. x " + i.price + "р. - "}
+                                                        <strong>{Math.round((i.price * i.value) * 100) / 100}&nbsp;р.</strong>
+                                                    </p>
                                                 </>
                                             })}
                                         </div>
@@ -363,9 +376,15 @@ const CreateOrderPage = () => {
                                         <div style={{border:"1px solid grey", padding:"15px 0 5px 0",width:"100%",textAlign:"center"}}>
                                             {cart?.cart.map(i => {
                                                 if (i.name.length > 20) {
-                                                    return <p key={i.id+33}>{i.name.substring(0,20)+"... - "+ i.value + "шт. - "}<strong>{i.price}р.</strong></p>
+                                                    return <p key={i.id+33}>
+                                                        {i.name.substring(0,20)+"... - "+ i.value + "шт. x " + i.price + "р. - "}
+                                                        <strong>{Math.round((i.price * i.value) * 100) / 100}&nbsp;р.</strong>
+                                                    </p>
                                                 }
-                                                return <p key={i.id+33}>{i.name + i.value + "шт. - "}<strong>{i.price}р.</strong></p>
+                                                return <p key={i.id+33}>
+                                                    {i.name + i.value + "шт. x " + i.price + "р. - "}
+                                                    <strong>{Math.round((i.price * i.value) * 100) / 100}&nbsp;р.</strong>
+                                                </p>
                                             })}
                                         </div>
                                         <br />
@@ -374,7 +393,7 @@ const CreateOrderPage = () => {
                                         <p>Товара на сумму: <strong>{amount}р.</strong></p>
                                         <p>Доставка на сумму: <strong>{deliverySum}р.</strong></p>
 
-                                        <p style={{fontSize:"20px"}}>Итого к оплате: <strong>{amount + deliverySum}р.</strong></p>
+                                        <p style={{fontSize:"20px"}}>Итого к оплате: <strong>{Math.round((amount + deliverySum) * 100) / 100}р.</strong></p>
                                     </div>
                                     <Payment 
                                         address={address}

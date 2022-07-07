@@ -64,6 +64,7 @@ const Cart = () => {
             cart.forEach(async i => {
                 let price = i.price
                 let total = i.total
+                // let total = Math.round(i.total * 100) / 100
                 await getPrice(i.id).then(data => {
                     // eslint-disable-next-line
                     if(price != data) {
@@ -74,7 +75,7 @@ const Cart = () => {
                     }
                 })
                 totalValue += Number(total)
-                setAmount(totalValue)
+                setAmount(Math.round(totalValue * 100) / 100)
                 setNewCart([...newCart,{...i, price, total}])
             })
         }
@@ -100,7 +101,8 @@ const Cart = () => {
                     return false
                 })
                 setState(cart)
-                setAmount(totalValue)
+                // setAmount(totalValue)
+                setAmount(Math.round(totalValue * 100) / 100)
                 localStorage.setItem('cart', JSON.stringify(cart))
                 context.cart.setCart(cart)
             }
@@ -153,7 +155,8 @@ const Cart = () => {
                 })
             }
             setState(cart)
-            setAmount(totalValue)
+            // setAmount(totalValue)
+            setAmount(Math.round(totalValue * 100) / 100)
             localStorage.setItem('cart', JSON.stringify(cart))
             context.cart.setCart(cart)
         }

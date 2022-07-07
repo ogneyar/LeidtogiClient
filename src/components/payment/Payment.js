@@ -64,7 +64,7 @@ const Payment = (props) => {
                     }
                 },
                 error => {
-                    console.log("error",error);
+                    // console.log("error",error)
                     props?.setMessage(error.message)
                    
                 })

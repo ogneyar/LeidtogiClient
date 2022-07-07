@@ -104,7 +104,7 @@ const DeliveryBoxberry = observer((props) => {
                     }else {
                         props?.setTextAlert("Ошибка: " + response.error)
                     }
-                }else {
+                }else { 
                     props?.setDelivery("boxberry")
                     props?.setDeliverySum(Math.round( ( (Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE) * DELIVERY_EXTRA_CHARGE ) * 100 ) / 100)
                     props?.setPayment(true)
