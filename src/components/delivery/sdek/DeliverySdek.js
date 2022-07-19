@@ -28,7 +28,7 @@ const DeliverySdek = observer((props) => {
     const [listCities, setListCities] = useState([])
     
     // eslint-disable-next-line
-    const [ tariff, setTariff ] = useState("138")
+    const [ tariff, setTariff ] = useState("138") // 138 - от Двери то Склада // 136 - от Склада до Склада
 
     const [ info, setInfo ] = useState({
         total_sum:"", period_min:"", period_max:"", weight_calc:"", currency:"", delivery_sum:""
@@ -126,9 +126,8 @@ const DeliverySdek = observer((props) => {
     const calculateAndOpenPayment = async (address) => {
         let cart
         cart = localStorage.getItem('cart')
-        
         if (cart) {
-            if (info.total_sum !== "") {
+            // if (info.total_sum !== "") {
                 cart = JSON.parse(cart)
                 let weight = 0
                 cart.forEach( i => weight += (Number(i?.value) * Number(i?.size?.weight)) )
@@ -162,12 +161,14 @@ const DeliverySdek = observer((props) => {
                     props?.setDeliverySum(total_sum)
                     props?.setPayment(true)
                 }
-            }else {
-                props?.setTextAlert(`Отсутствуют данные о стоимости доставки!`)
-            }
+            // }else {
+                // props?.setTextAlert(`Отсутствуют данные о стоимости доставки!`)
+                // alert(`Отсутствуют данные о стоимости доставки!`)
+            // }
 
         }else {
-            props?.setTextAlert(`Отсутствуют данные о корзине товаров!`)
+            // props?.setTextAlert(`Отсутствуют данные о корзине товаров!`)
+            alert(`Отсутствуют данные о корзине товаров!`)
         }
     }
 
@@ -201,7 +202,7 @@ const DeliverySdek = observer((props) => {
                 if (name) {
                     let data = await getLocationSities({ city: name })
                     if (data && data?.code !== undefined) {
-                        to_location = { code: data?.code }
+                        to_location = { code: data.code }
                     }else {
                         response = {error: {message: "В таком городе не найден склада СДЭК"} }
                     }
@@ -227,9 +228,9 @@ const DeliverySdek = observer((props) => {
             
             if (response?.error) {
                 if (response.error?.message) {
-                    props?.setTextAlert("Ошибка: " + response.error.message)
+                    props?.setTextAlert("1) Ошибка: " + response.error.message)
                 }else {
-                    props?.setTextAlert("Ошибка: " + response.error)
+                    props?.setTextAlert("2) Ошибка: " + response.error)
                 }
             }else if (response?.errors) {
                 if (response.errors[0].code === "ERR_PVZ_WITH_TARIFF_MISTAKE") {
@@ -244,7 +245,7 @@ const DeliverySdek = observer((props) => {
                         }
                     }
                 }else {
-                    props?.setTextAlert("Ошибка: " + response.errors[0]?.message)
+                    props?.setTextAlert("3) Ошибка: " + response.errors[0]?.message)
                 }
             }else {
                 if (response.total_sum) {
