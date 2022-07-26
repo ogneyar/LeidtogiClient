@@ -13,6 +13,7 @@ export default function deleteAbbreviation(string){
         .replace("esa","")
         .replace("aeg","")
         .replace("adv","")
+		.replace("LT","")
 		.replace("lt","")
         .trim()
 }
