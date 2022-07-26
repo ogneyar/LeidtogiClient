@@ -67,7 +67,7 @@ const ProductItem = ({product}) => {
                 <div className="product-body">
 
                     <div className="product-name">
-                        {product.name.length > 90
+                        {product?.name && product?.name.length > 90
                         ?
                             <div title={product.name}>{product.name.slice(0, 80) + "..."}</div>
                         :

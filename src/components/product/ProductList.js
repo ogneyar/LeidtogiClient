@@ -56,8 +56,9 @@ const ProductList = observer((props) => {
                     if (product.mixNoImg) body = { ...body, mix_no_img: product.mixNoImg }
                     fetchProducts(body)
                         .then(data => {
-                            setInfo(data.rows)
-                            product.setTotalCount(data.count)
+							if (data.count) setInfo(data.rows)
+							else setInfo([])
+							product.setTotalCount(data.count)
                             setLoading(false)
                         })
                         // .finally(() => setLoading(false))
