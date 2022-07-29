@@ -33,7 +33,7 @@ const MilwaukeeParserPage = observer((props) => {
         const formData = new FormData()
         formData.append("feed", feed)
       
-        await mlkChangePriceAll(formData)
+        await mlkChangePriceAll(formData, value)
             .then(data => {
                 if (data?.error) {
                     setMessage(data.error)

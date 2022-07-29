@@ -40,10 +40,11 @@ export const mlkChangePriceOne = async (formData, number) => {
 }
 
 // смена цены всех товаров
-export const mlkChangePriceAll = async (formData) => {
+export const mlkChangePriceAll = async (formData, number) => {
     const {data} = await $authHost.post('api/parser/milwaukee', formData, {
         params: {
-            change: true
+            change: true,
+            number
         }
     })
     return data
