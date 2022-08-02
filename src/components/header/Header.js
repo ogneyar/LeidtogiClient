@@ -19,7 +19,7 @@ const Header = () => {
             <Top />
             <NavBar />
             <Address />
-            {/* <Banner /> */}
+            <Banner />
             {/* <Carousel /> */}
             <Aside />
         </header>

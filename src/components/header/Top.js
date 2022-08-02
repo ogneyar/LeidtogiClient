@@ -1,16 +1,31 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
-import { Container, NavLink } from '../myBootstrap'
+import { Container } from '../myBootstrap'
 import { 
     SHOP_ROUTE, DELIVERY_ROUTE, PAYMENT_ROUTE, 
-    CONTACTS_ROUTE, SPECIALS_ROUTE, SUPPORT_ROUTE 
+    CONTACTS_ROUTE, SPECIALS_ROUTE, SUPPORT_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE 
 } from '../../utils/consts'
 
 import './Top.css'
 import Search from '../search/Search'
+import scrollUp from '../../utils/scrollUp'
 
 
 const Top = () => {
+    
+    const history = useHistory()
+
+    const onClickBox = (route, scroll = 0) => {
+        if (! scroll) {
+            if (window.innerWidth > 575) scroll = SCROLL_TOP
+            else scroll = SCROLL_TOP_MOBILE
+        }
+        history.push(route)
+        scrollUp(scroll) 
+    }
+    
+
     return (
         <div id="top" className="Top">
             <Container className="TopContainer">
@@ -20,53 +35,59 @@ const Top = () => {
                     >
                         <div className="TopDivLink">
                             <strong className="TopLinkStrong">
-                                <NavLink
+                                <div
                                     className="NavLink NavLink_Top_Shop"
                                     // to={ABOUT_US_ROUTE}
-                                    to={SHOP_ROUTE}
+                                    // to={SHOP_ROUTE}
+                                    onClick={()=>onClickBox(SHOP_ROUTE)}
                                 >
                                     Магазин
-                                </NavLink>
+                                </div>
                             </strong>
                             <strong className="TopLinkStrong">
-                                <NavLink
+                                <div
                                     className="NavLink NavLink_Top"
-                                    to={DELIVERY_ROUTE}
+                                    // to={DELIVERY_ROUTE}
+                                    onClick={()=>onClickBox(DELIVERY_ROUTE)}
                                 >
                                     Доставка
-                                </NavLink>
+                                </div>
                             </strong>
                             <strong className="TopLinkStrong">
-                                <NavLink
+                                <div
                                     className="NavLink NavLink_Top"
-                                    to={PAYMENT_ROUTE}
+                                    // to={PAYMENT_ROUTE}
+                                    onClick={()=>onClickBox(PAYMENT_ROUTE)}
                                 >
                                     Оплата
-                                </NavLink>
+                                </div>
                             </strong>
                             <strong className="TopLinkStrong">
-                                <NavLink
+                                <div
                                     className="NavLink NavLink_Top_Specials"
-                                    to={SPECIALS_ROUTE}
+                                    // to={SPECIALS_ROUTE}
+                                    onClick={()=>onClickBox(SPECIALS_ROUTE)}
                                 >
                                     Акции
-                                </NavLink>
+                                </div>
                             </strong>
                             <strong className="TopLinkStrong">
-                                <NavLink
+                                <div
                                     className="NavLink NavLink_Top"
-                                    to={CONTACTS_ROUTE}
+                                    // to={CONTACTS_ROUTE}
+                                    onClick={()=>onClickBox(CONTACTS_ROUTE)}
                                 >
                                     Контакты
-                                </NavLink>
+                                </div>
                             </strong>
                             <strong className="TopLinkStrong">
-                                <NavLink
+                                <div
                                     className="NavLink NavLink_Top_Support"
-                                    to={SUPPORT_ROUTE}
+                                    // to={SUPPORT_ROUTE}
+                                    onClick={()=>onClickBox(SUPPORT_ROUTE)}
                                 >
                                     Тех. поддержка
-                                </NavLink>
+                                </div>
                             </strong>
 					    </div>
 				    </div>

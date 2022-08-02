@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
-import { Container } from 'react-bootstrap'
+// import { Container } from 'react-bootstrap'
+
+// import url from 'images/banner.jpg'
 
 import './Banner.css'
 
@@ -12,12 +14,19 @@ const Banner = () => {
     },[])
     
     return (
-        <Container
+        <div
           id="containerBoots"
           className="Banner"
         >
+            <div
+                className="Banner_img"
+            >
+
+                <img src={"images/banner.jpg"} alt="banner" />
+
+            </div>
         
-        </Container>
+        </div>
     )
       
 }

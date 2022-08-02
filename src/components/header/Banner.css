@@ -6,4 +6,20 @@
 .Banner {
     /* background-color: var(--main-silver-color); */
     /* height: var(--height-banner); */
+    /* width: 100%; */
+    padding-top: 20px;
+}
+
+.Banner_img {
+    width: 100%;
+}
+
+.Banner_img img {
+    width: 100%;
+}
+
+@media(max-width: 575px) {
+    .Banner {
+        padding-top: 10px;
+    }
 }

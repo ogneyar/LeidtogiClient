@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { MILWAUKEE_ROUTE, HUSQVARNA_ROUTE, GEDORE_ROUTE, RGK_ROUTE, KVT_ROUTE } from '../../utils/consts'
+import { 
+    MILWAUKEE_ROUTE, HUSQVARNA_ROUTE, GEDORE_ROUTE, RGK_ROUTE, KVT_ROUTE, 
+    SCROLL_TOP, SCROLL_TOP_MOBILE 
+} from '../../utils/consts'
 import scrollUp from '../../utils/scrollUp'
 import array from './mainData'
 import './MainPage.css'
@@ -16,9 +19,13 @@ const MainPage = () => {
 
     const [ quantity, setQuantity ] = useState(0)
 
-    const onClickBox = (route, scroll = 200) => {
+    const onClickBox = (route, scroll = 0) => {
+        if (! scroll) {
+            if (window.innerWidth > 575) scroll = SCROLL_TOP
+            else scroll = SCROLL_TOP_MOBILE
+        }
         history.push(route)
-        scrollUp(scroll)
+        scrollUp(scroll) 
     }
 
     useEffect(() => {
