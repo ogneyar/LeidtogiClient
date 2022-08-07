@@ -22,7 +22,7 @@ const BrandParserPage = observer((props) => {
     const [ number, setNumber ] = useState(0)
 
     /* для Адванта-М */
-    const [ chapter, setChapter ] = useState("gpo")
+    const [ chapter, setChapter ] = useState(props.brand === "advanta" ? "gpo" : "")
 
     
     const onClickButtonAddNewProduct = async () => {
