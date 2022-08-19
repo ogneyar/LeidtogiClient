@@ -43,6 +43,7 @@ const ParserPage = observer(() => {
                 <button onClick={() => setBrandAndScroll("tmk")} >TMK</button>
                 <button onClick={() => setBrandAndScroll("advanta")} >Advanta-M</button>
                 <button onClick={() => setBrandAndScroll("euroboor")} >Euroboor</button>
+                <button onClick={() => setBrandAndScroll("tor")} >Tor</button>
                 <br />
                 <button onClick={() => history.push(ADMIN_ROUTE)} >Назад</button>
             </div>
@@ -51,21 +52,23 @@ const ParserPage = observer(() => {
         
     if (brand === "leidtogi") return <LeidTogiParserPage setBrand={setBrandAndScroll} />
 
-    if (brand === "milwaukee") return <MilwaukeeParserPage setBrand={setBrandAndScroll} />
+    else if (brand === "milwaukee") return <MilwaukeeParserPage setBrand={setBrandAndScroll} />
 
-    if (brand === "rgk") return <RgkParserPage setBrand={setBrandAndScroll} />
+    else if (brand === "rgk") return <RgkParserPage setBrand={setBrandAndScroll} />
     
-    if (brand === "husqvarna") return <HusqvarnaParserPage setBrand={setBrandAndScroll} />
+    else if (brand === "husqvarna") return <HusqvarnaParserPage setBrand={setBrandAndScroll} />
 
-    if (brand === "kvt") return <KvtParserPage setBrand={setBrandAndScroll} />
+    else if (brand === "kvt") return <KvtParserPage setBrand={setBrandAndScroll} />
     
-    if (brand === "gedore") return <GedoreParserPage setBrand={setBrandAndScroll} />
+    else if (brand === "gedore") return <GedoreParserPage setBrand={setBrandAndScroll} />
 
-    if (brand === "tmk") return <TmkParserPage setBrand={setBrandAndScroll} brand={brand} />
+    else if (brand === "tmk") return <TmkParserPage setBrand={setBrandAndScroll} brand={brand} />
 
-    if (brand === "advanta") return <BrandParserPage setBrand={setBrandAndScroll} brand={brand} />
+    else return <BrandParserPage setBrand={setBrandAndScroll} brand={brand} />
 
-    if (brand === "euroboor") return <BrandParserPage setBrand={setBrandAndScroll} brand={brand} />
+    // if (brand === "euroboor") return <BrandParserPage setBrand={setBrandAndScroll} brand={brand} />
+
+    // if (brand === "tor") return <BrandParserPage setBrand={setBrandAndScroll} brand={brand} />
 
 })
 
