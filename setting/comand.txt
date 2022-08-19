@@ -9,12 +9,9 @@ nvm install 12.22.7
 
 npm i pm2 -g
 
-cd /root/repair
-pm2 start repair.js
-cd /root/server
-pm2 start server.js
-cd /root/client
-pm2 start client.js
+pm2 start /root/repair/repair.js
+pm2 start /root/server/server.js
+pm2 start /root/client/client.js
 
 service nginx ( status | start | stop | restart )
 
