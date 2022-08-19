@@ -22,7 +22,7 @@ const Banner = () => {
                 className="Banner_img"
             >
 
-                <img src={"images/banner.jpg"} alt="banner" />
+                <img src={"/images/banner.jpg"} alt="banner" />
 
             </div>
         

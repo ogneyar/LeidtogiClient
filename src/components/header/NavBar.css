@@ -92,6 +92,10 @@
     color: var(--main-white-color); 
 }
 
+.NavLink {
+    cursor: pointer;
+}
+
 .NavBar_Logo {
     background-color: var(--main-white-color);
     padding: 10px;

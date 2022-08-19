@@ -4,13 +4,14 @@ import ReactHtmlParser from 'react-html-parser'
 import { useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
-import { NavLink } from '../myBootstrap'
-import { Context } from '../..'
-import { ADMIN_ROUTE, LOGIN_ROUTE, CART_ROUTE, LK_ROUTE, NAME, ADDRESS, PHONE_ONE, MAIL } from '../../utils/consts'
+// import { NavLink } from '../myBootstrap'
+import { ADMIN_ROUTE, LOGIN_ROUTE, CART_ROUTE, LK_ROUTE, NAME, ADDRESS, PHONE_ONE, MAIL, SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
 import logo from '../../assets/logo.png'
 import basket from '../../assets/cart.png'
 import { logout } from '../../http/userAPI'
+import scrollUp from '../../utils/scrollUp'
 
+import { Context } from '../..'
 import './NavBar.css';
 
 
@@ -24,7 +25,17 @@ const NavBar = observer(() => {
         user.setIsAuth(false)
         // localStorage.removeItem('token') 
         logout()
-        history.push(LOGIN_ROUTE)
+        // history.push(LOGIN_ROUTE)
+        onClickAndScroll(LOGIN_ROUTE)
+    }
+
+    const onClickAndScroll = (route, scroll = 0) => {
+        if (! scroll) {
+            if (window.innerWidth > 575) scroll = SCROLL_TOP
+            else scroll = SCROLL_TOP_MOBILE
+        }
+        history.push(route)
+        scrollUp(scroll) 
     }
 
     const [ quantity, setQuantity ] = useState(0)
@@ -51,8 +62,10 @@ const NavBar = observer(() => {
                     <div 
                         className="NavBar_Col_Logo"
                     >
-                        <NavLink className="NavLink NavBar_NavLink"
-                            to="/"
+                        {/* <NavLink className="NavLink NavBar_NavLink" */}
+                        <div className="NavLink NavBar_NavLink"
+                            // to="/"
+                            onClick={() => onClickAndScroll("/")}
                         >
 
                             <Image src={logo} className="NavBar_Logo" />
@@ -63,7 +76,7 @@ const NavBar = observer(() => {
                                 Стройте с нами, экономьте время
                             </div>
                             
-                        </NavLink>
+                        </div>
                     </div>
 
                     <div
@@ -78,8 +91,10 @@ const NavBar = observer(() => {
                     <div 
                         className="NavBar_Col_Buttons"
                     >
-                            <NavLink className="NavLink NavBar_Cart"
-                                to={CART_ROUTE}
+                            {/* <NavLink className="NavLink NavBar_Cart" */}
+                            <div className="NavLink NavBar_Cart"
+                                // to={CART_ROUTE}
+                                onClick={() => onClickAndScroll(CART_ROUTE)}
                             >
                                 <div className="NavBar_Cart_Box">
 
@@ -88,7 +103,7 @@ const NavBar = observer(() => {
                                    {quantity !== 0 && <span>{quantity}</span>}
 
                                 </div>
-                            </NavLink>
+                            </div>
                         <Nav>
                             {user.loading
                             ?
@@ -104,13 +119,15 @@ const NavBar = observer(() => {
                                     <>
                                         <Button 
                                             variant={'outline-light'} 
-                                            onClick={() => history.push(ADMIN_ROUTE)}
+                                            // onClick={() => history.push(ADMIN_ROUTE)}
+                                            onClick={() => onClickAndScroll(ADMIN_ROUTE)}
                                         >
                                             АП
                                         </Button>
                                         <Button 
                                             variant={'outline-light'} 
-                                            onClick={() => history.push(LK_ROUTE)}
+                                            // onClick={() => history.push(LK_ROUTE)}
+                                            onClick={() => onClickAndScroll(LK_ROUTE)}
                                             className="ml-2"
                                         >
                                             ЛК
@@ -119,7 +136,8 @@ const NavBar = observer(() => {
                                     : 
                                         <Button 
                                             variant={'outline-light'} 
-                                            onClick={() => history.push(LK_ROUTE)}
+                                            // onClick={() => history.push(LK_ROUTE)}
+                                            onClick={() => onClickAndScroll(LK_ROUTE)}
                                         >
                                             Личный Кабинет
                                         </Button>
@@ -137,7 +155,8 @@ const NavBar = observer(() => {
                             
 
                                 <Button 
-                                    onClick={() => history.push(LOGIN_ROUTE + "?returnUrl=" + history?.location?.pathname)}
+                                    // onClick={() => history.push(LOGIN_ROUTE + "?returnUrl=" + history?.location?.pathname)}
+                                    onClick={() => onClickAndScroll(LOGIN_ROUTE + "?returnUrl=" + history?.location?.pathname)}
                                     variant={'outline-light'}
                                 >
                                     Авторизация
