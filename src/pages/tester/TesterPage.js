@@ -3,7 +3,9 @@ import { Button } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 
 import { fetchAllProducts, updateProduct } from '../../http/productAPI'
-import { setLocationCitiesSdek, setFeed, setPlacesDl, setSiteMap } from '../../http/testerAPI'
+import { 
+    setLocationCitiesSdek, setFeed, setPlacesDl, setSiteMap, getLengthTor, editWeightTor
+} from '../../http/testerAPI'
 import { getAllProductSizes } from '../../http/productSizeAPI'
 import { getAllProductInfos } from '../../http/productInfoAPI'
 import { Alert } from '../../components/myBootstrap'
@@ -30,6 +32,8 @@ const TesterPage = () => {
     const [ locationCities, setLocationCities ] = useState("")
     const [ loading, setLoading ] = useState(false)
     const [ page, setPage ] = useState(0)
+
+    const [ weight, setWeight ] = useState("")
 
 
     // eslint-disable-next-line
@@ -200,6 +204,23 @@ const TesterPage = () => {
     }, [page])
 
 
+    //
+    const setNewWeight = async () => {
+        let length = await getLengthTor()
+
+        if (length > 0) {
+            for(let i = 0; i < length; i = i + 10) {
+                let stop = i + 9
+                if ((length - i) < 10) stop = length - 1 
+                editWeightTor(i, stop).then(data => {
+                    setWeight(data)  
+                    console.log(data)
+                })
+            }
+        }
+    }
+
+
     if (loading) return <Loading />
 
     return (
@@ -254,6 +275,17 @@ const TesterPage = () => {
                     </Button>
                     <hr />
                 </div>
+
+                
+                <div>
+                    <br />
+                    Смена веса у tor (перевод в кг)
+                    <hr />
+                    {weight && <> {weight} <br /> </>}
+                    <Button onClick={setNewWeight}> Начать перевод </Button>
+                    <hr />
+                </div>
+
 
 
                 <br />

@@ -274,7 +274,7 @@ const ProductPage =  observer((props) => {
                         }
                         </table>    
                         </>
-                        : info?.title === "description" 
+                        : info?.title === "description" && product.brandId !== 13 // отключил бренд "tor"
                             ? 
                             <>
                             <h2>Описание</h2>

@@ -26,3 +26,18 @@ export const echo = async () => {
     const { data } = await $host.get('echo')
     return data
 }
+
+export const getLengthTor = async () => {
+    const { data } = await $host.get('api/tester/get_length_tor')
+    return data
+}
+
+export const editWeightTor = async (start, stop) => {
+    const { data } = await $host.get('api/tester/edit_weight_tor', {
+        params: {
+            start,
+            stop
+        }
+    })
+    return data
+}
