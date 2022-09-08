@@ -15,5 +15,6 @@ export default function deleteAbbreviation(string){
         .replace("adv","")
 		.replace("LT","")
 		.replace("lt","")
+		.replace("tor","")
         .trim()
 }
