@@ -101,6 +101,13 @@ const BrandPage = (props) => {
                     <img src={"images/brands/euroboor/Euroboor_logo.jpg"}  alt="logo_euroboor" />
                 </div>
                 : 
+                props?.brandName === "tor" 
+                ?
+                <div className="BrandPage_image">
+                    {/* Пропорции лого бренда 7:1 */}
+                    <img src={"images/brands/tor/Tor_logo.jpg"}  alt="logo_tor" />
+                </div>
+                : 
                 props?.brandName.replace(props?.brandName[0], props?.brandName[0].toUpperCase())
             }
         </Container>

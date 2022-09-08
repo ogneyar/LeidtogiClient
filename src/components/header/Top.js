@@ -41,7 +41,7 @@ const Top = () => {
                                     // to={SHOP_ROUTE}
                                     onClick={()=>onClickBox(SHOP_ROUTE)}
                                 >
-                                    Магазин
+                                    Продукция
                                 </div>
                             </strong>
                             <strong className="TopLinkStrong">

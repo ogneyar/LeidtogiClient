@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 
 import { 
     MILWAUKEE_ROUTE, HUSQVARNA_ROUTE, GEDORE_ROUTE, RGK_ROUTE, KVT_ROUTE, 
-    SCROLL_TOP, SCROLL_TOP_MOBILE 
+    SCROLL_TOP, SCROLL_TOP_MOBILE, SHOP_ROUTE
 } from '../../utils/consts'
 import scrollUp from '../../utils/scrollUp'
 import array from './mainData'
@@ -56,7 +56,11 @@ const MainPage = () => {
                     // let quantity
                     
                     if (idx >= quantity) return null//<div key={idx + i.title}/>
-                    return <div key={idx + i.title} className="MainPage_box_body_item">
+                    return <div 
+                        key={idx + i.title} 
+                        className="MainPage_box_body_item"
+                        onClick={() => onClickBox(SHOP_ROUTE)}
+                    >
                         <div className="MainPage_box_body_item_title">
                             <span>{i.title}</span>
                         </div>

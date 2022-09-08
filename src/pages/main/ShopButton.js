@@ -19,7 +19,7 @@ const ShopButton = () => {
                 else scrollUp(SCROLL_TOP_MOBILE)
             }}
         >
-            Посетить магазин
+            ПРОДУКЦИЯ
         </div>
     )
 }

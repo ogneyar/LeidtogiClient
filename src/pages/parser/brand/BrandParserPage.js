@@ -136,6 +136,7 @@ const BrandParserPage = observer((props) => {
                                 type="checkbox"
                                 className="ParserPage_box_checkbox"
                                 checked={checkFeed}
+                                onChange={() => {}} 
                             />&nbsp;
                             использовать файл на сервере
                         </div>
@@ -179,6 +180,7 @@ const BrandParserPage = observer((props) => {
                                 type="checkbox"
                                 className="ParserPage_box_checkbox" 
                                 checked={checkUpdatePrice}
+                                onChange={() => {}} 
                             />&nbsp;
                             использовать файл на сервере
                         </div>

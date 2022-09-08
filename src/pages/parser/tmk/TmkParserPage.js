@@ -65,30 +65,29 @@ const TmkParserPage = observer((props) => {
 
     // оновление цен
     let onClickButtonChangePrices = async () => {
-        alert("Не реализованно (:")
-        // setMessage("")
-        // const formData = new FormData()
-        // if (feed) {
-        //     formData.append("feed", feed)
-        // }
-        // setLoading(true)
-        // await changePrices({brand: props.brand, formData})
-        //     // eslint-disable-next-line
-        //     .then(data => {
-        //         if (data?.error) {
-        //             setMessage(data.error)
-        //             console.log(data.error)
-        //         }else {
-        //             setMessage(JSON.stringify(data))
-        //             console.log(data)
-        //         }
-        //     })
-        //     // eslint-disable-next-line
-        //     .catch(error => {
-        //         setMessage("(Ошибка) " + JSON.stringify(error))
-        //         console.log("(Ошибка) " + error)
-        //     })
-        // setLoading(false)
+        setMessage("")
+        const formData = new FormData()
+        if (feed) {
+            formData.append("feed", feed)
+        }
+        setLoading(true)
+        await changePrices({brand: props.brand, formData})
+            // eslint-disable-next-line
+            .then(data => {
+                if (data?.error) {
+                    setMessage(data.error)
+                    console.log(data.error)
+                }else {
+                    setMessage(JSON.stringify(data))
+                    console.log(data)
+                }
+            })
+            // eslint-disable-next-line
+            .catch(error => {
+                setMessage("(Ошибка) " + JSON.stringify(error))
+                console.log("(Ошибка) " + error)
+            })
+        setLoading(false)
     }
 
 
@@ -128,6 +127,7 @@ const TmkParserPage = observer((props) => {
                                 type="checkbox"
                                 className="ParserPage_box_checkbox"
                                 checked={checkFeed}
+                                onChange={() => {}} 
                             />&nbsp;
                             использовать файл на сервере
                         </div>
@@ -171,6 +171,7 @@ const TmkParserPage = observer((props) => {
                                 type="checkbox"
                                 className="ParserPage_box_checkbox" 
                                 checked={checkUpdatePrice}
+                                onChange={() => {}} 
                             />&nbsp;
                             использовать файл на сервере
                         </div>

@@ -35,12 +35,21 @@ export const WARRANTY_ROUTE = '/warranty' // гарантия и сервис
 export const CONTACTS_ROUTE = '/contacts' // контакты
 export const SPECIALS_ROUTE = '/specials' // акции
 
-// страницы брендов
+// страницы брендов (в порядке добавления продукции на сайт)
 export const MILWAUKEE_ROUTE = '/milwaukee' // milwaukee brand
-export const HUSQVARNA_ROUTE = '/husqvarna' // husqvarna brand
 export const RGK_ROUTE = '/rgk' // РусГеоКом бренд
+export const HUSQVARNA_ROUTE = '/husqvarna' // husqvarna brand
 export const KVT_ROUTE = '/kvt' // КВТ бренд
 export const GEDORE_ROUTE = '/gedore' // Gedore бренд
+export const TMK_ROUTE = '/tmk' // TMK бренд
+export const LEIDTOGI_ROUTE = '/leidtogi' // LeidTogi бренд
+export const ADVANTA_ROUTE = '/advanta' // Advanta бренд
+export const EUROBOOR_ROUTE = '/euroboor' // Euroboor бренд
+export const TOR_ROUTE = '/tor' // Tor бренд
+// Esab - не заводил
+// AEG - в ручную заводил несколько штук
+// Leon - в ручную заводил несколько штук
+
 
 // странный юмор программиста
 export const DELETE_ROUTE = '/delete' // удаление сайта

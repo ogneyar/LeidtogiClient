@@ -83,6 +83,8 @@ const BrandBar =  observer((props) => {
                     br.name === "Advanta"
                     || 
                     br.name === "Euroboor"
+                    || 
+                    br.name === "Tor"
                 ) {
 
                     return <Card
@@ -109,6 +111,8 @@ const BrandBar =  observer((props) => {
                         ? "A D V" 
                         : br.name === "Euroboor" && window.innerWidth < 992
                         ? "E R B"
+                        : br.name === "Tor"
+                        ? "T O R"
                         : br.name}
                     </Card>
 
