@@ -25,9 +25,19 @@ const ProductList = observer((props) => {
         let limit = 0
         
         if ( ! props?.loading || product.allProducts.length ) { // если уже подгружены товары
-            // alert("setInfo")
             let newArray
-            if (brand.selectedBrand?.id !== undefined) newArray = product.products.filter(k => k.brandId === brand.selectedBrand.id)
+            if (brand.selectedBrand?.id !== undefined) newArray = product.products.filter(k => {
+                if (brand.selectedBrand.id > 3000 && k.brandId === 9) { // RedVerg, Concorde, Квалитет с id > 3000, 9й TMK
+                    let brandName = brand.selectedBrand.name.toLowerCase()
+                    if (brandName === "kvalitet") brandName = "квалитет"
+                    if (k.name.toLowerCase().includes(brandName)) {
+                        return true
+                    }
+                }else if (k.brandId === brand.selectedBrand.id) {
+                    return true
+                }
+                return false
+            })
             else newArray = product.products
             setInfo(newArray.filter((i,index) => {
                 if (index + 1 > offset) {

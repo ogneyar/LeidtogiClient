@@ -86,6 +86,27 @@ const BrandPage = (props) => {
                     {/* Пропорции лого бренда 7:1 */}
                     <img src={"images/brands/tmk/TMK_logo.jpg"}  alt="logo_tmk" />
                 </div>
+                :
+                props?.brandName === "redverg" 
+                ?
+                <div className="BrandPage_image">
+                    {/* Пропорции лого бренда 7:1 */}
+                    <img src={"images/brands/tmk/RedVerg_logo.jpg"}  alt="logo_redverg" />
+                </div>
+                :
+                props?.brandName === "concorde" 
+                ?
+                <div className="BrandPage_image">
+                    {/* Пропорции лого бренда 7:1 */}
+                    <img src={"images/brands/tmk/Concorde_logo.jpg"}  alt="logo_concorde" />
+                </div>
+                :
+                props?.brandName === "kvalitet" 
+                ?
+                <div className="BrandPage_image">
+                    {/* Пропорции лого бренда 7:1 */}
+                    <img src={"images/brands/tmk/Kvalitet_logo.jpg"}  alt="logo_kvalitet" />
+                </div>
                 : 
                 props?.brandName === "advanta" 
                 ?

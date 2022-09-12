@@ -5,9 +5,7 @@ import { observer } from 'mobx-react-lite'
 import { authRoutes, publicRoutes } from '../utils/routes'
 import ShopPage from '../pages/shop/ShopPage'
 import BrandPage from '../pages/brand/BrandPage'
-// eslint-disable-next-line
-import { SHOP_ROUTE, ERROR_ROUTE } from '../utils/consts'
-// import { echo } from '../http/testerAPI'
+import { ERROR_ROUTE } from '../utils/consts'
 import Loading from './Loading'
 import { Context } from '..'
 
@@ -28,17 +26,11 @@ const AppRouter = observer(() => {
             }
         }))
     }, [brand.allBrands])
-	
-	// useEffect(() => {
-    //     echo()
-	// 		.then(data => {
-	// 			if (data?.ok !== true) alert("Отсутствует связь с сервером!")
-	// 		})
-	// 		.catch(() => alert("Отсутствует связь с сервером!"))
-    // }, [])
+
 
     // ожидание загрузки роутов брендов (Этот лоадинг на оранжевом фоне)
     if (brandRoutes[0]?.path === undefined) return <Loading />
+
 
     return (
         <Switch> 

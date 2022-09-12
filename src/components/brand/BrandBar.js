@@ -18,7 +18,7 @@ const BrandBar =  observer((props) => {
     const history = useHistory()
 
     useEffect(() => {
-        setInfo(brand.brands)
+        if (brand.brands && Array.isArray(brand.brands)) setInfo(brand.brands)
     },[brand.brands])
 
     const onClickCard = (br) => { 
@@ -52,20 +52,16 @@ const BrandBar =  observer((props) => {
 				
                 if (br.name === "Leidtogi") {
 
-                    let prod = false
-                    if (process.env.REACT_APP_ENV === 'production' && (window.location.hostname === "leidtogi.ru" || window.location.hostname === "www.leidtogi.ru") ) prod = true
-                    if ( ! prod ) {} // отключил, теперь бренд LeidTogi показывается всегда
-                        return <Card
-                            style={{cursor: "pointer", color: br.id === brand.selectedBrand.id ? "#000" : "#ff9900"}}
-                            border={br.id === brand.selectedBrand.id ? 'warning' : 'light'}
-                            bg={br.id === brand.selectedBrand.id ? 'warning' : ''}
-                            onClick={() => onClickCard(br)}
-                            key={br.id}
-                            className="p-3"
-                        >
-                            {"LeidTogi"}
-                        </Card>
-                    // }else return null
+                    return <Card
+                        style={{cursor: "pointer", color: br.id === brand.selectedBrand.id ? "#000" : "#ff9900"}}
+                        border={br.id === brand.selectedBrand.id ? 'warning' : 'light'}
+                        bg={br.id === brand.selectedBrand.id ? 'warning' : ''}
+                        onClick={() => onClickCard(br)}
+                        key={br.id}
+                        className="p-3"
+                    >
+                        {"LeidTogi"}
+                    </Card>
 
                 }else if (
                     br.name === "Milwaukee" 
@@ -78,7 +74,8 @@ const BrandBar =  observer((props) => {
                     || 
                     br.name === "Gedore"
                     || 
-                    br.name === "TMK"
+                    // br.name === "TMK"
+                    br.name === "Redverg" ||br.name === "Concorde" || br.name === "Kvalitet" 
                     || 
                     br.name === "Advanta"
                     || 
@@ -105,8 +102,12 @@ const BrandBar =  observer((props) => {
                         ? "H Q V" 
                         : br.name === "Gedore" && window.innerWidth < 992
                         ? "G E D" 
-                        : br.name === "TMK"
-                        ? "T M K" 
+                        // : br.name === "TMK"
+                        // ? "T M K" 
+                        : br.name === "Redverg" ? "RedVerg" 
+                        : br.name === "Concorde" ? "Concorde" 
+                        : br.name === "Kvalitet" ? "Квалитет" 
+
                         : br.name === "Advanta" && window.innerWidth < 992
                         ? "A D V" 
                         : br.name === "Euroboor" && window.innerWidth < 992

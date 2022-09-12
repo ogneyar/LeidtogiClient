@@ -14,7 +14,10 @@ import { fetchAllCategories } from './http/categoryAPI'
 import { fetchBrands } from './http/brandAPI'
 import { echo } from './http/testerAPI'
 import scrollUp from './utils/scrollUp'
-import { mixPromo, sortAllProducts, leidtogiFirst, productsWithOutImageRemoveInEnd } from './service/app'
+import { 
+    mixPromo, sortAllProducts, leidtogiFirst, 
+    productsWithOutImageRemoveInEnd, addedTmkBrands 
+} from './service/app'
 import { Context } from '.'
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -89,6 +92,7 @@ const App = observer(() => {
                 data => {
                     // устанавливаем бренд LeidTogi на первое место
                     data = leidtogiFirst(data)
+                    data = addedTmkBrands(data)
                     // сохраняем бренды в сторе
                     brand.setAllBrands(data)
                     // brand.setSelectedBrand(data[0])
