@@ -24,15 +24,17 @@ const Shop = observer((props) => {
     
     //const history = useHistory()
     
+    // name - имя категории
     let { name } = useParams()
 
 
     useEffect(() => {
-        brand.setSelectedBrand({})
+        if ( ! name || name === "shop") brand.setSelectedBrand({})
         if (brand.allBrands.length) {
             brand.setBrands(brand.allBrands)
             setLoadingBrand(false)
         }
+    // eslint-disable-next-line
     },[brand])
 
 
@@ -48,7 +50,9 @@ const Shop = observer((props) => {
         if (name === "shop") name = ""
 
         if (product.allProducts.length) {
-            if (!name) { // если в url указан корневой каталог /
+            // если в url указан корневой каталог /
+            // или выбран бренд
+            if ( ! name) {
                 product.setProducts(product.allProducts)
                 product.setTotalCount(product.allProducts.length) // указываем общее количество товаров
                 setLoadingProduct(false)
@@ -56,11 +60,59 @@ const Shop = observer((props) => {
         }
 
         if (category.allCategories.length) {
-            if (!name) { // если в url указан корневой каталог /
-                category.setCategories(category.allCategories)
-                if (category.selectedCategory.id !== undefined) {// если есть выбраная категория
-                    category.setSelectedCategory({}) // то её нужно обнулить
+            // если в url указан корневой каталог /
+            // или выбран бренд
+            if ( ! name) {
+
+//--------------------------------------------------------- НИЖЕ СТРОКА В ТЕСТОВОМ ВАРИАНТЕ ПОКА
+                if ( ! props?.brandName) { // если корневой каталог
+//---------------------------------------------------------
+
+                    category.setCategories(category.allCategories)
+                    if (category.selectedCategory.id !== undefined) {// если есть выбраная категория
+                        category.setSelectedCategory({}) // то её нужно обнулить
+                    }
+
+//--------------------------------------------------------- НИЖЕ СТРОКИ В ТЕСТОВОМ ВАРИАНТЕ ПОКА
+                }else { // если загружена страница бренда
+                    let arrayIdProducts = []
+                    product.allProducts.forEach(prod => {
+                        if (prod.brandId === brand.selectedBrand.id) {
+                            arrayIdProducts.push(prod.categoryId)
+                            console.log("prod.categoryId",prod.categoryId)
+                        }
+                    })
+                    let unique = [...new Set(arrayIdProducts)] // массив уникальных значений id категорий
+                    // рекурсивная функция для проверки содержит ли 
+                    // выбранная категория внутри себя категории с товарами
+                    const reFindProductInCategory = (item) => {
+                        let response = false
+                        let flagSearchCategory = false // флаг поиска категории
+                        for (var i = 0; i < unique.length; i++) {
+                            if (unique[i] === item?.id) {
+                                flagSearchCategory = true
+                                break
+                            }
+                        }                         
+                        if (flagSearchCategory) {                             
+                            response = true
+                        }else {                        
+                            for (let i = 0; i < category.allCategories.length; i++) {
+                                if (category.allCategories[i].sub_category_id === item?.id) {
+                                    response = reFindProductInCategory(category.allCategories[i])
+                                    if (response) break
+                                }
+                            }
+                        }
+                        return response
+                    }
+                    category.setCategories(category.allCategories.filter(i => {
+                        return reFindProductInCategory(i)
+                    }))
+                    category.setSelectedCategory({})
                 }
+//--------------------------------------------------------- 
+
                 setLoadingCategory(false)
             }
         }
