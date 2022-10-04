@@ -69,7 +69,11 @@ const SuccessPage = () => {
                         <p>Если Вы НЕ зарегистрированный клиент, тогда напишите нам на email адрес - <a href="mailto:it@leidtogi.ru">it@leidtogi.ru</a></p>
                     </div>
                 :
+                <div className="SuccessPage_loading">
+                    <h2>Не закрывайте станицу.</h2>
+                    <h4>Дождитесь завершения регистрации заказа!</h4>
                     <Loading />
+                </div>
                 }
             </div>
         </InfoPage>
