@@ -1,21 +1,48 @@
+
 .BrandPage {
+    padding: 10px 10px;
+    background-color: var(--main-white-color);
+}
+
+.BrandPageHeader {
     text-align: center;
     color: #fff;
     font-size: 2rem;
-    padding: 10px 10px;
-    margin-bottom: 20px;
-    background-color: var(--main-white-color);
+    /* margin-bottom: 20px; */
     width: 100%;
-    height: auto;
+    height: auto; 
 }
 
-.BrandPage img {
+.BrandPage_image img {
     width: 100%;
 }
+
+.BrandPageBody {
+    display: flex;
+    flex-direction: row;
+}
+.BrandColCategory {
+    width:30%; 
+}
+.BrandColContent {
+    width:70%;
+}
+
+
 
 @media(max-width: 991px) {
     .BrandPage {
         margin-bottom: 10px;
+    }
+    
+    .BrandColCategory {
+        width:100%;
+    }
+    .BrandColContent {
+        width:100%;
+    }
+    .BrandPageBody {
+        flex-direction: column;
     }
 }
 
@@ -43,8 +70,17 @@
     }
 }
 
-@media(max-width: 575px) {
-    .BrandPage_image {
-        /* min-height: auto; */
+
+@media (max-width: 575px) {
+    .BrandProductList {
+        border: 1px dashed rgb(0, 0, 0);
+        padding: 10px 0 0 0;
+    }
+}
+
+@media (max-width: 555px) {
+    .BrandProductList {
+        border: none;
+        padding: 0;
     }
 }

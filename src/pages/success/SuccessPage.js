@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useQueryParam, NumberParam, StringParam } from 'use-query-params'
 
+import purchaseDataLayer from '../../service/dataLayer/purchase'
 import NavLink from '../../components/myBootstrap/NavLink'
+import { SUPPORT_ROUTE, URL } from '../../utils/consts'
 import { getOrder, setPay } from '../../http/orderAPI'
 import Loading from '../../components/Loading'
 import InfoPage from '../info/InfoPage'
-import { SUPPORT_ROUTE, URL } from '../../utils/consts'
-import purchaseDataLayer from '../../service/dataLayer/purchase'
+
 import './SuccessPage.css'
+
 
 const SuccessPage = () => {
 
@@ -34,13 +36,14 @@ const SuccessPage = () => {
                         // установим флаг pay = true
                         // там же на сервере отправится сообщение админу
                         // if (isMounted) setPay(uuid)
-                        setPay(uuid)
-                        // очистим корзину
-                        localStorage.removeItem('cart')
-                        // передача данных о покупке в Яндекс.Метрику
-                        purchaseDataLayer(data?.id, JSON.parse(data?.cart))
-                        // перевод на страницу поздравлений
-                        window.open(URL + "congratulation?id=" + id + "&email=" + data?.email ,'_self',false)
+                        setPay(uuid).then(() => {
+                            // очистим корзину
+                            localStorage.removeItem('cart')
+                            // передача данных о покупке в Яндекс.Метрику
+                            purchaseDataLayer(data?.id, JSON.parse(data?.cart))
+                            // перевод на страницу поздравлений
+                            window.open(URL + "congratulation?id=" + id + "&email=" + data?.email ,'_self',false)
+                        })
                     }else {
                         setError(true)
                     }

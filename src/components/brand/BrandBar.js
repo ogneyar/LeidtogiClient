@@ -3,10 +3,11 @@ import { useHistory } from 'react-router'
 import { observer } from 'mobx-react-lite'
 import { Card } from 'react-bootstrap'
 
-import { Context } from '../..'
-import './BrandBar.css'
 import scrollUp from '../../utils/scrollUp'
 import { SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
+
+import { Context } from '../..'
+import './BrandBar.css'
 
 
 const BrandBar =  observer((props) => {
