@@ -7,6 +7,12 @@ export const createOrder = async (props) => {
     return data  
 }
 
+// получение ссылки на оплату (от банка)
+export const getPaymentLink = async (props) => {
+    const {data} = await $host.post('api/order/get_payment_link', props)
+    return data  
+}
+
 export const getOrderForUser = async (id) => {
     const {data} = await $authHost.get('api/order/user/' + id) 
     return data  
@@ -14,6 +20,11 @@ export const getOrderForUser = async (id) => {
 
 export const getOrder = async (id) => {
     const {data} = await $host.get('api/order/' + id) 
+    return data  
+}
+
+export const getOrderByUuid = async (uuid) => {
+    const {data} = await $host.get('api/order/by_uuid/' + uuid) 
     return data  
 }
 

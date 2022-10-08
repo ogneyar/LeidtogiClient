@@ -14,20 +14,22 @@ export const LK_ROUTE = '/lk' // личный кабинет
 export const FORGOT_PASSWORD_ROUTE = '/forgot_password' // забыл пароль
 export const CHANGE_PASSWORD_ROUTE = '/change_password' // смена пароля
 export const SEARCH_ROUTE = '/search' // поиск
-export const PAY_ROUTE = '/pay' // оплата (редирект на платёжную страницу Альфа банка)
+export const PAYMENT_ORDER_ROUTE = '/payment_order' // страница оплаты заказа
+export const PAY_ROUTE = '/pay' // страница с которой идёт редирект на платёжную страницу Альфа банка
 export const SUCCESS_ROUTE = '/success' // успех
 export const CONGRATULATION_ROUTE = '/congratulation' // поздравления в случае успешной оплаты
 export const ERROR_ROUTE = '/error' // ошибка
 export const PARSER_ROUTE = '/parser' // парсер HTML
 export const TESTER_ROUTE = '/tester' // парсер HTML
 export const CONFIRM_ROUTE = '/confirmation' // подтверждение почты пользователя
+export const CONFIRM_AVAILABILITY_ROUTE = '/confirm_availability' // подтверждение наличия заказа
 export const SUPPORT_ROUTE = '/support' // тех.поддержка
 export const MESSAGE_ROUTE = '/message' // страница для сообщений
 
 // отдел Информация
 export const ABOUT_US_ROUTE = '/about_us' // о нас
-export const DELIVERY_ROUTE = '/delivery' // доставка
-export const PAYMENT_ROUTE = '/payment' // оплата
+export const DELIVERY_ROUTE = '/delivery' // информация о доставке
+export const PAYMENT_ROUTE = '/payment' // информация об оплате
 export const PRIVACY_POLICY_ROUTE = '/privacy_policy' // политика конфиденциальности
 export const RETURNS_POLICY_ROUTE = '/returns_policy' // условия возврата
 export const TERMS_OF_USE_ROUTE = '/terms_of_use' // пользовательское соглашение
@@ -86,7 +88,8 @@ export const NAME = `ООО "ЛЕИДТОГИ"` // название фирмы
 export const CITY = "г. Курск" // город нахождения офиса
 export const ADDRESS = "г.Курск, ул.Соловьиная, д.51, оф.25" // адресс нахождения офиса
 export const ADDRESS_FULL = "305044, г.Курск, ул.Соловьиная, д.51, оф.25" // адресс нахождения офиса
-export const PHONE_ONE = `<a href="tel:+79312607792">+7 (931) 260-77-92</a>` // основной телефон
+export const PHONE_ONE = `<a href="tel:+79312607792">+7 (931) 260-77-92</a>` // Санин телефон
+export const PHONE_TWO = `<a href="tel:+74993021713">+7 (499) 302-17-13</a>` // городской телефон
 export const MAIL = `<a href="mailto:info@leidtogi.ru">info@leidtogi.ru</a>` // основной почтовый ящик
 export const TIME_TO_WORK = `<div><p>пн - пт: 09:00 - 18:00</p><p>сб - вс: выходной</p></div>` // время работы
 

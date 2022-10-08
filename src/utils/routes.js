@@ -9,11 +9,13 @@ import LkPage from '../pages/lk/LkPage'
 import LoginPage from '../pages/login/LoginPage'
 import RegistrationPage from '../pages/registration/RegistrationPage'
 import ConfirmPage from '../pages/confirm/ConfirmPage'
+import ConfirmAvailabilityPage from '../pages/confirm/ConfirmAvailabilityPage'
 import ForgotPasswordPage from '../pages/password/ForgotPasswordPage'
 import ChangePasswordPage from '../pages/password/ChangePasswordPage'
 import ShopPage from '../pages/shop/ShopPage'
 import ProductPage from '../pages/product/ProductPage'
 import CartPage from '../pages/cart/CartPage'
+import PaymentOrderPage from '../pages/pay/PaymentOrderPage' // страница оплаты заказа
 import PayPage from '../pages/pay/PayPage' // redirect on bank
 import CreateOrderPage from '../pages/createOrder/CreateOrderPage'
 import SearchPage from '../pages/search/SearchPage'
@@ -40,7 +42,8 @@ import {
     PRODUCT_ROUTE, LK_ROUTE, CONFIRM_ROUTE, SEARCH_ROUTE, SUCCESS_ROUTE, ERROR_ROUTE, ABOUT_US_ROUTE, 
     DELIVERY_ROUTE, PAYMENT_ROUTE, PRIVACY_POLICY_ROUTE, RETURNS_POLICY_ROUTE, CREATE_ORDER_ROUTE,
     TERMS_OF_USE_ROUTE, WARRANTY_ROUTE, CONTACTS_ROUTE, SPECIALS_ROUTE, DELETE_ROUTE, CONGRATULATION_ROUTE,
-    SUPPORT_ROUTE, MESSAGE_ROUTE, FORGOT_PASSWORD_ROUTE, CHANGE_PASSWORD_ROUTE
+    SUPPORT_ROUTE, MESSAGE_ROUTE, FORGOT_PASSWORD_ROUTE, CHANGE_PASSWORD_ROUTE, CONFIRM_AVAILABILITY_ROUTE,
+    PAYMENT_ORDER_ROUTE
 } from './consts'
 
 // brandRoutes находится в src/components/AppRouter.js
@@ -87,6 +90,10 @@ export const publicRoutes = [
         component: CartPage
     },
     {
+        path: PAYMENT_ORDER_ROUTE,
+        component: PaymentOrderPage
+    },
+    {
         path: PAY_ROUTE,
         component: PayPage
     },
@@ -105,6 +112,10 @@ export const publicRoutes = [
     {
         path: CONFIRM_ROUTE + '/:url',
         component: ConfirmPage
+    },
+    {
+        path: CONFIRM_AVAILABILITY_ROUTE, // ConfirmAvailability
+        component: ConfirmAvailabilityPage
     },
     {
         path: PRODUCT_ROUTE + '/:id',

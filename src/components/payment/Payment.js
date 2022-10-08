@@ -4,9 +4,10 @@ import { Button } from 'react-bootstrap'
 // import uuid from 'react-uuid'
 
 // import Button from '../myBootstrap/Button'
-import { createOrder } from '../../http/orderAPI'
+import { getOrderByUuid, getPaymentLink } from '../../http/orderAPI'
 import { URL } from '../../utils/consts'
 import Loading from '../Loading'
+
 import './Payment.css'
 
 
@@ -20,9 +21,15 @@ const Payment = (props) => {
     
    
     useEffect(() => {
-
+        setLoading(true)
+        if (props?.uuid) {
+            // setLoading(false)
+            getOrderByUuid(props?.uuid).then(data => {
+                console.log(data);
+            })
+        }
     // eslint-disable-next-line
-    },[])
+    },[props?.uuid])
 
     const onClickButtonPay = async () => {
         props?.setMessage("")
@@ -43,7 +50,7 @@ const Payment = (props) => {
         if (props?.role) order = {...order, role: props?.role}
         
         let open = false
-        await createOrder(order)
+        await getPaymentLink(order)
             .then(
                 data => {
                     if (data?.error) {
@@ -80,6 +87,8 @@ const Payment = (props) => {
 
     return (
         <div className="Payment" id="Payment">
+            
+            {props?.uuid}
 
             {loading
             ?

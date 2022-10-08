@@ -16,11 +16,11 @@ const CreateOrder = (props) => {
         >
                 <Button
                     onClick={() => {
-                        props?.setLoad()
-                        scrollUp(SCROLL_TOP)
-                        // history.push(CREATE_ORDER_ROUTE)
+                        props?.setLoad()                        
+                        // history.push(CREATE_ORDER_ROUTE) // без редиректа
                         // window.open(CREATE_ORDER_ROUTE,'_self',false) 
-                        window.location.href = CREATE_ORDER_ROUTE
+                        window.location.href = CREATE_ORDER_ROUTE // редирект
+                        scrollUp(SCROLL_TOP)
                     }}
                     className="CreateOrderButton"
                     size="lg"

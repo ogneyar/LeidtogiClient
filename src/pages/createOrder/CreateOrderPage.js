@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
-import ReactHtmlParser from 'react-html-parser'
+// import ReactHtmlParser from 'react-html-parser'
 import { Form } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
@@ -7,9 +7,11 @@ import { observer } from 'mobx-react-lite'
 
 // import DeliverySdek from '../../components/delivery/sdek/DeliverySdek'
 import Delivery from '../../components/delivery/Delivery'
-import Payment from '../../components/payment/Payment'
+// import Payment from '../../components/payment/Payment'
+import ConfirmAvailability from '../../components/confirm/ConfirmAvailability'
 import { Context } from '../..'
 // import { Input } from '../../components/myBootstrap'
+// eslint-disable-next-line
 import { LOGIN_ROUTE, CREATE_ORDER_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE, ADDRESS, PHONE_ONE, MAIL } from '../../utils/consts'
 import { createGuest } from '../../http/userAPI'
 import { createCart } from '../../http/cartAPI'
@@ -293,7 +295,7 @@ const CreateOrderPage = () => {
                             ?
                                 <div>
                                     <div className="CreateOrderPagePayment">
-                                        {name && <p>Ваше имя: <strong>{name}</strong></p>}
+                                        {/* {name && <p>Ваше имя: <strong>{name}</strong></p>}
                                         {phone && <p>Ваш телефон: <strong>+7&nbsp;{phone}</strong></p>}
                                         <p>Ваш email: <strong>{email}</strong></p>
                                         
@@ -305,7 +307,7 @@ const CreateOrderPage = () => {
 
                                         <p>Так же можете обращаться с любыми вопросами по email:</p>
                                         <p><strong>{ReactHtmlParser(MAIL)}</strong></p>
-                                        <br />
+                                        <br /> */}
                                         <p><strong>Ваш заказ:</strong></p>
                                         <div style={{border:"1px solid grey", padding:"15px 0 5px 0",width:"100%",textAlign:"center"}}>
                                             {cart?.cart.map((i,index) => {
@@ -330,8 +332,10 @@ const CreateOrderPage = () => {
                                         <br />
                                         <p>Итого к оплате: <strong>{amount}&nbsp;р.</strong></p>
                                     </div>
-                                    <Payment 
-                                        text="Оплатить картой" 
+                                    {/* <Payment */}
+                                    {/*подтвердить наличие*/}
+                                    <ConfirmAvailability 
+                                        // text="Оплатить картой" 
                                         variant="danger" 
                                         load={load} 
                                         setLoad={setLoad} 
@@ -358,7 +362,7 @@ const CreateOrderPage = () => {
                                 : 
                                 <div>
                                     <div className="CreateOrderPagePayment">
-                                        {name && <p>Вы: <strong>{name}</strong></p>}
+                                        {/* {name && <p>Вы: <strong>{name}</strong></p>}
                                         {phone && <p>Ваш телефон: <strong>+7&nbsp;{phone}</strong></p>}
                                         <p>Ваш email: <strong>{email}</strong></p>
                                         
@@ -371,7 +375,7 @@ const CreateOrderPage = () => {
 
                                         <p>Так же можете обращаться с любыми вопросами по email:</p>
                                         <p><strong>{ReactHtmlParser(MAIL)}</strong></p>
-                                        <br />
+                                        <br /> */}
                                         <p><strong>Ваш заказ:</strong></p>
                                         <div style={{border:"1px solid grey", padding:"15px 0 5px 0",width:"100%",textAlign:"center"}}>
                                             {cart?.cart.map(i => {
@@ -395,7 +399,9 @@ const CreateOrderPage = () => {
 
                                         <p style={{fontSize:"20px"}}>Итого к оплате: <strong>{Math.round((amount + deliverySum) * 100) / 100}р.</strong></p>
                                     </div>
-                                    <Payment 
+                                    {/* <Payment */}
+                                    {/*подтвердить наличие*/}
+                                    <ConfirmAvailability 
                                         address={address}
                                         deliverySum={deliverySum} 
                                         delivery={delivery} 

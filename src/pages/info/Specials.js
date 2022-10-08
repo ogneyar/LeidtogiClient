@@ -61,8 +61,8 @@ const Specials = () => {
                 {loading ? <Loading width={200} />
 
                 : promo && Array.isArray(promo) && promo.map(i => {
-					
-					if ( ! i.have && prod ) return null
+					// не показывать на продакшине товары которых нет в наличии и не показывать товары с ценою по запросу
+					if ( (! i.have && prod) || i.request) return null
 					
                     let price = i.price // priceFormater(i.price)
 					
