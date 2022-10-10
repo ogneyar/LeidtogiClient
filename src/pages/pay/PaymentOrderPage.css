@@ -1,3 +1,6 @@
-.PaymentOrderPage {
-    
+
+.PaymentOrderPage_Message {
+    color: red;
+    text-align: center;
+    width: 100%;
 }

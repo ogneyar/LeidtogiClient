@@ -70,7 +70,7 @@ const OrdersInfo = () => {
                                 Номер:&nbsp;<strong>{i?.id}</strong> - оплачен.
                                 <br />
                                 Cтатус:&nbsp;
-                                {i?.state === "forming" && <strong>формируется...</strong>} 
+                                {(i?.state === "forming" || i?.state === "confirmed") && <strong>формируется...</strong>} 
                                 {i?.state === "onway" && <strong>в пути.</strong>} 
                                 {i?.state === "delivered" && 
                                 <>

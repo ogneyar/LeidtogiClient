@@ -47,3 +47,8 @@ export const editOrder = async (id, body) => {
     const {data} = await $authHost.put('api/order/' + id, body) 
     return data  
 }
+
+export const editOrderCart = async (id, body) => {
+    const {data} = await $authHost.put('api/order/cart/' + id, body) 
+    return data  
+}
