@@ -37,7 +37,7 @@ const PaymentOrderPage = () => {
                 if (data?.email !== undefined) setEmail(data.email)
                 if (data?.cart !== undefined) {
                     if (typeof(data.cart) === "string") {
-                        console.log(data.cart);
+                        // console.log(data.cart);
                         setCart(JSON.parse(data.cart))
                     }else setCart(data.cart)
                 }

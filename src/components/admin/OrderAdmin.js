@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 // import { useHistory } from 'react-router-dom'
 import { Modal, Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
+// import ReactHtmlParser from 'react-html-parser'
 
 import { getAllOrders, editOrder, getOrder, editOrderCart } from '../../http/orderAPI'
 // import { ADMIN_ROUTE } from '../../utils/consts'
@@ -30,13 +31,17 @@ const OrderAdmin = (props) => {
     const [ addPosition, setAddPosition ] = useState(false)
     const [ inputArticle, setInputArticle ] = useState("")
     const [ inputQuantity, setInputQuantity ] = useState("")
+    const [ inputEditQuantity, setInputEditQuantity ] = useState("")
+    const [ inputEditPrice, setInputEditPrice ] = useState("")
+    const [ editQuantity, setEditQuantity ] = useState(null)
+    const [ editPrice, setEditPrice ] = useState(null)
 
     useEffect(() => {
         setAllOrders()
     }, [])
 
     useEffect(() => {
-        if (details) {
+        if (details && details.cart && typeof(details.cart) === "string") {
             let total = 0
             JSON.parse(details.cart).forEach(i => {
                 if (i) total += i.quantity.value * i.itemPrice
@@ -106,25 +111,40 @@ const OrderAdmin = (props) => {
             }
         }
     }
+   
+    const onClickInputWithUrl = () => {        
+        let text = "Текст скопирован!"
+        let copyText = document.getElementById("inputUrl")
+        if (copyText.value !== text) {
+            copyText.select()
+            document.execCommand("copy")
+            copyText.value = text
+            copyText.title = ""
+        }        
+    }
 
     const onClickButtonCreateLink = async (id, state) => {
+        let data
         if (state === "forming") {
             let confirm = window.confirm("Вы уверены что хотите подтвердить заказ №" + id + "?")
             if (confirm) {
                 if (user.user.id === 1) {
                     await editOrder(id, { state: "confirmed"})
-                    let { uuid } = await getOrder(id)
-                    setCreateLink(`${URL}payment_order?uuid=${uuid}`)
-                    setEditCart(false)
+                    data = await getOrder(id)
                 }else {
                     alert("У Вас не достаточно прав доступа, обратитесь к разработчику!")
+                    return
                 }
+            }else {
+                return
             }
         }else {
-            let data = await getOrder(id)
-            setCreateLink(`${URL}payment_order?uuid=${data.uuid}`)
+            data = await getOrder(id)
         }
+        setCreateLink(`${URL}payment_order?uuid=${data.uuid}`)
+        setEditCart(false)
     }
+
 
     const onClickButtonBack = () => {
         setEditCart(false)
@@ -147,6 +167,8 @@ const OrderAdmin = (props) => {
             positionId
         }).then(data => {
             setDetails(data)
+            setAddPosition(false)
+            setEditCart(false)
         })
     }
 
@@ -162,7 +184,52 @@ const OrderAdmin = (props) => {
                 article: inputArticle, 
                 quantity
             }).then(data => {
+                // console.log(data);
                 setDetails(data)
+                setAddPosition(false)
+                setEditCart(false)
+                setInputArticle("")
+                setInputQuantity("")
+            })
+        }
+    }
+
+    const onClickButtonEditQuantity = async (orderId, cart) => {
+        if (!editQuantity) {
+            setEditQuantity(cart.positionId)
+            setInputEditQuantity(cart.quantity.value)
+            setEditPrice(null)
+        }else {
+            await editOrderCart(orderId,{
+                editQuantity: true,
+                positionId: editQuantity,
+                quantity: inputEditQuantity
+            }).then(data => {
+                // console.log(data);
+                setDetails(data)
+                setEditCart(false)
+                setEditQuantity(null)
+                setInputEditQuantity("")
+            })
+        }
+    }
+
+    const onClickButtonEditPrice = async (orderId, cart) => {
+        if (!editPrice) {
+            setEditPrice(cart.positionId)
+            setInputEditPrice(cart.itemPrice)
+            setEditQuantity(null)
+        }else {
+            await editOrderCart(orderId,{
+                editPrice,
+                positionId: editPrice,
+                price: inputEditPrice
+            }).then(data => {
+                // console.log(data);
+                setDetails(data)
+                setEditCart(false)
+                setEditPrice(null)
+                setInputEditPrice("")
             })
         }
     }
@@ -171,7 +238,7 @@ const OrderAdmin = (props) => {
     return (
         <Modal
             className="OrderAdmin"
-            closeButton
+            // closeButton
             show={props?.show}
             onHide={onHide}
             // onHide={() => null}
@@ -238,9 +305,17 @@ const OrderAdmin = (props) => {
                 {details && details.cart && typeof(details.cart) === "string" 
                 && JSON.parse(details.cart).map(i => {
                     if (i === null) return null
-                    return <div key={"details"+i.positionId}>
+                    return (
+                    <div 
+                        key={"details"+i.positionId}
+                        className="OrderAdmin_details_onePosition"
+                    >
                         <span>{i.positionId}) Артикул: {i.itemCode}.</span> 
-                        {editCart && JSON.parse(details.cart).length > 1 && 
+                        {editCart 
+                        && JSON.parse(details.cart).length > 1 
+                        && (details.delivery !== "pickup" && JSON.parse(details.cart).length > 2)
+                        && (details.delivery === "pickup" || i.positionId !== JSON.parse(details.cart).length) // если самовывоз или не последняя позиция (доставка)
+                        &&
                             <span 
                                 className="OrderAdmin_details_deletePosition" 
                                 onClick={() => onClickDeletePosition(details.id, i.positionId)}
@@ -248,9 +323,63 @@ const OrderAdmin = (props) => {
                         }
                         <br />
                         <span>Наименование: {i.name}</span> <br />
-                        <span>Количество: {i.quantity.value} шт. Цена: {i.itemPrice/100}р. </span> <br /> 
+                        <span>
+                            Количество:&nbsp;
+                            {editQuantity === i.positionId 
+                            ?
+                                <Input 
+                                    type="number"
+                                    style={{width:"100px"}}
+                                    value={inputEditQuantity}
+                                    onChange={e => setInputEditQuantity(e.target.value)}
+                                />
+                            :
+                                i.quantity.value
+                            }
+                            &nbsp;шт.&nbsp;
+                        </span> 
+                        {editCart 
+                            && (details.delivery === "pickup" || i.positionId !== JSON.parse(details.cart).length) // если самовывоз или не последняя позиция (доставка)
+                            && 
+                            <div>
+                                <Button
+                                    variant={"light"}
+                                    onClick={() => onClickButtonEditQuantity(details.id, i)}
+                                >
+                                    {editQuantity ? "Применить изменения" : "Редактировать количество"}
+                                </Button>
+                                <br />
+                            </div>
+                        }
+                        
+                        <span>
+                            Цена:&nbsp;
+                            {editPrice === i.positionId 
+                            ?
+                                <Input 
+                                    type="number"
+                                    style={{width:"100px"}}
+                                    value={inputEditPrice/100}
+                                    onChange={e => setInputEditPrice(Math.round(e.target.value * 100))}
+                                />
+                            :
+                                i.itemPrice/100
+                            }
+                            р. 
+                        </span>
+                        {editCart && 
+                            <div>
+                                <Button
+                                    variant={"outline-secondary"}
+                                    onClick={() => onClickButtonEditPrice(details.id, i)}
+                                >
+                                    {editPrice ? "Применить изменения" : "Редактировать цену"}
+                                </Button>
+                            </div>
+                        }
+                        {!editCart && <br />}
                         <span>Стоимость (шт * цену): {i.quantity.value * i.itemPrice/100}р.</span>
-                    </div>
+                    </div>)
                 })}&nbsp;
 
                 {amount && <span>ИТОГО: {amount}р.<br /></span>}
@@ -281,6 +410,7 @@ const OrderAdmin = (props) => {
                     <Button
                         variant={addPosition ? "warning" :  "outline-warning"}
                         onClick={() => onClickButtonAddPosition(details.id)}
+                        style={{marginTop:"10px",marginBottom:"10px"}}
                     >
                         {addPosition ? "Добавить" :  "Добавить позицию"}
                     </Button>
@@ -300,15 +430,13 @@ const OrderAdmin = (props) => {
                 </>}
                 <br />
 
-                {editCart && <> editCart </>}
-
                 <Button 
                     variant="outline-success"
                     // className='OrderAdmin_block_button'
                     onClick={() => setEditCart(!editCart)}
                     disabled={(details.state !== "forming" || createLink) ? true : false}
                 >
-                    Редактировать корзину
+                    {editCart ? "Закончить редактирование" : "Редактировать корзину"}
                 </Button>
 
                 <br /><br />
@@ -317,7 +445,7 @@ const OrderAdmin = (props) => {
                     variant="outline-primary"
                     // className='OrderAdmin_block_button'
                     onClick={() => onClickButtonCreateLink(details.id, details.state)}
-                    disabled={(details.state !== "forming" && details.state !== "confirmed") || details.pay || editCart ? true : false}
+                    disabled={(details.state !== "forming" && details.state !== "confirmed") || details.pay || editCart || createLink ? true : false}
                 >
                     Сформировать ссылку
                 </Button>
@@ -326,7 +454,16 @@ const OrderAdmin = (props) => {
                 <div 
                     className="OrderAdmin_block_link"
                 >
-                    {createLink}
+                    <Input 
+                        className="OrderAdmin_block_link_input"
+                        type="text"
+                        value={createLink}
+                        onChange={() => {}}
+                        id="inputUrl" 
+                        onClick={() => onClickInputWithUrl()}
+                        title="Нажмите чтобы копировать текст в буфер" 
+                        readOnly
+                    />
                 </div>
                 }
 

@@ -25,6 +25,11 @@
     padding-bottom: 10px;
 }
 
+.OrderAdmin_details_onePosition {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .OrderAdmin_details_deletePosition {
     color: red;
     border: 2px solid red;
@@ -62,6 +67,12 @@
 
 
 .OrderAdmin_block_link {
-    display: inline-block;
+    /* display: inline-block; */
     padding: 5px 10px;
+}
+
+.OrderAdmin_block_link_input {
+    margin-top: 20px;
+    cursor: pointer; 
+    width: 100%;
 }
