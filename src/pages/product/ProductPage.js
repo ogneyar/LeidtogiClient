@@ -123,6 +123,7 @@ const ProductPage =  observer((props) => {
                         brand.allBrands.forEach(i => {
                             if (data?.brandId === i?.id) 
                                 if (i?.name.toLowerCase() !== props?.brandName) history.push("/" + props?.brandName)
+                                // else brand.setSelectedBrand(i)
                         })
                         
                         setProduct(data)
@@ -199,7 +200,7 @@ const ProductPage =  observer((props) => {
                             e.target.style.background = `url(${image}) 50% 50% / ${widthHeight} auto no-repeat`
                         }}
                     />
-                        
+                     
                 </div>
                 <div md={4}>
                     <Row className="ProductRating">

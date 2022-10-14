@@ -14,7 +14,14 @@ import { Context } from '../..'
 import './Product.css'
 
 
-const ProductItem = ({product}) => {
+const ProductItem = (props) => {
+
+    const [ product ] = useState(props?.product)
+    // useEffect(() => {
+    //     if (props?.product) {
+    //         product = props?.product
+    //     }
+    // },[props?.product])
 
     const history = useHistory()
 
@@ -23,6 +30,7 @@ const ProductItem = ({product}) => {
     const [ price, setPrice ] = useState(null)
     const [ oldPrice, setOldPrice ] = useState(null)
 
+    
     useEffect(() => {
         if (product.promo && JSON.parse(product.promo)?.old_price !== undefined) {
             setOldPrice(priceFormater(Number(JSON.parse(product.promo)?.old_price.replace(",", "."))))
@@ -30,25 +38,35 @@ const ProductItem = ({product}) => {
         setPrice(priceFormater(product.price))
     },[product.price, product.promo])
 
+    const onClickProductItem = () => {
+        // history.push(PRODUCT_ROUTE + '/' + product.id)
+        let url = ERROR_ROUTE
+        let brandName = "milwaukee" // дефолтное состояние
+        brand.allBrands.forEach(i => {
+            if (product.brandId === i.id) {
+                brand.setSelectedBrand(i)
+                brandName = i.name
+            }
+        })
+        if (brandName) url = brandName.toLowerCase() + '/' + product?.url
+        
+        history.push(url)
+        scrollUp()
+    }
+
+    const onClickContextMenu = (e) => {
+        e.preventDefault()
+        // window.open("leidtogi")
+        props?.setVisibleContextMenu({product, event: e})
+    }
+
+
 
     return (
         <div
             className="ProductItem"
-            onClick={() => {
-                // history.push(PRODUCT_ROUTE + '/' + product.id)
-                let url = ERROR_ROUTE
-                let brandName = "milwaukee" // дефолтное состояние
-                brand.allBrands.forEach(i => {
-                    if (product.brandId === i.id) {
-                        brand.setSelectedBrand(i)
-                        brandName = i.name
-                    }
-                })
-                if (brandName) url = brandName.toLowerCase() + '/' + product?.url
-                
-                history.push(url)
-                scrollUp()
-            }}
+            onClick={() => onClickProductItem()}
+            onContextMenu={e => onClickContextMenu(e)}
         >
             <Card 
                 className="product-card"
@@ -115,6 +133,8 @@ const ProductItem = ({product}) => {
                 </div>
 
             </Card>
+
+
         </div>
     )
 }

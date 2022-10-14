@@ -41,7 +41,10 @@ const BrandPage = (props) => {
             // console.log("brands true")
             // brand.setBrands(brand.allBrands)
             brand.allBrands.forEach(i => {
-                if (i.name.toLowerCase() === props?.brandName) brand.setSelectedBrand(i)
+                if (i.name.toLowerCase() === props?.brandName) {
+                    brand.setSelectedBrand(i)
+                    // console.log("props?.brandName",i.name)
+                }
             })
             // setLoadingBrand(false)
         }

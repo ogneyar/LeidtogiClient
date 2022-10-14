@@ -1,3 +1,4 @@
+
 :root {
     --product-width-min: 251px; 
     --product-width-mid: 320px; 
@@ -147,4 +148,10 @@
 
 .product-price_oldPrice {
     text-decoration:line-through;
+}
+
+.ProductList_div_OpenOnNewPage:hover {
+    background-color: white;
+    cursor: context-menu;
+    padding: 2px;
 }

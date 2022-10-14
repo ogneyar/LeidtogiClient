@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-// eslint-disable-next-line
+
+import ContextMenu from '../myBootstrap/context/ContextMenu'
 import { fetchProducts } from '../../http/productAPI'
-import ProductItem from './ProductItem'
 import Pagination from '../pagination/Pagination'
+import ProductItem from './ProductItem'
 import Loading from '../Loading'
 
 import { Context } from '../..'
@@ -19,6 +20,7 @@ const ProductList = observer((props) => {
     const [ loading, setLoading ] = useState(true)
     const [ fetchTimeOut, setFetchTimeOut ] = useState(null)
 
+    const [ visibleContextMenu, setVisibleContextMenu ] = useState(null)
     
     useEffect(() => {
         let offset = product.page * product.limit - product.limit // отступ
@@ -85,6 +87,22 @@ const ProductList = observer((props) => {
     //     category.selectedCategory, loading ]) 
     
 
+    const onClickOpenOnNewPage = () => {
+        let productClick
+        if (visibleContextMenu && visibleContextMenu?.product) {
+            productClick = visibleContextMenu.product
+            let brandName = "milwaukee" // дефолтное состояние
+            brand.allBrands.forEach(i => {
+                if (productClick.brandId === i.id) {
+                    brandName = i.name
+                }
+            })
+            let url = brandName.toLowerCase() + '/' + productClick.url
+            window.open(url)
+            setVisibleContextMenu(null)
+        }
+    }
+
 
     if (loading || info === null) return <Loading variant="warning" />
 
@@ -97,16 +115,37 @@ const ProductList = observer((props) => {
 
                 {info && Array.isArray(info) && info[0] !== undefined
                 ?
-                    info.map(product => <ProductItem key={product.id} product={product}/>)
+                    info.map(product => {
+                        return (
+                            <ProductItem 
+                                key={product.id} 
+                                product={product}
+                                visibleContextMenu={visibleContextMenu}
+                                setVisibleContextMenu={setVisibleContextMenu}
+                            />
+                        )
+                    })
                 :
                     <div className="ProductList_noProducts">
                         {props?.search ? <p>Поиск не дал результатов.</p> : <p>Таких товаров ещё нет...</p>}
                     </div>
                 }
+                
+                <ContextMenu 
+                    visible={visibleContextMenu}
+                >
+                    <div 
+                        onClick={onClickOpenOnNewPage}
+                        className="ProductList_div_OpenOnNewPage"
+                    >
+                        Открыть в новом окне
+                    </div>
+                </ContextMenu>
 
             </div>
             
             {info[0] !== undefined && <Pagination />}
+            
         </>
     )
 })

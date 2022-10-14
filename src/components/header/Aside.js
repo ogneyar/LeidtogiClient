@@ -48,12 +48,13 @@ const Aside = observer(() => {
         }
     }
 
-    useEffect(() => {
-        if (brand.selectedBrand?.id !== undefined) {
-            setBreadCrumbsState([])
-        }
+    // useEffect(() => {
+    //     if (brand.selectedBrand?.id !== undefined) {
+    //         setBreadCrumbsState([])
+    //         console.log("hdfg")
+    //     }
 
-    },[brand.selectedBrand])
+    // },[brand.selectedBrand])
 
     useEffect(() => {
         // eslint-disable-next-line
@@ -90,6 +91,7 @@ const Aside = observer(() => {
         }else {
             let string = path.substring(0, number)
             // let string = path.substring(0, "/" + 1)
+            // console.log("string",string)
             if (string === "product") {
                 let id = Number(path.substring(number + 1, path.length))
 
@@ -105,7 +107,7 @@ const Aside = observer(() => {
 
             }else if (brand?.selectedBrand?.name !== undefined && string === brand?.selectedBrand?.name.toLowerCase()) {
                 let url = path.substring(number + 1, path.length)
-
+                // console.log("selectedBrand?.name",brand?.selectedBrand?.name)
                 fetchOneProductOnUrl(url).then(data => {
                     if (category?.allCategories && category?.allCategories.length > 0) {
                         category.allCategories.forEach(cat => {
@@ -118,10 +120,12 @@ const Aside = observer(() => {
 
             }else if (string === "confirmation") {
 
+            }else {
+                // console.log("else")
             }
         }
     // eslint-disable-next-line
-    },[category?.selectedCategory, history.location.pathname])
+    },[category?.selectedCategory, history.location.pathname, brand?.selectedBrand])
     // },[category?.selectedCategory, history.location.pathname, product?.allProducts])
    
     const onClickAsideDiv = () => {
