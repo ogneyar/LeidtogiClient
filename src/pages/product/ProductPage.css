@@ -23,6 +23,15 @@
     flex-direction: column; 
     align-items: center; 
 }
+.ProductName a,
+.ProductImage a {
+    text-decoration: none;
+    color: black;
+}
+.ProductName a:hover {
+    color: grey;
+}
+
 .ProductImage {
     padding-bottom: 10px;
     flex-direction: row; 

@@ -5,7 +5,10 @@ import { useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
 // import { NavLink } from '../myBootstrap'
-import { ADMIN_ROUTE, LOGIN_ROUTE, CART_ROUTE, LK_ROUTE, NAME, ADDRESS, PHONE_ONE, MAIL, SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
+import { 
+    ADMIN_ROUTE, LOGIN_ROUTE, CART_ROUTE, LK_ROUTE, NAME, 
+    ADDRESS, PHONE_ONE, MAIL, SCROLL_TOP, SCROLL_TOP_MOBILE 
+} from '../../utils/consts'
 import logo from '../../assets/logo.png'
 import basket from '../../assets/cart.png'
 import { logout } from '../../http/userAPI'

@@ -150,8 +150,12 @@
     text-decoration:line-through;
 }
 
+.ProductList_div_OpenOnNewPage {
+    padding: 2px;
+}
+
 .ProductList_div_OpenOnNewPage:hover {
     background-color: white;
-    cursor: context-menu;
-    padding: 2px;
+    /* cursor: context-menu; */
+    cursor: pointer;
 }

@@ -138,7 +138,7 @@ const ProductList = observer((props) => {
                         onClick={onClickOpenOnNewPage}
                         className="ProductList_div_OpenOnNewPage"
                     >
-                        Открыть в новом окне
+                        Открыть в новой вкладке
                     </div>
                 </ContextMenu>
 

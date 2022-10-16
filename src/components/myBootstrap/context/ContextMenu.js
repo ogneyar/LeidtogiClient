@@ -46,14 +46,14 @@ const ContextMenu = (props) => {
                 className={visible ? "ContextMenu_mainBox" : ""}
                 style={(top && left) && {top, left}}
             >
-                <nav 
+                <div 
                     {...props}
                     className={visible ? "ContextMenu_buttons " + className : ""}
                 >
 
                     {visible ? props?.children : ""}
 
-                </nav>
+                </div>
             </div>
         </div>
     )

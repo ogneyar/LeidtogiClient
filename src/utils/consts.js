@@ -88,8 +88,8 @@ export const NAME = `ООО "ЛЕИДТОГИ"` // название фирмы
 export const CITY = "г. Курск" // город нахождения офиса
 export const ADDRESS = "г.Курск, ул.Соловьиная, д.51, оф.25" // адресс нахождения офиса
 export const ADDRESS_FULL = "305044, г.Курск, ул.Соловьиная, д.51, оф.25" // адресс нахождения офиса
-export const PHONE_ONE = `<a href="tel:+79312607792">+7 (931) 260-77-92</a>` // Санин телефон
-export const PHONE_TWO = `<a href="tel:+74993021713">+7 (499) 302-17-13</a>` // городской телефон
+export const PHONE_ONE = `<a href="tel:+74993021713">+7 (499) 302-17-13</a>` // городской телефон
+export const PHONE_TWO = `<a href="tel:+79312607792">+7 (931) 260-77-92</a>` // Санин телефон
 export const MAIL = `<a href="mailto:info@leidtogi.ru">info@leidtogi.ru</a>` // основной почтовый ящик
 export const TIME_TO_WORK = `<div><p>пн - пт: 09:00 - 18:00</p><p>сб - вс: выходной</p></div>` // время работы
 

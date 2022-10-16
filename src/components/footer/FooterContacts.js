@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactHtmlParser from 'react-html-parser'
 
-import { MAIL, ADDRESS_FULL, PHONE_ONE, TIME_TO_WORK } from '../../utils/consts'
+import { MAIL, ADDRESS_FULL, PHONE_ONE, PHONE_TWO, TIME_TO_WORK } from '../../utils/consts'
 import './FooterContacts.css'
 
 const FooterContacts = () => {
@@ -24,6 +24,12 @@ const FooterContacts = () => {
                         <span className="fa fa-mobile">&nbsp;</span>
                         <div className="media-body">
                             <p>{ReactHtmlParser(PHONE_ONE)}</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span className="fa fa-mobile">&nbsp;</span>
+                        <div className="media-body">
+                            <p>{ReactHtmlParser(PHONE_TWO)}</p>
                         </div>
                     </li>
                     <li>

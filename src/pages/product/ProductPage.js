@@ -158,7 +158,10 @@ const ProductPage =  observer((props) => {
     return ( 
         <Container className="ProductPage">
             <div className="ProductName">
-                <h3>{product.name}</h3> 
+                {/* Ссылка, для того чтобы можно было правой клавишей мыши вызвать контекстное меню */}
+                <a href={product.url}>
+                    <h3>{product.name}</h3> 
+                </a>
                 <p>Артикул: {product.article}</p> 
             </div>
             <div className="ProductMainBox">
@@ -183,24 +186,25 @@ const ProductPage =  observer((props) => {
                         })
                         : null}
                     </div>
-
-                    <div
-                        className={"ProductImage_ImageBig"}
-                        style={{background:`url(${image}) 50% 50% / ${widthHeight} auto no-repeat`,width:widthHeight,height:widthHeight}}
-                        onMouseOver={(e) => {
-                            if (propotionX > 0 && propotionY > 0) e.target.style.cursor = "zoom-in"
-                            else e.target.style.cursor = "default"
-                        }}
-                        onMouseMove={e => {
-                            if (propotionX > 0 && propotionY > 0) {
-                                e.target.style.background = `url(${image}) -${(e.pageX - e.target.offsetLeft)*propotionX}px -${(e.pageY - e.target.offsetTop)*propotionY}px no-repeat`
-                            }
-                        }}
-                        onMouseLeave={(e) => {
-                            e.target.style.background = `url(${image}) 50% 50% / ${widthHeight} auto no-repeat`
-                        }}
-                    />
-                     
+                    {/* Ссылка, для того чтобы можно было правой клавишей мыши вызвать контекстное меню */}
+                    <a href={product.url}>
+                        <div
+                            className={"ProductImage_ImageBig"}
+                            style={{background:`url(${image}) 50% 50% / ${widthHeight} auto no-repeat`,width:widthHeight,height:widthHeight}}
+                            onMouseOver={(e) => {
+                                if (propotionX > 0 && propotionY > 0) e.target.style.cursor = "zoom-in"
+                                else e.target.style.cursor = "default"
+                            }}
+                            onMouseMove={e => {
+                                if (propotionX > 0 && propotionY > 0) {
+                                    e.target.style.background = `url(${image}) -${(e.pageX - e.target.offsetLeft)*propotionX}px -${(e.pageY - e.target.offsetTop)*propotionY}px no-repeat`
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                e.target.style.background = `url(${image}) 50% 50% / ${widthHeight} auto no-repeat`
+                            }}
+                        />
+                    </a>                     
                 </div>
                 <div md={4}>
                     <Row className="ProductRating">

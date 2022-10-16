@@ -17,8 +17,8 @@ const Header = () => {
             className="Header"
         >
             <Top />
-            <NavBar />
-            <Address />
+            <NavBar />  {/* Адрес есть и тут /> */}
+            <Address /> {/* и тут /> */}
             <Banner />
             {/* <Carousel /> */}
             <Aside />
