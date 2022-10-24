@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
-import { API_URL } from '../../utils/consts'
+import { API_URL, SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
 import deleteAbbreviation from '../../utils/deleteAbbreviation'
 import priceFormater from '../../utils/priceFormater'
 import { searchArticle, searchName } from '../../http/searchAPI'
@@ -12,6 +12,7 @@ import { searchArticle, searchName } from '../../http/searchAPI'
 import { Context } from '../..'
 import './Search.css'
 import { Spinner } from 'react-bootstrap'
+import scrollUp from '../../utils/scrollUp'
 
 
 const Search = observer((props) => {
@@ -89,7 +90,7 @@ const Search = observer((props) => {
     const onClickSearchInput = async (search) => {
         setValue(search)
         if (search) {
-           await setChangesSearch(search)
+            await setChangesSearch(search)
         }else setList([])
     }
 
@@ -114,6 +115,7 @@ const Search = observer((props) => {
                 })
                 history.push(`/${brandName}/${val.url}`)
             }
+        scrollUp(SCROLL_TOP || SCROLL_TOP_MOBILE)
     }
 
     const onKeyDownInput = (e) => {

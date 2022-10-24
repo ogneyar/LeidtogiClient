@@ -70,7 +70,7 @@ const ProductPage =  observer((props) => {
                         // history.push("/error")
                         window.location.href = "/error"
                     }else {
-                        setProduct(data)                        
+                        setProduct(data)
                         rating.setRate(data.rating)
                     }
                 },err => {
@@ -95,12 +95,12 @@ const ProductPage =  observer((props) => {
         if (product.img && Array.isArray(product.img) && product.img[0]?.big !== undefined) {
             setImage(API_URL + product.img[0].big)
         }else if (product.brandId === 9) {
-            setImage(URL + "images/brands/tmk/TMK_logo_big.jpg")
+            setImage(URL + "images/brands/tmk/tmk_logo_big.jpg")
         }
     },[product.img, product.brandId])
     
     useEffect(() => {
-        if (image !== API_URL + "unknown.jpg" && image !== URL + "images/brands/tmk/TMK_logo_big.jpg") {
+        if (image !== API_URL + "unknown.jpg" && image !== URL + "images/brands/tmk/tmk_logo_big.jpg") {
             const img = document.createElement('img')
             img.onload = e => {
                 // setPropotionX(Math.round(img.width / widthHeightInt - 1))

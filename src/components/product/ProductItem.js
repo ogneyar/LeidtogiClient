@@ -77,7 +77,7 @@ const ProductItem = (props) => {
                     src={product.img && Array.isArray(product.img)  && product.img[0]?.big !== undefined
                         ? API_URL + product.img[0].big 
                         : product.brandId === 9
-                            ? URL + "images/brands/tmk/TMK_logo_big.jpg"
+                            ? URL + "images/brands/tmk/tmk_logo_big.jpg"
                             : API_URL + "unknown.jpg"
                     } 
                 />
