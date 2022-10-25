@@ -3,12 +3,12 @@ import { Button, Card, Container, Form, Row } from 'react-bootstrap'
 import { NavLink, useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import uuid from 'react-uuid'
-import $ from 'jquery'
 
 import { getUserInfo, registration } from '../../http/userAPI'
-import { LOGIN_ROUTE, LK_ROUTE } from '../../utils/consts'
+import { LOGIN_ROUTE, LK_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
 import { Input, Alert } from '../../components/myBootstrap'
 import Loading from '../../components/Loading'
+import scrollUp from '../../utils/scrollUp'
 import { Context } from '../..'
 
 
@@ -63,7 +63,7 @@ const RegistrationPage = observer(() => {
             setLoading(false)
             // history.push(LOGIN_ROUTE)
             history.push(LK_ROUTE)
-            scrollUp()
+            scrollUp(window.innerWidth > 700 ? SCROLL_TOP : SCROLL_TOP_MOBILE)
 
         }catch(e) {
             setLoading(false)
@@ -72,13 +72,6 @@ const RegistrationPage = observer(() => {
         }
     }
 
-    const scrollUp = () => {
-        $('html, body').animate(
-            {scrollTop: 0}, 
-            700, 
-            function(){}
-        )
-    }
 
     const phone = (e) => {
         let val = e.target.value
@@ -100,7 +93,7 @@ const RegistrationPage = observer(() => {
         if (Number(val) || val === "") {
 
             switch(numberLength) {
-              
+                
                 case 4:
                     val = "(" + val[0] + val[1] + val[2] + ") " + val[3]
                     if (start === length) offset = 3
@@ -131,14 +124,14 @@ const RegistrationPage = observer(() => {
                 case 10:
                     val = "(" + val[0] + val[1] + val[2] + ") " + val[3] + val[4] + val[5] + "-" + val[6] + val[7] + "-" + val[8] + val[9]
                 break
-              
+                
                 default:
                 break
             }
 
             if (start !== length) {
                 switch(start) {
-              
+                    
                     case 1:
                         if (lastLength < length) offset = 1
                     // eslint-disable-next-line
@@ -378,7 +371,13 @@ const RegistrationPage = observer(() => {
 
                     <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
                         <div>
-                            Есть аккаунт? <NavLink onClick={scrollUp} to={LOGIN_ROUTE}>Войдите!</NavLink>
+                            Есть аккаунт?&nbsp;
+                            <NavLink 
+                                onClick={() => scrollUp(window.innerWidth > 700 ? SCROLL_TOP : SCROLL_TOP_MOBILE)} 
+                                to={LOGIN_ROUTE}
+                            >
+                                Войдите!
+                            </NavLink>
                         </div>
                         <Button 
                             variant={"outline-success"} 

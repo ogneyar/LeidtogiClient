@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Card } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
-import { SHOP_ROUTE } from '../../utils/consts'
+import { SCROLL_TOP, SCROLL_TOP_MOBILE, SHOP_ROUTE } from '../../utils/consts'
 import scrollUp from '../../utils/scrollUp'
 import './InfoPage.css'
 
@@ -23,7 +23,7 @@ const InfoPage = (props) => {
                     <NavLink
                         className="NavLink"
                         to={SHOP_ROUTE}
-                        onClick={() => scrollUp()}
+                        onClick={() => scrollUp(window.innerWidth > 700 ? SCROLL_TOP : SCROLL_TOP_MOBILE)}
                     >
                         магазин!
                     </NavLink>

@@ -3,7 +3,8 @@ import { useHistory } from 'react-router-dom'
 
 import { Container } from '../myBootstrap'
 import { 
-    SHOP_ROUTE, DELIVERY_ROUTE, PAYMENT_ROUTE, 
+    SHOP_ROUTE, DELIVERY_ROUTE, PAYMENT_ROUTE, DEALER_ROUTE,
+    // eslint-disable-next-line
     CONTACTS_ROUTE, SPECIALS_ROUTE, SUPPORT_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE 
 } from '../../utils/consts'
 
@@ -37,11 +38,33 @@ const Top = () => {
                             <strong className="TopLinkStrong">
                                 <div
                                     className="NavLink NavLink_Top_Shop"
-                                    // to={ABOUT_US_ROUTE}
-                                    // to={SHOP_ROUTE}
                                     onClick={()=>onClickBox(SHOP_ROUTE)}
                                 >
                                     Продукция
+                                </div>
+                            </strong>
+                            <strong className="TopLinkStrong">
+                                <div
+                                    className="NavLink NavLink_Top_Dealer"
+                                    onClick={()=>onClickBox(DEALER_ROUTE)}
+                                >
+                                    Дилерам
+                                </div>
+                            </strong>
+                            <strong className="TopLinkStrong">
+                                <div
+                                    className="NavLink NavLink_Top"
+                                    onClick={()=>onClickBox(PAYMENT_ROUTE)}
+                                >
+                                    Оплата
+                                </div>
+                            </strong>
+                            <strong className="TopLinkStrong">
+                                <div
+                                    className="NavLink NavLink_Top_Specials"
+                                    onClick={()=>onClickBox(SPECIALS_ROUTE)}
+                                >
+                                    Акции
                                 </div>
                             </strong>
                             <strong className="TopLinkStrong">
@@ -53,53 +76,33 @@ const Top = () => {
                                     Доставка
                                 </div>
                             </strong>
-                            <strong className="TopLinkStrong">
+                            {/* <strong className="TopLinkStrong">
                                 <div
                                     className="NavLink NavLink_Top"
-                                    // to={PAYMENT_ROUTE}
-                                    onClick={()=>onClickBox(PAYMENT_ROUTE)}
-                                >
-                                    Оплата
-                                </div>
-                            </strong>
-                            <strong className="TopLinkStrong">
-                                <div
-                                    className="NavLink NavLink_Top_Specials"
-                                    // to={SPECIALS_ROUTE}
-                                    onClick={()=>onClickBox(SPECIALS_ROUTE)}
-                                >
-                                    Акции
-                                </div>
-                            </strong>
-                            <strong className="TopLinkStrong">
-                                <div
-                                    className="NavLink NavLink_Top"
-                                    // to={CONTACTS_ROUTE}
                                     onClick={()=>onClickBox(CONTACTS_ROUTE)}
                                 >
                                     Контакты
                                 </div>
-                            </strong>
+                            </strong> */}
                             <strong className="TopLinkStrong">
                                 <div
                                     className="NavLink NavLink_Top_Support"
-                                    // to={SUPPORT_ROUTE}
                                     onClick={()=>onClickBox(SUPPORT_ROUTE)}
                                 >
                                     Тех. поддержка
                                 </div>
                             </strong>
-					    </div>
-				    </div>
+                        </div>
+                    </div>
 
-					<div 
+                    <div 
                         className="TopCol TopColSearch" 
                     >
                         <Search />
-			        </div>
-		        </div>
-	        </Container>
-	    </div>
+                    </div>
+                </div>
+            </Container>
+        </div>
     )
 }
 

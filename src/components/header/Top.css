@@ -34,7 +34,8 @@
 .NavLink_Top,
 .NavLink_Top_Specials,
 .NavLink_Top_Support,
-.NavLink_Top_Shop {
+.NavLink_Top_Shop,
+.NavLink_Top_Dealer {
     padding: 7px 5px;
     border-radius: 5px;
 }
@@ -55,11 +56,16 @@
     color: rgb(114, 0, 143);
     border: 1px solid rgb(114, 0, 143);
 }
+.NavLink_Top_Dealer {
+    color: rgb(216, 122, 0);
+    border: 1px solid rgb(216, 122, 0);
+}
 
 .NavLink_Top:hover,
 .NavLink_Top_Specials:hover,
 .NavLink_Top_Support:hover,
-.NavLink_Top_Shop:hover {
+.NavLink_Top_Shop:hover,
+.NavLink_Top_Dealer:hover {
     color: var(--main-white-color);
     border: 1px solid var(--main-white-color); 
     background-color: none;
@@ -82,7 +88,8 @@
     .NavLink_Top,
     .NavLink_Top_Specials,
     .NavLink_Top_Support,
-    .NavLink_Top_Shop {
+    .NavLink_Top_Shop,
+    .NavLink_Top_Dealer {
         padding: 7px 1px;
     }
 }

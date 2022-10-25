@@ -5,6 +5,7 @@ import AdminPage from '../pages/admin/AdminPage'
 import ParserPage from '../pages/parser/ParserPage'
 import TesterPage from '../pages/tester/TesterPage'
 import LkPage from '../pages/lk/LkPage'
+import DealerPage from '../pages/dealer/DealerPage' 
 
 import LoginPage from '../pages/login/LoginPage'
 import RegistrationPage from '../pages/registration/RegistrationPage'
@@ -43,7 +44,7 @@ import {
     DELIVERY_ROUTE, PAYMENT_ROUTE, PRIVACY_POLICY_ROUTE, RETURNS_POLICY_ROUTE, CREATE_ORDER_ROUTE,
     TERMS_OF_USE_ROUTE, WARRANTY_ROUTE, CONTACTS_ROUTE, SPECIALS_ROUTE, DELETE_ROUTE, CONGRATULATION_ROUTE,
     SUPPORT_ROUTE, MESSAGE_ROUTE, FORGOT_PASSWORD_ROUTE, CHANGE_PASSWORD_ROUTE, CONFIRM_AVAILABILITY_ROUTE,
-    PAYMENT_ORDER_ROUTE
+    PAYMENT_ORDER_ROUTE, DEALER_ROUTE
 } from './consts'
 
 // brandRoutes находится в src/components/AppRouter.js
@@ -76,6 +77,10 @@ export const publicRoutes = [
     {
         path: LK_ROUTE,
         component: LkPage
+    },
+    {
+        path: DEALER_ROUTE,
+        component: DealerPage
     },
     {
         path: FORGOT_PASSWORD_ROUTE,

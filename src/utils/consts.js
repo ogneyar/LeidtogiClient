@@ -36,6 +36,7 @@ export const TERMS_OF_USE_ROUTE = '/terms_of_use' // пользовательс�
 export const WARRANTY_ROUTE = '/warranty' // гарантия и сервис
 export const CONTACTS_ROUTE = '/contacts' // контакты
 export const SPECIALS_ROUTE = '/specials' // акции
+export const DEALER_ROUTE = '/dealers' // дилерам
 
 // страницы брендов (в порядке добавления продукции на сайт)
 export const MILWAUKEE_ROUTE = '/milwaukee' // milwaukee brand

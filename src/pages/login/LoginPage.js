@@ -5,7 +5,7 @@ import { NavLink, useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 // import $ from 'jquery'
 
-import { REGISTRATION_ROUTE, LK_ROUTE, CONFIRM_ROUTE, FORGOT_PASSWORD_ROUTE } from '../../utils/consts'
+import { REGISTRATION_ROUTE, LK_ROUTE, CONFIRM_ROUTE, FORGOT_PASSWORD_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
 import { login, getUserInfo } from '../../http/userAPI'
 import { Alert } from '../../components/myBootstrap'
 import scrollUp from '../../utils/scrollUp'
@@ -24,7 +24,7 @@ const LoginPage = observer((props) => {
 
     const [ alertVisible, setAlertVisible ] = useState(false)
     const [ alertMessage, setAlertMessage ] = useState('')
-   
+
     const [ email, setEmail ] = useState('')
     const [ password, setPassword ] = useState('')
 
@@ -41,13 +41,18 @@ const LoginPage = observer((props) => {
                 if (returnUrl) history.push(returnUrl)
                 else history.push(LK_ROUTE)
             }
-            scrollUp()
+            scrollUp(window.innerWidth > 700 ? SCROLL_TOP : SCROLL_TOP_MOBILE)
             
         }catch(e) {
             setAlertVisible(true)
             setAlertMessage(e.response?.data?.message)
         }
     }
+
+    const onClickScrollUp = () => {
+        scrollUp(window.innerWidth > 700 ? SCROLL_TOP : SCROLL_TOP_MOBILE)
+    }
+
 
     return (
         <Container 
@@ -59,7 +64,7 @@ const LoginPage = observer((props) => {
                 </h2>
                 <Form className="LoginPage_Card_Form">
 
-                    <label>Email:</label>
+                    <label>Email или Логин:</label>
                     <Form.Control 
                         placeholder="Введите Ваш email"
                         value={email}
@@ -74,7 +79,7 @@ const LoginPage = observer((props) => {
                     />
 
                     <div className="LoginPage_changePassword">
-                        <NavLink onClick={scrollUp} to={FORGOT_PASSWORD_ROUTE}>Забыли пароль?!</NavLink>
+                        <NavLink onClick={onClickScrollUp} to={FORGOT_PASSWORD_ROUTE}>Забыли пароль?!</NavLink>
                     </div>
 
                     <Row className="LoginPage_Card_Form_Row">
@@ -82,7 +87,7 @@ const LoginPage = observer((props) => {
                         ? 'Войдите, для подтверждения.'
                         :
                             <div>
-                                Нет аккаунта? <NavLink onClick={scrollUp} to={REGISTRATION_ROUTE}>Зарегистрируйтесь!</NavLink>
+                                Нет аккаунта? <NavLink onClick={onClickScrollUp} to={REGISTRATION_ROUTE}>Зарегистрируйтесь!</NavLink>
                             </div>
                         }
                         <Button 
