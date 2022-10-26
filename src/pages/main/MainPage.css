@@ -5,7 +5,8 @@
 }
 
 .MainPage {
-    background-color: rgb(250, 235, 215);
+    /* background-color: rgb(250, 235, 215); */
+    background-color: rgb(233, 180, 64);
 }
 
 .MainPage,
@@ -39,6 +40,7 @@
 }
 
 .MainPage_box_body_item {
+    /* background-color: aqua; */
     width: 22%; /* 4шт на экране */
     font-size: 1rem;
     flex-direction: column;
@@ -48,6 +50,8 @@
 }
 
 .MainPage_box_body_item_title {
+    border-radius: 10px 10px 0px 0px;
+    background-color: var(--main-white-color);
     height: 100px;
     font-size: 1.2rem;
     font-weight: 700;
@@ -58,10 +62,12 @@
 }
 
 .MainPage_box_body_item_examples {
+    background-color: var(--main-white-color);
     text-align: center;
     flex-direction: column;
     height: 270px;
     padding-top: 10px;
+    width: 100%;
 }
 
 .MainPage_box_body_item_examples p {

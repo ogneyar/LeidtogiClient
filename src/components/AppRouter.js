@@ -33,7 +33,7 @@ const AppRouter = observer(() => {
 
 
     return (
-        <Switch> 
+        <Switch>
             {/* роуты зарегистрированных пользователей */}
             {user.isAuth && authRoutes.map(({ path, component, status }) => 
                 <Route key={path} path={path} component={component} status={status || 200} exact />
