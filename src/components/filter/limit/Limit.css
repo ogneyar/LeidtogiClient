@@ -1,5 +1,10 @@
+
 .Limit {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+}
+
+.Limit_select {
+    cursor: pointer;
 }

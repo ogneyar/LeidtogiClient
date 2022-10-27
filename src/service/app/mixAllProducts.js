@@ -1,5 +1,5 @@
 
-export default function sortAllProducts(data) {
+export default function mixAllProducts(data) {
 
     // алгоритм под названием "Тасование Фишера — Йетса"
     for (let i = data.length - 1; i > 0; i--) {

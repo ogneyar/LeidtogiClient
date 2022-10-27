@@ -53,8 +53,15 @@ const Shop = observer((props) => {
             // если в url указан корневой каталог /
             // или выбран бренд
             if ( ! name) {
-                product.setProducts(product.allProducts)
-                product.setTotalCount(product.allProducts.length) // указываем общее количество товаров
+                // загрузка товаров на страницу (здесь и в конце файла есть, если есть 'name')
+                if (product.sort === "priceUp") {
+                    // это для теста пока
+                    product.setProducts([product.allProducts[0]])
+                    product.setTotalCount(1)
+                }else{
+                    product.setProducts(product.allProducts)
+                    product.setTotalCount(product.allProducts.length) // указываем общее количество товаров
+                }
                 setLoadingProduct(false)
             }
         }
@@ -195,7 +202,7 @@ const Shop = observer((props) => {
                     )
                 }
                 
-               
+                
                 category.setCategories(returnArrayCategories)
                 
 
@@ -224,16 +231,22 @@ const Shop = observer((props) => {
             }else {
                 returnArrayProducts = product.allProducts.filter(i => i.categoryId === selectedCategory)
             }
-
-            product.setProducts(returnArrayProducts)
-            product.setTotalCount(returnArrayProducts.length)
-
+            
+            // загрузка товаров на страницу (здесь и в начале есть, если нет 'name')
+            if (product.sort === "priceUp") {
+                // это для теста пока
+                product.setProducts(returnArrayProducts[0])
+                product.setTotalCount(1)
+            }else{
+                product.setProducts(returnArrayProducts)
+                product.setTotalCount(returnArrayProducts.length)
+            }
             
             setLoadingProduct(false)
 
         }
 
-    },[product.allProducts, category.allCategories, name, product.sort])
+    },[product.allProducts, category.allCategories, name, product.mixAll, product.sort])
 
     // if (loadingProduct) return <Loading />
 

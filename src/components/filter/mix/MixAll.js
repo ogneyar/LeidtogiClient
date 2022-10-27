@@ -2,30 +2,30 @@ import React, { useEffect, useState, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import { Context } from '../../..'
-import './NoImages.css'
+import './MixAll.css'
 
-const NoImages = observer(() => {
+const MixAll = observer(() => {
 
     const { user, product } = useContext(Context)
 
-    const [ value, setValue ] = useState(product.mixNoImg === false ? false : true)
+    const [ value, setValue ] = useState(product.mixAll === false ? false : true)
 
     useEffect(() => {
     },[])
-    
+
     const onChangeInput = () => {
-        localStorage.setItem('mixNoImg', !value)
+        localStorage.setItem('mixAll', !value)
         setValue(!value)
-        product.setMixNoImg(!value)
+        product.setMixAll(!value)
     }
 
     return (
         <div
-            className='NoImages'
+            className='MixAll'
             style={user.user.id!==1 ? {display:"none",visible:"hidden"} : {}}
             onClick={onChangeInput}
         >
-            MixNoImg&nbsp;
+            Перемешать&nbsp;
 
             <input 
                 type="checkbox" 
@@ -37,4 +37,4 @@ const NoImages = observer(() => {
     )
 })
 
-export default NoImages
+export default MixAll

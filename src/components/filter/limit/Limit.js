@@ -33,6 +33,7 @@ const Limit = observer(() => {
             Показать:&nbsp;
 
             <select 
+                className="Limit_select"
                 value={state} 
                 onChange={e => change(e)}
             >

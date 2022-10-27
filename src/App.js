@@ -15,7 +15,7 @@ import { fetchBrands } from './http/brandAPI'
 import { echo } from './http/testerAPI'
 import scrollUp from './utils/scrollUp'
 import { 
-    mixPromo, sortAllProducts, leidtogiFirst, 
+    mixPromo, mixAllProducts, leidtogiFirst, 
     productsWithOutImageRemoveInEnd, addedTmkBrands 
 } from './service/app'
 import { Context } from '.'
@@ -80,7 +80,7 @@ const App = observer(() => {
             .then(
                 data => category.setAllCategories(data),
                 error => {
-                   getError(`Не удалось загрузить категории!`, error)
+                    getError(`Не удалось загрузить категории!`, error)
                     category.setAllCategories([{}])
                 }
             )
@@ -105,7 +105,7 @@ const App = observer(() => {
             .then(
                 data => {
                     // перемешать?
-                    if (product.sort) sortAllProducts(data)
+                    if (product.sort) mixAllProducts(data)
                     // добавление товаров без изображений в конец списка
                     if (product.mixNoImg) data = productsWithOutImageRemoveInEnd(data) 
                     // cмешиваем акционные товары с остальными

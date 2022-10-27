@@ -31,8 +31,13 @@ const ContextMenu = (props) => {
     const onMenuClick = (e) => {
         // setFlag(true)
         e.preventDefault()
+        // console.log("uhjkhukj");
         setVisible(false)
     }
+
+    window.addEventListener('scroll', () => {
+        setVisible(false)
+    })
 
     return (
         <div

@@ -317,7 +317,7 @@ const ProductPage =  observer((props) => {
                     </div>
                 )
             : null}
-           
+            
             {product.size && product.size.length > 0
             ?
             <div className="ProductSize">

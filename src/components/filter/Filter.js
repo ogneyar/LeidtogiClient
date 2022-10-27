@@ -1,8 +1,10 @@
 import React from 'react'
 
 import Limit from './limit/Limit'
-import Sort from './sort/Sort'
+import MixAll from './mix/MixAll'
 import NoImages from './noImages/NoImages'
+// eslint-disable-next-line
+import Sort from './sort/Sort'
 
 import './Filter.css'
 
@@ -12,8 +14,11 @@ const Filter = () => {
         <div
             className="Filter"
         >
+            {/* для админа */}
             <NoImages />
-            <Sort />
+            <MixAll />
+            {/* для пользователя */}
+            {/* <Sort /> */}
             <Limit />
         </div>
     )

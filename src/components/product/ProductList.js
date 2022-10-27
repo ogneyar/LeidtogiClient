@@ -79,7 +79,7 @@ const ProductList = observer((props) => {
             }
 
         }
-       
+        
     // eslint-disable-next-line
     }, [ product.page, product.limit, brand.selectedBrand, category.selectedCategory ])
     // }, [ product, product.products, product.page, product.limit, 
