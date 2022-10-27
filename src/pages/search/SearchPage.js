@@ -1,13 +1,14 @@
 import React, { useEffect, useContext, useState } from 'react'
+import { useQueryParam, StringParam } from 'use-query-params'
 import { Container } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
-import { useQueryParam, StringParam } from 'use-query-params';
 
+import deleteAbbreviation from '../../utils/deleteAbbreviation'
 import CategoryBar from '../../components/category/CategoryBar'
 import ProductList from '../../components/product/ProductList'
 import Filter from '../../components/filter/Filter'
+import isNumber from '../../utils/types/isNumber'
 import Loading from '../../components/Loading'
-import deleteAbbreviation from '../../utils/deleteAbbreviation';
 
 import { Context } from '../..'
 import './SearchPage.css'
@@ -21,34 +22,37 @@ const SearchPage = observer(() => {
     
     const [ value ] = useQueryParam('value', StringParam)
 
-    function isNumber(n){
-        // eslint-disable-next-line
-        return Number(n) == n;
-    }
-
 
     useEffect(() => {
         if (product.allProducts.length) {
             product.setPage(1)
             let length = 0
-            product.setProducts(product.allProducts.filter(i => {
-                if (value) {
+
+            let allSearch = value ? value.split(" ") : []
+            // search = allSearch[0]
+            let arraySearch = []
+
+            allSearch.forEach(async(searched) => {
+                arraySearch = [...arraySearch, ...product.allProducts.filter(i => {
                     // функция deleteAbbreviation убирает сокращённые названия бренда (hqv, rgk, kvt)
-                    let valueNumber = deleteAbbreviation(value)
+                    let valueNumber = deleteAbbreviation(searched)
                     if ( isNumber( valueNumber ) ) {
                         if (i.article.includes( valueNumber )) {
                             length++
                             return true
                         }
                     }else {
-                        if (i.name.toLowerCase().includes(value.toLowerCase())) {
+                        if (i.name.toLowerCase().includes(searched.toLowerCase())) {
                             length++
                             return true
                         }
                     }
-                }
-                return false
-            }))
+                    return false
+                })]
+            })
+
+            // new Set(arraySearch) - создание массива с уникальными значениями
+            product.setProducts([...new Set(arraySearch)])
             product.setTotalCount(length)
             setLoadingProduct(false)
         }

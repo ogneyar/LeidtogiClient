@@ -1,18 +1,18 @@
-// eslint-disable-next-line
 import React, { useEffect, useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
+import { Spinner } from 'react-bootstrap'
 
 import { API_URL, SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
+// import { searchArticle, searchName } from '../../http/searchAPI'
 import deleteAbbreviation from '../../utils/deleteAbbreviation'
 import priceFormater from '../../utils/priceFormater'
-import { searchArticle, searchName } from '../../http/searchAPI'
+import isNumber from '../../utils/types/isNumber'
+import scrollUp from '../../utils/scrollUp'
 // import Loading from '../Loading'
 
 import { Context } from '../..'
 import './Search.css'
-import { Spinner } from 'react-bootstrap'
-import scrollUp from '../../utils/scrollUp'
 
 
 const Search = observer((props) => {
@@ -45,32 +45,40 @@ const Search = observer((props) => {
     //     }
     // },[list])
 
-    function isNumber(n){
-        // eslint-disable-next-line
-        return Number(n) == n
-    }
-
     // производим поиск на сервере
     const setChangesSearch = async (search) => {
         setLoading(true)
         setNoSearch(false)
         setList([])
-        if (search.indexOf("!") === 0) setAdmin(true)
-        search = search.replace("!","")
-        // функция deleteAbbreviation убирает сокращённые названия бренда (hqv, rgk, kvt)
-        let searchNumber = deleteAbbreviation(search)
-        // alert("array.length: " + array.length)
-        if ( isNumber( searchNumber ) ) {
-            if (array && array.length) setList(array.filter(i => i.article.includes( searchNumber )))
-            else setList(await searchArticle({text:searchNumber, limit: 6}))
-        }else {
-            if (array && array.length) setList(array.filter(i => i.name.toLowerCase().includes(search.toLowerCase().trim())))
-            else setList(await searchName({text:search, limit: 6}))
+        if (search.indexOf("!") === 0) {
+            setAdmin(true)
+            search = search.replace("!","")
         }
-        if (list && list.length === 0) setNoSearch(true)
-        // else setNoSearch(false)
+        let allSearch = search.split(" ")
+        // search = allSearch[0]
+        let arraySearch = []
+        allSearch.forEach(async(searched) => {
+            // функция deleteAbbreviation убирает сокращённые названия бренда (hqv, rgk, kvt)
+            let searchNumber = deleteAbbreviation(searched)
+            // alert("array.length: " + array.length)
+            if ( isNumber( searchNumber ) ) {
+                if (array && array.length) arraySearch = [...arraySearch, ...array.filter(i => i.article.includes( searchNumber ))]
+                // поиск на сервере
+                // else arraySearch = [...arraySearch, ...await searchArticle({text:searchNumber, limit: 6})]
+            }else {
+                if (array && array.length) arraySearch = [...arraySearch, ...array.filter(i => i.name.toLowerCase().includes(searched.toLowerCase().trim()))]
+                // поиск на сервере
+                // else arraySearch = [...arraySearch, ...await searchName({text:searched, limit: 6})]
+            }
+
+            if (arraySearch === []) setNoSearch(true) // если поиск не дал результатов
+            // if (list && list.length === 0) setNoSearch(true) // если поиск не дал результатов
+        })
+        // new Set(arraySearch) - создание массива с уникальными значениями
+        if (arraySearch !== []) setList([...new Set(arraySearch)])
+        
         setLoading(false)
-        // if (list && list.length > 0) setNoSearch(false)
+        
     }
 
     // при изменении значения в поле поиска устанавливаем таймаут
