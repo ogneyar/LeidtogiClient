@@ -15,14 +15,14 @@ import './CategoryService.css'
 
 const CategoryService = observer((props) => {
     // eslint-disable-next-line
-    const { product, category } = useContext(Context)
+    const { productStore, category } = useContext(Context)
     
     // const [ loading, setLoading ] = useState(false)
 
     const onClickSelectedCategory = (id) => {
         // category.setLoading(true)
         category.setSelectedCategory(id)
-        // product.setPage(1)
+        // productStore.setPage(1)
     }
 
     // if (loading) return <Loading />

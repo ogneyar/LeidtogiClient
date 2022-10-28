@@ -9,7 +9,7 @@ import './Limit.css'
 
 const Limit = observer(() => {
 
-    const { user, product } = useContext(Context)
+    const { user, productStore } = useContext(Context)
 
     let limit = localStorage.getItem('limit') || LIMIT
     const [state, setState] = useState(limit)
@@ -21,9 +21,9 @@ const Limit = observer(() => {
         setState(e.target.value)
         localStorage.setItem('limit', e.target.value)
 
-        product.setLimit(e.target.value)
+        productStore.setLimit(e.target.value)
 
-        product.setPage(1)
+        productStore.setPage(1)
     }
 
     return (

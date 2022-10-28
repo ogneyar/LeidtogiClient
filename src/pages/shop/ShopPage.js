@@ -16,7 +16,7 @@ import './ShopPage.css'
 
 const Shop = observer((props) => { 
 
-    const { product, category, brand } = useContext(Context)
+    const { productStore, category, brand } = useContext(Context)
 
     const [ loadingCategory, setLoadingCategory ] = useState(true)
     const [ loadingBrand, setLoadingBrand ] = useState(true)
@@ -40,7 +40,7 @@ const Shop = observer((props) => {
 
     useEffect(() => {
 
-        if (name) { product.setPage(1) } 
+        if (name) { productStore.setPage(1) } 
 
         let selectedCategory // выбрана категория
 
@@ -49,19 +49,19 @@ const Shop = observer((props) => {
         // eslint-disable-next-line
         if (name === "shop") name = ""
 
-        if (product.allProducts.length) {
+        if (productStore.allProducts.length) {
             // если в url указан корневой каталог /
             // или выбран бренд
             if ( ! name) {
-                // загрузка товаров на страницу (здесь и в конце файла есть, если есть 'name')
-                if (product.sort === "priceUp") {
-                    // это для теста пока
-                    product.setProducts([product.allProducts[0]])
-                    product.setTotalCount(1)
-                }else{
-                    product.setProducts(product.allProducts)
-                    product.setTotalCount(product.allProducts.length) // указываем общее количество товаров
-                }
+                // загрузка товаров на страницу (здесь и в конце файла есть, когда есть 'name')
+                // if (productStore.sort === "priceUp") {
+                //     // это для теста пока
+                //     productStore.setProducts([productStore.allProducts[0],productStore.allProducts[1]])
+                //     productStore.setTotalCount(22)
+                // }else{
+                    productStore.setProducts(productStore.allProducts)
+                    productStore.setTotalCount(productStore.allProducts.length) // указываем общее количество товаров
+                // }
                 setLoadingProduct(false)
             }
         }
@@ -83,7 +83,7 @@ const Shop = observer((props) => {
 //--------------------------------------------------------- НИЖЕ СТРОКИ В ТЕСТОВОМ ВАРИАНТЕ ПОКА
                 // }else { // если загружена страница бренда
                 //     let arrayIdProducts = []
-                //     product.allProducts.forEach(prod => {
+                //     productStore.allProducts.forEach(prod => {
                 //         if (prod.brandId === brand.selectedBrand.id) {
                 //             arrayIdProducts.push(prod.categoryId)
                 //             console.log("prod.categoryId",prod.categoryId)
@@ -125,7 +125,7 @@ const Shop = observer((props) => {
         }
 
         if (category.allCategories.length && name) {
-        // if (product.allProducts.length && category.allCategories.length && name) {
+        // if (productStore.allProducts.length && category.allCategories.length && name) {
 
             // category.setLoading(true)
             // console.log("start")
@@ -216,11 +216,11 @@ const Shop = observer((props) => {
     
         }
 
-        if (product.allProducts.length && selectedCategory && name) {
+        if (productStore.allProducts.length && selectedCategory && name) {
 
             let returnArrayProducts =[]
             if (Array.isArray(selectedCategory)) {
-                returnArrayProducts = product.allProducts.filter(i => {
+                returnArrayProducts = productStore.allProducts.filter(i => {
                     let yes = false
                     selectedCategory.forEach(k => {
                         if (i.categoryId === k) yes = true
@@ -229,24 +229,24 @@ const Shop = observer((props) => {
                     return false
                 })
             }else {
-                returnArrayProducts = product.allProducts.filter(i => i.categoryId === selectedCategory)
+                returnArrayProducts = productStore.allProducts.filter(i => i.categoryId === selectedCategory)
             }
             
-            // загрузка товаров на страницу (здесь и в начале есть, если нет 'name')
-            if (product.sort === "priceUp") {
-                // это для теста пока
-                product.setProducts(returnArrayProducts[0])
-                product.setTotalCount(1)
-            }else{
-                product.setProducts(returnArrayProducts)
-                product.setTotalCount(returnArrayProducts.length)
-            }
+            // загрузка товаров на страницу (здесь и в начале есть, когда нет 'name')
+            // if (productStore.sort === "priceUp") {
+            //     // это для теста пока
+            //     productStore.setProducts([returnArrayProducts[0],returnArrayProducts[1]])
+            //     productStore.setTotalCount(22)
+            // }else{
+                productStore.setProducts(returnArrayProducts)
+                productStore.setTotalCount(returnArrayProducts.length)
+            // }
             
             setLoadingProduct(false)
 
         }
 
-    },[product.allProducts, category.allCategories, name, product.mixAll, product.sort])
+    },[productStore.allProducts, category.allCategories, name, productStore.mixAll])//, productStore.sort])
 
     // if (loadingProduct) return <Loading />
 

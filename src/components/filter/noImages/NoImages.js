@@ -6,9 +6,9 @@ import './NoImages.css'
 
 const NoImages = observer(() => {
 
-    const { user, product } = useContext(Context)
+    const { user, productStore } = useContext(Context)
 
-    const [ value, setValue ] = useState(product.mixNoImg === false ? false : true)
+    const [ value, setValue ] = useState(productStore.mixNoImg === false ? false : true)
 
     useEffect(() => {
     },[])
@@ -16,7 +16,7 @@ const NoImages = observer(() => {
     const onChangeInput = () => {
         localStorage.setItem('mixNoImg', !value)
         setValue(!value)
-        product.setMixNoImg(!value)
+        productStore.setMixNoImg(!value)
     }
 
     return (

@@ -11,7 +11,7 @@ import './AdminCategoryService.css'
 
 const AdminCategoryService = observer(({information, idName, offset, sub_id}) => {
     
-    const { product, category } = useContext(Context)
+    const { productStore, category } = useContext(Context)
     const [info, setInfo] = useState(information)
 
     const [showAlert, setShowAlert] = useState(false)
@@ -24,7 +24,7 @@ const AdminCategoryService = observer(({information, idName, offset, sub_id}) =>
         else cursor = "pointer"
         return {id:i.id,readOnly:true,cursor,bEdit:"flex",bApply:"none",divSub:"none"}
     }))
-   
+    
 
     const updateInfo = (sub, data, inform, offset) => {
         if (inform === "state") {
@@ -74,7 +74,7 @@ const AdminCategoryService = observer(({information, idName, offset, sub_id}) =>
         }
         let isProduct = false
         let arrayCategoryIsProduct = reSearch(id)
-        product.allProducts.forEach(i => {
+        productStore.allProducts.forEach(i => {
             arrayCategoryIsProduct.forEach(k => {
                 if (i.categoryId === k) isProduct = true
             })
@@ -202,7 +202,7 @@ const AdminCategoryService = observer(({information, idName, offset, sub_id}) =>
                 setShowAlert(true)
             }else toggleIsProduct(id, checked)
         }else {
-            product.allProducts.forEach(i => {
+            productStore.allProducts.forEach(i => {
                 if (i.categoryId === id) yes = true
             })
             if (yes) {

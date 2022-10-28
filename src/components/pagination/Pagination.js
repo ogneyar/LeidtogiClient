@@ -16,7 +16,7 @@ const MINIMAL_WIDTH_SCREEN_FOR_SIZE = 450
 
 const Pages = observer(() => {
 
-    const { product } = useContext(Context)
+    const { productStore } = useContext(Context)
 
     // const [ pages, setPages ] = useState([])
     
@@ -44,7 +44,7 @@ const Pages = observer(() => {
     let doted = false
     
     // let pages = []
-    // let pageCount = Math.ceil(product.totalCount / product.limit)    
+    // let pageCount = Math.ceil(productStore.totalCount / productStore.limit)
     // for (let i = 0; i < pageCount; i++) {
     //     pages.push(i + 1)
     // }
@@ -59,7 +59,7 @@ const Pages = observer(() => {
         // console.log("pages",pages)
         return pages
     }
-    let pages = useMemo(() => getArrayPages(product.totalCount, product.limit),[product.totalCount, product.limit])
+    let pages = useMemo(() => getArrayPages(productStore.totalCount, productStore.limit),[productStore.totalCount, productStore.limit])
     
     
     const onClick = (page) => {
@@ -68,7 +68,7 @@ const Pages = observer(() => {
         }else {
             scrollUp(SCROLL_TOP_MOBILE)
         }
-        product.setPage(page)
+        productStore.setPage(page)
     }
 
     
@@ -103,16 +103,16 @@ const Pages = observer(() => {
             {pages.length > 10 
             ? 
                 <Pagination.First
-                    onClick={() =>{product.page !== 1 && onClick(1)}}
-                    disabled={product.page === 1 && true}
+                    onClick={() =>{productStore.page !== 1 && onClick(1)}}
+                    disabled={productStore.page === 1 && true}
                 /> 
             : null}
             {pages.length > 10 
             // && sizePagination !== "sm"
             ? 
                 <Pagination.Prev
-                    onClick={() =>{product.page !== 1 && onClick(product.page - 1)}}
-                    disabled={product.page === 1 && true}
+                    onClick={() =>{productStore.page !== 1 && onClick(productStore.page - 1)}}
+                    disabled={productStore.page === 1 && true}
                 /> 
             : null}
             {pages.map(page => 
@@ -122,7 +122,7 @@ const Pages = observer(() => {
                     // 2 - если выбраная страница от 1 до 2
                     // 3 - если выбраная страница от 1 до 3
                     // 4 - если выбраная страница от 1 до 4
-                    product.page <= twoOrthreeOrFour 
+                    productStore.page <= twoOrthreeOrFour 
                     ?
                         // 3 - то показывать первые 3 кнопки
                         // 5 - то показывать первые 5 кнопок
@@ -131,7 +131,7 @@ const Pages = observer(() => {
                         ?
                             <Pagination.Item
                                 key={page}
-                                active={product.page === page}
+                                active={productStore.page === page}
                                 onClick={() => onClick(page)}
                             >
                                 {page}
@@ -152,7 +152,7 @@ const Pages = observer(() => {
                         // 2 - если выбраная страница предпоследняя или последняя
                         // 3 - если выбраная страница от конца 3ья, 2я или первая
                         // 4 - если выбраная страница от конца 4ая, 3ья, 2я или первая
-                        product.page > pages.length - twoOrthreeOrFour
+                        productStore.page > pages.length - twoOrthreeOrFour
                         ?
                             // 3 - то показывать последние 3 кнопки
                             // 5 - то показывать последние 5 кнопок
@@ -161,7 +161,7 @@ const Pages = observer(() => {
                             ?
                                 <Pagination.Item
                                     key={page}
-                                    active={product.page === page}
+                                    active={productStore.page === page}
                                     onClick={() => onClick(page)}
                                 >
                                     {page}
@@ -183,11 +183,11 @@ const Pages = observer(() => {
                             // если 2 - то показать 3 штуки
                             // если 3 - то показать 5 штук
                             // если 4 - то показать 7 штук
-                            page < product.page + twoOrthreeOrFour && page > product.page - twoOrthreeOrFour 
+                            page < productStore.page + twoOrthreeOrFour && page > productStore.page - twoOrthreeOrFour 
                             ?
                                 <Pagination.Item
                                     key={page}
-                                    active={product.page === page}
+                                    active={productStore.page === page}
                                     onClick={() => onClick(page)}
                                 >
                                     {page}
@@ -210,7 +210,7 @@ const Pages = observer(() => {
                 :
                     <Pagination.Item
                         key={page}
-                        active={product.page === page}
+                        active={productStore.page === page}
                         onClick={() => onClick(page)}
                     >
                         {page}
@@ -222,15 +222,15 @@ const Pages = observer(() => {
             // && sizePagination !== "sm"
             ? 
                 <Pagination.Next
-                    onClick={() =>{product.page !== pages.length && onClick(product.page + 1)}}
-                    disabled={product.page === pages.length && true}
+                    onClick={() =>{productStore.page !== pages.length && onClick(productStore.page + 1)}}
+                    disabled={productStore.page === pages.length && true}
                 /> 
             : null}
             {pages.length > 10 
             ? 
                 <Pagination.Last
-                    onClick={() =>{product.page !== pages.length && onClick(pages.length)}}
-                    disabled={product.page === pages.length && true}
+                    onClick={() =>{productStore.page !== pages.length && onClick(pages.length)}}
+                    disabled={productStore.page === pages.length && true}
                 /> 
             : null}
         </Pagination>

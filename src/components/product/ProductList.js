@@ -9,11 +9,13 @@ import Loading from '../Loading'
 
 import { Context } from '../..'
 import './Product.css'
+import { sortPriceUp } from '../../service/product/sortPriceUp'
+import { sortNameUp } from '../../service/product/sortNameUp'
 
 
 const ProductList = observer((props) => {
 
-    const { product, brand, category } = useContext(Context)
+    const { productStore, brand, category } = useContext(Context)
 
     const [ info, setInfo ] = useState(null)
     // eslint-disable-next-line
@@ -23,12 +25,12 @@ const ProductList = observer((props) => {
     const [ visibleContextMenu, setVisibleContextMenu ] = useState(null)
     
     useEffect(() => {
-        let offset = product.page * product.limit - product.limit // отступ
+        let offset = productStore.page * productStore.limit - productStore.limit // отступ
         let limit = 0
         
-        if ( ! props?.loading || product.allProducts.length ) { // если уже подгружены товары
+        if ( ! props?.loading || productStore.allProducts.length ) { // если уже подгружены товары
             let newArray
-            if (brand.selectedBrand?.id !== undefined) newArray = product.products.filter(k => {
+            if (brand.selectedBrand?.id !== undefined) newArray = productStore.products.filter(k => {
                 if (brand.selectedBrand.id > 3000 && k.brandId === 9) { // RedVerg, Concorde, Квалитет с id > 3000, 9й TMK
                     let brandName = brand.selectedBrand.name.toLowerCase()
                     if (brandName === "kvalitet") brandName = "квалитет"
@@ -40,15 +42,24 @@ const ProductList = observer((props) => {
                 }
                 return false
             })
-            else newArray = product.products
+            else newArray = productStore.products
+
+            if (productStore.sort === "priceUp") {
+                newArray = sortPriceUp(newArray)
+            }else if (productStore.sort === "nameUp") {
+                newArray = sortNameUp(newArray)
+            }else {
+                //
+            }
+
             setInfo(newArray.filter((i,index) => {
                 if (index + 1 > offset) {
                     limit += 1
-                    if (limit <= product.limit) return true
+                    if (limit <= productStore.limit) return true
                 }
                 return false
             }))
-            product.setTotalCount(newArray.length)
+            productStore.setTotalCount(newArray.length)
             setLoading(false) 
             
         }else {//if (!props?.categoryUrl) {  // если ещё не подгружены товары, загружаем с сервера одну страничку
@@ -60,17 +71,16 @@ const ProductList = observer((props) => {
                     clearTimeout(fetchTimeOut)
                 }
                 setFetchTimeOut(setTimeout(() => {
-                    // alert("fetchProducts")
-                    let body = { page: product.page, limit: product.limit }
+                    let body = { page: productStore.page, limit: productStore.limit }
                     if (brand.selectedBrand?.id !== undefined) body = { ...body, brandId: brand.selectedBrand.id }
                     if (category.selectedCategory?.id !== undefined) body = { ...body, categoryId: category.selectedCategory.id }
-                    if (product.sort) body = { ...body, sort: product.sort }
-                    if (product.mixNoImg) body = { ...body, mix_no_img: product.mixNoImg }
+                    if (productStore.mixAll) body = { ...body, mix_all: productStore.mixAll }
+                    if (productStore.mixNoImg) body = { ...body, mix_no_img: productStore.mixNoImg }
                     fetchProducts(body)
                         .then(data => {
 							if (data.count) setInfo(data.rows)
 							else setInfo([])
-							product.setTotalCount(data.count)
+							productStore.setTotalCount(data.count)
                             setLoading(false)
                         })
                         // .finally(() => setLoading(false))
@@ -79,12 +89,9 @@ const ProductList = observer((props) => {
             }
 
         }
-        
     // eslint-disable-next-line
-    }, [ product.page, product.limit, brand.selectedBrand, category.selectedCategory ])
-    // }, [ product, product.products, product.page, product.limit, 
-    //     brand.selectedBrand, props?.search, props?.loading, props, 
-    //     category.selectedCategory, loading ]) 
+    }, [ productStore.page, productStore.limit, brand.selectedBrand, category.selectedCategory, productStore.sort ])
+    // }, [ productStore.page, productStore.limit, brand.selectedBrand, category.selectedCategory, productStore, props?.categoryUrl, props?.loading, fetchTimeOut ]) 
     
 
     const onClickOpenOnNewPage = () => {

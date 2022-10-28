@@ -1,4 +1,4 @@
-// eslint-disable-next-line
+
 import React, { useEffect, useState, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 
@@ -7,7 +7,7 @@ import './Sort.css'
 
 const Sort = observer(() => {
     
-    const { product } = useContext(Context)
+    const { productStore } = useContext(Context)
 
     // const [ products, setProducts ] = useState(false)
 
@@ -15,9 +15,9 @@ const Sort = observer(() => {
     const [ top, setTop ] = useState(0)
     const [ left, setLeft ] = useState(0)
 
-    // useEffect(() => {
-    //     //if (product && product.products) setProducts(product.products[0])
-    // },[product, product.products])
+    useEffect(() => {
+        // if (productStore && productStore.products) productStore.setProducts([productStore.products[0]])
+    },[])
 
     const onClickSort = (e) => {
         e.preventDefault()
@@ -28,11 +28,16 @@ const Sort = observer(() => {
 
     const onClickSortOnPrice = () => {
         setVisibleMenu(false)
-        product?.setSort("priceUp")
+        localStorage.setItem("sort","priceUp")
+        productStore.setSort("priceUp")
+        productStore.setPage(1)
     }
 
-    const onClickSortOnAlphabet = () => {
+    const onClickSortOnName = () => {
         setVisibleMenu(false)
+        localStorage.setItem("sort","nameUp")
+        productStore.setSort("nameUp")
+        productStore.setPage(1)
     }
 
     const onClickBackground = () => {
@@ -69,7 +74,7 @@ const Sort = observer(() => {
                         По цене (по возрастанию)
                     </div>
                     <div 
-                        onClick={onClickSortOnAlphabet}
+                        onClick={onClickSortOnName}
                         className="Sort_Menu_div"
                     >
                         По алфавиту (по возрастанию)

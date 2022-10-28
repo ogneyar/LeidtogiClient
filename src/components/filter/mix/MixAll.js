@@ -6,9 +6,9 @@ import './MixAll.css'
 
 const MixAll = observer(() => {
 
-    const { user, product } = useContext(Context)
+    const { user, productStore } = useContext(Context)
 
-    const [ value, setValue ] = useState(product.mixAll === false ? false : true)
+    const [ value, setValue ] = useState(productStore.mixAll === false ? false : true)
 
     useEffect(() => {
     },[])
@@ -16,7 +16,7 @@ const MixAll = observer(() => {
     const onChangeInput = () => {
         localStorage.setItem('mixAll', !value)
         setValue(!value)
-        product.setMixAll(!value)
+        productStore.setMixAll(!value)
     }
 
     return (

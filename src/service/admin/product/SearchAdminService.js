@@ -12,7 +12,7 @@ import { API_URL } from '../../../utils/consts';
 
 const SearchAdminService = observer((props) => {
 
-    const {product, category, brand} = useContext(Context)
+    const { productStore, category, brand } = useContext(Context)
 
     const [article, setArticle] = useState("")
     const [search, setSearch] = useState([])
@@ -27,15 +27,15 @@ const SearchAdminService = observer((props) => {
 
     
     useEffect(() => {
-        if (product.allProducts.length) {
+        if (productStore.allProducts.length) {
             setLoading(false)
         }
-    },[product.allProducts])
+    },[productStore.allProducts])
 
     useEffect(() => {
         if (!loading && article !== "") {
             setSearch(
-                product.allProducts.filter(
+                productStore.allProducts.filter(
                     i => i.article.includes(article)
                 ).sort((a, b) => a.article - b.article)
             )

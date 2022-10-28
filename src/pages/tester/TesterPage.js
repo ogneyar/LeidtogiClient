@@ -18,7 +18,7 @@ import { Context } from '../..'
 
 const TesterPage = () => {
     // eslint-disable-next-line
-    const { product, brand } = useContext(Context)
+    const { productStore, brand } = useContext(Context)
 
     const [ showAlert, setShowAlert ] = useState(false)
     const [ message, setMessage ] = useState("")
@@ -61,7 +61,7 @@ const TesterPage = () => {
     const getProductWithOutGabarites = async () => {
         let sizes = await getAllProductSizes()
         setShowAlert(true)
-        let messageInfo = product
+        let messageInfo = productStore
             .allProducts
             .filter(i => {
                 let no = true
@@ -79,7 +79,7 @@ const TesterPage = () => {
     const getProductWithOutDescription = async () => {
         let infos = await getAllProductInfos()
         setShowAlert(true)
-        let messageInfo = product
+        let messageInfo = productStore
             .allProducts
             .filter(i => {
                 let no = true
@@ -97,7 +97,7 @@ const TesterPage = () => {
     const getProductWithOutCharacteristics = async () => {
         let infos = await getAllProductInfos()
         setShowAlert(true)
-        let messageInfo = product
+        let messageInfo = productStore
             .allProducts
             .filter(i => {
                 let no = true
@@ -115,7 +115,7 @@ const TesterPage = () => {
     const getProductWithOutEquipment = async () => {
         let infos = await getAllProductInfos()
         setShowAlert(true)
-        let messageInfo = product
+        let messageInfo = productStore
             .allProducts
             .filter(i => {
                 let no = true
@@ -131,7 +131,7 @@ const TesterPage = () => {
     }
 
     const getXML = async () => {
-        if (product?.allProducts) {
+        if (productStore?.allProducts) {
             setXML("...")
 
             let response = await setFeed()
@@ -143,7 +143,7 @@ const TesterPage = () => {
     }
 
     const getSiteMap = async () => {
-        if (product?.allProducts) {
+        if (productStore?.allProducts) {
             setMap("...")
 
             let response = await setSiteMap({

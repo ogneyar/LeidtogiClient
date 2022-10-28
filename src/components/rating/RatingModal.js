@@ -10,7 +10,7 @@ import './RatingModal.css'
 
 const RatingModal = observer(({ show, onHide, rate, setRate, userId, productId }) => {
 
-    const { rating, product } = useContext(Context)
+    const { rating, productStore } = useContext(Context)
 
     const [info, setInfo] = useState([])
 
@@ -59,9 +59,9 @@ const RatingModal = observer(({ show, onHide, rate, setRate, userId, productId }
     const onClickLabel = (id) => {
 
         if (rate) {
-            updateRating(userId, productId, id).then(data => updateRateFunction(productId))
+            updateRating(userId, productId, id).then(() => updateRateFunction(productId))
         }else {
-            createRating(userId, productId, id).then(data => updateRateFunction(productId))
+            createRating(userId, productId, id).then(() => updateRateFunction(productId))
         }
 
         setRate(id)
@@ -81,7 +81,7 @@ const RatingModal = observer(({ show, onHide, rate, setRate, userId, productId }
                 }
             }
             updateRatingProduct(productId, rate).then(yes => {
-                fetchAllProducts().then(data => product.setAllProducts(data))
+                fetchAllProducts().then(data => productStore.setAllProducts(data))
             })
             rating.setRate(rate)
         })

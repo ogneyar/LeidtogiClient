@@ -18,7 +18,7 @@ import Loading from '../../../components/Loading'
 
 const ProductService = observer((props) => {
     
-    const {product, category, brand} = useContext(Context)
+    const { productStore, category, brand } = useContext(Context)
 
     const [loading, setLoading] = useState(false)
 
@@ -165,7 +165,7 @@ const ProductService = observer((props) => {
     const addProduct = async () => {
         if (category.selectedCategory?.name && brand.selectedBrand?.name && article && name && file) {
             let no = true
-            product.allProducts.forEach(i => {
+            productStore.allProducts.forEach(i => {
                 if (i.article === article) no = false
             })
             if (no) { // если нет такого артикула в БД
@@ -181,7 +181,7 @@ const ProductService = observer((props) => {
                         }
                     )
                     if (!error) {
-                        fetchAllProducts().then(data => product.setAllProducts(data))
+                        fetchAllProducts().then(data => productStore.setAllProducts(data))
                         category.setSelectedCategory({})
                     }
                     setLoading(false)
@@ -197,7 +197,7 @@ const ProductService = observer((props) => {
         const formData = await getFormData()
         await updateAllProduct(id, formData).then(() => props?.back())
 
-        fetchAllProducts().then(data => product.setAllProducts(data))
+        fetchAllProducts().then(data => productStore.setAllProducts(data))
         category.setSelectedCategory({})
         setLoading(false)
     }
@@ -205,7 +205,7 @@ const ProductService = observer((props) => {
     const delProduct = async (id) => {
         await deleteProduct(id).then(() => props?.back())
 
-        fetchAllProducts().then(data => product.setAllProducts(data))
+        fetchAllProducts().then(data => productStore.setAllProducts(data))
         category.setSelectedCategory({})
     }
 
@@ -416,7 +416,7 @@ const ProductService = observer((props) => {
                             onChange={selectFile}
                             multiple 
                             accept="image/*,image/jpeg"
-                         />
+                        />
                     {/* :
                         <Button variant="outline-primary" onClick={() => setFileVisible(true)}>
                             {action === "edit" && "Заменить фото"}
@@ -459,7 +459,7 @@ const ProductService = observer((props) => {
                     action={action}
                 />
             </div>			
-			 
+			
             <div className="inputBox">
                 <label>Цена по запросу: </label>
                 <Dropdown className=''>
@@ -522,7 +522,7 @@ const ProductService = observer((props) => {
                     <Button variant="outline-success" onClick={() => editProduct(props?.id)}>Изменить продукцию</Button>
                 }
             </div>
-           
+            
             <hr />
 
         </div>

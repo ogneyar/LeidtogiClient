@@ -12,7 +12,7 @@ import './BrandBar.css'
 
 const BrandBar =  observer((props) => {
 
-    const { product, brand } = useContext(Context)
+    const { productStore, brand } = useContext(Context)
 
     const [info, setInfo] = useState([])
 
@@ -33,7 +33,7 @@ const BrandBar =  observer((props) => {
         }else {
             scrollUp(SCROLL_TOP_MOBILE)
         }
-        product.setPage(1)
+        productStore.setPage(1)
     }
 
 

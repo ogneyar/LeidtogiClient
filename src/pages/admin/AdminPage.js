@@ -18,7 +18,7 @@ import scrollUp from '../../utils/scrollUp'
 
 const Admin = observer(() => {
     
-    const { user, product, category, brand } = useContext(Context)
+    const { user, productStore, category, brand } = useContext(Context)
 
     const history = useHistory()
 
@@ -26,12 +26,12 @@ const Admin = observer(() => {
     },[])
 
     useEffect(() => {
-        if (product.allProducts.length) {
-            product.setProducts(product.allProducts)
-            product.setTotalCount(product.allProducts.length)
+        if (productStore.allProducts.length) {
+            productStore.setProducts(productStore.allProducts)
+            productStore.setTotalCount(productStore.allProducts.length)
         }
     // eslint-disable-next-line
-    },[product.allProducts])
+    },[productStore.allProducts])
 
     useEffect(() => {
         if (category.allCategories.length) {
@@ -60,7 +60,7 @@ const Admin = observer(() => {
 
     return (
         <Container className="Content d-flex flex-column Admin Mobile">
-           
+            
             <Button 
                 variant={"outline-dark"} 
                 className="m-3 p-2 Admin_button"

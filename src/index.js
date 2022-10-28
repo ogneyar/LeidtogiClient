@@ -14,7 +14,7 @@ export const Context = createContext(null)
 
 let contextValue = {
     user: new UserStore(),
-    product: new ProductStore(),
+    productStore: new ProductStore(),
     category: new CategoryStore(),
     brand: new BrandStore(),
     rating: new RatingStore(),

@@ -17,6 +17,7 @@ import './Product.css'
 const ProductItem = (props) => {
 
     const [ product ] = useState(props?.product)
+    
     // useEffect(() => {
     //     if (props?.product) {
     //         product = props?.product

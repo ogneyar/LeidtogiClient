@@ -26,7 +26,7 @@ import './styles/App.css'
 
 const App = observer(() => { 
 
-    const { user, product, category, brand, cart } = useContext(Context)
+    const { user, productStore, category, brand, cart } = useContext(Context)
 
     // const [ loading, setLoading ] = useState(false)
     const [ alertVisible, setAlertVisible ] = useState(false)
@@ -105,13 +105,13 @@ const App = observer(() => {
             .then(
                 data => {
                     // перемешать?
-                    if (product.sort) mixAllProducts(data)
+                    if (productStore.mixAll) mixAllProducts(data)
                     // добавление товаров без изображений в конец списка
-                    if (product.mixNoImg) data = productsWithOutImageRemoveInEnd(data) 
+                    if (productStore.mixNoImg) data = productsWithOutImageRemoveInEnd(data) 
                     // cмешиваем акционные товары с остальными
                     mixPromo(data) 
-                    if ( ! prod ) product.setAllProducts(data) // if NOT production 
-                    else product.setAllProducts(data.filter(i => i.have === 1)) // && i.brandId !== 10)) // if production mode and NOT LeidTogi brand
+                    if ( ! prod ) productStore.setAllProducts(data) // if NOT production 
+                    else productStore.setAllProducts(data.filter(i => i.have === 1)) // && i.brandId !== 10)) // if production mode and NOT LeidTogi brand
                 },
                 error => getError(`Не удалось загрузить товары!`, error)
             )
@@ -123,13 +123,14 @@ const App = observer(() => {
         }
         
         scrollUp(0)
-    // eslint-disable-next-line
-    }, [brand, category, product, user, cart])
+        
+    }, [ brand, category, productStore, user, cart ])
 
-  
+
 //   if (loading) return <Loading />
-  if (alertVisible) return <Alert show={alertVisible} onHide={() => setAlertVisible(false)} message={messageAlert} />
-  
+
+    if (alertVisible) return <Alert show={alertVisible} onHide={() => setAlertVisible(false)} message={messageAlert} />
+
 
     return (
         <BrowserRouter>

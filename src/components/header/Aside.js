@@ -126,7 +126,7 @@ const Aside = observer(() => {
         }
     // eslint-disable-next-line
     },[category?.selectedCategory, history.location.pathname, brand?.selectedBrand])
-    // },[category?.selectedCategory, history.location.pathname, product?.allProducts])
+    // },[category?.selectedCategory, history.location.pathname, productStore?.allProducts])
    
     const onClickAsideDiv = () => {
         let path = history.location.pathname.replace(/\//,"") 

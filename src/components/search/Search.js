@@ -16,8 +16,8 @@ import './Search.css'
 
 
 const Search = observer((props) => {
-    // eslint-disable-next-line
-    const { product, brand } = useContext(Context)
+    
+    const { productStore, brand } = useContext(Context)
 
     const [ admin, setAdmin ] =  useState(false)
 
@@ -32,10 +32,10 @@ const Search = observer((props) => {
     const history = useHistory()
 
     useEffect(() => {
-        if (product.allProducts.length) {
-            setArray(product.allProducts)
+        if (productStore.allProducts.length) {
+            setArray(productStore.allProducts)
         }
-    },[product.allProducts])
+    },[productStore.allProducts])
 
     // useEffect(() => { 
     //     if (list.length) {

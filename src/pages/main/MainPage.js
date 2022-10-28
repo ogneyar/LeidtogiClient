@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
@@ -6,9 +7,10 @@ import {
     SCROLL_TOP, SCROLL_TOP_MOBILE, SHOP_ROUTE
 } from '../../utils/consts'
 import scrollUp from '../../utils/scrollUp'
-import array from './mainData'
-import './MainPage.css'
 import ShopButton from './ShopButton'
+import array from './mainData'
+
+import './MainPage.css'
 
 
 const MainPage = () => {

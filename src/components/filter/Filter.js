@@ -3,7 +3,6 @@ import React from 'react'
 import Limit from './limit/Limit'
 import MixAll from './mix/MixAll'
 import NoImages from './noImages/NoImages'
-// eslint-disable-next-line
 import Sort from './sort/Sort'
 
 import './Filter.css'
@@ -18,7 +17,7 @@ const Filter = () => {
             <NoImages />
             <MixAll />
             {/* для пользователя */}
-            {/* <Sort /> */}
+            <Sort />
             <Limit />
         </div>
     )

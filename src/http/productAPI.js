@@ -6,9 +6,9 @@ export const createProduct = async (product) => {
     return data
 }
 
-export const fetchProducts = async ({categoryId, brandId, page, limit, sort, mix_no_img}) => {
+export const fetchProducts = async ({categoryId, brandId, page, limit, mix_all, mix_no_img}) => {
     let { data } = await $host.get('api/product', {params: {
-        categoryId, brandId, page, limit, sort, mix_no_img
+        categoryId, brandId, page, limit, mix_all, mix_no_img
     }})    
     if (data.count === undefined) return { count: 0, rows: [] }
     return { 

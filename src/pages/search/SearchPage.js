@@ -15,7 +15,7 @@ import './SearchPage.css'
 
 
 const SearchPage = observer(() => {
-    const { product, category } = useContext(Context)
+    const { productStore, category } = useContext(Context)
     
     const [ loadingCategory, setLoadingCategory ] = useState(true)
     const [ loadingProduct, setLoadingProduct ] = useState(true)
@@ -24,8 +24,8 @@ const SearchPage = observer(() => {
 
 
     useEffect(() => {
-        if (product.allProducts.length) {
-            product.setPage(1)
+        if (productStore.allProducts.length) {
+            productStore.setPage(1)
             let length = 0
 
             let allSearch = value ? value.split(" ") : []
@@ -33,7 +33,7 @@ const SearchPage = observer(() => {
             let arraySearch = []
 
             allSearch.forEach(async(searched) => {
-                arraySearch = [...arraySearch, ...product.allProducts.filter(i => {
+                arraySearch = [...arraySearch, ...productStore.allProducts.filter(i => {
                     // функция deleteAbbreviation убирает сокращённые названия бренда (hqv, rgk, kvt)
                     let valueNumber = deleteAbbreviation(searched)
                     if ( isNumber( valueNumber ) ) {
@@ -52,12 +52,12 @@ const SearchPage = observer(() => {
             })
 
             // new Set(arraySearch) - создание массива с уникальными значениями
-            product.setProducts([...new Set(arraySearch)])
-            product.setTotalCount(length)
+            productStore.setProducts([...new Set(arraySearch)])
+            productStore.setTotalCount(length)
             setLoadingProduct(false)
         }
         // eslint-disable-next-line
-    },[product.allProducts, value])
+    },[productStore.allProducts, value])
 
     useEffect(() => {
         if (category.allCategories.length) {
