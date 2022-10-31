@@ -24,7 +24,7 @@ const TmkParserPage = observer((props) => {
     const onClickButtonAddNewProduct = async () => {
         setMessage("")
         const formData = new FormData()
-        if (feed) {
+        if (feed && !checkFeed) {
             formData.append("feed", feed)
         }
         setLoading(true)
@@ -68,7 +68,7 @@ const TmkParserPage = observer((props) => {
     let onClickButtonChangePrices = async () => {
         setMessage("")
         const formData = new FormData()
-        if (feed) {
+        if (feed && !checkUpdatePrice) {
             formData.append("feed", feed)
         }
         setLoading(true)
@@ -95,7 +95,7 @@ const TmkParserPage = observer((props) => {
     return (
         <InfoPage>
             <div className="ParserPage"> 
-                 
+                
                 {message && message !== ""
                 ?
                 <>
@@ -166,7 +166,7 @@ const TmkParserPage = observer((props) => {
                         />
                         <div 
                             className="ParserPage_box_div"
-                            // onClick={() => setCheckUpdatePrice(!checkUpdatePrice)}
+                            //onClick={() => setCheckUpdatePrice(!checkUpdatePrice)}
                         >
                             <input 
                                 type="checkbox"

@@ -32,7 +32,7 @@ const MilwaukeeParserPage = observer((props) => {
         
         const formData = new FormData()
         formData.append("feed", feed)
-      
+        
         await mlkChangePriceAll(formData, value)
             .then(data => {
                 if (data?.error) {
@@ -97,7 +97,7 @@ const MilwaukeeParserPage = observer((props) => {
         setLoading(false)
     }
 
-   
+    
     return (
         <InfoPage>
             <div className="MilwaukeeParserPage">
