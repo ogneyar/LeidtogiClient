@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Carousel as CarouselBootstrap, Container } from 'react-bootstrap'
 // import CarouselBootstrap from 'react-bootstrap/Carousel'
 
-import { API_URL } from '../../utils/consts'
+import { API_URL } from '../../../utils/consts'
 import './Carousel.css'
 
 
@@ -11,11 +11,11 @@ const Carousel = () => {
     const [index, setIndex] = useState(0);
     
     const handleSelect = (selectedIndex, e) => {
-      setIndex(selectedIndex);
+        setIndex(selectedIndex);
     };
     
     return (
-      <CarouselBootstrap 
+    <CarouselBootstrap 
         activeIndex={index} 
         onSelect={handleSelect}
         className="Carousel" 
@@ -80,9 +80,9 @@ const Carousel = () => {
             </Container>
         </CarouselBootstrap.Item>
 
-      </CarouselBootstrap>
+    </CarouselBootstrap>
     )
-      
+
 }
 
 export default Carousel

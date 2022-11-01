@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react'
 // import { Container } from 'react-bootstrap'
 
@@ -15,8 +16,8 @@ const Banner = () => {
     
     return (
         <div
-          id="containerBoots"
-          className="Banner"
+            id="containerBoots"
+            className="Banner"
         >
             <div
                 className="Banner_img"
@@ -28,7 +29,7 @@ const Banner = () => {
         
         </div>
     )
-      
+
 }
 
 export default Banner

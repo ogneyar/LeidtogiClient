@@ -4,13 +4,13 @@ import React, { useEffect, useContext, useState } from 'react'
 import { NavLink, useHistory, useParams } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
-import Container from '../../components/myBootstrap/container/Container'
-// import { API_URL } from '../../utils/consts'
-import { Context } from '../..'
-import './Aside.css'
+import { fetchOneProduct, fetchOneProductOnUrl } from '../../../http/productAPI'
+import Container from '../../../components/myBootstrap/container/Container'
+import { authRoutes, publicRoutes } from '../../../utils/routes'
+// import { API_URL } from '../../../utils/consts'
 
-import { authRoutes, publicRoutes } from '../../utils/routes'
-import { fetchOneProduct, fetchOneProductOnUrl } from '../../http/productAPI'
+import { Context } from '../../..'
+import './Aside.css'
 
 
 const Aside = observer(() => {

@@ -1,19 +1,18 @@
-.Sort {
-    padding: 0 10px;
-    margin-right: 5px;
+.PopUp {
+    /* padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 5px; */
     /* border-left: 1px dotted grey; */
     /* border-right: 1px dotted grey; */
     display: flex;
     cursor: pointer;
-    background-color: var(--main-silver-color);
+    /* background-color: var(--main-silver-color); */
     border-radius: 15px;
-    border: 1px solid white;
-    /* color: white; */
+    /* border: 1px solid white; */
     user-select: none;
 }
 
-.Sort_background {
-    /* background-color: aquamarine; */
+.PopUp_background {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -23,7 +22,7 @@
 
 }
 
-.Sort_Menu {
+.PopUp_Menu {
     border: 1px dotted grey;
     border-radius: 5px;
     position: relative;
@@ -34,10 +33,10 @@
     margin: 10px;
 }
 
-.Sort_Menu_div {
+/* .PopUp_Menu_div {
     border-top: 1px dashed grey;
     cursor: pointer;
 }
-.Sort_Menu_div:first-child {
+.PopUp_Menu_div:first-child {
     border-top: none;
-}
+} */

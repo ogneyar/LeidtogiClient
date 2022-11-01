@@ -8,13 +8,13 @@ import { observer } from 'mobx-react-lite'
 import { 
     ADMIN_ROUTE, LOGIN_ROUTE, CART_ROUTE, LK_ROUTE, NAME, 
     ADDRESS, PHONE_ONE, MAIL, SCROLL_TOP, SCROLL_TOP_MOBILE 
-} from '../../utils/consts'
-import logo from '../../assets/logo.png'
-import basket from '../../assets/cart.png'
-import { logout } from '../../http/userAPI'
-import scrollUp from '../../utils/scrollUp'
+} from '../../../utils/consts'
+import logo from '../../../assets/logo.png'
+import basket from '../../../assets/cart.png'
+import { logout } from '../../../http/userAPI'
+import scrollUp from '../../../utils/scrollUp'
 
-import { Context } from '../..'
+import { Context } from '../../..'
 import './NavBar.css';
 
 

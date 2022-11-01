@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import { LIMIT } from '../../../utils/consts'
@@ -14,11 +14,15 @@ const Limit = observer(() => {
     let limit = localStorage.getItem('limit') || LIMIT
     const [state, setState] = useState(limit)
         
+    useEffect(() => {
+        if (productStore.limit && productStore.limit !== state) {
+            setState(productStore.limit)
+        }
+    // eslint-disable-next-line
+    }, [productStore.limit])
 
     const change = (e) => {
-        // console.log(e.target.value);
-
-        setState(e.target.value)
+        //setState(e.target.value)
         localStorage.setItem('limit', e.target.value)
 
         productStore.setLimit(e.target.value)

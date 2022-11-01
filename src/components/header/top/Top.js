@@ -1,16 +1,17 @@
+
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { Container } from '../myBootstrap'
+import { Container } from '../../myBootstrap'
 import { 
     SHOP_ROUTE, DELIVERY_ROUTE, PAYMENT_ROUTE, DEALER_ROUTE,
     // eslint-disable-next-line
     CONTACTS_ROUTE, SPECIALS_ROUTE, SUPPORT_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE 
-} from '../../utils/consts'
+} from '../../../utils/consts'
+import scrollUp from '../../../utils/scrollUp'
+import Search from '../../search/Search'
 
 import './Top.css'
-import Search from '../search/Search'
-import scrollUp from '../../utils/scrollUp'
 
 
 const Top = () => {

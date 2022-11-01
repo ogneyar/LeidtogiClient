@@ -2,7 +2,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 
-import { ADDRESS, MAIL, PHONE_ONE, CITY } from '../../utils/consts'
+import { ADDRESS, MAIL, PHONE_ONE, CITY } from '../../../utils/consts'
 import './Address.css'
 
 
