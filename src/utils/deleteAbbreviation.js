@@ -3,18 +3,19 @@ export default function deleteAbbreviation(string){
 
     return string
         .replace("-","")
-        .replace("mlk","")
-        .replace("rgk","")
-        .replace("hqv","")
-        .replace("kvt","")
-        .replace("ged","")
-        .replace("tmk","")
-        .replace("erb","")
-        .replace("esa","")
-        .replace("aeg","")
-        .replace("adv","")
-		.replace("LT","")
-		.replace("lt","")
-		.replace("tor","")
+        .replace("mlk","") // Milwaukee
+        .replace("rgk","") // RGK
+        .replace("hqv","") // Husqvarna
+        .replace("kvt","") // KVT
+        .replace("ged","") // Gedore
+        .replace("tmk","") // TMK
+        .replace("erb","") // Euroboor
+        .replace("esa","") // 
+        .replace("aeg","") // 
+        .replace("adv","") // Advanta-M
+		.replace("LT","")  // LeidTogi
+		.replace("lt","")  // LeidTogi
+		.replace("tor","") // Tor
+		.replace("krs","") // Krause
         .trim()
 }
