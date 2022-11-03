@@ -11,7 +11,7 @@ import KvtParserPage from './kvt/KvtParserPage';
 import GedoreParserPage from './gedore/GedoreParserPage';
 import TmkParserPage from './tmk/TmkParserPage';
 import BrandParserPage from './brand/BrandParserPage';
-import { ADMIN_ROUTE } from '../../utils/consts';
+import { ADMIN_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts';
 import scrollUp from '../../utils/scrollUp';
 
 import './ParserPage.css'
@@ -25,7 +25,7 @@ const ParserPage = observer(() => {
 
     const setBrandAndScroll = (name) => {
         setBrand(name)
-        scrollUp()
+        scrollUp(window.innerWidth < 700 ? SCROLL_TOP_MOBILE : SCROLL_TOP)
     }
 
     
@@ -44,6 +44,7 @@ const ParserPage = observer(() => {
                 <button onClick={() => setBrandAndScroll("advanta")} >Advanta-M</button>
                 <button onClick={() => setBrandAndScroll("euroboor")} >Euroboor</button>
                 <button onClick={() => setBrandAndScroll("tor")} >Tor</button>
+                <button onClick={() => setBrandAndScroll("krause")} >Krause</button>
                 <br />
                 <button onClick={() => history.push(ADMIN_ROUTE)} >Назад</button>
             </div>
@@ -69,6 +70,8 @@ const ParserPage = observer(() => {
     // if (brand === "euroboor") return <BrandParserPage setBrand={setBrandAndScroll} brand={brand} />
 
     // if (brand === "tor") return <BrandParserPage setBrand={setBrandAndScroll} brand={brand} />
+
+    // if (brand === "krause") return <BrandParserPage setBrand={setBrandAndScroll} brand={brand} />
 
 })
 

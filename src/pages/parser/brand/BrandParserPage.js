@@ -70,7 +70,6 @@ const BrandParserPage = observer((props) => {
 
     // оновление цен
     let onClickButtonChangePrices = async () => {
-        // alert("Не реализованно (:")
         setMessage("")
         const formData = new FormData()
         if (feed) {
@@ -100,7 +99,7 @@ const BrandParserPage = observer((props) => {
     return (
         <InfoPage>
             <div className="ParserPage"> 
-                 
+                
                 {message && message !== ""
                 ?
                 <>
