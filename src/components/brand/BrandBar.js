@@ -83,6 +83,8 @@ const BrandBar =  observer((props) => {
                     br.name === "Euroboor"
                     || 
                     br.name === "Tor"
+                    || 
+                    br.name === "Krause"
                 ) {
 
                     return <Card
@@ -93,7 +95,14 @@ const BrandBar =  observer((props) => {
                         key={br.id}
                         className="p-3"
                     >
-                        {br.name === "RGK" 
+                        {br.name === "RGK" ? "R G K" 
+                        : br.name === "KVT" ? "К В Т"
+                        : br.name === "Tor" ? "T O R"
+                        : br.name === "Redverg" ? "RedVerg"
+                        : br.name === "Kvalitet" ? "Квалитет" 
+                        : br.name}
+
+                        {/* {br.name === "RGK" 
                         ? "R G K" 
                         : br.name === "KVT" 
                         ? "К В Т" 
@@ -115,7 +124,9 @@ const BrandBar =  observer((props) => {
                         ? "E R B"
                         : br.name === "Tor"
                         ? "T O R"
-                        : br.name}
+                        : br.name === "Krause" && window.innerWidth < 992
+                        ? "K R S"
+                        : br.name} */}
                     </Card>
 
                 }else return null
