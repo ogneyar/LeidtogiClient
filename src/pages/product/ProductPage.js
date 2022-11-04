@@ -279,7 +279,7 @@ const ProductPage =  observer((props) => {
                         }
                         </table>    
                         </>
-                        : info?.title === "description" && product.brandId !== 13 // отключил бренд "tor"
+                        : info?.title === "description" && info?.body.length < 4096 // у бренда "tor" 77 товаров с description > 4096 символов не влезли целиком в БД
                             ? 
                             <>
                             <h2>Описание</h2>
