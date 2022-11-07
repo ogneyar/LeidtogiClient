@@ -1,5 +1,5 @@
 .RgkParserPage {
-
+    margin: 0;
 }
 
 .RgkParserPage_Header {
@@ -10,6 +10,8 @@
 .RgkParserPage_Header button {
     padding: 10px;
     margin: 5px;
+    border-radius: 5px;
+    border: 1px solid silver;
 }
 
 .RgkParserPage_Header label {

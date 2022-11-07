@@ -7,6 +7,18 @@
 .ParserPage_Header button {
     padding: 10px;
     margin: 5px;
+    border-radius: 5px;
+    border: 1px solid silver;
+}
+
+.ParserPage_Header_green {
+    color: green;
+    border: 1px dotted green;
+}
+
+.ParserPage_Header_red {
+    color: red;
+    border: 1px dotted red;
 }
 
 .ParserPage_Header label {
@@ -46,6 +58,12 @@
 .ParserPage_box button {
     padding: 10px;
     margin: 5px;
+}
+
+.ParserPage_box button,
+.ParserPage_button {
+    border-radius: 5px;
+    border: 1px solid silver;
 }
 
 .ParserPage_box_div {

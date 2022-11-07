@@ -16,7 +16,7 @@ const BrandParserPage = observer((props) => {
     
     const [ feed, setFeed ] = useState(null)
     const [ checkFeed, setCheckFeed ] = useState(false)
-    const [ checkUpdatePrice, setCheckUpdatePrice ] = useState(false)
+    const [ checkUpdatePrice, setCheckUpdatePrice ] = useState(true)
     const [ message, setMessage ] = useState("")
     const [ loading, setLoading ] = useState(false)
     const [ number, setNumber ] = useState(0)

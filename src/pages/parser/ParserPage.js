@@ -33,17 +33,18 @@ const ParserPage = observer(() => {
     return (
         <InfoPage>
             <div className="ParserPage_Header">
-                <label>Заведение товаров на сайт!</label>
-                <button onClick={() => setBrandAndScroll("leidtogi")} >LeidTogi</button>
+                <label>Заведение товаров на сайт</label>
+                <label>и обновление цен!</label>
+                <button onClick={() => setBrandAndScroll("rgk")} className="ParserPage_Header_green">RGK</button>
+                <button onClick={() => setBrandAndScroll("tmk")} className="ParserPage_Header_green">TMK</button>
+                <button onClick={() => setBrandAndScroll("tor")} className="ParserPage_Header_green">Tor</button>
+                <button onClick={() => setBrandAndScroll("leidtogi")} className="ParserPage_Header_red">LeidTogi</button>
                 <button onClick={() => setBrandAndScroll("milwaukee")} >Milwaukee</button>
-                <button onClick={() => setBrandAndScroll("rgk")} >RGK</button>
                 <button onClick={() => setBrandAndScroll("husqvarna")} >Husqvarna</button>
                 <button onClick={() => setBrandAndScroll("kvt")} >КВТ</button>
                 <button onClick={() => setBrandAndScroll("gedore")} >Gedore</button>
-                <button onClick={() => setBrandAndScroll("tmk")} >TMK</button>
                 <button onClick={() => setBrandAndScroll("advanta")} >Advanta-M</button>
                 <button onClick={() => setBrandAndScroll("euroboor")} >Euroboor</button>
-                <button onClick={() => setBrandAndScroll("tor")} >Tor</button>
                 <button onClick={() => setBrandAndScroll("krause")} >Krause</button>
                 <br />
                 <button onClick={() => history.push(ADMIN_ROUTE)} >Назад</button>

@@ -6,7 +6,6 @@ import { addProduct, getLength, changePrices } from '../../../http/parser/parser
 import Loading from '../../../components/Loading';
 import InfoPage from '../../info/InfoPage';
 
-import './TmkParserPage.css'
 import '../ParserPage.css'
 
 

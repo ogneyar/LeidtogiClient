@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ReactHtmlParser from 'react-html-parser'
 import { observer } from 'mobx-react-lite';
 
-import { rgkGetLength, rgkAddNewProduct, rgkChangePrice } from '../../../http/parser/rgkAPI';
+import { rgkGetLength, rgkAddNewProduct, rgkChangePrice, rgkSaveInfo } from '../../../http/parser/rgkAPI';
 import Loading from '../../../components/Loading';
 import InfoPage from '../../info/InfoPage';
 
@@ -31,11 +31,12 @@ const RgkParserPage = observer((props) => {
                 volume = data
             })
         
-        let mess = "Начало:"
+        let mess = "{"
         for(let i = 0; i < volume; i++) {
             await rgkChangePrice(i + 1)
                 // eslint-disable-next-line
                 .then(data => {
+                    if (mess !== "{") mess += ","
                     mess += "<br />" + data
                     setMessage(data)
                 })
@@ -45,8 +46,11 @@ const RgkParserPage = observer((props) => {
                     setMessage(JSON.stringify(error))
                 })
         }
-        setMessage(mess + "<br />Конец.")
+        mess += "<br />}"
+        setMessage(mess)
         setLoading(false)
+        // сохранение данных в файл
+        rgkSaveInfo(mess)
     }
     
     const onClickButtonParserRGK = async () => {

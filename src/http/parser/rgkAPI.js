@@ -3,7 +3,7 @@ import { $host, $authHost } from '../index'
 
 
 // узнать количество товаров в файле
-export const rgkGetLength = async (number) => {
+export const rgkGetLength = async () => {
     const {data} = await $authHost.get('api/parser/rgk')
     return data
 }
@@ -36,5 +36,11 @@ export const rgkUpdateFeed = async () => {
     const {data} = await $authHost.get('api/parser/rgk', {params: {
         update: true
     }})
+    return data
+}
+
+//  сохранение данных в файл
+export const rgkSaveInfo = async (text) => {
+    const {data} = await $authHost.post('api/parser/rgk/save_info', {text})
     return data
 }
