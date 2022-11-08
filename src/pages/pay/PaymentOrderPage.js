@@ -16,6 +16,7 @@ import './PaymentOrderPage.css'
 const PaymentOrderPage = () => {
     
     const [ uuid ] = useQueryParam('uuid', StringParam) // 59c86681-7cc2-4010-93fd-2a452f04a7f9 
+    const [ anon ] = useQueryParam('anon', StringParam) // boolean 
 
     const [ name, setName ] = useState("")
     const [ phone, setPhone ] = useState("")
@@ -76,30 +77,35 @@ const PaymentOrderPage = () => {
                 : null}
             <div>
                 <div className="CreateOrderPagePayment">
-                    {name && <p>Ваше имя: <strong>{name}</strong></p>}
-                    {phone && <p>Ваш телефон: <strong>+{phone}</strong></p>}
-                    <p>Ваш email: <strong>{email}</strong></p>
-                    
-                    {delivery === "pickup"
-                    ?
+
+                    {!anon &&
                     <>
-                        <p>Адрес офиса из которого осуществляется самовывоз:</p>
-                        <p><strong>{ADDRESS}</strong></p>
-                    </>
-                    :
-                    <>
-                        <p>Адрес склада{delivery === "sdek" ? " СДЕК" : delivery === "boxberry" ? " Boxberry" : delivery === "dl" ? " Деловых линий" : null }:</p>
-                        <p><strong>{address}</strong></p>
-                        <p>После оплаты с Вами свяжется наш менеджер и подскажет как отследить доставку, как вызвать курьера, когда ожидать прибытие Ваших покупок на склад.</p>
+                        {name && <p>Ваше имя: <strong>{name}</strong></p>}
+                        {phone && <p>Ваш телефон: <strong>+{phone}</strong></p>}
+                        <p>Ваш email: <strong>{email}</strong></p>
+                        {delivery === "pickup"
+                        ?
+                        <>
+                            <p>Адрес офиса из которого осуществляется самовывоз:</p>
+                            <p><strong>{ADDRESS}</strong></p>
+                        </>
+                        :
+                        <>
+                            <p>Адрес склада{delivery === "sdek" ? " СДЕК" : delivery === "boxberry" ? " Boxberry" : delivery === "dl" ? " Деловых линий" : null }:</p>
+                            <p><strong>{address}</strong></p>
+                            <p>После оплаты с Вами свяжется наш менеджер и подскажет как отследить доставку, как вызвать курьера, когда ожидать прибытие Ваших покупок на склад.</p>
+                        </>
+                        }
+                        <p>По всем возникающим вопросам обращайтесь по номеру:</p>
+                        <p><strong>{ReactHtmlParser(PHONE_ONE)}</strong> или <strong>{ReactHtmlParser(PHONE_TWO)}</strong></p>
+
+                        <p>Так же можете обращаться с любыми вопросами по email:</p>
+                        <p><strong>{ReactHtmlParser(MAIL)}</strong></p>
+                        <br />
+
                     </>
                     }
 
-                    <p>По всем возникающим вопросам обращайтесь по номеру:</p>
-                    <p><strong>{ReactHtmlParser(PHONE_ONE)}</strong> или <strong>{ReactHtmlParser(PHONE_TWO)}</strong></p>
-
-                    <p>Так же можете обращаться с любыми вопросами по email:</p>
-                    <p><strong>{ReactHtmlParser(MAIL)}</strong></p>
-                    <br />
                     <p><strong>Ваш заказ:</strong></p>
                     <div style={{border:"1px solid grey", padding:"15px 0 5px 0",width:"100%",textAlign:"center"}}>
                         {cart && Array.isArray(cart) && cart.map((i,index) => {

@@ -464,6 +464,7 @@ const OrderAdmin = (props) => {
                         title="Нажмите чтобы копировать текст в буфер" 
                         readOnly
                     />
+                    <p>для анонимности покупателя добавь "&anon=1"</p>
                 </div>
                 }
 
@@ -521,7 +522,7 @@ const OrderAdmin = (props) => {
                             </div>
                             {/* <hr /> */}
                         </div>
-                   )
+                    )
                 }).reverse()}
                 <Button
                     variant="outline-success"
