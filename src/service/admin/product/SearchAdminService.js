@@ -37,7 +37,8 @@ const SearchAdminService = observer((props) => {
             setSearch(
                 productStore.allProducts.filter(
                     i => i.article.includes(article)
-                ).sort((a, b) => a.article - b.article)
+                )
+                // .sort((a, b) => a.article - b.article)
             )
         }else setSearch([])
         // eslint-disable-next-line

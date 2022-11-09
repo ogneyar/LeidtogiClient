@@ -127,7 +127,7 @@ const Search = observer((props) => {
     }
 
     const onKeyDownInput = (e) => {
-        if (e.key === "Enter") redirectOnSearch("value", e.target.value.trim())
+        if (e.key === "Enter" && value) redirectOnSearch("value", e.target.value.trim())
     }
     
     // if (loading) return <Loading width={150} />
