@@ -7,3 +7,17 @@
     justify-content: flex-end;
     align-items: center;
 }
+
+.Filter_Menu {
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-wrap: wrap-reverse; */
+}
+
+@media(max-width: 720px) {
+    .Filter_Menu > * {
+        padding: 10px;
+        margin: 10px 10px;
+    }
+    
+}

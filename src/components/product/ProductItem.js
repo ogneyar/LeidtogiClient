@@ -18,12 +18,6 @@ const ProductItem = (props) => {
 
     const [ product ] = useState(props?.product)
     
-    // useEffect(() => {
-    //     if (props?.product) {
-    //         product = props?.product
-    //     }
-    // },[props?.product])
-
     const history = useHistory()
 
     const { brand } = useContext(Context)
@@ -77,7 +71,9 @@ const ProductItem = (props) => {
                     className="product-image" 
                     src={product.img && Array.isArray(product.img)  && product.img[0]?.big !== undefined
                         ? API_URL + product.img[0].big 
-                        : product.brandId === 9
+                        : product.brandId === 10 // LeidTogi
+                            ? URL + "images/brands/leidtogi/leidtogi_logo_big.jpg"
+                        : product.brandId === 9 // TMK
                             ? URL + "images/brands/tmk/tmk_logo_big.jpg"
                             : API_URL + "unknown.jpg"
                     } 

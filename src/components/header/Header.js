@@ -22,7 +22,7 @@ const Header = () => {
             <Top />
             <NavBar />  {/* Адрес есть и тут /> */}
             <Address /> {/* и тут /> */}
-            <Banner />
+            {/* <Banner /> */}
             {/* <Carousel /> */}
             <Aside />
 

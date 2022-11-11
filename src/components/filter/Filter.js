@@ -15,16 +15,24 @@ const Filter = () => {
         <div
             className="Filter"
         >
-            {/* Боковое меню */}
-            <LineMenu />
+            <div
+                className="Filter_LineMenu"
+            >
+                {/* Боковое меню */}
+                <LineMenu />
+            </div>
 
-            {/* для админа */}
-            <NoImages />
-            <MixAll />
-            {/* для пользователя */}
-            <FilterPrice />
-            <Sort />
-            <Limit />
+            <div
+                className="Filter_Menu"
+            >
+                {/* для админа */}
+                <NoImages />
+                <MixAll />
+                {/* для пользователя */}
+                <FilterPrice />
+                <Sort />
+                <Limit />
+            </div>
         </div>
     )
 }

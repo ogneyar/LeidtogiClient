@@ -37,6 +37,8 @@
 .Sort_Menu_div {
     border-top: 1px dashed grey;
     cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .Sort_Menu_div:first-child {
     border-top: none;

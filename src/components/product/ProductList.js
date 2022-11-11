@@ -6,11 +6,10 @@ import { fetchProducts } from '../../http/productAPI'
 import Pagination from '../pagination/Pagination'
 import ProductItem from './ProductItem'
 import Loading from '../Loading'
+import { sortPriceUp, sortPriceDown, sortNameUp, sortNameDown } from '../../service/product'
 
 import { Context } from '../..'
 import './Product.css'
-import { sortPriceUp } from '../../service/product/sortPriceUp'
-import { sortNameUp } from '../../service/product/sortNameUp'
 
 
 const ProductList = observer((props) => {
@@ -25,6 +24,7 @@ const ProductList = observer((props) => {
     const [ visibleContextMenu, setVisibleContextMenu ] = useState(null)
     
     useEffect(() => {
+
         let offset = productStore.page * productStore.limit - productStore.limit // отступ
         let limit = 0
         
@@ -44,10 +44,23 @@ const ProductList = observer((props) => {
             })
             else newArray = productStore.products
 
+            if (productStore.filter && productStore.filter.price) {
+                newArray = newArray.filter(i => 
+                    i.price >= productStore.filter.price[0] 
+                    && i.price <= productStore.filter.price[1] 
+                    && i.request === 0
+                    && i.price !== 0
+                )
+            }
+
             if (productStore.sort === "priceUp") {
                 newArray = sortPriceUp(newArray)
+            }else if (productStore.sort === "priceDown") {
+                newArray = sortPriceDown(newArray)
             }else if (productStore.sort === "nameUp") {
                 newArray = sortNameUp(newArray)
+            }else if (productStore.sort === "nameDown") {
+                newArray = sortNameDown(newArray)
             }else {
                 //
             }
@@ -76,6 +89,7 @@ const ProductList = observer((props) => {
                     if (category.selectedCategory?.id !== undefined) body = { ...body, categoryId: category.selectedCategory.id }
                     if (productStore.mixAll) body = { ...body, mix_all: productStore.mixAll }
                     if (productStore.mixNoImg) body = { ...body, mix_no_img: productStore.mixNoImg }
+                    if (productStore.filter !== {}) body = { ...body, filter: productStore.filter }
                     fetchProducts(body)
                         .then(data => {
 							if (data.count) setInfo(data.rows)
@@ -90,7 +104,7 @@ const ProductList = observer((props) => {
 
         }
     // eslint-disable-next-line
-    }, [ productStore.page, productStore.limit, brand.selectedBrand, category.selectedCategory, productStore.sort ])
+    }, [ productStore.page, productStore.limit, brand.selectedBrand, category.selectedCategory, productStore.sort, productStore.filter ])
     // }, [ productStore.page, productStore.limit, brand.selectedBrand, category.selectedCategory, productStore, props?.categoryUrl, props?.loading, fetchTimeOut ]) 
     
 

@@ -17,8 +17,16 @@ const PopUp = observer((props) => {
     const onClickPopUp = (e) => {
         e.preventDefault()
         setTop(e.clientY)
-        setLeft(e.clientX)
+        if (window.innerWidth > 720) setLeft(e.clientX)
+        else if (window.innerWidth < 450) setLeft(10)
+        else setLeft(100)
         props.setVisible(true)
+    }
+
+    const onClickPopUpMenu = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        // props.setVisible(true)
     }
 
     const onClickBackground = () => {
@@ -47,6 +55,7 @@ const PopUp = observer((props) => {
                 <div
                     className='PopUp_Menu'
                     style={!props.visible? {display: "none", visibility: "hidden"} : {display: "block", top, left}}
+                    onClick={e => onClickPopUpMenu(e)}
                 >
                     {props.children}
                 </div>

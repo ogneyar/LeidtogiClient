@@ -12,6 +12,7 @@ export default class ProductStore {
         this._mixAll =  localStorage.getItem('mixAll') === "false" ? false : true // перемешать ли товары на странице?
         this._mixNoImg =  localStorage.getItem('mixNoImg') === "false" ? false : true // поместить ли товары без изображений в конец страницы?
         this._sort = "" // сортировка
+        this._filter = {} // фильтр
         makeAutoObservable(this)
     }
 
@@ -39,6 +40,9 @@ export default class ProductStore {
     setSort(sort) {
         this._sort = sort
     }
+    setFilter(filter) {
+        this._filter = filter
+    }
 
     get products() {
         return this._products
@@ -63,6 +67,9 @@ export default class ProductStore {
     }
     get sort() {
         return this._sort
+    }
+    get filter() {
+        return this._filter
     }
 
 }

@@ -12,17 +12,10 @@ const Sort = observer(() => {
 
     const [ visibleMenu, setVisibleMenu ] = useState(false)
 
-    const onClickSortOnPrice = () => {
+    const onClickSort = (action) => {
         setVisibleMenu(false)
-        localStorage.setItem("sort","priceUp")
-        productStore.setSort("priceUp")
-        productStore.setPage(1)
-    }
-
-    const onClickSortOnName = () => {
-        setVisibleMenu(false)
-        localStorage.setItem("sort","nameUp")
-        productStore.setSort("nameUp")
+        localStorage.setItem("sort", action)
+        productStore.setSort(action)
         productStore.setPage(1)
     }
 
@@ -30,7 +23,6 @@ const Sort = observer(() => {
     return (
         <div
             className='Sort'
-            // onClick={e => onClickSort(e)}
         >
             <PopUp
                 name="Сортировать"
@@ -38,16 +30,28 @@ const Sort = observer(() => {
                 setVisible={setVisibleMenu}
             >
                 <div 
-                    onClick={onClickSortOnPrice}
+                    onClick={() => onClickSort("priceUp")}
                     className="Sort_Menu_div"
                 >
                     По цене (по возрастанию)
                 </div>
                 <div 
-                    onClick={onClickSortOnName}
+                    onClick={() => onClickSort("priceDown")}
+                    className="Sort_Menu_div"
+                >
+                    По цене (по убыванию)
+                </div>
+                <div 
+                    onClick={() => onClickSort("nameUp")}
                     className="Sort_Menu_div"
                 >
                     По алфавиту (по возрастанию)
+                </div>
+                <div 
+                    onClick={() => onClickSort("nameDown")}
+                    className="Sort_Menu_div"
+                >
+                    По алфавиту (по убыванию)
                 </div>
             </PopUp>
         </div>
