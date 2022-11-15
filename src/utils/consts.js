@@ -58,23 +58,23 @@ export const TOR_ROUTE = '/tor' // Tor бренд
 export const DELETE_ROUTE = '/delete' // удаление сайта
 
 const URL_PRODUCTION  = process.env.REACT_APP_URL_PRODUCTION || "https://leidtogi.ru/"
-const URL_TEST  = process.env.REACT_APP_URL_TEST || "https://leidtogi.site/"
+const URL_TEST  = process.env.REACT_APP_URL_TEST || "https://леидтоги.рф/" 
 const URL_DEVELOPMENT  = process.env.REACT_APP_URL_DEVELOPMENT || "http://localhost:3000/"
 
 const API_URL_PRODUCTION = process.env.REACT_APP_API_URL_PRODUCTION || "https://server.leidtogi.ru/"
-const API_URL_TEST = process.env.REACT_APP_API_URL_TEST || "https://api.leidtogi.site/"
+const API_URL_TEST = process.env.REACT_APP_API_URL_TEST || "https://сервер.леидтоги.рф/"
 const API_URL_DEVELOPMENT = process.env.REACT_APP_API_URL_DEVELOPMENT || "http://localhost:5000/"
 
 export const URL = 
     process.env.REACT_APP_ENV === 'production' 
-    ? window.location.hostname === "leidtogi.ru"
-        ? URL_PRODUCTION
+    ? window.location.hostname === "leidtogi.ru" || window.location.hostname === "www.leidtogi.ru"
+        ? URL_PRODUCTION 
         : URL_TEST
     : URL_DEVELOPMENT
 
 export const API_URL = 
     process.env.REACT_APP_ENV === 'production' 
-    ? window.location.hostname === "leidtogi.ru"
+    ? window.location.hostname === "leidtogi.ru" || window.location.hostname === "www.leidtogi.ru"
         ? API_URL_PRODUCTION
         : API_URL_TEST
     : API_URL_DEVELOPMENT
