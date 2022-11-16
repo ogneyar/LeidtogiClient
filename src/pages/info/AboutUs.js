@@ -1,4 +1,6 @@
+
 import React from 'react'
+
 import InfoPage from './InfoPage'
 import './AboutUs.css'
 

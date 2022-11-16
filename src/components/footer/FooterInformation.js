@@ -4,7 +4,7 @@ import React from 'react'
 import { NavLink } from '../myBootstrap'
 import {    
     ABOUT_US_ROUTE, DELIVERY_ROUTE, PAYMENT_ROUTE, PRIVACY_POLICY_ROUTE, RETURNS_POLICY_ROUTE,
-    TERMS_OF_USE_ROUTE, WARRANTY_ROUTE, SPECIALS_ROUTE, SUPPORT_ROUTE, DEALER_ROUTE
+    TERMS_OF_USE_ROUTE, WARRANTY_ROUTE, SPECIALS_ROUTE, SUPPORT_ROUTE, DEALER_ROUTE, NEWS_ROUTE
 } from '../../utils/consts'
 
 import './FooterInformation.css'
@@ -33,6 +33,14 @@ const FooterInformation = () => {
                             to={PAYMENT_ROUTE}
                         >
                             Оплата
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            className="NavLink Footer_NavLink Footer_NavLink_Info"
+                            to={NEWS_ROUTE}
+                        >
+                            Новости
                         </NavLink>
                     </li>
                     <li>

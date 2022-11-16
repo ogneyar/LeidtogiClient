@@ -35,6 +35,7 @@ import TermsOfUse from '../pages/info/TermsOfUse'
 import Warranty from '../pages/info/Warranty'
 import Contacts from '../pages/info/Contacts'
 import Specials from '../pages/info/Specials'
+import NewsPage from '../pages/info/news/NewsPage'
 
 import DeletePage from '../pages/site/DeletePage'
 
@@ -44,7 +45,7 @@ import {
     DELIVERY_ROUTE, PAYMENT_ROUTE, PRIVACY_POLICY_ROUTE, RETURNS_POLICY_ROUTE, CREATE_ORDER_ROUTE,
     TERMS_OF_USE_ROUTE, WARRANTY_ROUTE, CONTACTS_ROUTE, SPECIALS_ROUTE, DELETE_ROUTE, CONGRATULATION_ROUTE,
     SUPPORT_ROUTE, MESSAGE_ROUTE, FORGOT_PASSWORD_ROUTE, CHANGE_PASSWORD_ROUTE, CONFIRM_AVAILABILITY_ROUTE,
-    PAYMENT_ORDER_ROUTE, DEALER_ROUTE
+    PAYMENT_ORDER_ROUTE, DEALER_ROUTE, NEWS_ROUTE
 } from './consts'
 
 // brandRoutes находится в src/components/AppRouter.js
@@ -77,10 +78,6 @@ export const publicRoutes = [
     {
         path: LK_ROUTE,
         component: LkPage
-    },
-    {
-        path: DEALER_ROUTE,
-        component: DealerPage
     },
     {
         path: FORGOT_PASSWORD_ROUTE,
@@ -192,6 +189,14 @@ export const publicRoutes = [
     {
         path: SPECIALS_ROUTE, // акции
         component: Specials
+    },
+    {
+        path: DEALER_ROUTE, // дилерам (поставщикам)
+        component: DealerPage
+    },
+    {
+        path: NEWS_ROUTE, // новости
+        component: NewsPage
     },
 
      // юмор It отдела
