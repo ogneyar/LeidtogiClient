@@ -35,9 +35,9 @@ const ProductService = observer((props) => {
     const [image3, setImage3] = useState(null)
     const [image4, setImage4] = useState(null)
     
-    const [have, setHave] = useState(props?.have === null ? 1 : props?.have)
+    const [have, setHave] = useState(props?.have ? props?.have : 1)
     const [promo, setPromo] = useState(props?.promo || "")
-    const [country, setCountry] = useState(props?.country || "Германия")
+    const [country, setCountry] = useState(props?.country || "Китай")
     
     const [size, setSize] = useState({weight: "", volume: "", width: "", height: "", length: ""})
 

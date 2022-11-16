@@ -303,7 +303,7 @@ const ProductPage =  observer((props) => {
                                         ? ReactHtmlParser(info?.body.split(";").map((i, idx) => {
                                             let jsx = ""
                                             if (idx === 0) jsx += `<tbody>`
-                                            else jsx += `<tr><td>${i}</td></tr>`
+                                            jsx += `<tr><td>${i}</td></tr>`
                                             if ((idx+1) === info?.body.split(";").length) jsx += `</tbody>`
                                             return jsx
                                         }).join(""))

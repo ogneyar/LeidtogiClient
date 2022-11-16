@@ -29,7 +29,7 @@ const Size = ({size, setSize, action}) => {
             className=''
         >
             <Col md={2} className='mb-1'>
-                <label>Вес:</label>
+                <label>Вес, кг:</label>
                 <Form.Control    
                     value={size.weight}
                     onChange={(e) => changeSize('weight', e.target.value)}
@@ -40,18 +40,18 @@ const Size = ({size, setSize, action}) => {
                 />
             </Col>
             <Col md={2} className='mb-1'>
-                <label>Объём:</label>
-                <Form.Control    
-                    value={size.volume}
-                    onChange={(e) => changeSize('volume', e.target.value)}
-                    placeholder={'Введите объём'}
+                <label>Длина, мм:</label>
+                <Form.Control   
+                    value={size.length}    
+                    onChange={(e) => changeSize('length', e.target.value)}
+                    placeholder={'Введите длину'}
                     type="number"
                     min="0"
                     step="0.1"
                 />
             </Col>
             <Col md={2} className='mb-1'>
-                <label>Ширина:</label>
+                <label>Ширина, мм:</label>
                 <Form.Control    
                     value={size.width}
                     onChange={(e) => changeSize('width', e.target.value)}
@@ -62,7 +62,7 @@ const Size = ({size, setSize, action}) => {
                 />
             </Col>
             <Col md={2} className='mb-1'>
-                <label>Высота:</label>
+                <label>Высота, мм:</label>
                 <Form.Control    
                     value={size.height}
                     onChange={(e) => changeSize('height', e.target.value)}
@@ -73,11 +73,11 @@ const Size = ({size, setSize, action}) => {
                 />
             </Col>
             <Col md={2} className='mb-1'>
-                <label>Длина:</label>
-                <Form.Control   
-                    value={size.length}    
-                    onChange={(e) => changeSize('length', e.target.value)}
-                    placeholder={'Введите длину'}
+                <label>Объём, м3:</label>
+                <Form.Control    
+                    value={size.volume}
+                    onChange={(e) => changeSize('volume', e.target.value)}
+                    placeholder={'Введите объём'}
                     type="number"
                     min="0"
                     step="0.1"
