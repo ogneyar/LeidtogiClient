@@ -11,6 +11,7 @@ import ShopButton from './ShopButton'
 import array from './mainData'
 
 import './MainPage.css'
+import Banner from '../../components/header/banner/Banner'
 
 
 const MainPage = () => {
@@ -44,6 +45,8 @@ const MainPage = () => {
     },[])
 
     return (
+    <>
+    <Banner padding="bottom"/>
     <div
         className="MainPage"
     >
@@ -120,6 +123,7 @@ const MainPage = () => {
 
         </div>
     </div>
+    </>
     )
 }
 
