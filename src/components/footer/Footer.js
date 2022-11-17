@@ -33,7 +33,7 @@ const Footer = observer(() => {
                             <FooterInformation />
                         </div>
                         <div className="FooterCol" md={3}>
-                            {/* <FooterSocialNetwork /> */}
+                            <FooterSocialNetwork />
                         </div>
                         <div className="FooterCol" md={3}>
                             <FooterContacts />
