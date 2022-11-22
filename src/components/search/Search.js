@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
@@ -37,13 +38,6 @@ const Search = observer((props) => {
         }
     },[productStore.allProducts])
 
-    // useEffect(() => { 
-    //     if (list.length) {
-    //         document.addEventListener("click", () => {
-    //             setList([])
-    //         }, {once: true})
-    //     }
-    // },[list])
 
     // производим поиск на сервере
     const setChangesSearch = async (search) => {
@@ -54,19 +48,30 @@ const Search = observer((props) => {
             setAdmin(true)
             search = search.replace("!","")
         }
+        
         let allSearch = search.split(" ")
         // search = allSearch[0]
         let arraySearch = []
         allSearch.forEach(async(searched) => {
             // функция deleteAbbreviation убирает сокращённые названия бренда (hqv, rgk, kvt)
             let searchNumber = deleteAbbreviation(searched)
-            // alert("array.length: " + array.length)
             if ( isNumber( searchNumber ) ) {
                 if (array && array.length) arraySearch = [...arraySearch, ...array.filter(i => i.article.includes( searchNumber ))]
                 // поиск на сервере
                 // else arraySearch = [...arraySearch, ...await searchArticle({text:searchNumber, limit: 6})]
             }else {
-                if (array && array.length) arraySearch = [...arraySearch, ...array.filter(i => i.name.toLowerCase().includes(searched.toLowerCase().trim()))]
+                if (array && array.length) {
+                    searched = searched.toLowerCase().trim()
+                    arraySearch = [
+                        ...arraySearch, 
+                        ...array.filter(i => {
+                            let currentBrand = brand.allBrands.find(item => item.id === i.brandId)
+                            let brandName = currentBrand.name
+                            if (i.name.toLowerCase().includes(searched) || brandName.toLowerCase().includes(searched)) 
+                                return true
+                            return false
+                        } )]
+                }
                 // поиск на сервере
                 // else arraySearch = [...arraySearch, ...await searchName({text:searched, limit: 6})]
             }

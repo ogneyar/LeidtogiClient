@@ -15,7 +15,8 @@ import './SearchPage.css'
 
 
 const SearchPage = observer(() => {
-    const { productStore, category } = useContext(Context)
+
+    const { productStore, category, brand } = useContext(Context)
     
     const [ loadingCategory, setLoadingCategory ] = useState(true)
     const [ loadingProduct, setLoadingProduct ] = useState(true)
@@ -42,7 +43,10 @@ const SearchPage = observer(() => {
                             return true
                         }
                     }else {
-                        if (i.name.toLowerCase().includes(searched.toLowerCase())) {
+                        searched = searched.toLowerCase().trim()
+                        let currentBrand = brand.allBrands.find(item => item.id === i.brandId)
+                        let brandName = currentBrand.name
+                        if (i.name.toLowerCase().includes(searched) || brandName.toLowerCase().includes(searched)) {
                             length++
                             return true
                         }
