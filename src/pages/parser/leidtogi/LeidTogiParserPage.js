@@ -13,12 +13,14 @@ const LeidTogiParserPage = observer((props) => {
     
     const [ feed, setFeed ] = useState(null)
     const [ checkFeed, setCheckFeed ] = useState(false)
+    const [ numberSheet, setNumberSheet ] = useState(2)
     const [ checkUpdatePrice, setCheckUpdatePrice ] = useState(false)
+    const [ numberSheetPrice, setNumberSheetPrice ] = useState(1)
     const [ message, setMessage ] = useState("")
     const [ loading, setLoading ] = useState(false)
     const [ number, setNumber ] = useState(0)
 
-    
+
     const onClickButtonAddNewProduct = async () => {
         setMessage("")
         const formData = new FormData()
@@ -28,16 +30,16 @@ const LeidTogiParserPage = observer((props) => {
         setLoading(true)
         let mess
         if (number > 0) {
-            await addProduct(formData, number).then(data => {
+            await addProduct(formData, number, numberSheet).then(data => {
                 setMessage(data)
             })
         }else {
-            let length = await getLength(formData)
+            let length = await getLength(formData, numberSheet)
             let quantity = 10
             mess = "Начало:"
             for(let i = 1; i <= length; i = i + quantity) {
 
-                await addProduct(formData, i, quantity)
+                await addProduct(formData, i, quantity, numberSheet)
                     // eslint-disable-next-line
                     .then(data => {
                         if (data?.error) {
@@ -71,7 +73,7 @@ const LeidTogiParserPage = observer((props) => {
             formData.append("feed", feed)
         }
         setLoading(true)
-        await changePrices(formData)
+        await changePrices(formData, numberSheetPrice)
             // eslint-disable-next-line
             .then(data => {
                 if (data?.error) {
@@ -94,7 +96,7 @@ const LeidTogiParserPage = observer((props) => {
     return (
         <InfoPage>
             <div className="LeidTogiParserPage"> 
-                 
+                
                 {message && message !== ""
                 ?
                 <>
@@ -129,6 +131,35 @@ const LeidTogiParserPage = observer((props) => {
                                 checked={checkFeed}
                             />&nbsp;
                             использовать файл на сервере (feed.xlsx)
+                        </div>
+                        <hr />
+
+                        <span>Тип товара</span>
+                        <div 
+                            className="LeidTogiParserPage_box_div_numbersheet"
+                        >
+                            <span
+                                onClick={() => setNumberSheet(1)}
+                                className="LeidTogiParserPage_box_radio"
+                            >
+                                <input 
+                                    type="radio"
+                                    name="number_sheet"
+                                    checked={numberSheet === 1}
+                                />&nbsp;
+                                Абразив
+                            </span>
+                            <span
+                                onClick={() => setNumberSheet(2)}
+                                className="LeidTogiParserPage_box_radio"
+                            >
+                                <input 
+                                    type="radio"
+                                    name="number_sheet"
+                                    checked={numberSheet === 2}
+                                />&nbsp;
+                                Алмаз
+                            </span>
                         </div>
                         <hr />
 
@@ -174,6 +205,36 @@ const LeidTogiParserPage = observer((props) => {
                             использовать файл на сервере (feed.xlsx)
                         </div>
                         <hr />
+                        
+                        <span>Тип товара</span>
+                        <div 
+                            className="LeidTogiParserPage_box_div_numbersheet"
+                        >
+                            <span
+                                onClick={() => setNumberSheetPrice(1)}
+                                className="LeidTogiParserPage_box_radio"
+                            >
+                                <input 
+                                    type="radio"
+                                    name="number_sheet_price"
+                                    checked={numberSheetPrice === 1}
+                                />&nbsp;
+                                Абразив
+                            </span>
+                            <span
+                                onClick={() => setNumberSheetPrice(2)}
+                                className="LeidTogiParserPage_box_radio"
+                            >
+                                <input 
+                                    type="radio"
+                                    name="number_sheet_price"
+                                    checked={numberSheetPrice === 2}
+                                />&nbsp;
+                                Алмаз
+                            </span>
+                        </div>
+                        <hr />
+
                         <button 
                             disabled={ ! feed && ! checkUpdatePrice }
                             onClick={onClickButtonChangePrices}

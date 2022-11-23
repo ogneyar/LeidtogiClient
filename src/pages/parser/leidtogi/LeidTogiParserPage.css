@@ -56,3 +56,12 @@
     padding: 10px;
     width: 100%;
 }
+
+.LeidTogiParserPage_box_radio,
+.LeidTogiParserPage_box_radio input {
+    cursor: pointer;
+}
+
+.LeidTogiParserPage_box_div_numbersheet {
+    padding-top: 10px;
+}
