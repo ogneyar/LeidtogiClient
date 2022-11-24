@@ -17,5 +17,8 @@ export default function deleteAbbreviation(string){
 		.replace("lt","")  // LeidTogi
 		.replace("tor","") // Tor
 		.replace("krs","") // Krause
+		.replace("kdr","") // Kedr
+		.replace("bcn","") // Bycon
+		.replace("gfs","") // Gefest
         .trim()
 }
