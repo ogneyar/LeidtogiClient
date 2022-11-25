@@ -1,3 +1,4 @@
+
 import React, { useState, useContext, useEffect } from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
@@ -46,6 +47,8 @@ const CategoryItemService = observer((props) => {
                     props.funcOnClick(props?.item)
                     onClickListItem()
                     history.push(props?.item?.url)
+                    // category.setSelectedCategory()
+                    // console.log(props?.item?.url);
                     if (window.innerWidth > 991) {
                         scrollUp(SCROLL_TOP)
                     }else if (props?.item?.is_product) props?.onHide()

@@ -73,6 +73,7 @@ const ProductList = observer((props) => {
                 return false
             }))
             productStore.setTotalCount(newArray.length)
+            console.log(newArray.length);
             setLoading(false) 
             
         }else {//if (!props?.categoryUrl) {  // если ещё не подгружены товары, загружаем с сервера одну страничку
@@ -104,7 +105,7 @@ const ProductList = observer((props) => {
 
         }
     // eslint-disable-next-line
-    }, [ productStore.page, productStore.limit, brand.selectedBrand, category.selectedCategory, productStore.sort, productStore.filter ])
+    }, [ productStore.page, productStore.limit, brand.selectedBrand, category.selectedCategory, productStore.sort, productStore.filter, productStore.totalCount ])
     // }, [ productStore.page, productStore.limit, brand.selectedBrand, category.selectedCategory, productStore, props?.categoryUrl, props?.loading, fetchTimeOut ]) 
     
 
