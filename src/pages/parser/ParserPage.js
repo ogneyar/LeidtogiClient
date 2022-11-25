@@ -46,6 +46,7 @@ const ParserPage = observer(() => {
                 <button onClick={() => setBrandAndScroll("advanta")} >Advanta-M</button>
                 <button onClick={() => setBrandAndScroll("euroboor")} >Euroboor</button>
                 <button onClick={() => setBrandAndScroll("krause")} >Krause</button>
+                <button onClick={() => setBrandAndScroll("kedr")} >Кедр</button>
                 <br />
                 <button onClick={() => history.push(ADMIN_ROUTE)} >Назад</button>
             </div>
@@ -73,6 +74,8 @@ const ParserPage = observer(() => {
     // if (brand === "tor") return <BrandParserPage setBrand={setBrandAndScroll} brand={brand} />
 
     // if (brand === "krause") return <BrandParserPage setBrand={setBrandAndScroll} brand={brand} />
+
+    // if (brand === "kedr") return <BrandParserPage setBrand={setBrandAndScroll} brand={brand} />
 
 })
 
