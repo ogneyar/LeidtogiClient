@@ -33,37 +33,40 @@ const BrandParserPage = observer((props) => {
         }
         setLoading(true)
         let mess
-        if (number > 0) {
-            await addProduct({brand: props.brand, formData, number, chapter}).then(data => {
-                setMessage(data)
-            })
-        }else {
+        // if (number > 0) {
+        //     await addProduct({brand: props.brand, formData, number, chapter}).then(data => {
+        //         setMessage(data)
+        //     })
+        // }else {
             let length = await getLength({brand: props.brand, formData, chapter})
-            let quantity = 10
-            mess = "Начало:"
-            for(let i = 1; i <= length; i = i + quantity) {
+            if ((number+1) < length) {
+                let quantity = 10
+                mess = "Начало:"
+                // for(let i = 1; i <= length; i = i + quantity) {
+                for(let i = (number+1); i <= (length - (number+1)); i = i + quantity) {
 
-                await addProduct({brand: props.brand, formData, number: i, quantity, chapter})
-                    // eslint-disable-next-line
-                    .then(data => {
-                        if (data?.error) {
-                            mess += "<br />" + i + ": " + data.error
-                        }else {
-                            mess += "<br />" + data.map(i => i + "<br />").join("")
-                        }
-                    })
-                    // eslint-disable-next-line
-                    .catch(error => {
-                        mess += "<br />" + i + ": (Ошибка) " + JSON.stringify(error)
-                    })
-                    // eslint-disable-next-line
-                    .finally(() => {
-                        setMessage(mess)
-                    })
+                    await addProduct({brand: props.brand, formData, number: i, quantity, chapter})
+                        // eslint-disable-next-line
+                        .then(data => {
+                            if (data?.error) {
+                                mess += "<br />" + i + ": " + data.error
+                            }else {
+                                mess += "<br />" + data.map(i => i + "<br />").join("")
+                            }
+                        })
+                        // eslint-disable-next-line
+                        .catch(error => {
+                            mess += "<br />" + i + ": (Ошибка) " + JSON.stringify(error)
+                        })
+                        // eslint-disable-next-line
+                        .finally(() => {
+                            setMessage(mess)
+                        })
 
+                }
             }
             
-        }
+        // }
         if (mess) setMessage(mess + "<br />Конец.")
         setLoading(false)
     }
@@ -141,7 +144,7 @@ const BrandParserPage = observer((props) => {
                         </div>
                         <hr />
 
-                        <span>Номер позиции (0 - для добавления всех товаров)</span>
+                        <span>Номер позиции (с какой позиции начать))</span>
                         <input 
                             className="ParserPage_box_input"
                             type="text" 
