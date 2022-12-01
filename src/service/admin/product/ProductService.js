@@ -163,7 +163,11 @@ const ProductService = observer((props) => {
     }
 
     const addProduct = async () => {
-        if (category.selectedCategory?.name && brand.selectedBrand?.name && article && name && file) {
+        if (category.selectedCategory?.name && brand.selectedBrand?.name && article && name) {
+            if (! file) {
+                let addedWithoutPhoto = window.confirm("Добавлять товар без фото?")
+                if ( ! addedWithoutPhoto ) return
+            }
             let no = true
             productStore.allProducts.forEach(i => {
                 if (i.article === article) no = false

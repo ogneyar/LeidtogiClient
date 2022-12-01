@@ -73,7 +73,7 @@ const ProductList = observer((props) => {
                 return false
             }))
             productStore.setTotalCount(newArray.length)
-            console.log(newArray.length);
+            // console.log(newArray.length);
             setLoading(false) 
             
         }else {//if (!props?.categoryUrl) {  // если ещё не подгружены товары, загружаем с сервера одну страничку

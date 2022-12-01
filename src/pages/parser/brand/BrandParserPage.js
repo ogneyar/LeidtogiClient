@@ -84,16 +84,16 @@ const BrandParserPage = observer((props) => {
             .then(data => {
                 if (data?.error) {
                     setMessage(data.error)
-                    console.log(data.error)
+                    // console.log(data.error)
                 }else {
                     setMessage(JSON.stringify(data))
-                    console.log(data)
+                    // console.log(data)
                 }
             })
             // eslint-disable-next-line
             .catch(error => {
                 setMessage("(Ошибка) " + JSON.stringify(error))
-                console.log("(Ошибка) " + error)
+                // console.log("(Ошибка) " + error)
             })
         setLoading(false)
     }

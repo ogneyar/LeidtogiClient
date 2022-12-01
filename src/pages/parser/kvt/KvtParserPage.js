@@ -53,18 +53,18 @@ const KvtParserPage = observer((props) => {
                         if (data?.error) {
                             mess += "<br />" + i + ": " + data.error
                             setMessage(i + ": " + data.error)
-                            console.log(i + ": " + data.error)
+                            // console.log(i + ": " + data.error)
                         }else {
                             mess += "<br />" + data.map(i => i + "<br />").join("")
                             setMessage(data.map(i => i + "<br />").join(""))
-                            console.log(data.map(i => i + "<br />").join(""))
+                            // console.log(data.map(i => i + "<br />").join(""))
                         }
                     })
                     // eslint-disable-next-line
                     .catch(error => {
                         mess += "<br />" + i + ": (Ошибка) " + JSON.stringify(error)
                         setMessage(i + ": (Ошибка) " + JSON.stringify(error))
-                        console.log(i + ": (Ошибка) " + error)
+                        // console.log(i + ": (Ошибка) " + error)
                     })
 
             }
@@ -87,16 +87,16 @@ const KvtParserPage = observer((props) => {
             .then(data => {
                 if (data?.error) {
                     setMessage(data.error)
-                    console.log(data.error)
+                    // console.log(data.error)
                 }else {
                     setMessage(JSON.stringify(data))
-                    console.log(data)
+                    // console.log(data)
                 }
             })
             // eslint-disable-next-line
             .catch(error => {
                 setMessage("(Ошибка) " + JSON.stringify(error))
-                console.log("(Ошибка) " + error)
+                // console.log("(Ошибка) " + error)
             })
         setLoading(false)
 

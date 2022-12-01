@@ -253,9 +253,9 @@ const DeliverySdek = observer((props) => {
             postal_code: index,
         })
 
-        console.log(response)
+        // console.log(response)
 
-       if (response?.error) {
+        if (response?.error) {
             setTextAlert(`Ошибка: ${response?.error?.message}`)
             setAlertVisible(true)
         }else {
@@ -288,9 +288,9 @@ const DeliverySdek = observer((props) => {
         
         let response = await sdekLocationRegions({})
 
-        console.log(response)
+        // console.log(response)
 
-       if (response?.error) {
+        if (response?.error) {
             setTextAlert(`Ошибка: ${response?.error?.message}`)
             setAlertVisible(true)
         }else {
@@ -308,7 +308,7 @@ const DeliverySdek = observer((props) => {
             page: 0
         })
 
-        console.log(response)
+        // console.log(response)
 
         if (response?.error) {
             setTextAlert(`Ошибка: ${response.error?.message}`)
@@ -327,7 +327,7 @@ const DeliverySdek = observer((props) => {
             let response = await sdekPrintOrders(numbers, {
                 copy_count: 2
             })
-            console.log(response)
+            // console.log(response)
             // response = await sdekGetPrintOrders(response?.entity?.uuid)
             if (response?.entity) {
                 localStorage.setItem('uuid_print',response.entity?.uuid)
@@ -353,7 +353,7 @@ const DeliverySdek = observer((props) => {
         if (uuid) {
             let response = await sdekGetPrintOrders(uuid)
 
-            console.log(response)
+            // console.log(response)
 
             if (response?.errors) {
                 setTextAlert("Ошибка: " + response.errors)

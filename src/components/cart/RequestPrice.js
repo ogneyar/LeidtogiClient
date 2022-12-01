@@ -59,8 +59,8 @@ const RequestPrice = (props) => {
             window.alert("Необходимо ввести почту вида email@mail.ru.")
         }else {
             setLoading(true)
-            let phoneNumber = "+7" + phone.replace(/\D/g, "")
-            console.log(phoneNumber)
+            // let phoneNumber = "+7" + phone.replace(/\D/g, "")
+            // console.log(phoneNumber)
 
             await sendRequestPrice({
                 url: URL + brand.toLowerCase() + "/" + url,

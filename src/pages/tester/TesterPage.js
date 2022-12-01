@@ -214,7 +214,7 @@ const TesterPage = () => {
                 if ((length - i) < 10) stop = length - 1 
                 editWeightTor(i, stop).then(data => {
                     setWeight(data)  
-                    console.log(data)
+                    // console.log(data)
                 })
             }
         }

@@ -89,6 +89,8 @@ const BrandBar =  observer((props) => {
                     br.name === "Kedr"
                     || 
                     br.name === "Bycon"
+                    || 
+                    br.name === "Gefest"
                 ) {
 
                     return <Card
