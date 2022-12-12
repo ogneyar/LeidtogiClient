@@ -329,10 +329,10 @@ const ProductPage =  observer((props) => {
                     {light = ! light}
                 </>
                 : null}
-                {product.size[0].volume 
+                {product.size[0].length 
                 ?
                 <>
-                    <div className={light ? "ProductInfoRowLight" : "ProductInfoRowTansparent"}>Объём: {product.size[0].volume} м.куб</div>
+                    <div className={light ? "ProductInfoRowLight" : "ProductInfoRowTansparent"}>Длина: {product.size[0].length} мм</div>
                     {light = ! light}
                 </>
                 : null}
@@ -350,10 +350,10 @@ const ProductPage =  observer((props) => {
                     {light = ! light}
                 </>
                 : null}
-                {product.size[0].length 
+                {product.size[0].volume 
                 ?
                 <>
-                    <div className={light ? "ProductInfoRowLight" : "ProductInfoRowTansparent"}>Длина: {product.size[0].length} мм</div>
+                    <div className={light ? "ProductInfoRowLight" : "ProductInfoRowTansparent"}>Объём: {product.size[0].volume} м.куб</div>
                     {light = ! light}
                 </>
                 : null}
