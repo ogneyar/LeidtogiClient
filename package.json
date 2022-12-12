@@ -1,6 +1,6 @@
 {
   "name": "leidtogi_client",
-  "version": "1.0.2",
+  "version": "1.2.0",
   "private": true,
   "dependencies": {
     "axios": "^0.21.4",
@@ -22,8 +22,8 @@
     "use-query-params": "^1.2.3"
   },
   "scripts": {
-    "start": "cross-env REACT_APP_ENV=develop react-scripts start",
-    "build": "cross-env REACT_APP_ENV=production react-scripts build"
+    "start": "cross-env REACT_APP_ENV=develop react-scripts --openssl-legacy-provider start",
+    "build": "cross-env REACT_APP_ENV=production --openssl-legacy-provider react-scripts build"
   },
   "eslintConfig": {
     "extends": [
