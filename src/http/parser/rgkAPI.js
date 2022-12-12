@@ -17,10 +17,10 @@ export const rgkAddNewProduct = async (number) => {
 }
 
 // изменение цены 
-export const rgkChangePrice = async (number) => {
+export const rgkChangePrice = async (update = true) => {
     const {data} = await $authHost.get('api/parser/rgk', {params: {
         change: true,
-        number
+        update
     }})
     return data
 }
@@ -31,16 +31,3 @@ export const rgkAddSizes = async () => {
     return data
 }
 
-// обновление файла feed.csv (пока не работает)
-export const rgkUpdateFeed = async () => {
-    const {data} = await $authHost.get('api/parser/rgk', {params: {
-        update: true
-    }})
-    return data
-}
-
-//  сохранение данных в файл
-export const rgkSaveInfo = async (text) => {
-    const {data} = await $authHost.post('api/parser/rgk/save_info', {text})
-    return data
-}

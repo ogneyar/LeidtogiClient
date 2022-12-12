@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "cross-env REACT_APP_ENV=develop react-scripts --openssl-legacy-provider start",
-    "build": "cross-env REACT_APP_ENV=production --openssl-legacy-provider react-scripts build"
+    "build": "cross-env REACT_APP_ENV=production react-scripts --openssl-legacy-provider build"
   },
   "eslintConfig": {
     "extends": [

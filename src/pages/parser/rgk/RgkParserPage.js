@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ReactHtmlParser from 'react-html-parser'
 import { observer } from 'mobx-react-lite';
 
-import { rgkGetLength, rgkAddNewProduct, rgkChangePrice, rgkSaveInfo } from '../../../http/parser/rgkAPI';
+import { rgkGetLength, rgkAddNewProduct, rgkChangePrice } from '../../../http/parser/rgkAPI';
 import Loading from '../../../components/Loading';
 import InfoPage from '../../info/InfoPage';
 
@@ -20,37 +20,23 @@ const RgkParserPage = observer((props) => {
     
 
     const onClickButtonChangePricesRGK = async () => {
-        // await rgkUpdateFeed()
-        setMessage("Начало:")
+        setMessage("")
         setLoading(true)
         
-        let volume
-        await rgkGetLength()
+        await rgkChangePrice()
             // eslint-disable-next-line
             .then(data => {
-                volume = data
+                if (data?.error) {
+                    setMessage(data.error)
+                }else {
+                    setMessage(JSON.stringify(data))
+                }
             })
-        
-        let mess = "{"
-        for(let i = 0; i < volume; i++) {
-            await rgkChangePrice(i + 1)
-                // eslint-disable-next-line
-                .then(data => {
-                    if (mess !== "{") mess += ","
-                    mess += "<br />" + data
-                    setMessage(data)
-                })
-                // eslint-disable-next-line
-                .catch(error => {
-                    mess += "<br />" + JSON.stringify(error)
-                    setMessage(JSON.stringify(error))
-                })
-        }
-        mess += "<br />}"
-        setMessage(mess)
+            // eslint-disable-next-line
+            .catch(error => {
+                setMessage("(Ошибка) " + JSON.stringify(error))
+            })
         setLoading(false)
-        // сохранение данных в файл
-        rgkSaveInfo(mess)
     }
     
     const onClickButtonParserRGK = async () => {
