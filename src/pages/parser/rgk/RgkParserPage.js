@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import ReactHtmlParser from 'react-html-parser'
 import { observer } from 'mobx-react-lite';
 
-import { rgkGetLength, rgkAddNewProduct, rgkChangePrice } from '../../../http/parser/rgkAPI';
+import { rgkGetLength, rgkAddNewProduct, rgkChangePrice, rgkAddAllProducts } from '../../../http/parser/rgkAPI';
 import Loading from '../../../components/Loading';
 import InfoPage from '../../info/InfoPage';
 
-import './RgkParserPage.css'
 
 
 const RgkParserPage = observer((props) => {
 
+
     const [message, setMessage] = useState("")
     const [loading, setLoading] = useState(false)
     
-    
-    const [quantity, setQuantity] = useState(0)
     const [number, setNumber] = useState(0)
     
 
@@ -42,74 +40,105 @@ const RgkParserPage = observer((props) => {
     const onClickButtonParserRGK = async () => {
         setMessage("")
         setLoading(true)
-        await rgkGetLength()
-            // eslint-disable-next-line
-            .then(data => {
-                // setMessage(data)
-                setQuantity(data)
+        let mess
+        if (number > 0) {
+            await rgkAddNewProduct(number).then(data => {
+                setMessage(data)
             })
+        }else {
+            let length = await rgkGetLength(true)
+            console.log(length);
+            let quantity = 10
+            mess = "Начало:"
+            for(let i = 1; i <= length; i = i + quantity) {
+
+                await rgkAddAllProducts(i, quantity)
+                    // eslint-disable-next-line
+                    .then(data => {
+                        if (data?.error) {
+                            mess += "<br />" + i + ": " + data.error
+                        }else {
+                            mess += "<br />" + data.map(i => i + "<br />").join("")
+                        }
+                    })
+                    // eslint-disable-next-line
+                    .catch(error => {
+                        mess += "<br />" + i + ": (Ошибка) " + JSON.stringify(error)
+                    })
+                    // eslint-disable-next-line
+                    .finally(() => {
+                        setMessage(mess)
+                    })
+
+            }
+            
+        }
+        if (mess) setMessage(mess + "<br />Конец.")
         setLoading(false)
     }
-
-    useEffect(() => {
-        if (quantity > 0 && number < quantity) {
-            rgkAddNewProduct(Number(number) + 1)
-                .then(data => {
-                    if (data?.error) {
-                        setMessage(" Не смог добавить!")
-                        setNumber(Number(number) + 1)
-                        setQuantity(0)
-                    }else {
-                        setMessage(" Успешно добавлен!")
-                        setNumber(data)
-                    }
-                })
-                .catch(() => {
-                    setMessage(" Не смог добавить!")
-                    setNumber(Number(number) + 1)
-                    setQuantity(0)
-                })
-        }
-        if (Number(number) === Number(quantity) && number !== 0) {
-            setNumber(Number(quantity) + 1)
-            setMessage("Закончил!")
-        }
-    // eslint-disable-next-line
-    },[quantity, number])
 
 
     return (
         <InfoPage>
-            <div className="RgkParserPage_Header">
-                <label>Заведение товаров RGK на сайт!</label>
-
-                {quantity && quantity !== 0
-                ? "Общее количество товаров: " + quantity
-                : null}
-
-                <br />
-
-
+            <div className="ParserPage"> 
+                
                 {message && message !== ""
                 ?
-                    <div className="inputBox">
-                        {number && number !== 0 && number < quantity
-                        ? number + ": "
-                        : null}
+                <>
+                    <div className="ParserPage_inputBox">
                         {ReactHtmlParser(message)}
                     </div>
-
+                    <br />
+                </>
                 : null}
-
+                
                 {loading ? <Loading /> 
                 : 
                 <>
-                    <button onClick={onClickButtonParserRGK} >Начать парсинг</button>
+                    <label>Заведение товаров RGK на сайт!</label>
                     <br />
-                    <button onClick={onClickButtonChangePricesRGK}>Обновление цен</button>
-                </>
-                }
-                <button onClick={() => props?.setBrand("")} >назад</button>
+                    <div className="ParserPage_box">
+
+                        <span>Номер позиции (0 - для добавления всех товаров)</span>
+                        <input 
+                            className="ParserPage_box_input"
+                            type="text" 
+                            value={number} 
+                            onChange={(e) => setNumber(e.target.value)} 
+                        />
+                        
+                        <button
+                            className="m-3 p-2" 
+                            onClick={onClickButtonParserRGK}
+                        >
+                            Добавить товары
+                        </button>
+                    </div>
+
+                    <br />
+
+                    <label>Обновление цен!</label>
+                    <br />
+                    <div className="ParserPage_box">
+                        <button 
+                            onClick={onClickButtonChangePricesRGK}
+                        >
+                            Обновить цены
+                        </button>
+
+                    </div>
+
+                    <br />
+
+                </>}
+
+                <button 
+                    className="ParserPage_button" 
+                    onClick={() => props?.setBrand("")}
+                >
+                    назад
+                </button>
+
             </div>
         </InfoPage>
     )
