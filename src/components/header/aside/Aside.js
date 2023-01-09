@@ -1,43 +1,44 @@
-// eslint-disable-next-line 
+
 import React, { useEffect, useContext, useState } from 'react'
-// import { Container } from 'react-bootstrap'
 import { NavLink, useHistory, useParams } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
 import { fetchOneProduct, fetchOneProductOnUrl } from '../../../http/productAPI'
 import Container from '../../../components/myBootstrap/container/Container'
 import { authRoutes, publicRoutes } from '../../../utils/routes'
-// import { API_URL } from '../../../utils/consts'
 
 import { Context } from '../../..'
 import './Aside.css'
+import { fetchAllCategories } from '../../../http/categoryAPI'
 
 
 const Aside = observer(() => {
 
-    const { category, brand, bread } = useContext(Context)
+    const { categoryStore, brandStore, breadStore, productStore } = useContext(Context)
 
     const history = useHistory()
     
-    useParams() // это не баг, а фича
+    useParams() // это не баг, а фича - которая уже не пашет :'(
 
     // хлебные крошки
     const [ breadCrumbsState, setBreadCrumbsState ] = useState([])
     let breadCrumbs = [] 
 
+    const [ categories, setCategories ] = useState(categoryStore.categories)
+
 
     function recursiveFunction(path) {
         if (path === "") {
             setBreadCrumbsState([])
-            bread.setCrumbs([])
-        }else if (category?.allCategories && category?.allCategories.length > 0) {
-            category.allCategories.forEach(i => {
+            breadStore.setCrumbs([])
+        }else if (categories?.length > 0) {
+            categories.forEach(i => {
                 if (i?.url === path) {
                     breadCrumbs = [ {name: i?.name, url: i.url}, ...breadCrumbs ]
                     setBreadCrumbsState([...breadCrumbs])
-                    bread.setCrumbs([...breadCrumbs])
+                    breadStore.setCrumbs([...breadCrumbs])
                     if (i?.sub_category_id !== 0) {
-                        category.allCategories.forEach(j => {
+                        categories.forEach(j => {
                             if (i.sub_category_id === j?.id) {
                                 recursiveFunction(j?.url)
                             }
@@ -48,107 +49,105 @@ const Aside = observer(() => {
         }
     }
 
-    // useEffect(() => {
-    //     if (brand.selectedBrand?.id !== undefined) {
-    //         setBreadCrumbsState([])
-    //         console.log("hdfg")
-    //     }
 
-    // },[brand.selectedBrand])
+    useEffect(() => {
+        if ( ! categories.length && history.location.pathname !== "/" ) {
+            fetchAllCategories().then(data => {
+                setCategories(data)
+            })
+        }
+    },[ categories.length, history.location.pathname ])
 
     useEffect(() => {
         // eslint-disable-next-line
         breadCrumbs = []
 
-        let path = history.location.pathname.replace(/\//,"") 
+        let path = history.location.pathname.replace("/","") 
 
         let number = path.indexOf(`/`)
-        if (number === -1) {
 
+        if (number === -1) {
             let yes = false
 
             authRoutes.forEach(i => {
-                let pathAuth = i.path.replace(/\//,"")
+                let pathAuth = i.path.replace("/","")
                 let numberAuth = pathAuth.indexOf(`/`)
                 if (numberAuth !== -1) pathAuth = pathAuth.substring(0, numberAuth)
-                // console.log(pathAuth)
                 if (pathAuth === path) yes = true
             })
             publicRoutes.forEach(i => {
-                let pathPublic = i.path.replace(/\//,"")
+                let pathPublic = i.path.replace("/","")
                 let numberPublic = pathPublic.indexOf(`/`)
                 if (numberPublic !== -1) pathPublic = pathPublic.substring(0, numberPublic)
-                // console.log(pathPublic)
                 if (pathPublic === path) yes = true
             })
-
+            brandStore.brands.forEach(i => {
+                let pathBrand = i.name.toLowerCase()
+                let numberBrand = pathBrand.indexOf(`/`)
+                if (numberBrand !== -1) pathBrand = pathBrand.substring(0, numberBrand)
+                if (pathBrand === path) yes = true
+            })
             if (yes) {
                 setBreadCrumbsState([])
-                bread.setCrumbs([])
+                breadStore.setCrumbs([])
             }else {
                 recursiveFunction(path)
             }
         }else {
             let string = path.substring(0, number)
-            // let string = path.substring(0, "/" + 1)
-            // console.log("string",string)
-            if (string === "product") {
+
+            if (string === "product") { // "/product/32704"
                 let id = Number(path.substring(number + 1, path.length))
 
-                fetchOneProduct(id).then(data => {
-                    if (category?.allCategories && category?.allCategories.length > 0) {
-                        category.allCategories.forEach(cat => {
+                if (categories?.length > 0) {
+                    fetchOneProduct(id).then(data => {
+                        categories.forEach(cat => {
                             if (cat?.id === data?.categoryId) {
                                 recursiveFunction(cat?.url)
                             }
                         })
-                    }
-                })
+                    })
+                }
 
-            }else if (brand?.selectedBrand?.name !== undefined && string === brand?.selectedBrand?.name.toLowerCase()) {
+            }else if (brandStore.selectedBrand?.name !== undefined && string === brandStore.selectedBrand?.name.toLowerCase()) { // "/aeg/akkumulyator-l1240r-pro-li-ion-12-v-4-a-ch-aeg_aeg4932430166"
                 let url = path.substring(number + 1, path.length)
-                // console.log("selectedBrand?.name",brand?.selectedBrand?.name)
-                fetchOneProductOnUrl(url).then(data => {
-                    if (category?.allCategories && category?.allCategories.length > 0) {
-                        category.allCategories.forEach(cat => {
+
+                if (categories.length > 0) {
+                    fetchOneProductOnUrl(url).then(data => {
+                        categories.forEach(cat => {
                             if (cat?.id === data?.categoryId) {
                                 recursiveFunction(cat?.url)
                             }
                         })
-                    }
-                })
+                    })
+                }
 
             }else if (string === "confirmation") {
 
             }else {
-                // console.log("else")
+                
             }
         }
-    // eslint-disable-next-line
-    },[category?.selectedCategory, history.location.pathname, brand?.selectedBrand])
-    // },[category?.selectedCategory, history.location.pathname, productStore?.allProducts])
+
+    },[ /*categoryStore?.selectedCategory,*/ history.location.pathname, brandStore?.selectedBrand, categories ])
+    
    
     const onClickAsideDiv = () => {
-        let path = history.location.pathname.replace(/\//,"") 
+        let path = history.location.pathname.replace("/","") 
         if (path === "") {
             setBreadCrumbsState([])
-            bread.setCrumbs([])
+            breadStore.setCrumbs([])
         }else {
             breadCrumbs = []
             recursiveFunction(path)
         }
+        productStore.setPage(1)
     }
 
 
     return (
         <Container className="Aside">
             <div className="AsideDiv" onClick={onClickAsideDiv}>
-                {/* &nbsp; */}
-                {/* <div className="AsideDivNavLink">
-                    <NavLink to={"/"} style={{color:"white"}}>
-                        Главная
-                    </NavLink>
-                </div> */}
                 {breadCrumbsState && 
                 Array.isArray(breadCrumbsState) && 
                 breadCrumbsState.map(i => {

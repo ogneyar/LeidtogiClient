@@ -14,7 +14,7 @@ import { Context } from '../..'
 
 const RegistrationPage = observer(() => {
 
-    const { user } = useContext(Context)
+    const { userStore } = useContext(Context)
 
     const refPhone = useRef()
 
@@ -57,8 +57,8 @@ const RegistrationPage = observer(() => {
                 }
             )
             if (data?.id) {
-                user.setIsAuth(true)
-                getUserInfo().then(dat => user.setUser(dat))
+                userStore.setIsAuth(true)
+                getUserInfo().then(dat => userStore.setUser(dat))
             }
             setLoading(false)
             // history.push(LOGIN_ROUTE)

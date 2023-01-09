@@ -1,10 +1,11 @@
+
 import React from 'react'
 import { Modal } from 'react-bootstrap'
 
-import CategoryService from '../../service/category/CategoryService'
+import BrandService from '../../service/brand/BrandService'
 
 
-const CategoryModal = ({show, onHide, page}) => {
+const BrandModal = ({show, onHide, page}) => {
     return (
         <Modal
             show={show}
@@ -15,17 +16,17 @@ const CategoryModal = ({show, onHide, page}) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Категории
+                    Бренды
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 
-                <CategoryService onHide={onHide} page={page || ""} /> 
+                <BrandService onHide={onHide} page={page || ""} />
 
             </Modal.Body>
         </Modal>
     )
 }
 
-export default CategoryModal
+export default BrandModal
  

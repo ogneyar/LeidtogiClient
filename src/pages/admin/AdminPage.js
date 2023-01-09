@@ -18,7 +18,7 @@ import scrollUp from '../../utils/scrollUp'
 
 const Admin = observer(() => {
     
-    const { user, productStore, category, brand } = useContext(Context)
+    const { userStore, productStore, categoryStore, brandStore } = useContext(Context)
 
     const history = useHistory()
 
@@ -26,28 +26,27 @@ const Admin = observer(() => {
     },[])
 
     useEffect(() => {
-        if (productStore.allProducts.length) {
-            productStore.setProducts(productStore.allProducts)
-            productStore.setTotalCount(productStore.allProducts.length)
+        if (productStore.products.length) {
+            // productStore.setProducts(productStore.allProducts)
+            // productStore.setTotalCount(productStore.allProducts.length)
         }
     // eslint-disable-next-line
-    },[productStore.allProducts])
+    },[productStore.products])
 
     useEffect(() => {
-        if (category.allCategories.length) {
-            category.setCategories(category.allCategories)
-            category.setSelectedCategory({})
+        if (categoryStore.allCategories.length) {
+            categoryStore.setCategories(categoryStore.allCategories)
+            categoryStore.setSelectedCategory({})
         }
     // eslint-disable-next-line
-    },[category.allCategories])
+    },[categoryStore.allCategories])
 
     useEffect(() => {
-        if (brand.allBrands.length) {
-            brand.setBrands(brand.allBrands)
-            brand.setSelectedBrand({})
+        if (brandStore.brands.length) {
+            brandStore.setSelectedBrand({})
         }
     // eslint-disable-next-line
-    },[brand.allBrands])
+    },[brandStore.brands])
 
     const [orderVisible, setOrderVisible] = useState(false)
     const [userVisible, setUserVisible] = useState(false)
@@ -69,9 +68,9 @@ const Admin = observer(() => {
                 Заказы
             </Button>
             
-            {user.user?.id === 1 && <hr/>}
+            {userStore.user?.id === 1 && <hr/>}
 
-            {user.user?.id === 1 
+            {userStore.user?.id === 1 
             ?
                 <Button 
                     variant={"outline-dark"} 
@@ -82,9 +81,9 @@ const Admin = observer(() => {
                 </Button>
             : null}
 
-            {user.user?.id === 1 && <hr/>}
+            {userStore.user?.id === 1 && <hr/>}
 
-            {user.user?.id === 1 
+            {userStore.user?.id === 1 
             ?
                 <Button 
                     variant={"outline-dark"} 
@@ -95,7 +94,7 @@ const Admin = observer(() => {
                 </Button>
             : null}
 
-            {user.user?.id === 1 
+            {userStore.user?.id === 1 
             ?
                 <Button 
                     variant={"outline-dark"} 
@@ -106,7 +105,7 @@ const Admin = observer(() => {
                 </Button>
             : null}
 
-            {user.user?.id === 1 
+            {userStore.user?.id === 1 
             ?
                 <Button 
                     variant={"outline-dark"} 
@@ -117,9 +116,9 @@ const Admin = observer(() => {
                 </Button>
             : null}
 
-            {user.user?.id === 1 && <hr/>}
+            {userStore.user?.id === 1 && <hr/>}
             
-            {user.user?.id === 1 
+            {userStore.user?.id === 1 
             ?
                 <Button 
                     variant={"outline-dark"} 
@@ -133,9 +132,9 @@ const Admin = observer(() => {
                 </Button>
             : null}
 
-            {user.user?.id === 1 && <hr/>}
+            {userStore.user?.id === 1 && <hr/>}
 
-            {user.user?.id === 1 
+            {userStore.user?.id === 1 
             ?
                 <Button 
                     variant={"outline-dark"} 

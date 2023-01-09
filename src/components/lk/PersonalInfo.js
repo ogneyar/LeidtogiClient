@@ -14,7 +14,7 @@ import './PersonalInfo.css'
 
 const PersonalInfo = () => {
     
-    const { user } = useContext(Context) 
+    const { userStore } = useContext(Context) 
 
     const [ info, setInfo ] = useState({})
     const [ loading, setLoading ] = useState(true)
@@ -28,12 +28,12 @@ const PersonalInfo = () => {
     const [ error, setError ] = useState(false) // если сообщение НЕ отправлено 
 
     useEffect(() => { 
-        if (user.user?.id) {
-            setInfo(user.user)
-            if (user.user?.address) setAddress(user.user?.address)
+        if (userStore.user?.id) {
+            setInfo(userStore.user)
+            if (userStore.user?.address) setAddress(userStore.user?.address)
             setLoading(false)
         }
-    },[user?.user])
+    },[userStore?.user])
 
     const onClickButtonChangePassword = async () => {
         scrollUp()
@@ -61,7 +61,7 @@ const PersonalInfo = () => {
     const onClickButtonChangeAdress = () => {
         if (changedAddress && address) {
             setChangedAddress(false)
-            updateUser(user.user?.id, { address })
+            updateUser(userStore.user?.id, { address }) 
         }else setChangedAddress(true)
     }
 

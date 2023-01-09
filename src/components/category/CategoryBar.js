@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 
@@ -20,7 +21,7 @@ const CategoryBar = observer((props) => {
                 className="CategoryBarPC"
                 id="CategoryBarPC"
             >
-                <CategoryService search={props?.search} />
+                <CategoryService search={props?.search} page={props.page || ""} />
             </div>
 
             <div
@@ -33,7 +34,7 @@ const CategoryBar = observer((props) => {
                     Категории <i className="fa fa-bars" aria-hidden="true"></i>
                 </label>
                 
-                <CategoryModal show={categoryVisible} onHide={() => setCategoryVisible(false)}/>
+                <CategoryModal show={categoryVisible} onHide={() => setCategoryVisible(false)} page={props.page || ""} />
 
             </div>
         </div>

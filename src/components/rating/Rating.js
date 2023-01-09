@@ -13,7 +13,7 @@ import Notification from '../myBootstrap/Notification'
 
 const Rating = observer((props) => {
 
-    const { user, rating } = useContext(Context)
+    const { userStore, ratingStore } = useContext(Context)
     
     const [ratingModalVisible, setRatingModalVisible] = useState(false)
     const [notificationModalVisible, setNotificationModalVisible] = useState(false)
@@ -21,7 +21,7 @@ const Rating = observer((props) => {
     const [rate, setRate] = useState(0)
 
     useEffect(() => {
-        fetchRating(user.user.id, props?.product.id).then(data => {
+        fetchRating(userStore.user.id, props?.product.id).then(data => {
             if (data?.rate) setRate(data?.rate)
         })
     // eslint-disable-next-line
@@ -33,7 +33,7 @@ const Rating = observer((props) => {
             className="Rating" 
         >
 
-            {rating.rate !== 0 && 
+            {ratingStore.rate !== 0 && 
             <label
                 className="RatingLabel"
             >
@@ -44,7 +44,7 @@ const Rating = observer((props) => {
                 className="RatingBody"
                 title="Оценить товар"
                 onClick={() => {
-                    if (user?.user?.id) setRatingModalVisible(true)
+                    if (userStore?.user?.id) setRatingModalVisible(true)
                     else setNotificationModalVisible(true)
                 }}
             >
@@ -56,9 +56,9 @@ const Rating = observer((props) => {
                 <div
                     className="RatingValue"
                 >
-                    {rating.rate !== 0 
+                    {ratingStore.rate !== 0 
                     ?
-                        <label>{rating.rate}</label>
+                        <label>{ratingStore.rate}</label>
                     :
                         <small>Оценить товар</small>
                     }
@@ -70,7 +70,7 @@ const Rating = observer((props) => {
                 onHide={() => setRatingModalVisible(false)} 
                 rate={rate} 
                 setRate={setRate} 
-                userId={user.user.id}
+                userId={userStore.user.id}
                 productId={props?.product.id}
             />
 

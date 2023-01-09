@@ -18,7 +18,7 @@ import Loading from '../../../components/Loading'
 
 const ProductService = observer((props) => {
     
-    const { productStore, category, brand } = useContext(Context)
+    const { productStore, categoryStore, brandStore } = useContext(Context)
 
     const [loading, setLoading] = useState(false)
 
@@ -57,20 +57,12 @@ const ProductService = observer((props) => {
     },[])
 
     useEffect(() => {
-        if (category.allCategories.length) {
-            category.setCategories(category.allCategories)
+        if (categoryStore.allCategories.length) {
+            categoryStore.setCategories(categoryStore.allCategories)
         }
     // eslint-disable-next-line
-    },[category.allCategories])
-
+    },[categoryStore.allCategories])
     
-    useEffect(() => {
-        if (brand.allBrands.length) {
-            brand.setBrands(brand.allBrands)
-            // brand.setSelectedBrand(brand.allBrands[0])
-        }
-    // eslint-disable-next-line
-    },[brand.allBrands])
 
     useEffect(() => {
         if (Array.isArray(props.info) && props.info[0]?.title !== undefined) {
@@ -163,7 +155,7 @@ const ProductService = observer((props) => {
     }
 
     const addProduct = async () => {
-        if (category.selectedCategory?.name && brand.selectedBrand?.name && article && name) {
+        if (categoryStore.selectedCategory?.name && brandStore.selectedBrand?.name && article && name) {
             if (! file) {
                 let addedWithoutPhoto = window.confirm("Добавлять товар без фото?")
                 if ( ! addedWithoutPhoto ) return
@@ -186,7 +178,7 @@ const ProductService = observer((props) => {
                     )
                     if (!error) {
                         fetchAllProducts().then(data => productStore.setAllProducts(data))
-                        category.setSelectedCategory({})
+                        categoryStore.setSelectedCategory({})
                     }
                     setLoading(false)
                 }catch(e) {
@@ -202,7 +194,7 @@ const ProductService = observer((props) => {
         await updateAllProduct(id, formData).then(() => props?.back())
 
         fetchAllProducts().then(data => productStore.setAllProducts(data))
-        category.setSelectedCategory({})
+        categoryStore.setSelectedCategory({})
         setLoading(false)
     }
 
@@ -210,7 +202,7 @@ const ProductService = observer((props) => {
         await deleteProduct(id).then(() => props?.back())
 
         fetchAllProducts().then(data => productStore.setAllProducts(data))
-        category.setSelectedCategory({})
+        categoryStore.setSelectedCategory({})
     }
 
     const getFormData = async () => {
@@ -228,38 +220,8 @@ const ProductService = observer((props) => {
         formData.append('article', article.trim())
         formData.append('promo', promo.trim())
         formData.append('country', country.trim())
-        formData.append('brandId', brand.selectedBrand.id)
-        formData.append('categoryId', category.selectedCategory.id)
-
-        if (action === "add") {
-            // это парсер, в данный момент отключен
-            // лишь для этого я сделал взаимоисключающее условие
-            // if (file === null && file === undefined) { 
-            //     await mlkGetAll(article)
-            //         .then(data => {
-            //             if (data?.error) {
-            //                 console.log("error: ",data)
-            //             }else {
-            //                 formData.append('files', JSON.stringify(data?.images))
-            //                 if (size?.weight === "" && size?.volume === "" && size?.width === "" && size?.height === "" && size?.length === "") {
-            //                     formData.append('size', JSON.stringify(data?.sizes))
-            //                 }else formData.append('size', JSON.stringify(size))
-            //                 if (price === "") formData.append('price', data?.price)
-            //                 else formData.append('price', `${price}`)
-            //                 let desc = {title:"description",body:""}
-            //                 if (description === "") desc.body = data?.description
-            //                 else desc.body = description
-            //                 let char = {title:"characteristics",body:""}
-            //                 if (characteristics === "") char.body = data?.characteristics
-            //                 else char.body = characteristics
-            //                 let equip = {title:"equipment",body:""}
-            //                 if (equipment === "") equip.body = data?.equipment
-            //                 else equip.body = equipment
-            //                 formData.append('info', JSON.stringify([desc,char,equip]))
-            //             }
-            //         })
-            // }
-        }
+        formData.append('brandId', brandStore.selectedBrand.id)
+        formData.append('categoryId', categoryStore.selectedCategory.id)
 
         formData.append('size', JSON.stringify(size))
         formData.append('price', `${price}`)
@@ -274,13 +236,13 @@ const ProductService = observer((props) => {
     }
 
     const reItemCategory = (sub = 0, offset = "") => { // рекурсивная функция, для получения списка категорий
-        return category.categories.map(i => {
+        return categoryStore.categories.map(i => {
 
             if (i.sub_category_id === sub && i.id !== 1) // i.id = 1 - это отдельная категория АКЦИИ
                 return (
                     <div key={i.id}>
                         <Dropdown.Item 
-                            onClick={() =>  category.setSelectedCategory(i)} 
+                            onClick={() =>  categoryStore.setSelectedCategory(i)} 
                             disabled={i.is_product ? false : true} 
                             
                         >
@@ -315,9 +277,9 @@ const ProductService = observer((props) => {
                 <div className=''>
                     <label>Категория:</label>
                     <Dropdown >
-                        <Dropdown.Toggle>{category.selectedCategory.name || "Выберите категорию"}</Dropdown.Toggle>
+                        <Dropdown.Toggle>{categoryStore.selectedCategory.name || "Выберите категорию"}</Dropdown.Toggle>
                         <Dropdown.Menu>
-                            {category.categories !== undefined 
+                            {categoryStore.categories !== undefined 
                             ? reItemCategory()
                             : null}
                         </Dropdown.Menu>
@@ -326,13 +288,13 @@ const ProductService = observer((props) => {
                 <div className='ml-2'>
                     <label>Бренд:</label>
                     <Dropdown >
-                        <Dropdown.Toggle>{brand.selectedBrand.name || "Выберите бренд"}</Dropdown.Toggle>
+                        <Dropdown.Toggle>{brandStore.selectedBrand.name || "Выберите бренд"}</Dropdown.Toggle>
                         <Dropdown.Menu>
-                            {brand.brands.map((br, index) => 
+                            {brandStore.brands.map((br, index) => 
                                 <Dropdown.Item 
-                                    onClick={() => brand.setSelectedBrand(br)} 
+                                    onClick={() => brandStore.setSelectedBrand(br)} 
                                     key={br.name}
-                                    active={br.id === brand.selectedBrand.id}
+                                    active={br.id === brandStore.selectedBrand.id}
                                 >
                                     {br.name}
                                 </Dropdown.Item>

@@ -1,4 +1,4 @@
-// eslint-disable-next-line
+
 import React, { useState, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useHistory } from 'react-router'
@@ -33,7 +33,7 @@ const RequestPrice = (props) => {
     const [ article ] = useState(props?.product?.article)
     const [ brand ] = useState(() => {
         let response
-        context.brand.allBrands.forEach(i => {
+        context.brandStore.brands.forEach(i => {
             if (i.id === props?.product?.brandId) response = i.name
         })
         return response

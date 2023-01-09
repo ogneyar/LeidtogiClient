@@ -47,9 +47,9 @@ const Cart = () => {
             console.log("Изменилась цена на товар, поэтому он из корзины удалён!")
             setState(newCart)
             localStorage.setItem('cart', JSON.stringify(newCart))
-            context.cart.setCart(newCart)
+            context.cartStore.setCart(newCart)
         }
-    },[yes, newCart, context.cart])
+    },[yes, newCart, context.cartStore])
 
     let cart
 
@@ -88,7 +88,7 @@ const Cart = () => {
             cart = JSON.parse(cart)
             if (cart.length === 1) {
                 localStorage.removeItem('cart')
-                context.cart.setCart([])
+                context.cartStore.setCart([])
                 setState(null)
                 setAmount(0)
             }else {
@@ -104,7 +104,7 @@ const Cart = () => {
                 // setAmount(totalValue)
                 setAmount(Math.round(totalValue * 100) / 100)
                 localStorage.setItem('cart', JSON.stringify(cart))
-                context.cart.setCart(cart)
+                context.cartStore.setCart(cart)
             }
             removeDataLayer({
                 article: item?.article,
@@ -118,7 +118,7 @@ const Cart = () => {
             setResponse(null)
             setItem(null)
         }
-    }, [response, item, context.cart])
+    }, [response, item, context.cartStore])
 
 
     const editValue = (action, item) => {
@@ -158,7 +158,7 @@ const Cart = () => {
             // setAmount(totalValue)
             setAmount(Math.round(totalValue * 100) / 100)
             localStorage.setItem('cart', JSON.stringify(cart))
-            context.cart.setCart(cart)
+            context.cartStore.setCart(cart)
         }
     }
 

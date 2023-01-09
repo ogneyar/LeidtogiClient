@@ -14,7 +14,7 @@ import './OrdersInfo.css'
 
 const OrdersInfo = () => {
         
-    const { user } = useContext(Context) 
+    const { userStore } = useContext(Context) 
 
     // const history = useHistory()
 
@@ -22,8 +22,8 @@ const OrdersInfo = () => {
     const [ loading, setLoading ] = useState(true)
 
     useEffect(() => {
-        if (user?.user?.id) {
-            getOrderForUser(user.user.id)
+        if (userStore?.user?.id) {
+            getOrderForUser(userStore.user.id)
                 .then(data => {
                     if (data[0] !== undefined) {
                         setOrders(data.filter(i => i?.pay).reverse())
@@ -31,7 +31,7 @@ const OrdersInfo = () => {
                 })
                 .finally(() => setLoading(false))
         }
-    }, [user?.user])
+    }, [userStore?.user])
 
     const onClickButtonConfirm = async (id) => {
         // setLoading(true)

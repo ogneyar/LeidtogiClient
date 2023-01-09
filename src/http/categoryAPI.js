@@ -6,11 +6,6 @@ export const createCategory = async (name, url, sub_category_id = 0) => {
     return data  
 }
 
-// export const fetchAllCategories = async () => {
-//     const {data} = await $host.get('api/category')
-//     return data
-// }
-
 export const fetchAllCategories = async () => {
     const {data} = await $host.get('api/category', {params: {
         limit: "-1" // происходила какая-то херня с мобильной версией, добавил params с левым параметром limit и всё заработало
@@ -20,6 +15,16 @@ export const fetchAllCategories = async () => {
 
 export const fetchCategories = async (sub_id = 0) => {
     const {data} = await $host.get('api/category/' + sub_id)
+    return data
+}
+
+export const fetchCategoriesForBrand = async (brandName) => {
+    const {data} = await $host.get('api/category/brand/' + brandName)
+    return data
+}
+
+export const fetchArrayCategories = async (nameCategory) => {
+    const {data} = await $host.get('api/category/arrays/' + nameCategory)
     return data
 }
 

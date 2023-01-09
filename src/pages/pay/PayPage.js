@@ -8,8 +8,7 @@ import './PayPage.css'
 
 const PayPage = (props) => {
     
-    // eslint-disable-next-line
-    const [redirectUrl, setRedirectUrl] = useQueryParam('redirect_url', StringParam)
+    const [ redirectUrl ] = useQueryParam('redirect_url', StringParam)
    
     useEffect(() => {
         if (redirectUrl) window.open(redirectUrl,'_self',false)

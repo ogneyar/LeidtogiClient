@@ -20,7 +20,7 @@ import './ProductPage.css'
 
 const ProductPage =  observer((props) => {
     // eslint-disable-next-line
-    const { rating, bread, brand } = useContext(Context)
+    const { ratingStore, breadStore, brandStore } = useContext(Context)
 
     const { id, url } = useParams()
 
@@ -71,7 +71,7 @@ const ProductPage =  observer((props) => {
                         window.location.href = "/error"
                     }else {
                         setProduct(data)
-                        rating.setRate(data.rating)
+                        ratingStore.setRate(data.rating)
                     }
                 },err => {
                     setError(true)
@@ -120,7 +120,7 @@ const ProductPage =  observer((props) => {
                         // history.push("/error")
                         window.location.href = "/error"
                     }else {
-                        brand.allBrands.forEach(i => {
+                        brandStore.brands.forEach(i => {
                             if (data?.brandId === i?.id) 
                                 if (i?.name.toLowerCase() !== props?.brandName) history.push("/" + props?.brandName)
                                 // else brand.setSelectedBrand(i)
@@ -128,7 +128,7 @@ const ProductPage =  observer((props) => {
                         
                         setProduct(data)
 
-                        rating.setRate(data.rating)
+                        ratingStore.setRate(data.rating)
                     }
                 },err => {
                     setError(true)
@@ -156,7 +156,7 @@ const ProductPage =  observer((props) => {
     let light =true
 
     return ( 
-        <Container className="ProductPage">
+        <Container className="ProductPage"> 
             <div className="ProductName">
                 {/* Ссылка, для того чтобы можно было правой клавишей мыши вызвать контекстное меню */}
                 <a href={product.url}>
@@ -208,7 +208,7 @@ const ProductPage =  observer((props) => {
                 </div>
                 <div md={4}>
                     <Row className="ProductRating">
-                        <Rating product={product} rating={rating.rate} />
+                        <Rating product={product} rating={ratingStore.rate} />
                     </Row>
                 </div>
                 <div md={4} className="ProductColCard">

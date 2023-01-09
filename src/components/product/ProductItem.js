@@ -16,15 +16,22 @@ import './Product.css'
 
 const ProductItem = (props) => {
 
-    const [ product ] = useState(props?.product)
+    const [ product, setProduct ] = useState(props?.product)
     
     const history = useHistory()
 
-    const { brand } = useContext(Context)
+    const { brandStore } = useContext(Context)
 
     const [ price, setPrice ] = useState(null)
     const [ oldPrice, setOldPrice ] = useState(null)
 
+    
+    useEffect(() => { 
+        if (product.img) {
+            // на всякий случай, если вдруг забыл разпарсить строку
+            if (typeof(product.img) === "string") setProduct({...product, img: JSON.parse(product.img)})
+        }
+    },[ product ])
     
     useEffect(() => {
         if (product.promo && JSON.parse(product.promo)?.old_price !== undefined) {
@@ -37,9 +44,9 @@ const ProductItem = (props) => {
         // history.push(PRODUCT_ROUTE + '/' + product.id)
         let url = ERROR_ROUTE
         let brandName = "milwaukee" // дефолтное состояние
-        brand.allBrands.forEach(i => {
+        brandStore.brands.forEach(i => {
             if (product.brandId === i.id) {
-                brand.setSelectedBrand(i)
+                brandStore.setSelectedBrand(i)
                 brandName = i.name
             }
         })
@@ -136,4 +143,4 @@ const ProductItem = (props) => {
     )
 }
 
-export default ProductItem
+export default ProductItem 

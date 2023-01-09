@@ -63,6 +63,7 @@ const Pages = observer(() => {
     
     
     const onClick = (page) => {
+        // alert(productStore.totalCount)
         if (window.innerWidth > 991) {
             scrollUp(SCROLL_TOP)
         }else {

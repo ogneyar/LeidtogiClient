@@ -1,11 +1,12 @@
 import React from 'react'
 
 import Limit from './limit/Limit'
+import MixPromo from './mix/MixPromo'
 import MixAll from './mix/MixAll'
 import NoImages from './noImages/NoImages'
-import Sort from './sort/Sort'
-import LineMenu from '../lineMenu/LineMenu'
-import FilterPrice from './filters/FilterPrice'
+// import Sort from './sort/Sort'
+// import LineMenu from '../lineMenu/LineMenu' 
+// import FilterPrice from './filters/FilterPrice'
 
 import './Filter.css'
 
@@ -19,7 +20,7 @@ const Filter = () => {
                 className="Filter_LineMenu"
             >
                 {/* Боковое меню */}
-                <LineMenu />
+                {/* <LineMenu /> */}
             </div>
 
             <div
@@ -28,9 +29,10 @@ const Filter = () => {
                 {/* для админа */}
                 <NoImages />
                 <MixAll />
+                <MixPromo />                
                 {/* для пользователя */}
-                <FilterPrice />
-                <Sort />
+                {/* <FilterPrice /> */}
+                {/* <Sort /> */}
                 <Limit />
             </div>
         </div>

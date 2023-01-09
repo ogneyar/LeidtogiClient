@@ -14,38 +14,38 @@ import './ConfirmPage.css'
 
 const ConfirmPage = observer(() => { 
 
-    const { user } = useContext(Context)
+    const { userStore } = useContext(Context)
     const { url } = useParams()
     const [ loading, setLoading ] = useState(true)
 
     useEffect(() => {
         async function activateUser(id, url) {
             await activate(id, url).then(data => {
-                user.setUser({...user.user, isActivated:1})
+                userStore.setUser({...userStore.user, isActivated:1})
             }).finally(() => setLoading(false))
         }
-        if (user.user?.id) {
-            if (!user.user?.isActivated) {
-                activateUser(user.user.id, url)
+        if (userStore.user?.id) {
+            if (!userStore.user?.isActivated) {
+                activateUser(userStore.user.id, url)
             }
-        }else if (user?.loading === false) {
+        }else if (userStore?.loading === false) {
             setLoading(false)
         }
     // eslint-disable-next-line
-    },[user.user?.id])
+    },[userStore.user?.id])
 
 
     if (loading) return <Loading />
 
     if (url) {
 
-        if (user.user?.id) { 
+        if (userStore.user?.id) { 
 
-            if (user.user?.isActivated ) 
+            if (userStore.user?.isActivated ) 
             return (
                 <InfoPage>
                     <div className="ConfirmPage">
-                        <label>{user.user?.name}</label>
+                        <label>{userStore.user?.name}</label>
                         <br />
                         <label>Ваш почтовый ящик подтверждён!</label>
                         <hr />

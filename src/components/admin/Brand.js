@@ -8,11 +8,11 @@ import { Context } from '../../index'
 
 const Brand = observer(({show, onHide}) => {
 
-    const { brand } = useContext(Context)
+    const { brandStore } = useContext(Context)
 
     useEffect(() => {
         // fetchBrands().then(data => {
-        //     brand.setBrands(data)
+        //     brandStore.setBrands(data)
         // })        
     },[])
 
@@ -32,7 +32,7 @@ const Brand = observer(({show, onHide}) => {
             </Modal.Header>
             <Modal.Body>
 
-                <BrandService information={brand.brands} />
+                <BrandService information={brandStore.brands} /> 
 
             </Modal.Body>
             <Modal.Footer>

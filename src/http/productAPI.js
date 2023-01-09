@@ -6,9 +6,9 @@ export const createProduct = async (product) => {
     return data
 }
 
-export const fetchProducts = async ({categoryId, brandId, page, limit, mix_all, mix_no_img, filter}) => {
+export const fetchProducts = async ({categoryId, brandId, page, limit, mix_all, mix_no_img, mix_promo, filter}) => {
     let { data } = await $host.get('api/product', {params: {
-        categoryId, brandId, page, limit, mix_all, mix_no_img, filter
+        categoryId, brandId, page, limit, mix_all, mix_no_img, mix_promo, filter
     }})    
     if (data.count === undefined) return { count: 0, rows: [] }
     return { 
@@ -40,6 +40,26 @@ export const fetchAllProducts = async () => {
         }
         return {...i, img} 
     })
+}
+
+export const fetchArrayProductsByCategory = async ({category, page, limit, mix_all, mix_no_img, mix_promo, filter}) => {
+    const {data} = await $host.get('api/product/by_category', {params: {
+        category, page, limit, mix_all, mix_no_img, mix_promo, filter
+    }})
+    if (data.count === undefined) return { count: 0, rows: [] }
+    return { 
+        count: data.count,
+        rows: data.rows.map(i => { 
+            let img
+            try {
+                if (typeof(i.img) === "string") img = JSON.parse(i.img)
+                else img = i.img
+            }catch(e) {
+                img = [{}]
+            }
+            return {...i, img} 
+        })
+    }
 }
 
 export const fetchOneProduct = async (id) => {

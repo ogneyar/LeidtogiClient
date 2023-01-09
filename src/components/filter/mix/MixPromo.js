@@ -5,19 +5,19 @@ import { observer } from 'mobx-react-lite'
 import { Context } from '../../..'
 import './mix.css'
 
-const MixAll = observer(() => {
+const MixPromo = observer(() => {
 
     const { userStore, productStore } = useContext(Context)
 
-    const [ value, setValue ] = useState(productStore.mixAll === false ? false : true)
+    const [ value, setValue ] = useState(productStore.mixPromo === false ? false : true)
 
     useEffect(() => {
     },[])
 
     const onChangeInput = () => {
-        localStorage.setItem('mixAll', !value)
+        localStorage.setItem('mixPromo', !value)
         setValue(!value)
-        productStore.setMixAll(!value)
+        productStore.setMixPromo(!value)
     }
 
     return (
@@ -26,7 +26,7 @@ const MixAll = observer(() => {
             style={userStore.user.id!==1 ? {display:"none",visible:"hidden"} : {}}
             onClick={onChangeInput}
         >
-            MixAll&nbsp;
+            MixPromo&nbsp;
 
             <input 
                 type="checkbox" 
@@ -38,4 +38,4 @@ const MixAll = observer(() => {
     )
 })
 
-export default MixAll
+export default MixPromo

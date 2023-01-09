@@ -17,8 +17,8 @@ import { Context } from '../..'
 
 
 const TesterPage = () => {
-    // eslint-disable-next-line
-    const { productStore, brand } = useContext(Context)
+    
+    const { productStore } = useContext(Context) 
 
     const [ showAlert, setShowAlert ] = useState(false)
     const [ message, setMessage ] = useState("")
@@ -60,9 +60,9 @@ const TesterPage = () => {
 
     const getProductWithOutGabarites = async () => {
         let sizes = await getAllProductSizes()
+        let products = await fetchAllProducts()
         setShowAlert(true)
-        let messageInfo = productStore
-            .allProducts
+        let messageInfo = products
             .filter(i => {
                 let no = true
                 sizes.forEach(j => {
@@ -78,9 +78,9 @@ const TesterPage = () => {
 
     const getProductWithOutDescription = async () => {
         let infos = await getAllProductInfos()
+        let products = await fetchAllProducts()
         setShowAlert(true)
-        let messageInfo = productStore
-            .allProducts
+        let messageInfo = products
             .filter(i => {
                 let no = true
                 infos.forEach(j => {
@@ -96,9 +96,9 @@ const TesterPage = () => {
 
     const getProductWithOutCharacteristics = async () => {
         let infos = await getAllProductInfos()
+        let products = await fetchAllProducts()
         setShowAlert(true)
-        let messageInfo = productStore
-            .allProducts
+        let messageInfo = products
             .filter(i => {
                 let no = true
                 infos.forEach(j => {
@@ -114,9 +114,9 @@ const TesterPage = () => {
 
     const getProductWithOutEquipment = async () => {
         let infos = await getAllProductInfos()
+        let products = await fetchAllProducts()
         setShowAlert(true)
-        let messageInfo = productStore
-            .allProducts
+        let messageInfo = products
             .filter(i => {
                 let no = true
                 infos.forEach(j => {
@@ -131,7 +131,7 @@ const TesterPage = () => {
     }
 
     const getXML = async () => {
-        if (productStore?.allProducts) {
+        if (productStore?.products) {
             setXML("...")
 
             let response = await setFeed()
@@ -143,7 +143,7 @@ const TesterPage = () => {
     }
 
     const getSiteMap = async () => {
-        if (productStore?.allProducts) {
+        if (productStore?.products) {
             setMap("...")
 
             let response = await setSiteMap({

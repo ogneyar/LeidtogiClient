@@ -6,7 +6,7 @@ import './NoImages.css'
 
 const NoImages = observer(() => {
 
-    const { user, productStore } = useContext(Context)
+    const { userStore, productStore } = useContext(Context)
 
     const [ value, setValue ] = useState(productStore.mixNoImg === false ? false : true)
 
@@ -22,7 +22,7 @@ const NoImages = observer(() => {
     return (
         <div
             className='NoImages'
-            style={user.user.id!==1 ? {display:"none",visible:"hidden"} : {}}
+            style={userStore.user.id!==1 ? {display:"none",visible:"hidden"} : {}}
             onClick={onChangeInput}
         >
             MixNoImg&nbsp;

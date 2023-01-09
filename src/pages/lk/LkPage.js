@@ -16,7 +16,7 @@ import './LkPage.css'
 
 const Lk = observer(() => {
 
-    const { user } = useContext(Context)
+    const { userStore } = useContext(Context)
 
     const history = useHistory()
     
@@ -47,7 +47,7 @@ const Lk = observer(() => {
     const onClickButtonRetryMail = async () => {
         setError(null)
         setLoading(true)
-        const data = await retryMail(user?.user?.id)
+        const data = await retryMail(userStore?.user?.id)
         if (data?.ok) {
             window.open(LK_ROUTE,"_self",false)
             // setError(JSON.stringify(data))
@@ -66,13 +66,13 @@ const Lk = observer(() => {
 
     if (redirect) history.push(LOGIN_ROUTE)
 
-    if (!user?.user?.isActivated) {
+    if (!userStore?.user?.isActivated) {
         return (
             <InfoPage>
                 <div className="Lk" style={{textAlign:"center"}}>
-                    <label>{user?.user?.name ? user.user.name : "Уважаемый клиент"}, добро пожаловать в личный кабинет!</label>
+                    <label>{userStore?.user?.name ? userStore.user.name : "Уважаемый клиент"}, добро пожаловать в личный кабинет!</label>
                     <hr/>
-                    <p>Для продолжения Вам необходимо подтвердить свой почтовый ящик <span style={{color:"green"}}>{user.user.email}</span>.</p>
+                    <p>Для продолжения Вам необходимо подтвердить свой почтовый ящик <span style={{color:"green"}}>{userStore.user.email}</span>.</p>
                     <p>Вам на него отправлена ссылка для активации аккаунта.</p>
                     <p>Если письмо не пришло проверьте папку СПАМ.</p>
                     {/* <p>Если и в папке СПАМ письма нет, напишите нам в тех.поддержку.</p> */}
@@ -98,11 +98,11 @@ const Lk = observer(() => {
         )
     }
 
-    if (user?.user?.name) {
+    if (userStore?.user?.name) {
         return (
             <InfoPage>
                 <div className="Lk">
-                    <label>{user?.user?.name}, добро пожаловать в личный кабинет!</label>
+                    <label>{userStore?.user?.name}, добро пожаловать в личный кабинет!</label> 
                     <hr/>
 
                     {!ordersInfo && !personalInfo 

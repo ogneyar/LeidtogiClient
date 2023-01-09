@@ -12,7 +12,7 @@ import './Product.css'
 
 const Product = observer(({show, onHide}) => {
 
-    const { category } = useContext(Context)
+    const { categoryStore } = useContext(Context)
 
     const [addProduct, setAddProduct] = useState(false)
     const [editProduct, setEditProduct] = useState(false)
@@ -30,7 +30,7 @@ const Product = observer(({show, onHide}) => {
     }
 
     const onClickButtonAdd = () => {
-        category.setSelectedCategory({})
+        categoryStore.setSelectedCategory({}) 
         setAddProduct(true)
         setEditProduct(false)
         setDeleteProduct(false)

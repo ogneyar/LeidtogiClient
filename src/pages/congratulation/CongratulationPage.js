@@ -10,12 +10,11 @@ import InfoPage from '../info/InfoPage'
 
 const CongratulationPage = () => {
     
-    // eslint-disable-next-line
-    const [id, setId] = useQueryParam('id', NumberParam)
-    // eslint-disable-next-line
-    const [email, setEmail] = useQueryParam('email', StringParam)
+    const [ id ] = useQueryParam('id', NumberParam)
+    
+    const [ email ] = useQueryParam('email', StringParam)
 
-    if (!id) return <Loading />
+    if ( ! id ) return <Loading />
 
     return (
         <InfoPage>

@@ -27,17 +27,17 @@ import './DeliverySdek.css'
 
 const DeliverySdek = observer((props) => {
     
-    const { user } = useContext(Context)
+    const { userStore } = useContext(Context)
 
     useEffect(() => {
-        if (user.user.address) {
-            let address = user.user.address
+        if (userStore.user.address) {
+            let address = userStore.user.address
             let result = address.match(/\d\d\d\d\d\d/)
             if (result.index !== -1) {
                 setIndex(address.substring(result.index, result.index + 6))
             }
         }
-    },[user?.user?.address])
+    },[userStore?.user?.address])
 
     const [tariff, setTariff] = useState("138")
 
@@ -86,7 +86,7 @@ const DeliverySdek = observer((props) => {
     }
 
     const onClickButtonOrder = async () => {
-        if (user?.user?.address) {
+        if (userStore?.user?.address) {
             let cart, weight
             cart = localStorage.getItem('cart')
             if (cart) {
@@ -98,7 +98,7 @@ const DeliverySdek = observer((props) => {
                 weight = weight * 1000
                 weight = Math.ceil(weight)
             }else return
-            let response = await sdekOrder(user?.user?.id, {
+            let response = await sdekOrder(userStore?.user?.id, {
                 tariff_code: tariff,
                 recipient: { 
                     name: "Тестер Петрович",
@@ -108,7 +108,7 @@ const DeliverySdek = observer((props) => {
                     postal_code: "101000",
                     address: "г.Москва, ул.Садовая, д.26"
                 },
-                to_location: {  address: user?.user?.address },
+                to_location: {  address: userStore?.user?.address },
                 packages: [ {
                     number: "1", weight, length: 10, width: 8, height: 6,
                     items: [ {
@@ -479,7 +479,7 @@ const DeliverySdek = observer((props) => {
                         Расчитать доставку
                     </Button>
                     <Button
-                        style={{"display":(user?.user?.id === undefined || user?.user?.id !== 1) ? "none" : "block"}}
+                        style={{"display":(userStore?.user?.id === undefined || userStore?.user?.id !== 1) ? "none" : "block"}}
                         variant="success"
                         onClick={onClickButtonOrder}
                     >
@@ -489,7 +489,7 @@ const DeliverySdek = observer((props) => {
                 
                 
                 <div 
-                    style={{"display":(user?.user?.id === undefined || user?.user?.id !== 1) ? "none" : "block"}}
+                    style={{"display":(userStore?.user?.id === undefined || userStore?.user?.id !== 1) ? "none" : "block"}}
                 >
 
                     <hr />

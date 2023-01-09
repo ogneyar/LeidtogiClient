@@ -9,7 +9,7 @@ import './Category.css'
 
 const Category = observer(({show, onHide}) => {
 
-    const { category } = useContext(Context)
+    const { categoryStore } = useContext(Context)
 
     const [info, setInfo] = useState([])
 
@@ -20,10 +20,10 @@ const Category = observer(({show, onHide}) => {
     },[])
    
     useEffect(() => {
-        if (category.allCategories.length) {
-            setInfo(category.allCategories.filter(i => i.sub_category_id === 0))
+        if (categoryStore.allCategories.length) {
+            setInfo(categoryStore.allCategories.filter(i => i.sub_category_id === 0)) 
         }
-    },[category.allCategories])
+    },[categoryStore.allCategories])
 
 
     return (

@@ -37,10 +37,10 @@ const ButtonBuy = (props) => {
         if (props?.product?.img && typeof(props?.product?.img) === "string") {
             img = JSON.parse(props.product.img)
         }else {
-            img = props.product.img
+            img = props.product?.img
         }
             
-        if (img[0]?.big !== undefined) {
+        if (img !== undefined && img[0] !== undefined && img[0]?.big !== undefined) {
             // if (img[0]?.small !== undefined) {
             //     setImage(API_URL + img[0]?.small)
             // }else {
@@ -66,7 +66,7 @@ const ButtonBuy = (props) => {
                             setValue(i.value)
                         }
                     })
-                    context.cart.setCart(data)
+                    context.cartStore.setCart(data)
                 })
                 addDataLayer({
                     article: props?.product?.article,
@@ -85,7 +85,7 @@ const ButtonBuy = (props) => {
                             setValue(i.value)
                         }
                     })
-                    context.cart.setCart(data)
+                    context.cartStore.setCart(data)
                 })
                 removeDataLayer({
                     article: props?.product?.article,
@@ -100,7 +100,7 @@ const ButtonBuy = (props) => {
             cart.then(data => {
                 setQuantity(data.length)
                 setNotificationVisible(false)
-                context.cart.setCart(data)
+                context.cartStore.setCart(data)
             })
             removeDataLayer({
                 article: props?.product?.article,
@@ -136,7 +136,7 @@ const ButtonBuy = (props) => {
                             setValue(i.value)
                         }
                     })
-                    context.cart.setCart(data)
+                    context.cartStore.setCart(data)
                 })
             }
         }
@@ -171,7 +171,7 @@ const ButtonBuy = (props) => {
                         }
                     })
                     setQuantity(data.length)
-                    context.cart.setCart(data)
+                    context.cartStore.setCart(data)
                 })
             }}
         >

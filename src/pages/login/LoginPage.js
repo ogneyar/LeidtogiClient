@@ -15,7 +15,7 @@ import './LoginPage.css'
 
 const LoginPage = observer((props) => {
 
-    const { user } = useContext(Context)
+    const { userStore } = useContext(Context)
 
     const history = useHistory()
     
@@ -33,8 +33,8 @@ const LoginPage = observer((props) => {
             let data
             // eslint-disable-next-line
             data = await login(email, password)
-            getUserInfo().then(dat => user.setUser(dat))
-            user.setIsAuth(true)
+            getUserInfo().then(dat => userStore.setUser(dat)) 
+            userStore.setIsAuth(true)
             if (props?.confirm) {
                 history.push(CONFIRM_ROUTE + "/" + props?.url)
             }else {

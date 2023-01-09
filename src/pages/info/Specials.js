@@ -18,7 +18,7 @@ const Specials = () => {
 
     const history = useHistory()
 
-    const { brand } = useContext(Context)
+    const { brandStore } = useContext(Context)
 
     const [ loading, setLoading ] = useState(true)
     
@@ -38,9 +38,9 @@ const Specials = () => {
     const onClickProduct = (product) => {
         let url = ERROR_ROUTE
         let brandName = "milwaukee" // дефолтное состояние
-        brand.allBrands.forEach(i => {
+        brandStore.brands.forEach(i => {
             if (product.brandId === i.id) {
-                brand.setSelectedBrand(i)
+                brandStore.setSelectedBrand(i) 
                 brandName = i.name
             }
         })

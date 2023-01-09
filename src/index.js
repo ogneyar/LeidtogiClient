@@ -1,5 +1,7 @@
+
 import React, { createContext } from 'react'
 import ReactDOM from 'react-dom'
+
 import App from './App'
 import UserStore from './store/UserStore'
 import ProductStore from './store/ProductStore'
@@ -13,13 +15,13 @@ import './styles/index.css'
 export const Context = createContext(null)
 
 let contextValue = {
-    user: new UserStore(),
+    userStore: new UserStore(),
     productStore: new ProductStore(),
-    category: new CategoryStore(),
-    brand: new BrandStore(),
-    rating: new RatingStore(),
-    bread: new BreadCrumbsStore(),
-    cart: new CartStore()
+    categoryStore: new CategoryStore(),
+    brandStore: new BrandStore(),
+    ratingStore: new RatingStore(),
+    breadStore: new BreadCrumbsStore(),
+    cartStore: new CartStore()
 }
 
 let jsx = (

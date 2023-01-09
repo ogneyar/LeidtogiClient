@@ -9,7 +9,7 @@ import './Limit.css'
 
 const Limit = observer(() => {
 
-    const { user, productStore } = useContext(Context)
+    const { userStore, productStore } = useContext(Context)
 
     let limit = localStorage.getItem('limit') || LIMIT
     const [state, setState] = useState(limit)
@@ -42,7 +42,7 @@ const Limit = observer(() => {
                 onChange={e => change(e)}
             >
                 {/* <option disabled>количество:</option> */}
-                {user.user?.id === 1
+                {userStore.user?.id === 1 
                 ?
                 <>
                     <option value="3">3</option>

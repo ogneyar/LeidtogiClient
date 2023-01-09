@@ -12,11 +12,11 @@ import './DealerPage.css'
 
 const DealerPage = () => {
 
-    const { user } = useContext(Context)
+    const { userStore } = useContext(Context)
 
     // const history = useHistory()
 
-    if (!user.isAuth) {
+    if (!userStore.isAuth) {
         //history.push("/login?returnUrl=/dealers")
     }
 

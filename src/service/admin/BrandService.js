@@ -8,7 +8,7 @@ import { Context } from '../../index'
 
 const BrandService = observer(({information}) => {
 
-    const { brand } = useContext(Context)
+    const { brandStore } = useContext(Context)
     const [ value, setValue ] = useState('')
 
     const [ info, setInfo ] = useState(information)
@@ -22,10 +22,10 @@ const BrandService = observer(({information}) => {
         if (yes) {
             await deleteBrand(id)
             
-            brand.setBrands(
-                brand.brands.filter(i => i.id !== id)
+            brandStore.setBrands(
+                brandStore.brands.filter(i => i.id !== id)
             )
-            setInfo(brand.brands)
+            setInfo(brandStore.brands)
         }
     }
     
@@ -51,8 +51,8 @@ const BrandService = observer(({information}) => {
     const addBrand = () => {
         createBrand({name: value}).then(data => {
             setValue('')
-            brand.setBrands([...brand.brands, ...data])
-            setInfo(brand.brands)
+            brandStore.setBrands([...brandStore.brands, ...data])
+            setInfo(brandStore.brands)
         })        
     }
 
@@ -157,4 +157,4 @@ const BrandService = observer(({information}) => {
     )
 })
 
-export default BrandService
+export default BrandService 

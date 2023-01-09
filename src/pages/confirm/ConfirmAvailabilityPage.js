@@ -9,7 +9,7 @@ import { Context } from '../..'
 
 const ConfirmAvailabilityPage = () => {
 
-    const { cart } = useContext(Context)
+    const { cartStore } = useContext(Context)
     
     const [ id ] = useQueryParam('id', NumberParam)
 
@@ -18,10 +18,10 @@ const ConfirmAvailabilityPage = () => {
     }, [])
 
     useEffect(() => {
-        if (cart) {
-            cart.setCart([])
+        if (cartStore) {
+            cartStore.setCart([])
         }
-    }, [cart])
+    }, [cartStore])
 
     return (
         <InfoPage>

@@ -1,3 +1,4 @@
+
 import React, { useState, useContext, useEffect } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
@@ -7,25 +8,26 @@ import ShopPage from '../pages/shop/ShopPage'
 import BrandPage from '../pages/brand/BrandPage'
 import { ERROR_ROUTE } from '../utils/consts'
 import Loading from './Loading'
+
 import { Context } from '..'
 
 
 const AppRouter = observer(() => {
     
-    const { user, brand } = useContext(Context)
+    const { userStore, brandStore } = useContext(Context)
 
     const [ brandRoutes, setBrandRoutes ] = useState([])
 
     
     useEffect(() => {
-        setBrandRoutes(brand.allBrands.map(i => {
+        setBrandRoutes(brandStore.brands.map(i => {
             let brandName = i?.name.toLowerCase()
             return {
                 path: '/' + brandName,
-                component: () => BrandPage({ brandName })
+                component: BrandPage//({ brandName })
             }
         }))
-    }, [brand.allBrands])
+    }, [brandStore.brands])
 
 
     // ожидание загрузки роутов брендов (Этот лоадинг на оранжевом фоне)
@@ -35,7 +37,7 @@ const AppRouter = observer(() => {
     return (
         <Switch>
             {/* роуты зарегистрированных пользователей */}
-            {user.isAuth && authRoutes.map(({ path, component, status }) => 
+            {userStore.isAuth && authRoutes.map(({ path, component, status }) => 
                 <Route key={path} path={path} component={component} status={status || 200} exact />
             )}
 

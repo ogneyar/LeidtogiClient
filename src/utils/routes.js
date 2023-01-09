@@ -68,7 +68,6 @@ export const authRoutes = [
 export const publicRoutes = [
     {
         path: MAIN_ROUTE,
-        // Component: ShopPage
         component: MainPage
     },
     {

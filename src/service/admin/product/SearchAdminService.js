@@ -12,7 +12,7 @@ import { API_URL } from '../../../utils/consts';
 
 const SearchAdminService = observer((props) => {
 
-    const { productStore, category, brand } = useContext(Context)
+    const { productStore, categoryStore, brandStore } = useContext(Context)
 
     const [article, setArticle] = useState("")
     const [search, setSearch] = useState([])
@@ -27,15 +27,15 @@ const SearchAdminService = observer((props) => {
 
     
     useEffect(() => {
-        if (productStore.allProducts.length) {
+        if (productStore.products.length) {
             setLoading(false)
         }
-    },[productStore.allProducts])
+    },[productStore.products])
 
     useEffect(() => {
         if (!loading && article !== "") {
             setSearch(
-                productStore.allProducts.filter(
+                productStore.products.filter(
                     i => i.article.includes(article)
                 )
                 // .sort((a, b) => a.article - b.article)
@@ -56,11 +56,11 @@ const SearchAdminService = observer((props) => {
         }
         setSearch([])
         setArticle("")
-        category.allCategories.forEach(i => {
-            if (item.categoryId === i.id) category.setSelectedCategory(i)
+        categoryStore.allCategories.forEach(i => {
+            if (item.categoryId === i.id) categoryStore.setSelectedCategory(i)
         })
-        brand.allBrands.forEach(i => {
-            if (item.brandId === i.id) brand.setSelectedBrand(i)
+        brandStore.brands.forEach(i => {
+            if (item.brandId === i.id) brandStore.setSelectedBrand(i) 
         })
         setProductSearch(item)
 

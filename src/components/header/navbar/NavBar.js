@@ -20,12 +20,12 @@ import './NavBar.css';
 
 const NavBar = observer(() => {
 
-    const { user, cart } = useContext(Context)
+    const { userStore, cartStore } = useContext(Context)
     const history = useHistory()
 
     const onClickLogoutButton = () => {
-        user.setUser({})
-        user.setIsAuth(false)
+        userStore.setUser({})
+        userStore.setIsAuth(false)
         // localStorage.removeItem('token') 
         logout()
         // history.push(LOGIN_ROUTE)
@@ -44,10 +44,10 @@ const NavBar = observer(() => {
     const [ quantity, setQuantity ] = useState(0)
 
     useEffect(() => {
-        if (cart?.cart) {
-            setQuantity(cart?.cart?.length)
+        if (cartStore?.cart) {
+            setQuantity(cartStore?.cart?.length)
         }
-    },[cart?.cart])
+    },[cartStore?.cart])
 
 
     return (
@@ -108,17 +108,17 @@ const NavBar = observer(() => {
                                 </div>
                             </div>
                         <Nav>
-                            {user.loading
+                            {userStore.loading
                             ?
                             <div className="NavBar_Spinner">
                                 <Spinner animation="border" variant="light" />
                             </div>
                             :
                             
-                                user.isAuth && user.user?.role ?
+                                userStore.isAuth && userStore.user?.role ?
                             
                                 <>
-                                    {user.user?.role === 'ADMIN' ?
+                                    {userStore.user?.role === 'ADMIN' ? 
                                     <>
                                         <Button 
                                             variant={'outline-light'} 

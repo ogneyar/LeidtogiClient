@@ -1,42 +1,32 @@
 
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import { Spinner } from 'react-bootstrap'
 
 import { API_URL, SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
-// import { searchArticle, searchName } from '../../http/searchAPI'
-import deleteAbbreviation from '../../utils/deleteAbbreviation'
 import priceFormater from '../../utils/priceFormater'
-import isNumber from '../../utils/types/isNumber'
 import scrollUp from '../../utils/scrollUp'
-// import Loading from '../Loading'
 
 import { Context } from '../..'
 import './Search.css'
+import { searchValue } from '../../http/searchAPI'
 
 
 const Search = observer((props) => {
     
-    const { productStore, brand } = useContext(Context)
+    const { productStore, brandStore } = useContext(Context)
 
     const [ admin, setAdmin ] =  useState(false)
 
     const [ value, setValue ] = useState("")
     const [ list, setList ] = useState([])
-    const [ array, setArray ] = useState([])
     const [ searchTimeOut, setSearchTimeOut ] = useState(null)
     const [ loading, setLoading ] = useState(false)
     // если поиск не дал результатов
     const [ noSearch, setNoSearch ] = useState(false)
 
     const history = useHistory()
-
-    useEffect(() => {
-        if (productStore.allProducts.length) {
-            setArray(productStore.allProducts)
-        }
-    },[productStore.allProducts])
 
 
     // производим поиск на сервере
@@ -48,42 +38,12 @@ const Search = observer((props) => {
             setAdmin(true)
             search = search.replace("!","")
         }
-        
-        let allSearch = search.split(" ")
-        // search = allSearch[0]
-        let arraySearch = []
-        allSearch.forEach(async(searched) => {
-            // функция deleteAbbreviation убирает сокращённые названия бренда (hqv, rgk, kvt)
-            let searchNumber = deleteAbbreviation(searched)
-            if ( isNumber( searchNumber ) ) {
-                if (array && array.length) arraySearch = [...arraySearch, ...array.filter(i => i.article.includes( searchNumber ))]
-                // поиск на сервере
-                // else arraySearch = [...arraySearch, ...await searchArticle({text:searchNumber, limit: 6})]
-            }else {
-                if (array && array.length) {
-                    searched = searched.toLowerCase().trim()
-                    arraySearch = [
-                        ...arraySearch, 
-                        ...array.filter(i => {
-                            let currentBrand = brand.allBrands.find(item => item.id === i.brandId)
-                            let brandName = currentBrand.name
-                            if (i.name.toLowerCase().includes(searched) || brandName.toLowerCase().includes(searched)) 
-                                return true
-                            return false
-                        } )]
-                }
-                // поиск на сервере
-                // else arraySearch = [...arraySearch, ...await searchName({text:searched, limit: 6})]
-            }
 
-            if (arraySearch === []) setNoSearch(true) // если поиск не дал результатов
-            // if (list && list.length === 0) setNoSearch(true) // если поиск не дал результатов
-        })
-        // new Set(arraySearch) - создание массива с уникальными значениями
-        if (arraySearch !== []) setList([...new Set(arraySearch)])
-        
-        setLoading(false)
-        
+        searchValue({ value: search, page: productStore.page, limit: productStore.limit })
+            .then(data => {
+                setList(data.rows)
+                setLoading(false)
+            })        
     }
 
     // при изменении значения в поле поиска устанавливаем таймаут
@@ -95,7 +55,7 @@ const Search = observer((props) => {
             }
             setSearchTimeOut(setTimeout(async (search) => {
                 await setChangesSearch(search)
-            }, 500, search))
+            }, 800, search))
         }else setList([])
     }
 
@@ -123,7 +83,7 @@ const Search = observer((props) => {
             if (admin) history.push(`/product/${val.id}`)
             else {
                 let brandName
-                brand.allBrands.forEach(i => {
+                brandStore.brands.forEach(i => {
                     if (val.brandId === i.id) brandName = i.name.toLowerCase()
                 })
                 history.push(`/${brandName}/${val.url}`)
@@ -135,7 +95,6 @@ const Search = observer((props) => {
         if (e.key === "Enter" && value) redirectOnSearch("value", e.target.value.trim())
     }
     
-    // if (loading) return <Loading width={150} />
 
     return (
         <div className="SearchComponent">
@@ -185,7 +144,6 @@ const Search = observer((props) => {
                                 <div
                                     key={i.id}
                                 >
-                                {/* {index !== 0 && <hr />} */}
                                 <div
                                     className="SearchListItem"
                                     onClick={() => redirectOnSearch("article", i)}
@@ -234,7 +192,6 @@ const Search = observer((props) => {
                             {list.length > 5 
                             ?
                             <>
-                                {/* <hr /> */}
                                 <div
                                     className="SearchListBottom"
                                     onClick={(e) => redirectOnSearch("value", value)}

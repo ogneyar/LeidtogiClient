@@ -16,7 +16,7 @@ import { sendMessage } from '../../http/telegramAPI'
 
 const SupportPage = observer(() => {
     
-    const { user } = useContext(Context)
+    const { userStore } = useContext(Context)
 
     const [ info, setInfo ] = useState({})
     const [ value, setValue ] = useState("")
@@ -24,11 +24,11 @@ const SupportPage = observer(() => {
     const [ showAlert, setShowAlert ] = useState(false)
 
     useEffect(() => {
-        if (user.user?.id) {
-            setInfo(user.user)
+        if (userStore.user?.id) {
+            setInfo(userStore.user)
         }
         setLoading(false)
-    },[user.user])
+    },[userStore.user])
 
     const onClickButtonSend = () => {
         if (value) {

@@ -23,7 +23,7 @@ import './CreateOrderPage.css'
 
 const CreateOrderPage = () => {
     
-    const { user, cart } = useContext(Context)
+    const { userStore, cartStore } = useContext(Context)
 
     const refPhone = useRef()
 
@@ -48,31 +48,31 @@ const CreateOrderPage = () => {
     const [ message, setMessage ] = useState("")
 
     useEffect(() => {
-        if (cart?.cart) {
+        if (cartStore?.cart) {
             let totalValue = 0
-            cart?.cart.forEach(i => totalValue += i.total)
+            cartStore?.cart.forEach(i => totalValue += i.total)
             // setAmount(totalValue)
             setAmount(Math.round(totalValue * 100) / 100)
         }
-    }, [cart?.cart])
+    }, [cartStore?.cart])
 
     useEffect(() => {
-        if (user?.user?.email) {
-            setEmail(user.user?.email)
+        if (userStore?.user?.email) {
+            setEmail(userStore.user?.email)
             setLoad(false)
         }
-        if (user.user?.name) setName(user.user?.name)
-        if (user.user?.phone) setPhone(user.user.phone.toString().substring(1,user.user.phone.length))
-        if (user?.user?.id) setClient(user.user.id)
-        if (user?.user?.role) setRole(user.user.role)
+        if (userStore.user?.name) setName(userStore.user?.name)
+        if (userStore.user?.phone) setPhone(userStore.user.phone.toString().substring(1,userStore.user.phone.length))
+        if (userStore?.user?.id) setClient(userStore.user.id)
+        if (userStore?.user?.role) setRole(userStore.user.role)
        
-    }, [user?.user, user?.loading])
+    }, [userStore?.user, userStore?.loading])
 
     useEffect(() => {
-        if (user?.loading === false && !localStorage.getItem('token')) {
+        if (userStore?.loading === false && !localStorage.getItem('token')) {
             setLoad(false)
         }
-    }, [user?.loading])
+    }, [userStore?.loading])
     
 
     useEffect(() => {
@@ -171,7 +171,7 @@ const CreateOrderPage = () => {
     
     const onClickPickupButton = async () => {
         // console.log("client",client);
-        await createCart(client, cart?.cart)
+        await createCart(client, cartStore?.cart)
 
         setСhoiseDelivery(false)
         setPickup(true)
@@ -180,7 +180,7 @@ const CreateOrderPage = () => {
     }
     
     const onClickDeliveryButton = async () => {
-        await createCart(client, cart?.cart)
+        await createCart(client, cartStore?.cart)
         
         setСhoiseDelivery(false)
         setPayment(false)
@@ -299,7 +299,7 @@ const CreateOrderPage = () => {
                         <div className="CreateOrderPagePayment">
                             <p><strong>Ваш заказ:</strong></p>
                             <div style={{border:"1px solid grey", padding:"15px 0 5px 0",width:"100%",textAlign:"center"}}>
-                                {cart?.cart.map((i,index) => {
+                                {cartStore?.cart.map((i,index) => {
                                     if (i.name.length > 20) {
                                         return <div key={"zakaz" + index}>
                                             <span style={{fontSize:"0.8rem"}}>{i.article}</span>
@@ -353,7 +353,7 @@ const CreateOrderPage = () => {
                         <div className="CreateOrderPagePayment">
                             <p><strong>Ваш заказ:</strong></p>
                             <div style={{border:"1px solid grey", padding:"15px 0 5px 0",width:"100%",textAlign:"center"}}>
-                                {cart?.cart.map(i => {
+                                {cartStore?.cart.map(i => {
                                     if (i.name.length > 20) {
                                         return <p key={i.id+33}>
                                             {i.name.substring(0,20)+"... - "+ i.value + "шт. x " + i.price + "р. - "}

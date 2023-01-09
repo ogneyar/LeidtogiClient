@@ -16,7 +16,7 @@ import { Input } from '../myBootstrap'
 
 const OrderAdmin = (props) => {
 
-    const { user } = useContext(Context) 
+    const { userStore } = useContext(Context) 
 
     // const history = useHistory()
 
@@ -65,7 +65,7 @@ const OrderAdmin = (props) => {
     const onClickButtonOrderEnd = async (id) => {
         let confirm = window.confirm("Вы уверены что хотите изменить статус заказа №" + id + " на ДОСТАВЛЕН?")
         if (confirm) {
-            if (user.user.id === 1) {
+            if (userStore.user.id === 1) {
             // setLoading(true)
             // forming, onway, delivered, taken
             await editOrder(id, { state: "delivered"})
@@ -93,7 +93,7 @@ const OrderAdmin = (props) => {
     const onClickSetPay = async (id) => {
         let confirm = window.confirm("Вы уверены что хотите изменить статус заказа №" + id + " на ОПЛАЧЕННЫЙ?")
         if (confirm) {
-            if (user.user.id === 1) {
+            if (userStore.user.id === 1) {
                 await editOrder(id, { pay: 1})
                     .then(data => {
                         if (data.error === undefined) {
@@ -128,7 +128,7 @@ const OrderAdmin = (props) => {
         if (state === "forming") {
             let confirm = window.confirm("Вы уверены что хотите подтвердить заказ №" + id + "?")
             if (confirm) {
-                if (user.user.id === 1) {
+                if (userStore.user.id === 1) {
                     await editOrder(id, { state: "confirmed"})
                     data = await getOrder(id)
                 }else {

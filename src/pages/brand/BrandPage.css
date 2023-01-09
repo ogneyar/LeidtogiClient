@@ -4,6 +4,12 @@
     background-color: var(--main-white-color);
 }
 
+.BrandPage h2 {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
 .BrandPageHeader {
     text-align: center;
     color: #fff;
@@ -13,6 +19,9 @@
     height: auto; 
 }
 
+.BrandPage_image {
+    padding-bottom: 10px;
+}
 .BrandPage_image img {
     width: 100%;
 }

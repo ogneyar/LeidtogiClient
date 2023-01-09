@@ -3,14 +3,20 @@ import {Modal, Button} from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 
 import { createRating, updateRating, fetchAllRating } from '../../http/ratingAPI'
-import { updateRatingProduct, fetchAllProducts } from '../../http/productAPI'
+import { 
+    updateRatingProduct, 
+    // fetchAllProducts 
+} from '../../http/productAPI'
 import { Context } from '../..'
 import './RatingModal.css'
 
 
 const RatingModal = observer(({ show, onHide, rate, setRate, userId, productId }) => {
 
-    const { rating, productStore } = useContext(Context)
+    const { 
+        rating, 
+        // productStore 
+    } = useContext(Context)
 
     const [info, setInfo] = useState([])
 
@@ -81,7 +87,7 @@ const RatingModal = observer(({ show, onHide, rate, setRate, userId, productId }
                 }
             }
             updateRatingProduct(productId, rate).then(yes => {
-                fetchAllProducts().then(data => productStore.setAllProducts(data))
+                // fetchAllProducts().then(data => productStore.setProducts(data))
             })
             rating.setRate(rate)
         })

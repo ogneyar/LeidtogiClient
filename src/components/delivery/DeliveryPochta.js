@@ -12,17 +12,17 @@ import { Context } from '../..'
 
 const DeliveryPochta = observer((props) => {
 
-    const { user } = useContext(Context)
+    const { userStore } = useContext(Context)
 
     useEffect(() => {
-        if (user.user.address) {
-            let address = user.user.address
+        if (userStore.user.address) {
+            let address = userStore.user.address
             let result = address.match(/\d\d\d\d\d\d/)
             if (result.index !== -1) {
                 setIndex(address.substring(result.index, result.index + 6))
             }
         }
-    },[user?.user?.address])
+    },[userStore?.user?.address])
 
     const [info, setInfo] = useState({name:"", transName:"", adName:"", payNds:"", deliveryMin:""})
     const [index, setIndex] = useState("")

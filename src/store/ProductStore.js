@@ -9,6 +9,7 @@ export default class ProductStore {
         this._page = 1 // номер отображаемой страницы
         this._totalCount = 0 // общее количество искомых товаров
         this._limit =  localStorage.getItem('limit') || LIMIT // сколько товаров отобразить на странице
+        this._mixPromo =  localStorage.getItem('mixPromo') === "false" ? false : true // перемешать ли акционные товары на странице?
         this._mixAll =  localStorage.getItem('mixAll') === "false" ? false : true // перемешать ли товары на странице?
         this._mixNoImg =  localStorage.getItem('mixNoImg') === "false" ? false : true // поместить ли товары без изображений в конец страницы?
         this._sort = "" // сортировка
@@ -30,6 +31,9 @@ export default class ProductStore {
     }
     setLimit(limit) {
         this._limit = limit
+    }
+    setMixPromo(mixPromo) {
+        this._mixPromo = mixPromo
     }
     setMixAll(mixAll) {
         this._mixAll = mixAll
@@ -58,6 +62,9 @@ export default class ProductStore {
     }
     get limit() {
         return this._limit
+    }
+    get mixPromo() {
+        return this._mixPromo
     }
     get mixAll() {
         return this._mixAll

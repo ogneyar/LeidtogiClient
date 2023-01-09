@@ -22,7 +22,7 @@ import './DeliverySdek.css'
 
 const DeliverySdek = observer((props) => {
     
-    const { user } = useContext(Context)
+    const { userStore } = useContext(Context)
    
     const [allCities, setAllCities] = useState([])
     const [listCities, setListCities] = useState([])
@@ -61,9 +61,9 @@ const DeliverySdek = observer((props) => {
     },[])
 
     useEffect(() => {
-        if (user.user.address && !localStorage.getItem('delivery_city')) {
+        if (userStore.user.address && !localStorage.getItem('delivery_city')) {
             
-            let address = user.user.address
+            let address = userStore.user.address
             let result = address.match(/\d\d\d\d\d\d/)
             if (result.index !== -1) {
                 setIndex(address.substring(result.index, result.index + 6))
@@ -77,7 +77,7 @@ const DeliverySdek = observer((props) => {
             }
         }
     // eslint-disable-next-line
-    },[user?.user?.address])
+    },[userStore?.user?.address])
 
      
     useEffect(() => {
