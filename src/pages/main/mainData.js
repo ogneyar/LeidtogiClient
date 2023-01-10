@@ -13,7 +13,8 @@ array.push({
         'Сабельные пилы',
         'Лобзики',
     ],
-    image: API_URL + "main/1_elektro_instrument.jpg"
+    image: API_URL + "main/1_elektro_instrument.jpg",
+    url: "akkumulyatornyy-instrument"
 })
 array.push({
     id: 2,
@@ -26,7 +27,8 @@ array.push({
         'Промышленные пылесосы',
         'Стенорезные машины',
     ],
-    image: API_URL + "main/2_stroitelnaya_tehnika.jpg"
+    image: API_URL + "main/2_stroitelnaya_tehnika.jpg",
+    url: "stroitelnoe-oborudovanie_too"
 })
 array.push({
     id: 3,
@@ -39,7 +41,8 @@ array.push({
         'Бруски с алмазным слоем',
         'Шлифпорошки',
     ],
-    image: API_URL + "main/3_almaznij_instrument.jpg"
+    image: API_URL + "main/3_almaznij_instrument.jpg",
+    url: "almaznaya-osnastka"
 })
 array.push({
     id: 4,
@@ -52,7 +55,8 @@ array.push({
         'Фаскосъёмные машины',
         'Пилы',
     ],
-    image: API_URL + "main/4_metalloobrabotka.jpg"
+    image: API_URL + "main/4_metalloobrabotka.jpg",
+    url: "sverlilnye"
 })
 array.push({
     id: 5,
@@ -65,7 +69,8 @@ array.push({
         'Измерительный инструмент',
         'Автомобильный инструмент',
     ],
-    image: API_URL + "main/5_slesarnij_instrument.jpg"
+    image: API_URL + "main/5_slesarnij_instrument.jpg",
+    url: "santehnicheskiy-instrument"
 })
 array.push({
     id: 6,
@@ -78,7 +83,8 @@ array.push({
         'Крюки',
         'Скобы',
     ],
-    image: API_URL + "main/6_takelajnoe_oborudovanie.jpg"
+    image: API_URL + "main/6_takelajnoe_oborudovanie.jpg",
+    url: "takelazh-i-komplektuyuschie"
 })
 array.push({
     id: 7,
@@ -91,7 +97,8 @@ array.push({
         'Электрические нагреватели',
         'Жидкотопливные горелки',
     ],
-    image: API_URL + "main/7_teplovoe_oborudovanie.jpg"
+    image: API_URL + "main/7_teplovoe_oborudovanie.jpg",
+    url: "obogrevateli-i-osushiteli"
 })
 array.push({
     id: 8,
@@ -104,7 +111,8 @@ array.push({
         'Расходные сварочные материалы',
         'Газосварочное оборудование',
     ],
-    image: API_URL + "main/8_svarochnoe_oborudovanie.jpg"
+    image: API_URL + "main/8_svarochnoe_oborudovanie.jpg",
+    url: "svarochnoe-oborudovanie"
 })
 array.push({
     id: 9,
@@ -117,7 +125,8 @@ array.push({
         'Электромонтажный крепёж',
         'Хомуты',
     ],
-    image: API_URL + "main/9_krepej.jpg"
+    image: API_URL + "main/9_krepej.jpg",
+    url: "krepezh"
 })
 array.push({
     id: 10,
@@ -130,7 +139,8 @@ array.push({
         'Провода заземления',
         'Противопожарные кабели',
     ],
-    image: API_URL + "main/10_kabel.jpg"
+    image: API_URL + "main/10_kabel.jpg",
+    url: "elektrika_too"
 })
 array.push({
     id: 11,
@@ -143,7 +153,8 @@ array.push({
         'Шкафы пожарные',
         'Аптечки',
     ],
-    image: API_URL + "main/11_protivopojarnoe_oborudovanie.jpg"
+    image: API_URL + "main/11_protivopojarnoe_oborudovanie.jpg",
+    url: "specodezhda-i-siz"
 })
 array.push({
     id: 12,
@@ -156,7 +167,8 @@ array.push({
         'ЗИП к пистолетам',
         'Крепёж для утепления',
     ],
-    image: API_URL + "main/12_tehnika_pryamogo_montaja.jpg"
+    image: API_URL + "main/12_tehnika_pryamogo_montaja.jpg",
+    url: "gazovyy-instrument"
 })
 array.push({
     id: 13,
@@ -170,7 +182,8 @@ array.push({
         // 'Материалы для подводно-технических работ',
         'Расходные материалы',
     ],
-    image: API_URL + "main/13_gidravlicheskoe_oborudovanie.jpg"
+    image: API_URL + "main/13_gidravlicheskoe_oborudovanie.jpg",
+    url: "pnevmoinstrument"
 })
 array.push({
     id: 14,
@@ -184,7 +197,8 @@ array.push({
         'Промышленые полы',
         'Инъекционные составы',
     ],
-    image: API_URL + "main/14_stroitelnie_smesi.jpg"
+    image: API_URL + "main/14_stroitelnie_smesi.jpg",
+    url: "stroitelnye-smesi"
 })
 array.push({
     id: 15,
@@ -198,7 +212,8 @@ array.push({
         'Генераторы',
         // 'Мотопомпы',
     ],
-    image: API_URL + "main/15_tehnika_dlya_sada.jpg"
+    image: API_URL + "main/15_tehnika_dlya_sada.jpg",
+    url: "sadovyy-instrument"
 })
 array.push({
     id: 16,
@@ -211,7 +226,8 @@ array.push({
         'Беспилотные летательные аппараты',
         'Металлоискатели',
     ],
-    image: API_URL + "main/16_geodezicheskoe_oborudovanie.jpg"
+    image: API_URL + "main/16_geodezicheskoe_oborudovanie.jpg",
+    url: "izmeritelnye-pribory"
 })
 array.push({
     id: 17,
@@ -224,7 +240,8 @@ array.push({
         'Метрологическое оборудование',
         'Паяльные станции',
     ],
-    image: API_URL + "main/17_izmeritelnie_pribori.jpg"
+    image: API_URL + "main/17_izmeritelnie_pribori.jpg",
+    url: "izmeritelnye-pribory"
 })
 array.push({
     id: 18,
@@ -237,7 +254,8 @@ array.push({
         'Одежда для сферы услуг',
         'Одежда для охранных структур',
     ],
-    image: API_URL + "main/18_specodejda.jpg"
+    image: API_URL + "main/18_specodejda.jpg",
+    url: "specodezhda-i-siz"
 })
 array.push({
     id: 19,
@@ -248,7 +266,8 @@ array.push({
         'Дизельные мачты',
         'Бензиновые мачты',
     ],
-    image: API_URL + "main/19_osvetitelnie_machti.jpg"
+    image: API_URL + "main/19_osvetitelnie_machti.jpg",
+    url: ""
 })
 array.push({
     id: 20,
@@ -259,7 +278,8 @@ array.push({
         'Двигатели',
         'Дизель-генераторные установки',
     ],
-    image: API_URL + "main/20_generatori.jpg"
+    image: API_URL + "main/20_generatori.jpg",
+    url: "generatory"
 })
 array.push({
     id: 21,
@@ -277,7 +297,8 @@ array.push({
         'Фаскосниматели',
         'Сверлильные',
     ],
-    image: API_URL + "main/21_stanki.jpg"
+    image: API_URL + "main/21_stanki.jpg",
+    url: "stanki"
 })
 array.push({
     id: 22,
@@ -288,7 +309,8 @@ array.push({
         'Поршневые компрессоры',
         'Дополнительное оборудование',
     ],
-    image: API_URL + "main/22_kompressori.jpg"
+    image: API_URL + "main/22_kompressori.jpg",
+    url: "kompressory"
 })
 array.push({
     id: 23,
@@ -299,7 +321,8 @@ array.push({
         'Пневматические отбойные молотки',
         'Пневматические пилы',
     ],
-    image: API_URL + "main/23_pnevmoinstrument.jpg"
+    image: API_URL + "main/23_pnevmoinstrument.jpg",
+    url: "pnevmoinstrument"
 })
 array.push({
     id: 24,
@@ -310,7 +333,8 @@ array.push({
         'Гидростанции',
         'Двигатели',
     ],
-    image: API_URL + "main/24_tehnika_spec_naznacheniya.jpg"
+    image: API_URL + "main/24_tehnika_spec_naznacheniya.jpg",
+    url: ""
 })
 array.push({
     id: 25,
@@ -321,7 +345,8 @@ array.push({
         'Оборудование для автомойки',
         'Прессы гидравлические',
     ],
-    image: API_URL + "main/25_avtoservis.jpg"
+    image: API_URL + "main/25_avtoservis.jpg",
+    url: "oborudovanie-dlya-avtoservisa"
 })
 array.push({
     id: 26,
@@ -332,7 +357,8 @@ array.push({
         'Парогенераторы',
         'Подметальные машины',
     ],
-    image: API_URL + "main/26_kliningovoe_oborudovanie.jpg"
+    image: API_URL + "main/26_kliningovoe_oborudovanie.jpg",
+    url: "moyki-vysokogo-davleniya"
 })
 // array.push({
 //     id: 27,
@@ -345,7 +371,8 @@ array.push({
 //         'Пусто',
 //         'Пусто',
 //     ],
-//     image: API_URL + "main/pusto.jpg"
+//     image: API_URL + "main/pusto.jpg",
+//     url: ""
 // })
 
 

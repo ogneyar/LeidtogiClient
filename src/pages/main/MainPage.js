@@ -27,7 +27,8 @@ const MainPage = () => {
             if (window.innerWidth > 575) scroll = SCROLL_TOP
             else scroll = SCROLL_TOP_MOBILE
         }
-        history.push(route)
+        if ( ! route) history.push(SHOP_ROUTE)
+        else history.push(route)
         scrollUp(scroll) 
     }
 
@@ -64,7 +65,7 @@ const MainPage = () => {
                     return <div 
                         key={idx + i.title} 
                         className="MainPage_box_body_item"
-                        onClick={() => onClickBox(SHOP_ROUTE)}
+                        onClick={() => onClickBox(i.url)}
                     >
                         <div className="MainPage_box_body_item_title">
                             <span>{i.title}</span>
