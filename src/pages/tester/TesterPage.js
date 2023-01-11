@@ -4,7 +4,9 @@ import ReactHtmlParser from 'react-html-parser'
 
 import { fetchAllProducts, updateProduct } from '../../http/productAPI'
 import { 
-    setLocationCitiesSdek, setFeed, setPlacesDl, setSiteMap, getLengthTor, editWeightTor
+    setLocationCitiesSdek, setFeed, setPlacesDl, 
+    setSiteMap, getLengthTor, editWeightTor,
+    separationOfVendorsTmk, getLengthTmk
 } from '../../http/testerAPI'
 import { getAllProductSizes } from '../../http/productSizeAPI'
 import { getAllProductInfos } from '../../http/productInfoAPI'
@@ -34,6 +36,8 @@ const TesterPage = () => {
     const [ page, setPage ] = useState(0)
 
     const [ weight, setWeight ] = useState("")
+
+    const [ separate, setSeparate ] = useState("")
 
 
     // eslint-disable-next-line
@@ -220,6 +224,34 @@ const TesterPage = () => {
         }
     }
 
+    //
+    const runSeparationTmk = async () => {
+        let response = ""
+        setSeparate("...")
+
+        let length = await getLengthTmk()
+        
+        if (length > 0) {
+            for(let i = 1; i <= length; i = i + 10) {
+                separationOfVendorsTmk(i) // по умолчанию: quantity = 10
+                    // eslint-disable-next-line
+                    .then(data => {
+                        setSeparate(data)
+                        response += data
+                        console.log(data)
+                    })
+            }
+        }else {
+            setSeparate("error: length = 0")
+        }
+
+        if (response) {
+            setSeparate(response)
+        }else {
+            setSeparate("error: null response")
+        }
+    }
+
 
     if (loading) return <Loading />
 
@@ -311,6 +343,17 @@ const TesterPage = () => {
                 {/* <Button onClick={onClickButtonSetUrl}>
                     Задать url товарам
                 </Button> */}
+
+                
+                <div>
+                    <br />
+                    Разделение TMK на суббренды
+                    <hr />
+                    {separate && <> {separate} <br /> </>}
+                    <Button onClick={runSeparationTmk}> Начать делёж </Button>
+                    <hr />
+                </div>
+
 
             </div>
             <Alert show={showAlert} onHide={() => setShowAlert(false)}>

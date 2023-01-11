@@ -41,3 +41,18 @@ export const editWeightTor = async (start, stop) => {
     })
     return data
 }
+
+export const separationOfVendorsTmk = async (number = 1, quantity = 10) => {
+    const { data } = await $host.get('api/parser/tmk', {
+        params: {
+            number,
+            separation: quantity
+        }
+    })
+    return data
+}
+
+export const getLengthTmk = async () => {
+    const { data } = await $host.get('api/parser/tmk')
+    return data
+}
