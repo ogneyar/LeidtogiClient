@@ -16,6 +16,7 @@ import translit from '../../utils/translite'
 import { API_URL } from '../../utils/consts'
 import InfoPage from '../info/InfoPage'
 import { Context } from '../..'
+import { setSortProduct } from '../../http/sortProductAPI'
 
 
 const TesterPage = () => {
@@ -26,6 +27,8 @@ const TesterPage = () => {
     const [ message, setMessage ] = useState("")
 
     const [ xml, setXML ] = useState("")
+
+    const [ sort, setSort ] = useState("")
 
     const [ map, setMap ] = useState("")
 
@@ -144,6 +147,15 @@ const TesterPage = () => {
             else setXML("успех")
 
         }else setXML("")
+    }
+
+    const getSort = async () => {
+        setSort("...")
+        
+        let response = await setSortProduct()
+
+        if (response === "ok") setSort("успех")
+        else setSort("ошибка")
     }
 
     const getSiteMap = async () => {
@@ -265,6 +277,15 @@ const TesterPage = () => {
                     <hr />
                     {xml && <> {xml} <br /> </>}
                     <Button onClick={getXML}> Создать фид </Button>
+                    <hr />
+                </div>
+                
+                <div>
+                    <br />
+                    Сортировка всех товаров
+                    <hr />
+                    {sort && <> {sort} <br /> </>}
+                    <Button onClick={getSort}> Сортировать </Button>
                     <hr />
                 </div>
 
