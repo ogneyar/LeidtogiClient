@@ -40,7 +40,7 @@ const SearchPage = observer(() => {
     // eslint-disable-next-line
     },[])
 
-    useEffect(() => {
+    useEffect(() => { 
         if (value) {
             setLoadingProduct(true)
             searchValue({ value, limit: productStore.limit, page: productStore.page }).then(

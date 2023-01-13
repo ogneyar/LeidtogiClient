@@ -1,15 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Container, Button } from 'react-bootstrap'
+import { observer } from 'mobx-react-lite'
 
 import Order from '../../components/admin/OrderAdmin'
 import User from '../../components/admin/UserAdmin'
-
+import { fetchAllCategories } from '../../http/categoryAPI'
+import { Alert } from '../../components/myBootstrap'
 import Category from '../../components/admin/Category'
 import Brand from '../../components/admin/Brand'
 import Product from '../../components/admin/Product'
 import DeleteSite from '../../components/admin/DeleteSite'
-import { observer } from 'mobx-react-lite'
 import { Context } from '../..'
 
 import './AdminPage.css';
@@ -22,11 +23,18 @@ const Admin = observer(() => {
 
     const history = useHistory()
 
-    useEffect(() => {
-    },[])
+    const [ alertVisible, setAlertVisible ] = useState(false)
+    const [ messageAlert, setMessageAlert ] = useState("")
+
+    const getError = (text, error) => {
+        if (error && typeof(error) === "string") setMessageAlert(`${text} Error: ${error}`)
+        else if (error && typeof(error) === "object") setMessageAlert(`${text} Error: ${JSON.stringify(error.message)}`)
+        else setMessageAlert(text)
+        setAlertVisible(true)
+    }
 
     useEffect(() => {
-        if (productStore.products.length) {
+        if (productStore.products.length) { 
             // productStore.setProducts(productStore.allProducts)
             // productStore.setTotalCount(productStore.allProducts.length)
         }
@@ -34,12 +42,19 @@ const Admin = observer(() => {
     },[productStore.products])
 
     useEffect(() => {
-        if (categoryStore.allCategories.length) {
-            categoryStore.setCategories(categoryStore.allCategories)
-            categoryStore.setSelectedCategory({})
-        }
-    // eslint-disable-next-line
-    },[categoryStore.allCategories])
+        fetchAllCategories()
+            .then(
+                data => {
+                    categoryStore.setCategories(data)
+                    categoryStore.setSelectedCategory({id: 0, name: "Все категории", is_product: true}) // то её нужно обнулить
+                },
+                error => {
+                    getError(`Не удалось загрузить категории!`, error)
+                    categoryStore.setCategories([{}])
+                }
+            )
+            .catch(error => getError( `Не удалось загрузить данные о категориях!`, error))        
+    },[categoryStore])
 
     useEffect(() => {
         if (brandStore.brands.length) {
@@ -56,6 +71,10 @@ const Admin = observer(() => {
     const [productVisible, setProductVisible] = useState(false)
     
     const [deleteSiteVisible, setDeleteSiteVisible] = useState(false)
+
+    
+    if (alertVisible) return <Alert show={alertVisible} onHide={() => setAlertVisible(false)} message={messageAlert} />
+
 
     return (
         <Container className="Content d-flex flex-column Admin Mobile">

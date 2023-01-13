@@ -1,13 +1,15 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
-import $ from 'jquery'
 
 import { fetchProductInfos, fetchProductSizes } from '../../../http/productAPI'
 import Loading from '../../../components/Loading';
 import { Context } from '../../..'
-import ProductService from './ProductService';
-import { API_URL } from '../../../utils/consts';
+import ProductService from './ProductService'
+import { API_URL } from '../../../utils/consts'
+import { Alert } from '../../../components/myBootstrap'
+import { searchValue } from '../../../http/searchAPI'
+import scrollUp from '../../../utils/scrollUp';
 
 
 const SearchAdminService = observer((props) => {
@@ -16,7 +18,7 @@ const SearchAdminService = observer((props) => {
 
     const [article, setArticle] = useState("")
     const [search, setSearch] = useState([])
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     const [visibleProductService, setVisibleProductService] = useState(false)
 
@@ -24,22 +26,52 @@ const SearchAdminService = observer((props) => {
 
     const [info, setInfo] = useState([])
     const [size, setSize] = useState({})
-
     
-    useEffect(() => {
-        if (productStore.products.length) {
-            setLoading(false)
-        }
-    },[productStore.products])
+    const [ searchTimeOut, setSearchTimeOut ] = useState(null)
+
+    const [ alertVisible, setAlertVisible ] = useState(false)
+    const [ messageAlert, setMessageAlert ] = useState("")
+
+    const getError = (text, error) => {
+        if (error && typeof(error) === "string") setMessageAlert(`${text} Error: ${error}`)
+        else if (error && typeof(error) === "object") setMessageAlert(`${text} Error: ${JSON.stringify(error.message)}`)
+        else setMessageAlert(text)
+        setAlertVisible(true)
+    }    
+    
+    // useEffect(() => {
+    //     if (productStore.products.length) {
+    //         setLoading(false)
+    //     }
+    // },[productStore.products])
+
 
     useEffect(() => {
         if (!loading && article !== "") {
-            setSearch(
-                productStore.products.filter(
-                    i => i.article.includes(article)
-                )
-                // .sort((a, b) => a.article - b.article)
-            )
+            // setSearch(
+            //     productStore.products.filter(
+            //         i => i.article.includes(article)
+            //     )
+            //     // .sort((a, b) => a.article - b.article)
+            // )
+            
+            if (searchTimeOut !== null) {
+                clearTimeout(searchTimeOut)
+            }
+            setSearchTimeOut(setTimeout(async (article) => {
+                setLoading(true)
+                searchValue({ value: article, limit: productStore.limit, page: productStore.page }).then(
+                    data => {
+                        setSearch(data.rows)
+                        setLoading(false)
+                    },
+                    error => getError(`Не удалось загрузить товары!`, error)
+                ).catch(error => getError(`Не удалось загрузить данные о товарах!`, error))
+            }, 1500, article))
+
+            
+            
+
         }else setSearch([])
         // eslint-disable-next-line
     },[article])
@@ -56,7 +88,7 @@ const SearchAdminService = observer((props) => {
         }
         setSearch([])
         setArticle("")
-        categoryStore.allCategories.forEach(i => {
+        categoryStore.categories.forEach(i => {
             if (item.categoryId === i.id) categoryStore.setSelectedCategory(i)
         })
         brandStore.brands.forEach(i => {
@@ -65,16 +97,13 @@ const SearchAdminService = observer((props) => {
         setProductSearch(item)
 
         setVisibleProductService(true)
-        $('.modal').animate(
-            {
-                scrollTop: 0
-            }, 
-            700, 
-            function(){}
-        )
+        scrollUp() 
     }
 
 
+    if (alertVisible) return <Alert show={alertVisible} onHide={() => setAlertVisible(false)} message={messageAlert} />
+
+    
     return (
         <div>
             {loading 
