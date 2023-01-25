@@ -16,7 +16,7 @@ const MilwaukeeParserPage = observer((props) => {
     const [feed, setFeed] = useState(null)
     const [checkFeed, setCheckFeed] = useState(false)
 
-    const [value, setValue] = useState(1)
+    const [value, setValue] = useState(0)
     const [message, setMessage] = useState("")
     const [loading, setLoading] = useState(false)
     
@@ -24,14 +24,16 @@ const MilwaukeeParserPage = observer((props) => {
     // обновление цен
     const onClickButtonChangePricesMLK = async () => {
         setMessage("")
-        if (! feed ) {
-            setMessage("Файл пуст")
-            return
-        }
+        // if (! feed ) {
+        //     setMessage("Файл пуст")
+        //     return
+        // }
         setLoading(true)
         
         const formData = new FormData()
-        formData.append("feed", feed)
+        if (feed) {
+            formData.append("feed", feed)
+        }
         
         await mlkChangePriceAll(formData, value)
             .then(data => {
