@@ -154,7 +154,7 @@ const KvtParserPage = observer((props) => {
                     error = err
                 })
 
-            if (response) setMessage("Прайс файл json обновлён.")
+            if (response) setMessage(`Прайс файл json обновлён.<br/><br/>${JSON.stringify(arrayData)}`)
             else setMessage(`Не смог обновить файл прайса...<br/><br/>${error}<br/><br/>${JSON.stringify(arrayData)}`)
             // setMessage(JSON.stringify(arrayData))
         }
