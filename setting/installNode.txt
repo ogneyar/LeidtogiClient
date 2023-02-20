@@ -1,0 +1,20 @@
+
+Установка NodeJS на NAS (QNAP)
+
+cd /share/CACHEDEV1_DATA
+mkdir lib
+cd lib
+wget nodejs.org/dist/v18.12.1/node-v18.12.1-linux-x64.tar.gz
+tar zxf node-v18.12.1-linux-x64.tar.gz
+ln -s node-v18.12.1-linux-x64 node
+mkdir lib
+mkdir bin
+cd bin
+ln -s /share/CACHEDEV1_DATA/lib/node/bin/node /share/CACHEDEV1_DATA/lib/bin/node
+
+nano /share/CACHEDEV1_DATA/lib/node/lib/node_modules/npm/node_modules/uid-number/uid-number.js
+change the line ,uidSupport = process.getuid && process.setuid to ,uidSupport = false
+
+ln -s /share/CACHEDEV1_DATA/node/.pm2 /root/.pm2
+ln -s /share/CACHEDEV1_DATA/node/.pm2 /.pm2
+
