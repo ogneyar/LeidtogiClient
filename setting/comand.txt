@@ -13,6 +13,14 @@ pm2 start /root/repair/repair.js
 pm2 start /root/server/server.js
 pm2 start /root/client/client.js
 
+(pm2 start server.js --watch --ignore-watch="node_modules")
+
+pm2 startup // запуск процессов после перезагрузки
+
+pm2 save // сохранение запущеных процессов
+
+pm2 unstartup // эта команда необходима после обновления NodeJS
+
 service nginx ( status | start | stop | restart )
 
 # узнать какие порты прослушиваются
