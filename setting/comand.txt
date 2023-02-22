@@ -22,6 +22,7 @@ pm2 save // сохранение запущеных процессов
 pm2 unstartup // эта команда необходима после обновления NodeJS
 
 service nginx ( status | start | stop | restart )
+sudo systemctl ( status | start | stop | restart | reload | disable | enable ) nginx
 
 # узнать какие порты прослушиваются
 netstat -ntlp | grep LISTEN
