@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Spinner, Navbar, Nav, Button, Container, Image } from 'react-bootstrap'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 import { useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
@@ -87,8 +87,8 @@ const NavBar = observer(() => {
                     >
                         <label className="NavBar_Col_Contacts_Name">{NAME}</label>
                         <label className="NavBar_Col_Contacts_Address">{ADDRESS}</label>
-                        <label className="NavBar_Col_Contacts_Phone">{ReactHtmlParser(PHONE_ONE)}</label>
-                        <label className="NavBar_Col_Contacts_Mail">{ReactHtmlParser(MAIL)}</label>
+                        <label className="NavBar_Col_Contacts_Phone">{HtmlReactParser(PHONE_ONE)}</label>
+                        <label className="NavBar_Col_Contacts_Mail">{HtmlReactParser(MAIL)}</label>
                     </div>
 
                     <div 

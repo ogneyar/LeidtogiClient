@@ -1,6 +1,6 @@
 // PaymentOrderPage
 import React, { useEffect, useState } from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 // eslint-disable-next-line
 import { useQueryParam, NumberParam, StringParam } from 'use-query-params'
 
@@ -97,10 +97,10 @@ const PaymentOrderPage = () => {
                         </>
                         }
                         <p>По всем возникающим вопросам обращайтесь по номеру:</p>
-                        <p><strong>{ReactHtmlParser(PHONE_ONE)}</strong> или <strong>{ReactHtmlParser(PHONE_TWO)}</strong></p>
+                        <p><strong>{HtmlReactParser(PHONE_ONE)}</strong> или <strong>{HtmlReactParser(PHONE_TWO)}</strong></p>
 
                         <p>Так же можете обращаться с любыми вопросами по email:</p>
-                        <p><strong>{ReactHtmlParser(MAIL)}</strong></p>
+                        <p><strong>{HtmlReactParser(MAIL)}</strong></p>
                         <br />
 
                     </>

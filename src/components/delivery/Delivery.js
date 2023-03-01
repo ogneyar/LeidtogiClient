@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 // eslint-disable-next-line
 import { YMaps, Map, Placemark, FullscreenControl, TypeSelector, ZoomControl } from 'react-yandex-maps'
 
@@ -283,7 +283,7 @@ export default function Delivery(props) {
                     setTextAlert("")
                 }}
             >
-                {ReactHtmlParser(textAlert)}
+                {HtmlReactParser(textAlert)}
             </Alert> 
             </div>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 // eslint-disable-next-line
 import { YMaps, Map, Placemark } from 'react-yandex-maps'
 
@@ -630,7 +630,7 @@ const DeliverySdek = observer((props) => {
                     setTextAlert("")
                 }}
             >
-                {ReactHtmlParser(textAlert)}
+                {HtmlReactParser(textAlert)}
             </Alert> 
 
         </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 import { observer } from 'mobx-react-lite';
 // eslint-disable-next-line
 import { addProduct, getLength, changePrices } from '../../../http/parser/gedoreAPI'
@@ -99,7 +99,7 @@ const GedoreParserPage = observer((props) => {
                 ?
                 <>
                     <div className="GedoreParserPage_inputBox">
-                        {ReactHtmlParser(message)}
+                        {HtmlReactParser(message)}
                     </div>
                     <br />
                 </>

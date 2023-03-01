@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 
 import { MAIL, ADDRESS_FULL, PHONE_ONE, PHONE_TWO, TIME_TO_WORK } from '../../utils/consts'
 import './FooterContacts.css'
@@ -23,27 +23,27 @@ const FooterContacts = () => {
                     <li>
                         <span className="fa fa-mobile">&nbsp;</span>
                         <div className="media-body">
-                            <p>{ReactHtmlParser(PHONE_ONE)}</p>
+                            <p>{HtmlReactParser(PHONE_ONE)}</p>
                         </div>
                     </li>
                     <li>
                         <span className="fa fa-mobile">&nbsp;</span>
                         <div className="media-body">
-                            <p>{ReactHtmlParser(PHONE_TWO)}</p>
+                            <p>{HtmlReactParser(PHONE_TWO)}</p>
                         </div>
                     </li>
                     <li>
                         <span className="fa fa-envelope-o">&nbsp;</span>
                         <div className="media-body">
                             <address>
-                                {ReactHtmlParser(MAIL)}
+                                {HtmlReactParser(MAIL)}
                             </address>
                         </div>
                     </li>
                     <li className="last">
                         <span className="fa fa-clock-o">&nbsp;</span>
                         <div className="media-body">
-                            {ReactHtmlParser(TIME_TO_WORK)}
+                            {HtmlReactParser(TIME_TO_WORK)}
                         </div>
                     </li>
                 </ul>

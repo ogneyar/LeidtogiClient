@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 
 import { MAIL, ADDRESS_FULL, PHONE_ONE, PHONE_TWO, TIME_TO_WORK } from '../../utils/consts'
 import InfoPage from './InfoPage'
@@ -37,16 +37,16 @@ const Contacts = () => {
                     </div>
                     <div className="ContactsBodyDiv">
                         <span>Телефоны:</span>
-                        <label>{ReactHtmlParser(PHONE_ONE)}</label>
-                        <label>{ReactHtmlParser(PHONE_TWO)}</label>
+                        <label>{HtmlReactParser(PHONE_ONE)}</label>
+                        <label>{HtmlReactParser(PHONE_TWO)}</label>
                     </div>
                     <div className="ContactsBodyDiv">
                         <span>Эл.Почта:</span>
-                        <label>{ReactHtmlParser(MAIL)}</label>
+                        <label>{HtmlReactParser(MAIL)}</label>
                     </div>
                     <div className="ContactsBodyDiv">
                         <span>Время работы:</span>
-                        {ReactHtmlParser(TIME_TO_WORK)}
+                        {HtmlReactParser(TIME_TO_WORK)}
                     </div>
                 </div>
             </div>

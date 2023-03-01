@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 import { observer } from 'mobx-react-lite';
 
 import { rgkGetLength, rgkAddNewProduct, rgkChangePrice, rgkAddAllProducts } from '../../../http/parser/rgkAPI';
@@ -86,7 +86,7 @@ const RgkParserPage = observer((props) => {
                 ?
                 <>
                     <div className="ParserPage_inputBox">
-                        {ReactHtmlParser(message)}
+                        {HtmlReactParser(message)}
                     </div>
                     <br />
                 </>

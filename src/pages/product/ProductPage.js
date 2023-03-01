@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import { Card, Container, Image, Row } from 'react-bootstrap'
 import { useParams, useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 
 import { fetchOneProduct, fetchOneProductOnUrl } from '../../http/productAPI'
 import { URL, API_URL } from '../../utils/consts'
@@ -264,10 +264,10 @@ const ProductPage =  observer((props) => {
                         { 
                             info?.body.includes("<") && info?.body.includes(">") 
                             ?
-                                ReactHtmlParser(info?.body)
+                                HtmlReactParser(info?.body)
                             : 
                                 info?.body.includes(";") 
-                                ? ReactHtmlParser(info?.body.split(";").map((i, idx) => {
+                                ? HtmlReactParser(info?.body.split(";").map((i, idx) => {
                                     let jsx = ""
                                     if (idx === 0) jsx += `<tbody><tr><td>${i}</td>`
                                     else if ((idx+1) % 2 === 0) jsx += `<td>${i}</td></tr>` // если чётный элемент
@@ -285,7 +285,7 @@ const ProductPage =  observer((props) => {
                             <h2>Описание</h2>
                             <div>
                             {
-                                ReactHtmlParser(info?.body)
+                                HtmlReactParser(info?.body)
                             }
                             </div>
                             </>
@@ -297,10 +297,10 @@ const ProductPage =  observer((props) => {
                                 {
                                     info?.body.includes("<") && info?.body.includes(">") 
                                     ?
-                                        ReactHtmlParser(info?.body)
+                                        HtmlReactParser(info?.body)
                                     :
                                         info?.body.includes(";") 
-                                        ? ReactHtmlParser(info?.body.split(";").map((i, idx) => {
+                                        ? HtmlReactParser(info?.body.split(";").map((i, idx) => {
                                             let jsx = ""
                                             if (idx === 0) jsx += `<tbody>`
                                             jsx += `<tr><td>${i}</td></tr>`

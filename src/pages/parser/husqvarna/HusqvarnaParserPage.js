@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 import { observer } from 'mobx-react-lite';
 // eslint-disable-next-line
 import { addProduct, getLength, changePrices } from '../../../http/parser/husqvarnaAPI'
@@ -115,7 +115,7 @@ const HusqvarnaParserPage = observer((props) => {
                         {/* {number && number !== 0 && number < quantity
                         ? number + ": "
                         : null} */}
-                        {ReactHtmlParser(message)}
+                        {HtmlReactParser(message)}
                     </div>
                     <br />
                 </>

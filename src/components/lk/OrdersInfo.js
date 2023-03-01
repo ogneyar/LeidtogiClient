@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 // import { useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 
 import { getOrderForUser, setTaken } from '../../http/orderAPI'
 import { ADDRESS
@@ -65,8 +65,8 @@ const OrdersInfo = () => {
                     </div>
                     : ""}
                     <div className="OrdersInfo_Body">
-                    {orders.filter(j => j.state !== "taken").map(i => 
-                            <p>
+                    {orders.filter(j => j.state !== "taken").map((i,idx) => 
+                            <p key={idx+"hz"}>
                                 Номер:&nbsp;<strong>{i?.id}</strong> - оплачен.
                                 <br />
                                 Cтатус:&nbsp;
@@ -86,7 +86,7 @@ const OrdersInfo = () => {
                                 {i?.state === "taken" && <><strong>получен.</strong><hr /></>} 
                                 <br />
                                 Состав заявки:&nbsp;
-                                {ReactHtmlParser(
+                                {HtmlReactParser(`${
                                     JSON.parse(i.cart).map(k => {
                                         // return k
                                         let id = k.positionId
@@ -99,6 +99,7 @@ const OrdersInfo = () => {
                                         return `<br />${id}. ${name}${article !== "0001" ? ` (${article})` : ""}:  ${value} x  ${price} р. =  ${amount} р.`
 
                                     })
+                                }`
                                 )}
                                 <br />
                                 {i?.state !== "taken" && 
@@ -132,14 +133,14 @@ const OrdersInfo = () => {
                     </div>
                     : ""}
                     <div className="OrdersInfo_Body">
-                        {orders.filter(j => j.state === "taken").map(i => 
-                            <p>
+                        {orders.filter(j => j.state === "taken").map((i,idx) => 
+                            <p key={idx+"hz2"}>
                                 Номер:&nbsp;<strong>{i?.id}</strong> - оплачен.
                                 <br />
                                 Cтатус:&nbsp;<strong style={{color:"red"}}>получен.</strong>
                                 <br />
                                 Состав заявки:&nbsp;
-                                {ReactHtmlParser(
+                                {HtmlReactParser(`${
                                     JSON.parse(i.cart).map(k => {
                                         // return k
                                         let id = k.positionId
@@ -152,6 +153,7 @@ const OrdersInfo = () => {
                                         return `<br />${id}. ${name}${article !== "0001" ? ` (${article})` : ""}:  ${value} x  ${price} р. =  ${amount} р.`
 
                                     })
+                                }`
                                 )}
                                 <br />
                                 <div>

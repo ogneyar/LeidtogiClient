@@ -19,8 +19,7 @@ const LoginPage = observer((props) => {
 
     const history = useHistory()
     
-    // eslint-disable-next-line
-    const [returnUrl, setReturnUrl] = useQueryParam('returnUrl', StringParam)
+    // const [ returnUrl ] = useQueryParam('returnUrl', StringParam)
 
     const [ alertVisible, setAlertVisible ] = useState(false)
     const [ alertMessage, setAlertMessage ] = useState('')
@@ -38,8 +37,9 @@ const LoginPage = observer((props) => {
             if (props?.confirm) {
                 history.push(CONFIRM_ROUTE + "/" + props?.url)
             }else {
-                if (returnUrl) history.push(returnUrl)
-                else history.push(LK_ROUTE)
+                // if (returnUrl) history.push(returnUrl)
+                // else 
+                history.push(LK_ROUTE)
             }
             scrollUp(window.innerWidth > 700 ? SCROLL_TOP : SCROLL_TOP_MOBILE)
             

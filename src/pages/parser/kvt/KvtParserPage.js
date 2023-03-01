@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 import { observer } from 'mobx-react-lite'
 import { 
     addProduct, getLength, changePrices, updatePriceFile, savePriceFile,
@@ -170,7 +170,7 @@ const KvtParserPage = observer((props) => {
                 ?
                 <>
                     <div className="KVTParserPage_inputBox">
-                        {ReactHtmlParser(message)}
+                        {HtmlReactParser(message)}
                     </div>
                     <br />
                 </>

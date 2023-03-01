@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Button } from 'react-bootstrap'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 
 import { fetchAllProducts, updateProduct } from '../../http/productAPI'
 import { 
@@ -383,7 +383,7 @@ const TesterPage = () => {
                     {src: `${message}`},
                     null
                 )} */}
-                {ReactHtmlParser(message)}
+                {HtmlReactParser(message)}
             </Alert>
         </InfoPage>
     )

@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import React, { useState, useEffect } from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 
 import { mlkAddProduct, mlkChangePriceAll, mlkGetLength } from '../../../http/parser/milwaukeeAPI';
 
@@ -107,7 +107,7 @@ const MilwaukeeParserPage = observer((props) => {
                 {message && message !== ""
                 ?
                     <div className="MilwaukeeParserPage_inputBox">
-                        {ReactHtmlParser(message)}
+                        {HtmlReactParser(message)}
                     </div>
 
                 : null}

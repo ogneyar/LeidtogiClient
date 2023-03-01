@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 // import { useHistory } from 'react-router-dom'
 import { Modal, Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
-// import ReactHtmlParser from 'react-html-parser'
+// import HtmlReactParser from 'html-react-parser'
 
 import { getAllOrders, editOrder, getOrder, editOrderCart } from '../../http/orderAPI'
 // import { ADMIN_ROUTE } from '../../utils/consts'

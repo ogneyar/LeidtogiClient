@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import HtmlReactParser from 'html-react-parser'
 // eslint-disable-next-line
 import { MAIL, ADDRESS, PHONE_ONE, TIME_TO_WORK } from '../../utils/consts'
 import InfoPage from './InfoPage'
@@ -39,9 +39,9 @@ const Warranty = () => {
                 <p>Для обращения в службу сервиса вышлите заполненный бланк рекламации на указанную электронную почту. Бланк нужно скачать на Ваш компьютер и заполнить в электронном виде (например, при помощи редактора Pdf Xchange Viewer) или распечатать, заполнить от руки и скинуть скан. Уточняющие вопросы можно задать по телефону сервисной службы.</p>
 
                 <div>
-                    <p>Электронная почта: {ReactHtmlParser(MAIL)}</p>
+                    <p>Электронная почта: {HtmlReactParser(MAIL)}</p>
                     
-                    <p>Телефон сервисной службы: {ReactHtmlParser(PHONE_ONE)}</p>
+                    <p>Телефон сервисной службы: {HtmlReactParser(PHONE_ONE)}</p>
 
                     <p>
                         <a href="/upload/blank-reklamatsii.pdf" target="_blank">Бланк рекламации (pdf, 43 КБ)</a>
