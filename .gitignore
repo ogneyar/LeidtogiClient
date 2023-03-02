@@ -18,3 +18,10 @@ package-lock.json
 
 # temp
 /temp
+
+# build file
+b
+*/b
+
+# bat files
+*.bat
