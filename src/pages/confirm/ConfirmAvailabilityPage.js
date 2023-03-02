@@ -1,7 +1,6 @@
 // ConfirmAvailabilityPage
 import React, { useContext, useEffect } from 'react'
-// eslint-disable-next-line
-import { useQueryParam, NumberParam, StringParam } from 'use-query-params'
+import { useQueryParam, NumberParam } from 'use-query-params'
 
 import InfoPage from '../info/InfoPage'
 import { Context } from '../..'
@@ -11,7 +10,7 @@ const ConfirmAvailabilityPage = () => {
 
     const { cartStore } = useContext(Context)
     
-    const [ id ] = useQueryParam('id', NumberParam)
+    const [ id ] = useQueryParam('id', NumberParam) 
 
     useEffect(() => {
         localStorage.removeItem("cart")

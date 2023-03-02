@@ -1,7 +1,8 @@
 
 import { useContext, useState, useEffect } from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { QueryParamProvider } from 'use-query-params'
+import { ReactRouter5Adapter } from 'use-query-params/adapters/react-router-5';
 import { observer } from 'mobx-react-lite'
 
 import AppRouter from './components/AppRouter'
@@ -95,7 +96,7 @@ const App = observer(() => {
 
     return (
         <BrowserRouter>
-            <QueryParamProvider ReactRouterRoute={Route}>
+            <QueryParamProvider adapter={ReactRouter5Adapter}>
                 <Header />
 
                 <AppRouter />
