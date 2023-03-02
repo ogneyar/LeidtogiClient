@@ -25,3 +25,9 @@ b
 
 # bat files
 *.bat
+
+# repair files (repair run and repair stop)
+rr
+*/rr
+rs
+*/rs
