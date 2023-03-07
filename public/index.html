@@ -80,6 +80,58 @@
       </div>
     </div>
     
+    
+    <!-- Сбор средств (надо display:flex;) -->
+    <div id="fundraising" style="display:none;
+      position:fixed;z-index:10000;top:0;left:0;
+      width:100%;height:100%;opacity:0.95;
+      align-items:center;justify-content:center;">
+      <div style="text-align:center;background:#1D7373;width:600px;
+        height:800px;border-radius:20px;color:white;display:flex;
+        flex-direction:column;align-items:center;justify-content:center;">
+        <h2 style="color:white;padding:10px 10px 10px 10px;">
+          Внимание!
+        </h2>
+        <p 
+          style="color:white;padding:10px 0;font-size:24px;"
+        >
+          Важное сообщение
+        </p>
+        <p
+          style="color:white;padding:10px;font-size:24px;"
+        >
+          <!-- Проект по сбору средств на запуск первого серийного производства в России динамометрического инструмента по программе импортозамещения. -->
+          Стартовал роект по сбору средств на 
+          <br /> 
+          ЗАПУСК ПЕРВОГО СЕРИЙНОГО ПРОИЗВОДСТВА 
+          <br /> 
+          В РОССИИ 
+          <br /> 
+          динамометрического инструмента по программе импортозамещения.
+          <br />
+          <img src="https://server.leidtogi.ru/leidtogi/dinamometricheskiy_gaykovert.jpg" width="400" height="200" />
+          <br />
+
+          <a href="https://boomstarter.ru/projects/1108356/dinamometricheskiy_gaykovert" style=" 
+            color:white;text-decoration:none;
+            padding:10px 0;font-size:28px;">
+            Вы может принять участие и поддержать отечественное производство.</a>
+        </p>
+
+        <button onclick="localStorage.setItem('fundraising','off');window.location.href='https://boomstarter.ru/projects/1108356/dinamometricheskiy_gaykovert'" 
+          style="padding: 5px 10px;border-radius:10px;
+              background-color: orange;color: white;
+              font-size: 20px;cursor: pointer;">
+            Приять участие!</button>
+        <br />
+        <button onclick="getElementById('fundraising').style.display='none';localStorage.setItem('fundraising','off')" 
+          style="padding: 5px 10px;border-radius:10px;
+              background-color: orange;color: white;
+              font-size: 20px;cursor: pointer;">
+            Отмена</button>
+      </div>
+    </div>
+    
 
   </body>
   </html>
