@@ -42,7 +42,7 @@ const App = observer(() => {
 			})
 			.catch(() => getError(`Отсутствует связь с сервером!`))
 
-        if (localStorage.getItem("fundraising") !== "off") {
+        if (localStorage.getItem("fundraising") !== "offf") {
             document.getElementById("fundraising").style.display = "flex"
         }
     }, [])
