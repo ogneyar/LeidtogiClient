@@ -3,6 +3,7 @@ import { Spinner, Navbar, Nav, Button, Container, Image } from 'react-bootstrap'
 import HtmlReactParser from 'html-react-parser'
 import { useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
+import { FormattedMessage } from 'react-intl'
 
 // import { NavLink } from '../myBootstrap'
 import { 
@@ -76,7 +77,8 @@ const NavBar = observer(() => {
                             <div 
                                 className="hidden-mobile"
                             >
-                                Стройте с нами, экономьте время
+                                {/* Стройте с нами, экономьте время */}
+                                    <FormattedMessage id='header_slogan' /> 
                             </div>
                             
                         </div>
@@ -85,8 +87,10 @@ const NavBar = observer(() => {
                     <div
                         className="NavBar_Col_Contacts"
                     >
-                        <label className="NavBar_Col_Contacts_Name">{NAME}</label>
-                        <label className="NavBar_Col_Contacts_Address">{ADDRESS}</label>
+                        {/* <label className="NavBar_Col_Contacts_Name">{NAME}</label> */}
+                        <label className="NavBar_Col_Contacts_Name"><FormattedMessage id='consts_name' /></label>
+                        {/* <label className="NavBar_Col_Contacts_Address">{ADDRESS}</label> */}
+                        <label className="NavBar_Col_Contacts_Address"><FormattedMessage id='consts_address' /></label>
                         <label className="NavBar_Col_Contacts_Phone">{HtmlReactParser(PHONE_ONE)}</label>
                         <label className="NavBar_Col_Contacts_Mail">{HtmlReactParser(MAIL)}</label>
                     </div>
@@ -125,7 +129,8 @@ const NavBar = observer(() => {
                                             // onClick={() => history.push(ADMIN_ROUTE)}
                                             onClick={() => onClickAndScroll(ADMIN_ROUTE)}
                                         >
-                                            АП
+                                            {/* АП */}
+                                            <FormattedMessage id='header_ap' />
                                         </Button>
                                         <Button 
                                             variant={'outline-light'} 
@@ -133,7 +138,8 @@ const NavBar = observer(() => {
                                             onClick={() => onClickAndScroll(LK_ROUTE)}
                                             className="ml-2"
                                         >
-                                            ЛК
+                                            {/* ЛК */}
+                                            <FormattedMessage id='header_lk' />
                                         </Button>
                                     </>
                                     : 
@@ -142,7 +148,8 @@ const NavBar = observer(() => {
                                             // onClick={() => history.push(LK_ROUTE)}
                                             onClick={() => onClickAndScroll(LK_ROUTE)}
                                         >
-                                            Личный Кабинет
+                                            {/* Личный Кабинет */}
+                                            <FormattedMessage id='header_pers_acc' />
                                         </Button>
                                     }
                                     
@@ -151,7 +158,8 @@ const NavBar = observer(() => {
                                         onClick={onClickLogoutButton} 
                                         className="ml-2"
                                     >
-                                        Выйти
+                                        {/* Выйти */}
+                                        <FormattedMessage id='header_exit' />
                                     </Button>
                                 </>
                             :
@@ -162,7 +170,8 @@ const NavBar = observer(() => {
                                     onClick={() => onClickAndScroll(LOGIN_ROUTE + "?returnUrl=" + history?.location?.pathname)}
                                     variant={'outline-light'}
                                 >
-                                    Авторизация
+                                    {/* Авторизация */}
+                                    <FormattedMessage id='header_auth' />
                                 </Button>
                             
                             }

@@ -10,6 +10,7 @@ import BrandStore from './store/BrandStore'
 import RatingStore from './store/RatingStore'
 import BreadCrumbsStore from './store/BreadCrumbsStore'
 import CartStore from './store/CartStore'
+import LocaleStore from './store/LocaleStore'
 import './styles/index.css'
 
 export const Context = createContext(null)
@@ -21,7 +22,8 @@ let contextValue = {
     brandStore: new BrandStore(),
     ratingStore: new RatingStore(),
     breadStore: new BreadCrumbsStore(),
-    cartStore: new CartStore()
+    cartStore: new CartStore(),
+    localeStore: new LocaleStore(),
 }
 
 let jsx = (

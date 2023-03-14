@@ -1,4 +1,6 @@
+
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 
 import './FooterSocialNetwork.css'
 
@@ -8,7 +10,10 @@ const FooterSocialNetwork = () => {
             className="FooterSocialNetwork"
         >
             <div className="footer-title">
-				<h3>Мы в сети</h3>
+				{/* <h3>Мы в сети</h3> */}
+				<h3>
+                    <FormattedMessage id='footer_web' />
+                </h3>
 			</div>
             <div className="footer-static-content">
                 <ul className="togle-footer">

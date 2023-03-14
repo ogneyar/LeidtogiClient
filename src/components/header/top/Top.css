@@ -3,9 +3,32 @@
     /* background-color: yellow; */
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
 .TopContainer {}
+
+.Top .switcher {
+    display:flex; 
+    position: absolute;
+    /* margin-left: 10px; */
+    z-index: 10000;
+    top: 10px;
+    left: 15px;  
+  }
+
+/* .Top .switcher .switcher-box {
+    display:flex; 
+    position: absolute;
+    top: 5px;
+    left: 10px;  
+    z-index: 10000;
+  } */
+
+.Top .switcher .switcher-box select {
+    width: 99px;
+    height: 30px;
+  }
 
 .TopRow {
     display:flex; 

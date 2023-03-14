@@ -1,4 +1,6 @@
 
+import { FormattedMessage } from 'react-intl'
+
 export const LIMIT = 12
 
 export const MAIN_ROUTE = '/' // главная страница
@@ -88,15 +90,20 @@ export const SCROLL_TOP = 200 // до aside
 export const SCROLL_TOP_MOBILE = 180 // для мобильной версии сайта
 
 
-export const NAME = `ООО "ЛЕИДТОГИ"` // название фирмы
-export const CITY = "г. Курск" // город нахождения офиса
-export const ADDRESS = "г.Курск, ул.Соловьиная, д.51, оф.25" // адресс нахождения офиса
-export const ADDRESS_FULL = "305044, г.Курск, ул.Соловьиная, д.51, оф.25" // адресс нахождения офиса
+// export const NAME = `ООО "ЛЕИДТОГИ"` // название фирмы
+export const NAME = <FormattedMessage id='consts_name' /> // название фирмы
+// export const CITY = "г. Курск" // город нахождения офиса
+export const CITY = <FormattedMessage id='consts_sity' /> // город нахождения офиса
+// export const ADDRESS = "г.Курск, ул.Соловьиная, д.51, оф.25" // адресс нахождения офиса
+export const ADDRESS = <FormattedMessage id='consts_address' /> // адресс нахождения офиса
+// export const ADDRESS_FULL = "305044, г.Курск, ул.Соловьиная, д.51, оф.25" // адресс нахождения офиса
+export const ADDRESS_FULL = <FormattedMessage id='consts_address_full' /> // адресс нахождения офиса
 export const PHONE_ONE = `<a href="tel:+74993021713">+7 (499) 302-17-13</a>` // городской телефон
 export const PHONE_TWO = `<a href="tel:+79312607792">+7 (931) 260-77-92</a>` // Санин телефон
 export const MAIL = `<a href="mailto:info@leidtogi.ru">info@leidtogi.ru</a>` // основной почтовый ящик
-export const TIME_TO_WORK = `<div><p>пн - пт: 09:00 - 18:00</p><p>сб - вс: выходной</p></div>` // время работы
-
+// export const TIME_TO_WORK = `<div><p>пн - пт: 09:00 - 18:00</p><p>сб - вс: выходной</p></div>` // время работы
+export const TIME_TO_WORK = <FormattedMessage id='consts_time_to_work' /> // время работы
+export const TIME_TO_WEEKEND = <FormattedMessage id='consts_time_to_weekend' /> // время работы
 
 // индекс, от куда идёт доставка товаров
 export const DELIVERY_INDEX_FROM = 140055 // - г. Котельники // 101000 - г. Москва // 305044 - г. Курск

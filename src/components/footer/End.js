@@ -1,9 +1,13 @@
+
 import React from 'react'
-import $ from 'jquery'
+import { FormattedMessage } from 'react-intl'
 
 import { NavLink } from '../myBootstrap'
 import { SHOP_ROUTE } from '../../utils/consts'
+import scrollUp from '../../utils/scrollUp'
+
 import './End.css'
+
 
 const End = () => {
     return (
@@ -14,21 +18,14 @@ const End = () => {
                 className="NavLink FooterEnd_NavLink"
                 to={SHOP_ROUTE}
             >
-                © ООО "ЛеидТоги" {(new Date()).getFullYear()}
+                {/* © ООО "ЛеидТоги" {(new Date()).getFullYear()} */}
+                <FormattedMessage id='footer_copyright' /> {(new Date()).getFullYear()}
             </NavLink>
 
             <div 
                 className="EndDiv NavLink FooterEnd_NavLink"
                 style={{cursor:"pointer"}}
-                onClick={() => {
-                    $('html, body').animate(
-                        {
-                            scrollTop: 0
-                        }, 
-                        700, 
-                        function(){}
-                    )
-                }}
+                onClick={() => scrollUp()}
             >
                 <i className="EndDivArrow fa fa-arrow-circle-up"></i>
             </div>

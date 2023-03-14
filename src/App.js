@@ -1,9 +1,13 @@
-
+//
 import { useContext, useState, useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryParamProvider } from 'use-query-params'
 import { ReactRouter5Adapter } from 'use-query-params/adapters/react-router-5';
 import { observer } from 'mobx-react-lite'
+import { IntlProvider } from 'react-intl'
+
+import { LOCALES } from './i18n/locales'
+import { messages } from './i18n/messages'
 
 import AppRouter from './components/AppRouter'
 import Header from './components/header/Header'
@@ -22,7 +26,7 @@ import './styles/App.css'
 
 const App = observer(() => { 
 
-    const { userStore, brandStore, cartStore } = useContext(Context)
+    const { userStore, brandStore, cartStore, localeStore } = useContext(Context)
 
     const [ alertVisible, setAlertVisible ] = useState(false)
     const [ messageAlert, setMessageAlert ] = useState("")
@@ -34,7 +38,14 @@ const App = observer(() => {
         setAlertVisible(true)
     }
 
-    useEffect(() => {
+    useEffect(() => {        
+        if (process.env.REACT_APP_ENV === 'production') {
+            if (window.location.hostname !== "leidtogi.ru" && window.location.hostname !== "www.leidtogi.ru") {
+                document.getElementById("repair").style.display = "flex"
+            }else {
+                document.getElementById("fundraising").style.display = "flex"
+            }
+        }
         echo()
 			.then(data => {
 				if (data?.ok !== true) 
@@ -42,17 +53,12 @@ const App = observer(() => {
 			})
 			.catch(() => getError(`Отсутствует связь с сервером!`))
 
-        if (localStorage.getItem("fundraising") !== "offf") {
-            document.getElementById("fundraising").style.display = "flex"
-        }
+        // if (localStorage.getItem("fundraising") !== "offf") {
+        //     document.getElementById("fundraising").style.display = "flex"
+        // }
     }, [])
 
     useEffect(() => {
-        if (process.env.REACT_APP_ENV === 'production') {
-            if (window.location.hostname !== "leidtogi.ru" && window.location.hostname !== "www.leidtogi.ru") {
-                document.getElementById("repair").style.display = "flex"
-            }
-        } 
 
         if (localStorage.getItem('token')) {
             getUserInfo()
@@ -97,17 +103,26 @@ const App = observer(() => {
 
     if (alertVisible) return <Alert show={alertVisible} onHide={() => setAlertVisible(false)} message={messageAlert} />
 
+    // const locale = LOCALES.RUSSIAN
+    // const locale = LOCALES.TURKISH
+    // const [currentLocale, setCurrentLocale] = useState(locale)
 
     return (
-        <BrowserRouter>
-            <QueryParamProvider adapter={ReactRouter5Adapter}>
-                <Header />
+        <IntlProvider 
+            messages={messages[localeStore.currentLocale]}
+            locale={localeStore.currentLocale}
+            defaultLocale={LOCALES.RUSSIAN}
+        >
+            <BrowserRouter>
+                <QueryParamProvider adapter={ReactRouter5Adapter}>
+                    <Header />
 
-                <AppRouter />
+                    <AppRouter />
 
-                <Footer />
-            </QueryParamProvider>
-        </BrowserRouter>
+                    <Footer />
+                </QueryParamProvider>
+            </BrowserRouter>
+        </IntlProvider>
     )
 })
 

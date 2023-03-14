@@ -1,8 +1,11 @@
+
 import React from 'react'
 import HtmlReactParser from 'html-react-parser'
+import { FormattedMessage } from 'react-intl'
 
-import { MAIL, ADDRESS_FULL, PHONE_ONE, PHONE_TWO, TIME_TO_WORK } from '../../utils/consts'
+import { MAIL, ADDRESS_FULL, PHONE_ONE, PHONE_TWO, TIME_TO_WORK, TIME_TO_WEEKEND } from '../../utils/consts'
 import './FooterContacts.css'
+
 
 const FooterContacts = () => {
     return (
@@ -10,7 +13,10 @@ const FooterContacts = () => {
             className="FooterContacts"
         >
             <div className="footer-title">
-				<h3>Контакты</h3>
+				{/* <h3>Контакты</h3> */}
+				<h3>
+                    <FormattedMessage id='footer_contacts' />
+                </h3>
 			</div>
             <div className="footer-static-content">
                 <ul className="FooterContactsUl">
@@ -43,7 +49,10 @@ const FooterContacts = () => {
                     <li className="last">
                         <span className="fa fa-clock-o">&nbsp;</span>
                         <div className="media-body">
-                            {HtmlReactParser(TIME_TO_WORK)}
+                            <div>
+                                <p>{TIME_TO_WORK}</p>
+                                <p>{TIME_TO_WEEKEND}</p>
+                            </div>
                         </div>
                     </li>
                 </ul>
