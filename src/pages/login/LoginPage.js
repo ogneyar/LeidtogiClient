@@ -1,15 +1,17 @@
+
 import React, { useContext, useState } from 'react'
-import { Button, Card, Container, Form, Row } from 'react-bootstrap'
+import { Card, Form, Row } from 'react-bootstrap'
 import { useQueryParam, StringParam } from 'use-query-params'
 import { NavLink, useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
-// import $ from 'jquery'
+import { FormattedMessage } from 'react-intl' 
 
 import { REGISTRATION_ROUTE, LK_ROUTE, CONFIRM_ROUTE, FORGOT_PASSWORD_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
 import { login, getUserInfo } from '../../http/userAPI'
-import { Alert } from '../../components/myBootstrap'
+import { Alert, Button } from '../../components/myBootstrap'
 import scrollUp from '../../utils/scrollUp'
 import { Context } from '../..'
+
 import './LoginPage.css'
 
 
@@ -54,22 +56,29 @@ const LoginPage = observer((props) => {
 
 
     return (
-        <Container 
+        <div 
             className="LoginPage"
         >
             <Card className="LoginPage_Card">
                 <h2 className="LoginPage_Card_header">
-                    Авторизация
+                    {/* Авторизация */}
+                    <FormattedMessage id='login_title' />
                 </h2>
                 <Form className="LoginPage_Card_Form">
 
-                    <label>Email или Логин:</label>
+                    <label>
+                        {/* Email или Логин: */}
+                        <FormattedMessage id='login_email' />
+                    </label>
                     <Form.Control 
                         placeholder="Введите Ваш email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                     />
-                    <label>Пароль:</label>
+                    <label>
+                        {/* Пароль: */}
+                        <FormattedMessage id='login_password' />
+                    </label>
                     <Form.Control 
                         placeholder="Введите пароль"
                         value={password}
@@ -78,22 +87,34 @@ const LoginPage = observer((props) => {
                     />
 
                     <div className="LoginPage_changePassword">
-                        <NavLink onClick={onClickScrollUp} to={FORGOT_PASSWORD_ROUTE}>Забыли пароль?!</NavLink>
+                        <NavLink onClick={onClickScrollUp} to={FORGOT_PASSWORD_ROUTE}>
+                            {/* Забыли пароль?! */}
+                            <FormattedMessage id='login_forgot_password' />
+                        </NavLink>
                     </div>
 
                     <Row className="LoginPage_Card_Form_Row">
                         {props?.confirm 
-                        ? 'Войдите, для подтверждения.'
+                        ? 
+                            // 'Войдите, для подтверждения.'
+                            <FormattedMessage id='login_confirm' />
                         :
                             <div>
-                                Нет аккаунта? <NavLink onClick={onClickScrollUp} to={REGISTRATION_ROUTE}>Зарегистрируйтесь!</NavLink>
+                                {/* Нет аккаунта? */}
+                                <FormattedMessage id='login_no_accaunt' />
+                                &nbsp;
+                                <NavLink onClick={onClickScrollUp} to={REGISTRATION_ROUTE}>
+                                    {/* Зарегистрируйтесь! */}
+                                    <FormattedMessage id='login_register' />
+                                </NavLink>
                             </div>
                         }
                         <Button 
                             variant={"outline-success"} 
                             onClick={click}
                         >
-                            Войти
+                            {/* Войти */}
+                            <FormattedMessage id='login_enter' />
                         </Button>
                     </Row>
                     
@@ -102,7 +123,7 @@ const LoginPage = observer((props) => {
 
             <Alert show={alertVisible} onHide={() => setAlertVisible(false)} message={alertMessage} />
 
-        </Container>
+        </div>
     )
 })
 

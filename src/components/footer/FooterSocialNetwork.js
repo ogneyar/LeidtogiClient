@@ -24,7 +24,8 @@ const FooterSocialNetwork = () => {
                             target="_blank"
                             rel="noreferrer"
                         >
-                            Мы в Telegram
+                            {/* Мы в Telegram */}
+                            <FormattedMessage id='footer_web_tg' />
                         </a>
                     </li>
                     <li>   
@@ -34,7 +35,8 @@ const FooterSocialNetwork = () => {
                             target="_blank"
                             rel="noreferrer"
                         >
-                            Мы в ВК
+                            {/* Мы в ВК */}
+                            <FormattedMessage id='footer_web_vk' />
                         </a>
                     </li>
                     {/* <li>

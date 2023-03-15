@@ -26,6 +26,10 @@
     padding-right: 15px;
 }
 
+.LoginPage_Card_Form_Row Button {
+    margin-top: 20px;
+}
+
 .LoginPage_changePassword {
     display: flex;
     justify-content: flex-end;

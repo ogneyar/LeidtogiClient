@@ -1,0 +1,13 @@
+
+
+.RegistrPage_Row_Bottom {
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.RegistrPage_Row_Bottom Button {
+    margin-top: 20px;
+}
