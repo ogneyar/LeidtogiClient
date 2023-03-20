@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from "react-router-dom";
-import {Modal, Button, Form, Row, Col} from 'react-bootstrap'
+import {Modal, Button, Row, Col} from 'react-bootstrap'
 
 
 const DeleteSite = ({show, onHide}) => {
@@ -29,7 +29,7 @@ const DeleteSite = ({show, onHide}) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form
+                <div
                     className=''
                 >
                     <Row
@@ -51,7 +51,7 @@ const DeleteSite = ({show, onHide}) => {
                             </Button>
                         </Col>
                     </Row>  
-                </Form>
+                </div>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>

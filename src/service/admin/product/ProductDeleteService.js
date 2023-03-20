@@ -8,7 +8,7 @@ import './ProductDeleteService.css'
 const ProductDeleteService = (props) => {
   
     return (
-        <Form>
+        <div>
             <hr />
   
             <SearchAdminService
@@ -21,7 +21,7 @@ const ProductDeleteService = (props) => {
             </div>
 
             <hr />
-        </Form>
+        </div>
     );
 }
 

@@ -180,7 +180,7 @@ const RegistrationPage = observer(() => {
                     {/* Регистрация */}
                     <FormattedMessage id='registr_title' />
                 </h2>
-                <Form className="d-flex flex-column">
+                <div className="d-flex flex-column">
                     
                         <label>
                             {/* Фамилия: */}
@@ -507,7 +507,7 @@ const RegistrationPage = observer(() => {
                         </Button>
                     </Row>
                     
-                </Form>
+                </div>
             </Card>
 
             <Alert show={alertVisible} onHide={() => setAlertVisible(false)} message={alertMessage} />

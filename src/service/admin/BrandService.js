@@ -133,7 +133,7 @@ const BrandService = observer(({information}) => {
                 </div>)}
             )}
 
-            <Form
+            <div
                 className='mt-4'
             >
                 <Input
@@ -150,7 +150,7 @@ const BrandService = observer(({information}) => {
                 >
                     Добавить
                 </Button>
-            </Form>
+            </div>
                 
             
         </div>

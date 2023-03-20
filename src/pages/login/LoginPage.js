@@ -1,6 +1,6 @@
 
 import React, { useContext, useState } from 'react'
-import { Card, Form, Row } from 'react-bootstrap'
+import { Card, Row } from 'react-bootstrap'
 import { useQueryParam, StringParam } from 'use-query-params'
 import { NavLink, useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl'
 
 import { REGISTRATION_ROUTE, LK_ROUTE, CONFIRM_ROUTE, FORGOT_PASSWORD_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
 import { login, getUserInfo } from '../../http/userAPI'
-import { Alert, Button } from '../../components/myBootstrap'
+import { Alert, Input, Button } from '../../components/myBootstrap'
 import scrollUp from '../../utils/scrollUp'
 import { Context } from '../..'
 
@@ -64,13 +64,13 @@ const LoginPage = observer((props) => {
                     {/* Авторизация */}
                     <FormattedMessage id='login_title' />
                 </h2>
-                <Form className="LoginPage_Card_Form">
+                <div className="LoginPage_Card_Form">
 
                     <label>
                         {/* Email или Логин: */}
                         <FormattedMessage id='login_email' />
                     </label>
-                    <Form.Control 
+                    <Input 
                         placeholder="Введите Ваш email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
@@ -79,7 +79,7 @@ const LoginPage = observer((props) => {
                         {/* Пароль: */}
                         <FormattedMessage id='login_password' />
                     </label>
-                    <Form.Control 
+                    <Input
                         placeholder="Введите пароль"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
@@ -118,7 +118,7 @@ const LoginPage = observer((props) => {
                         </Button>
                     </Row>
                     
-                </Form>
+                </div>
             </Card>
 
             <Alert show={alertVisible} onHide={() => setAlertVisible(false)} message={alertMessage} />

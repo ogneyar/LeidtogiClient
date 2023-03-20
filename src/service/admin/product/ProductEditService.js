@@ -8,7 +8,7 @@ import './ProductEditService.css'
 const ProductEditService = (props) => {
 
     return (
-        <Form >
+        <div >
             <hr />
 
             <SearchAdminService 
@@ -21,7 +21,7 @@ const ProductEditService = (props) => {
             </div>
 
             <hr />
-        </Form>
+        </div>
     );
 }
 
