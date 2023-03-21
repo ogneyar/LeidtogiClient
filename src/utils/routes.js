@@ -200,10 +200,10 @@ export const publicRoutes = [
         component: NewsPage
     },
 
-    {
-        path: TESTFORM_ROUTE, // новости
-        component: TestFormPage
-    },
+    // {
+    //     path: TESTFORM_ROUTE, // новости
+    //     component: TestFormPage
+    // },
 
      // юмор It отдела
     {
