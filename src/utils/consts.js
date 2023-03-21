@@ -59,6 +59,8 @@ export const TOR_ROUTE = '/tor' // Tor бренд
 // Leon - в ручную заводил несколько штук 
 
 
+export const TESTFORM_ROUTE = '/test' // тест гугл формы
+
 // странный юмор программиста
 export const DELETE_ROUTE = '/delete' // удаление сайта
 

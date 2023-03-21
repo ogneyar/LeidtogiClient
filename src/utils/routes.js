@@ -1,5 +1,5 @@
-// eslint-disable-next-line
 import MainPage from '../pages/main/MainPage'
+// eslint-disable-next-line
 
 import AdminPage from '../pages/admin/AdminPage'
 import ParserPage from '../pages/parser/ParserPage'
@@ -37,6 +37,8 @@ import Contacts from '../pages/info/Contacts'
 import Specials from '../pages/info/Specials'
 import NewsPage from '../pages/info/news/NewsPage'
 
+import TestFormPage from '../pages/test/TestFormPage'
+
 import DeletePage from '../pages/site/DeletePage'
 
 import {
@@ -45,7 +47,7 @@ import {
     DELIVERY_ROUTE, PAYMENT_ROUTE, PRIVACY_POLICY_ROUTE, RETURNS_POLICY_ROUTE, CREATE_ORDER_ROUTE,
     TERMS_OF_USE_ROUTE, WARRANTY_ROUTE, CONTACTS_ROUTE, SPECIALS_ROUTE, DELETE_ROUTE, CONGRATULATION_ROUTE,
     SUPPORT_ROUTE, MESSAGE_ROUTE, FORGOT_PASSWORD_ROUTE, CHANGE_PASSWORD_ROUTE, CONFIRM_AVAILABILITY_ROUTE,
-    PAYMENT_ORDER_ROUTE, DEALER_ROUTE, NEWS_ROUTE
+    PAYMENT_ORDER_ROUTE, DEALER_ROUTE, NEWS_ROUTE, TESTFORM_ROUTE
 } from './consts'
 
 // brandRoutes находится в src/components/AppRouter.js
@@ -196,6 +198,11 @@ export const publicRoutes = [
     {
         path: NEWS_ROUTE, // новости
         component: NewsPage
+    },
+
+    {
+        path: TESTFORM_ROUTE, // новости
+        component: TestFormPage
     },
 
      // юмор It отдела
