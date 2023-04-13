@@ -27,7 +27,13 @@ sudo systemctl ( status | start | stop | restart | reload | disable | enable ) n
 # узнать какие порты прослушиваются
 netstat -ntlp | grep LISTEN
 
-# создание сертификата
-certbot certonly -d pzmarket.ru -d www.pzmarket.ru -d server.pzmarket.ru
 
+# создание сертификата
+sudo apt anstall snap python3-certbot-nginx
+
+sudo certbot --nginx
+# test
+sudo certbot renew --dry-run
+
+certbot certonly -d pzmarket.ru -d www.pzmarket.ru -d server.pzmarket.ru
 certbot certonly -d leidtogi.ru -d www.leidtogi.ru -d server.leidtogi.ru
