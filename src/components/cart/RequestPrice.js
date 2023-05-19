@@ -140,7 +140,7 @@ const RequestPrice = (props) => {
                         className="RequestPriceNotification_Cart_product"
                     >
                         <div>
-                            <img src={image} width="200" alt="изображение товара" />
+                            <img src={image} width={window.innerWidth < 400 ? "100" : "200"} alt="изображение товара" />
                         </div>
                         <div>
                             <div
@@ -148,13 +148,13 @@ const RequestPrice = (props) => {
                             >
                                 {nameProduct}
                             </div>
-                            <br />
+                            {window.innerWidth > 400 && <br />}
                             <div
                                 className="RequestPriceNotification_Cart_product_article"
                             >
                                 артикул: {article}
                             </div>
-                            <br />
+                            {window.innerWidth > 400 && <br />}
                             <div
                                 className="RequestPriceNotification_Cart_product_brand"
                             >

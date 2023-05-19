@@ -20,11 +20,6 @@
     display: flex; 
     justify-content: space-between; 
 }
-@media (max-width: 991px) {
-    .RequestPriceNotification_Cart {
-        flex-wrap: wrap;
-    }
-}
 
 .RequestPriceNotification_Cart_product {
     display: flex; 
@@ -68,3 +63,15 @@
     font-weight: 700;
 }
 
+
+@media (max-width: 991px) {
+    .RequestPriceNotification_Cart {
+        flex-wrap: wrap;
+    }
+    .RequestPriceNotification_Cart_product {
+        flex-direction: column;
+    }
+    .RequestPriceNotification_fields label {
+        display: none;
+    }
+}
