@@ -17,11 +17,7 @@
     display: flex; 
     justify-content:space-between; 
 }
-@media (max-width: 991px) {
-    .NotificationCart {
-        flex-wrap: wrap;
-    }
-}
+
 .NotificationCart_product {
     display: flex; 
     justify-content:space-between; 
@@ -93,4 +89,14 @@
     color: red;
     font-weight: 700;
     font-size: 24px;
+}
+
+
+@media (max-width: 991px) {
+    .NotificationCart {
+        flex-wrap: wrap;
+    }
+    .NotificationCart_product {
+        flex-direction: column;
+    }
 }

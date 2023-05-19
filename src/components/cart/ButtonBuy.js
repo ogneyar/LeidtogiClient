@@ -196,11 +196,7 @@ const ButtonBuy = (props) => {
                         className="NotificationCart_product"
                     >
                         <div>
-                            <img 
-                                src={image} 
-                                width="200" 
-                                alt="изображение товара" 
-                            />
+                            <img src={image} width={window.innerWidth < 400 ? "100" : "200"} alt="изображение товара" />
                         </div>
                         <div
                             className="NotificationCart_product_body"
@@ -250,6 +246,7 @@ const ButtonBuy = (props) => {
                             <br />
                             {/* {priceFormater(props?.product?.price * value)}&nbsp;р. */}
                             {Math.round((props?.product?.price * value) * 100) / 100}&nbsp;р.  
+                            {/* {(props?.product?.price * value).toFixed(2)}&nbsp;р.   */}
                         </div>
                         <div>
                             <label>&nbsp;</label>
