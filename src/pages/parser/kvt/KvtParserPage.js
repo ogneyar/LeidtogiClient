@@ -20,7 +20,7 @@ const KvtParserPage = observer((props) => {
     const [price, setPrice] = useState(null)
     const [checkPrice, setCheckPrice] = useState(false)
     const [updatePrice, setUpdatePrice] = useState(null)
-    const [checkUpdatePrice, setCheckUpdatePrice] = useState(false)
+    const [checkUpdatePrice, setCheckUpdatePrice] = useState(true)
 
     const [message, setMessage] = useState("")
     const [loading, setLoading] = useState(false)
@@ -265,16 +265,16 @@ const KvtParserPage = observer((props) => {
                                 onChange={() => {}} 
                                 checked={checkUpdatePrice}
                             />&nbsp;
-                            использовать файл на сервере (price.json)
+                            использовать файл на сервере (price.xlsx)
                         </div>
                         <hr />
-                        <button 
+                        {/* <button 
                             disabled={ ! checkUpdatePrice }
                             onClick={onClickButtonUpdatePriceFile}
                         >
                             Обновить прайс json
                         </button>
-                        <hr />
+                        <hr /> */}
                         <button 
                             disabled={ ! updatePrice && ! checkUpdatePrice }
                             onClick={onClickButtonChangePrices}

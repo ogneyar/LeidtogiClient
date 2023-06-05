@@ -43,7 +43,7 @@ const App = observer(() => {
             if (window.location.hostname !== "leidtogi.ru" && window.location.hostname !== "www.leidtogi.ru") {
                 document.getElementById("repair").style.display = "flex"
             }else {
-                document.getElementById("fundraising").style.display = "flex"
+                //document.getElementById("fundraising").style.display = "flex"
             }
         }
         echo()
