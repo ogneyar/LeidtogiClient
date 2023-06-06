@@ -1,10 +1,10 @@
 
-.RequestPrice {
+.RequestProduct {
     font-weight: 800;
     padding: 5px 10px;
 }
 
-.RequestPriceSuccess {
+.RequestProductSuccess {
     width: 100%;
     height: 200px;
     display: flex;
@@ -12,32 +12,29 @@
     justify-content: center;
     align-items: center;
 }
-.RequestPriceSuccess label {}
 
-.RequestPriceNotification {}
-
-.RequestPriceNotification_Cart {
+.RequestProductNotification_Cart {
     display: flex; 
     justify-content: space-between; 
 }
 
-.RequestPriceNotification_Cart_product {
+.RequestProductNotification_Cart_product {
     display: flex; 
     justify-content: space-between; 
 }
-.RequestPriceNotification_Cart_product_image {
+.RequestProductNotification_Cart_product_image {
     margin-right: 10px;
 }
-.RequestPriceNotification_Cart_product_name {
+.RequestProductNotification_Cart_product_name {
     color: green;
 }
-.RequestPriceNotification_Cart_product_article {
+.RequestProductNotification_Cart_product_article {
     font-size: 14px;
     color: grey;
 }
 
 
-.RequestPriceNotification_fields {
+.RequestProductNotification_fields {
     height: 200px;
     display: flex;
     justify-content: center;
@@ -46,21 +43,21 @@
     padding-bottom: 15px;
 }
 
-.RequestPriceNotification_fields label,
-.RequestPriceNotification_fields input {
+.RequestProductNotification_fields label,
+.RequestProductNotification_fields input {
     font-size: 1.2rem;
     border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-.RequestPriceNotification_DivButtons {
+.RequestProductNotification_DivButtons {
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
 
-.RequestPriceNotification_DivButtons Button {
+.RequestProductNotification_DivButtons Button {
     margin: 10px;
     padding: 10px 5px;
     font-weight: 700;
@@ -68,13 +65,13 @@
 
 
 @media (max-width: 991px) {
-    .RequestPriceNotification_Cart {
+    .RequestProductNotification_Cart {
         flex-wrap: wrap;
     }
-    .RequestPriceNotification_Cart_product {
+    .RequestProductNotification_Cart_product {
         flex-direction: column;
     }
-    .RequestPriceNotification_fields label {
+    .RequestProductNotification_fields label {
         display: none;
     }
 }

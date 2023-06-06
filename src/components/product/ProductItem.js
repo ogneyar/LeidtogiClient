@@ -7,6 +7,7 @@ import { Card } from '../myBootstrap'
 import { URL, API_URL, ERROR_ROUTE } from '../../utils/consts'
 import ButtonBuy from '../cart/ButtonBuy'
 import RequestPrice from '../cart/RequestPrice'
+import RequestProduct from '../cart/RequestProduct'
 import priceFormater from '../../utils/priceFormater'
 import scrollUp from '../../utils/scrollUp'
 
@@ -99,6 +100,10 @@ const ProductItem = (props) => {
                         <p>артикул: {product.article}</p>
                         
                     </div> 
+
+                    {product.stock < 1 &&
+                    <div style={{color:"red"}} className="mt-2">нет в наличии</div>
+                    }
  
                     <div className="product-text">
                         
@@ -123,15 +128,21 @@ const ProductItem = (props) => {
 
                     </div>
                     
-                    {product.request || price === 0
+                    {product.stock < 1 
                     ? 
-                    <RequestPrice product={product}>
-                        ЗАПРОСИТЬ
-                    </RequestPrice> 
-                    : 
-                    <ButtonBuy product={product}>
-                        КУПИТЬ
-                    </ButtonBuy>}
+                        <RequestProduct product={product}>
+                            ЗАКАЗАТЬ
+                        </RequestProduct>  
+                    :
+                        product.request || price === 0
+                        ? 
+                        <RequestPrice product={product}>
+                            ЗАПРОСИТЬ
+                        </RequestPrice> 
+                        : 
+                        <ButtonBuy product={product}>
+                            КУПИТЬ
+                        </ButtonBuy>}
                     
 
                 </div>

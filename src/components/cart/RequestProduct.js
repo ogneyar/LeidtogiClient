@@ -1,23 +1,22 @@
-
+// RequestProduct
 import React, { useState, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useHistory } from 'react-router'
 
-import scrollUp from '../../utils/scrollUp'
-// import { onClickButtonBuy } from '../../service/cart/CartBuyService'
 import { API_URL, URL, SHOP_ROUTE } from '../../utils/consts'
 import Notification from '../myBootstrap/Notification'
-import { Button } from '../myBootstrap'
-import { Context } from '../..'
-import './RequestPrice.css'
-import Loading from '../Loading'
+import { sendRequestProduct } from '../../http/mailAPI'
+import scrollUp from '../../utils/scrollUp'
 import Phone from '../helpers/phone/Phone'
 import Email from '../helpers/email/Email'
-import { sendRequestPrice } from '../../http/mailAPI'
+import { Button } from '../myBootstrap'
+import Loading from '../Loading'
+
+import { Context } from '../..'
+import './RequestProduct.css'
 
 
-
-const RequestPrice = (props) => { 
+const RequestProduct = (props) => { 
     
     const context = useContext(Context)
 
@@ -50,7 +49,7 @@ const RequestPrice = (props) => {
     if (props?.className) className = props?.className
 
 
-    const onClickRequestPrice = async () => {
+    const onClickRequestProduct = async () => {
         if ( ! name ) {
             window.alert("Необходимо ввести имя.")
         }else if ( ! phone || phone.replace(/\D/g, "").length < 10 ) {
@@ -59,10 +58,7 @@ const RequestPrice = (props) => {
             window.alert("Необходимо ввести почту вида email@mail.ru.")
         }else {
             setLoading(true)
-            // let phoneNumber = "+7" + phone.replace(/\D/g, "")
-            // console.log(phoneNumber)
-
-            await sendRequestPrice({
+            await sendRequestProduct({
                 url: URL + brand.toLowerCase() + "/" + url,
                 name,
                 phone,
@@ -71,11 +67,8 @@ const RequestPrice = (props) => {
                 article,
                 brand
             })
-
-            // setTimeout(()=>{
-                setLoading(false)
-                setSuccess(true)
-            // },[1000])
+            setLoading(false)
+            setSuccess(true)
         }
     } 
 
@@ -83,7 +76,7 @@ const RequestPrice = (props) => {
     return (
         <>
         <Button
-            className={"RequestPrice "+className}
+            className={"RequestProduct "+className}
             variant="outline-warning"
             onClick={e => {
                 e.preventDefault()
@@ -106,16 +99,16 @@ const RequestPrice = (props) => {
             }}
             time="600000" // в милисекундах
             size="lg"
-            title="Запрос цены товара!"
+            title="Заказ товара!"
             titleMore={success ? "Успех" : "Укажите своё имя, номер и почту."}
         >
             {loading ? <Loading /> 
             :
-            success ? // если запрос цены отправлен
+            success ? // если заказ отправлен
             <div
-                className="RequestPriceSuccess"
+                className="RequestProductSuccess"
             >
-                <label>Запрос успешно отправлен, ожидайте, с Вами свяжутся.</label>
+                <label>Заказ успешно отправлен, ожидайте, с Вами свяжутся.</label>
                 <br /><br />
                 <Button
                     variant="outline-primary"
@@ -131,34 +124,34 @@ const RequestPrice = (props) => {
             </div>
             : // когда запрос ещё не отправлялся
             <div
-                className="RequestPriceNotification"
+                className="RequestProductNotification"
             >
                 <div
-                    className="RequestPriceNotification_Cart"
+                    className="RequestProductNotification_Cart"
                 >
                     <div
-                        className="RequestPriceNotification_Cart_product"
+                        className="RequestProductNotification_Cart_product"
                     >
                         <div
-                            className="RequestPriceNotification_Cart_product_image"
+                            className="RequestProductNotification_Cart_product_image"
                         >
                             <img src={image} width={window.innerWidth < 400 ? "100" : "200"} alt="изображение товара" />
                         </div>
                         <div>
                             <div
-                                className="RequestPriceNotification_Cart_product_name"
+                                className="RequestProductNotification_Cart_product_name"
                             >
                                 {nameProduct}
                             </div>
                             {window.innerWidth > 400 && <br />}
                             <div
-                                className="RequestPriceNotification_Cart_product_article"
+                                className="RequestProductNotification_Cart_product_article"
                             >
                                 артикул: {article}
                             </div>
                             {window.innerWidth > 400 && <br />}
                             <div
-                                className="RequestPriceNotification_Cart_product_brand"
+                                className="RequestProductNotification_Cart_product_brand"
                             >
                                 бренд: {brand}
                             </div>
@@ -167,7 +160,7 @@ const RequestPrice = (props) => {
                 </div>
 
                 <div
-                    className="RequestPriceNotification_fields"
+                    className="RequestProductNotification_fields"
                 >
                     <table>
                         <tr>
@@ -200,13 +193,13 @@ const RequestPrice = (props) => {
 
 
                 <div
-                    className="RequestPriceNotification_DivButtons"
+                    className="RequestProductNotification_DivButtons"
                 >
                     <Button
                         variant="warning"
-                        onClick={() => onClickRequestPrice() }
+                        onClick={() => onClickRequestProduct() }
                     >
-                        Сделать запрос!
+                        Оформить заказ!
                     </Button>
                     
                     <Button
@@ -223,4 +216,4 @@ const RequestPrice = (props) => {
     )
 }
 
-export default observer(RequestPrice)
+export default observer(RequestProduct)

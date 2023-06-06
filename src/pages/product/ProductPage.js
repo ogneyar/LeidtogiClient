@@ -12,6 +12,7 @@ import ButtonBuy from '../../components/cart/ButtonBuy'
 import Rating from '../../components/rating/Rating'
 import detailDataLayer from '../../service/dataLayer/detail'
 import RequestPrice from '../../components/cart/RequestPrice'
+import RequestProduct from '../../components/cart/RequestProduct'
 import priceFormater from '../../utils/priceFormater'
 
 import { Context } from '../..'
@@ -212,6 +213,11 @@ const ProductPage =  observer((props) => {
                     </Row>
                 </div>
                 <div md={4} className="ProductColCard">
+                    
+                    {product.stock < 1 &&
+                        <div style={{color:"red"}}>нет в наличии</div>
+                    }
+
                     <Card className="ProductCard">
                         <div
                             className="ProductCard_Price"
@@ -229,20 +235,28 @@ const ProductPage =  observer((props) => {
                         <div
                             className="ProductCardDivButtonBuy"
                         >
-                            {product.request || price === 0
-                            ?
-                                <RequestPrice
+                            {product.stock < 1 
+                            ? 
+                                <RequestProduct 
                                     product={product}
                                 >
-                                    Запросить цену
-                                </RequestPrice>
-                            : 
-                                <ButtonBuy 
-                                    className="ProductCardButtonBuy" 
-                                    product={product}
-                                >
-                                    Добавить в корзину
-                                </ButtonBuy>
+                                    Заказать товар
+                                </RequestProduct>  
+                            :
+                                product.request || price === 0
+                                ?
+                                    <RequestPrice
+                                        product={product}
+                                    >
+                                        Запросить цену
+                                    </RequestPrice>
+                                : 
+                                    <ButtonBuy 
+                                        className="ProductCardButtonBuy" 
+                                        product={product}
+                                    >
+                                        Добавить в корзину
+                                    </ButtonBuy>
                             }
                         </div>
                     </Card>
