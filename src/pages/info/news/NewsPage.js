@@ -34,7 +34,7 @@ const NewsPage = () => {
                         <h4>Мы на платформе BoomStarter</h4>
                         <p>В 2023 году компания принимала участие в сборе средств на краудфандинговой платформе <a href="https://boomstarter.ru/projects/1108356/dinamometricheskiy_gaykovert" target="_blank" rel="noreferrer">BoomStarter</a> для запуска первого серийного производства в России динамометрического инструмента по программе импортозамещения.</p>
                     </div>
-                    <img src="https://server.leidtogi.ru/leidtogi/dinamometricheskiy_gaykovert.jpg" width="400" height="200" />
+                    <img src="https://server.leidtogi.ru/leidtogi/dinamometricheskiy_gaykovert.jpg" />
                 </div>
                 <br />
                 <hr />

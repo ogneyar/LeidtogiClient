@@ -6,6 +6,7 @@
     font-size: 1.1rem;
 }
 
+.NewsPage img,
 .NewsPage video {
     width: 580px;
     /* height: 400px; */
@@ -15,6 +16,7 @@
     .NewsPage {
         width: 600px;
     }
+    .NewsPage img,
     .NewsPage video {
         width: 450px;
         /* height: 300px; */
@@ -25,6 +27,7 @@
     .NewsPage {
         width: 400px;
     }
+    .NewsPage img,
     .NewsPage video {
         width: 350px;
         /* height: 250px; */
@@ -35,6 +38,7 @@
     .NewsPage {
         width: 350px;
     }
+    .NewsPage img,
     .NewsPage video {
         width: 280px;
         /* height: 200px; */
