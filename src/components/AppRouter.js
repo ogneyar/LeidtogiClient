@@ -37,6 +37,8 @@ const AppRouter = observer(() => {
 
     return (
         <Switch>
+            <Route path={'/error'} component={ErrorPage} status={404} exact /> 
+
             {/* роуты зарегистрированных пользователей */}
             {userStore.isAuth && authRoutes.map(({ path, component, status }) => 
                 <Route key={path} path={path} component={component} status={status || 200} exact />
@@ -61,8 +63,8 @@ const AppRouter = observer(() => {
             <Route path={'/:name'} component={ShopPage} status={200} exact />
 
             {/* <Redirect to={SHOP_ROUTE} />  */}
-            {/* <Redirect to={ERROR_ROUTE} />  */}
-            <Route path={'*'} component={ErrorPage} status={404} /> 
+            <Redirect to={ERROR_ROUTE} /> 
+            {/* <Route path={'*'} component={ErrorPage} status={404} exact />  */}
         </Switch>
     )
 })
