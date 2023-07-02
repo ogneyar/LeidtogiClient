@@ -9,7 +9,7 @@ const app = express()
 app.use(express.static(path.resolve(__dirname)))
 app.use(favicon(path.join(__dirname,'favicon.ico')))
 
-app.get('/error', (req, res) => res.status(404).sendFile(__dirname + '/404.html'))
+// app.get('/error', (req, res) => res.status(404).sendFile(__dirname + '/404.html'))
 
 app.get('*', (req, res) => res.sendFile(__dirname + '/index.html'))
 	
