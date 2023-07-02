@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite'
 import { authRoutes, publicRoutes } from '../utils/routes'
 import ShopPage from '../pages/shop/ShopPage'
 import BrandPage from '../pages/brand/BrandPage'
+import ErrorPage from '../pages/error/ErrorPage'
 import { ERROR_ROUTE } from '../utils/consts'
 import Loading from './Loading'
 
@@ -57,10 +58,11 @@ const AppRouter = observer(() => {
             )}
 
             {/* роут категорий - /nazvanie-kategorii */}
-            <Route key={'/:name'} path={'/:name'} component={ShopPage} status={200} exact />
+            <Route path={'/:name'} component={ShopPage} status={200} exact />
 
             {/* <Redirect to={SHOP_ROUTE} />  */}
-            <Redirect to={ERROR_ROUTE} /> 
+            {/* <Redirect to={ERROR_ROUTE} />  */}
+            <Route path={'*'} component={ErrorPage} status={404} /> 
         </Switch>
     )
 })

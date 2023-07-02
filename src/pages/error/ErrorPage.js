@@ -15,6 +15,7 @@ const ErrorPage = () => {
             >
 
                 <header>Произошла ошибка</header>
+                <h1>404</h1>
 
                 <label>
                     <strong>Что-то пошло не так...</strong>
