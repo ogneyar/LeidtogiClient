@@ -50,10 +50,17 @@ export const HUSQVARNA_ROUTE = '/husqvarna' // husqvarna brand
 export const KVT_ROUTE = '/kvt' // КВТ бренд
 export const GEDORE_ROUTE = '/gedore' // Gedore бренд
 export const TMK_ROUTE = '/tmk' // TMK бренд
+export const REDVERG_ROUTE = '/redverg' // суббренд TMK
+export const CONCORDE_ROUTE = '/concorde' // суббренд TMK
+export const KVALITET_ROUTE = '/kvalitet' // суббренд TMK
 export const LEIDTOGI_ROUTE = '/leidtogi' // LeidTogi бренд
 export const ADVANTA_ROUTE = '/advanta' // Advanta бренд
 export const EUROBOOR_ROUTE = '/euroboor' // Euroboor бренд
 export const TOR_ROUTE = '/tor' // Tor бренд
+export const KRAUSE_ROUTE = '/krause' // Krause бренд
+export const KEDR_ROUTE = '/kedr' // Kedr бренд
+export const BYCON_ROUTE = '/bycon' // Bycon бренд
+export const GEFEST_ROUTE = '/gefest' // Gefest бренд
 // Esab - не заводил
 // AEG - в ручную заводил несколько штук
 // Leon - в ручную заводил несколько штук 
