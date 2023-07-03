@@ -169,6 +169,13 @@ const KvtParserPage = observer((props) => {
                 {message && message !== ""
                 ?
                 <>
+                    <button 
+                        className="KVTParserPage_button" 
+                        onClick={() => props?.setBrand("")}
+                    >
+                        назад
+                    </button>
+                    <br />
                     <div className="KVTParserPage_inputBox">
                         {HtmlReactParser(message)}
                     </div>

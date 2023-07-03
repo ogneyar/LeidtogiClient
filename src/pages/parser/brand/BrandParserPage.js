@@ -106,6 +106,13 @@ const BrandParserPage = observer((props) => {
                 {message && message !== ""
                 ?
                 <>
+                    <button 
+                        className="ParserPage_button" 
+                        onClick={() => props?.setBrand("")}
+                    >
+                        назад
+                    </button>
+                    <br />
                     <div className="ParserPage_inputBox">
                         {HtmlReactParser(message)}
                     </div>

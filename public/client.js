@@ -20,8 +20,8 @@ connection.query("SELECT * FROM users WHERE id=1",
         if (results) {
             // console.log(results) // собственно данные
             if (false) {
-                app.get('*', (req, res) => res.sendFile(__dirname + '/index.html'))
-                connection.end()
+                // app.get('*', (req, res) => res.sendFile(__dirname + '/index.html'))
+                app.get('*', (req, res) => res.send('send'))
             }else {
                 
                 // connection.query("SELECT * FROM users WHERE id=1",
@@ -39,6 +39,7 @@ connection.query("SELECT * FROM users WHERE id=1",
         // console.log(fields) // мета-данные полей 
     }
 )
+connection.end()
 
 app.get('/error', (req, res) => res.status(404).sendFile(__dirname + '/404.html'))
 app.get('*', (req, res) => res.sendFile(__dirname + '/index.html'))
