@@ -1,7 +1,7 @@
 import React from 'react'
 import HtmlReactParser from 'html-react-parser'
 
-import { MAIL, ADDRESS_FULL, PHONE_ONE, PHONE_TWO, TIME_TO_WORK } from '../../utils/consts'
+import { MAIL, ADDRESS_FULL, ADDRESS_FULL_MOSCOW, PHONE_ONE, PHONE_TWO, TIME_TO_WORK } from '../../utils/consts'
 import InfoPage from './InfoPage'
 import './Contacts.css'
 
@@ -32,8 +32,9 @@ const Contacts = () => {
                         <label>1204600005830</label>
                     </div>
                     <div className="ContactsBodyDiv">
-                        <span>Адрес:</span>
+                        <span>Адреса:</span>
                         <label>{ADDRESS_FULL}</label>
+                        <label>{ADDRESS_FULL_MOSCOW}</label>
                     </div>
                     <div className="ContactsBodyDiv">
                         <span>Телефоны:</span>

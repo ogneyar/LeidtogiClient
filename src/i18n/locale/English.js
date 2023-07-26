@@ -58,6 +58,7 @@ export const English = {
     consts_sity: 'Kursk',
     consts_address: 'Kursk, Solovinaya str., 51, office 25',
     consts_address_full: '305044, Kursk, Solovinaya str., 51, office 25',
+    consts_address_full_moscow: '125438, Moscow, 2nd Likhachevsky lane, 2',
     consts_time_to_work: 'mon - fri: 09:00 - 18:00',
     consts_time_to_weekend: 'sat - sun: day off',
     // header

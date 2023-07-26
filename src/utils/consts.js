@@ -107,6 +107,7 @@ export const CITY = <FormattedMessage id='consts_sity' /> // город нахо
 export const ADDRESS = <FormattedMessage id='consts_address' /> // адресс нахождения офиса
 // export const ADDRESS_FULL = "305044, г.Курск, ул.Соловьиная, д.51, оф.25" // адресс нахождения офиса
 export const ADDRESS_FULL = <FormattedMessage id='consts_address_full' /> // адресс нахождения офиса
+export const ADDRESS_FULL_MOSCOW = <FormattedMessage id='consts_address_full_moscow' /> // адресс нахождения офиса в Москве
 export const PHONE_ONE = `<a href="tel:+74993021713">+7 (499) 302-17-13</a>` // городской телефон
 export const PHONE_TWO = `<a href="tel:+79312607792">+7 (931) 260-77-92</a>` // Санин телефон
 export const MAIL = `<a href="mailto:info@leidtogi.ru">info@leidtogi.ru</a>` // основной почтовый ящик
