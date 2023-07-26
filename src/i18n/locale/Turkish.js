@@ -58,7 +58,7 @@ export const Turkish = {
     consts_sity: 'G. Kursk',
     consts_address: 'Kursk, ul.Solovinaya, d.51, ofisten.25',
     consts_address_full: '305044, Kursk, ul.Solovinaya, d.51, ofisten.25',    
-    consts_address_full_moscow: '125438, Moscow, 2nd Likhachevsky lane, 2',
+    consts_address_full_moscow: '125438, Moscow, 2nd Likhachevsky lane, 7',
     consts_time_to_work: 'Pazartesi - Cuma: 09:00 - 18:00',
     consts_time_to_weekend: 'Cts - Paz: gün sonu',
     // header

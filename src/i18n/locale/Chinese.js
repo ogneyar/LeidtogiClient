@@ -58,7 +58,7 @@ export const Chinese = {
     consts_sity: '库尔斯克',
     consts_address: '库尔斯克,索洛维纳亚str.,51,办公室25',
     consts_address_full: '305044,库尔斯克,索洛维纳亚str.,51,办公室25',
-    consts_address_full_moscow: '125438，莫斯科，2nd Likhachevsky lane，2',
+    consts_address_full_moscow: '125438，莫斯科，2nd Likhachevsky lane，7',
     consts_time_to_work: '星期一至五:09:00-18:00',
     consts_time_to_weekend: '星期六-日：休息日',
     // header

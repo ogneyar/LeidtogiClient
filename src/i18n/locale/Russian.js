@@ -58,7 +58,7 @@ export const Russian = {
     consts_sity: 'г. Курск',
     consts_address: 'г.Курск, ул.Соловьиная, д.51, оф.25',
     consts_address_full: '305044, г.Курск, ул.Соловьиная, д.51, оф.25',
-    consts_address_full_moscow: '125438, г.Москва, 2-й Лихачёвский переулок, 2',
+    consts_address_full_moscow: '125438, г.Москва, 2-й Лихачёвский переулок, 7',
     consts_time_to_work: 'пн - пт: 09:00 - 18:00',
     consts_time_to_weekend: 'сб - вс: выходной',
     // header
