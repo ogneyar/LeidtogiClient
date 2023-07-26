@@ -46,7 +46,8 @@ const Contacts = () => {
                     </div>
                     <div className="ContactsBodyDiv">
                         <span>Время работы:</span>
-                        {HtmlReactParser(TIME_TO_WORK)}
+                        <label>{TIME_TO_WORK}</label>
+                        {/* {HtmlReactParser(TIME_TO_WORK)} */}
                     </div>
                 </div>
             </div>
