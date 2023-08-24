@@ -40,6 +40,7 @@ const NavBar = observer(() => {
         }
         history.push(route)
         scrollUp(scroll) 
+        // ЯндексМетрика
         ym(94727209,'reachGoal','testJs')
     }
 
