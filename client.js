@@ -28,7 +28,7 @@ app.get('*', async (req, res) =>  {
     // auth, public и роуты брендов
     await new Promise((resolve, reject) => {
         for (let i = 0; i < routes.length; i++) {
-            if (req.url === routes[i].path) {
+            if (req.url.split('?')[0] === routes[i].path) {
                 // return res.send('send routes')
                 return res.sendFile(__dirname + '/build/index.html')
             }
