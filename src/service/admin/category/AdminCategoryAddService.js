@@ -13,14 +13,21 @@ const CategoryAddService = observer(({
         updateInfo  // передаваемая функция для применения изменений
     }) => {
     
-    const { category } = useContext(Context)
+    const { categoryStore } = useContext(Context)
 
     const [name, setName] = useState('')
     const [data, setData] = useState([])
 
+    // useEffect(() => {
+    //     if(categoryStore.allCategories.length) setData(categoryStore.allCategories)
+    // },[categoryStore.allCategories])
+
     useEffect(() => {
-        if(category.allCategories.length) setData(category.allCategories)
-    },[category.allCategories])
+        if (categoryStore.categories.length) setData(categoryStore.categories)
+        // else {
+        //     fetchAllCategories().then(data => categoryStore.setCategories(data))
+        // }
+    },[categoryStore.categories])
 
     const addCategory = () => {
         if (name && data[0]?.id !== undefined) {
@@ -43,7 +50,8 @@ const CategoryAddService = observer(({
                     updateInfo(sub_id, data, "context", offset) 
                     updateInfo(sub_id, data, "state", offset)
 
-                    fetchAllCategories().then(data => category.setAllCategories(data))
+                    fetchAllCategories().then(data => categoryStore.setAllCategories(data))
+                    // fetchAllCategories().then(data => categoryStore.setCategories(data))
                 })
             // })
         }
