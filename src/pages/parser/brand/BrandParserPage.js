@@ -1,15 +1,15 @@
 
 import React, { useState } from 'react'
 import HtmlReactParser from 'html-react-parser'
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite'
 // eslint-disable-next-line
 import { addProduct, getLength, changePrices } from '../../../http/parser/parserAPI'
-import Loading from '../../../components/Loading';
-import InfoPage from '../../info/InfoPage';
+import Loading from '../../../components/Loading'
+import InfoPage from '../../info/InfoPage'
 
 import './BrandParserPage.css'
 import '../ParserPage.css'
-import getChapters from '../advanta/getChapters';
+import getChapters from '../advanta/getChapters'
 
 
 const BrandParserPage = observer((props) => {

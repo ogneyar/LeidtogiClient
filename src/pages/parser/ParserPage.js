@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import { observer } from 'mobx-react-lite';
-import { useHistory } from 'react-router-dom';
+import { observer } from 'mobx-react-lite'
+import { useHistory } from 'react-router-dom'
 
 import InfoPage from '../info/InfoPage';
-import LeidTogiParserPage from './leidtogi/LeidTogiParserPage';
-import MilwaukeeParserPage from './milwaukee/MilwaukeeParserPage';
-import RgkParserPage from './rgk/RgkParserPage';
-import HusqvarnaParserPage from './husqvarna/HusqvarnaParserPage';
-import KvtParserPage from './kvt/KvtParserPage';
-import GedoreParserPage from './gedore/GedoreParserPage';
-import TmkParserPage from './tmk/TmkParserPage';
-import BrandParserPage from './brand/BrandParserPage';
-import { ADMIN_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts';
-import scrollUp from '../../utils/scrollUp';
+import LeidTogiParserPage from './leidtogi/LeidTogiParserPage'
+import MilwaukeeParserPage from './milwaukee/MilwaukeeParserPage'
+import RgkParserPage from './rgk/RgkParserPage'
+import HusqvarnaParserPage from './husqvarna/HusqvarnaParserPage'
+import KvtParserPage from './kvt/KvtParserPage'
+import GedoreParserPage from './gedore/GedoreParserPage'
+import TmkParserPage from './tmk/TmkParserPage'
+import BrandParserPage from './brand/BrandParserPage'
+import { ADMIN_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
+import scrollUp from '../../utils/scrollUp'
 
 import './ParserPage.css'
 
@@ -47,6 +47,7 @@ const ParserPage = observer(() => {
                 <button onClick={() => setBrandAndScroll("euroboor")} >Euroboor</button>
                 <button onClick={() => setBrandAndScroll("krause")} >Krause</button>
                 <button onClick={() => setBrandAndScroll("kedr")} >Кедр</button>
+                <button onClick={() => setBrandAndScroll("Cleanvac")} >Cleanvac</button>
                 <br />
                 <button onClick={() => history.push(ADMIN_ROUTE)} >Назад</button>
             </div>
