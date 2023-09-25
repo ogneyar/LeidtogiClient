@@ -87,7 +87,7 @@ const KvtParserPage = observer((props) => {
         setMessage("")
         const formData = new FormData()
         if (updatePrice) {
-            formData.append("price_json", updatePrice)
+            formData.append("price", updatePrice)
         }
         setLoading(true)
         await changePrices(formData)
