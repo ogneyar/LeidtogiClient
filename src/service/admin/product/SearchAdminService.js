@@ -63,9 +63,10 @@ const SearchAdminService = observer((props) => {
                 //searchValue({ value: article, limit: productStore.limit, page: productStore.page }).then(
 				searchArticle({ text: article, limit: productStore.limit, page: productStore.page }).then(
                     data => {
-                        setSearch(data.rows.map(i => {
+                        if (data.rows) setSearch(data.rows.map(i => {
 							return {...i, img: JSON.parse(i.img)}
 						}))
+                        else setSearch([])
                         setLoading(false)
                     },
                     error => getError(`Не удалось загрузить товары!`, error)
