@@ -8,7 +8,7 @@ import { Context } from '../../..'
 import ProductService from './ProductService'
 import { API_URL } from '../../../utils/consts'
 import { Alert } from '../../../components/myBootstrap'
-import { searchValue } from '../../../http/searchAPI'
+import { searchValue, searchArticle } from '../../../http/searchAPI'
 import scrollUp from '../../../utils/scrollUp';
 
 
@@ -60,9 +60,12 @@ const SearchAdminService = observer((props) => {
             }
             setSearchTimeOut(setTimeout(async (article) => {
                 setLoading(true)
-                searchValue({ value: article, limit: productStore.limit, page: productStore.page }).then(
+                //searchValue({ value: article, limit: productStore.limit, page: productStore.page }).then(
+				searchArticle({ text: article, limit: productStore.limit, page: productStore.page }).then(
                     data => {
-                        setSearch(data.rows)
+                        setSearch(data.rows.map(i => {
+							return {...i, img: JSON.parse(i.img)}
+						}))
                         setLoading(false)
                     },
                     error => getError(`Не удалось загрузить товары!`, error)

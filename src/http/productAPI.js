@@ -111,7 +111,7 @@ export const updateProductOnArticle = async (article, body) => {
     return data
 }
 
-export const updateProductSizes = async (id, body) => {
+export const updateProductSizes = async (id, body) => { // body = { size: JSON.stringify(size) }
     const {data} = await $authHost.put('api/product/edit_sizes/' + id, body)
     return data
 }

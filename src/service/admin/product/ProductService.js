@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Button, Form, Dropdown, Image } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 
-import { createProduct, fetchAllProducts, updateAllProduct, deleteProduct } from '../../../http/productAPI'
+import { createProduct, fetchAllProducts, updateAllProduct, deleteProduct, updateProductSizes } from '../../../http/productAPI'
 // import { mlkGetAll } from '../../../http/parser/milwaukeeAPI'
 import { Context } from '../../..'
 
@@ -254,8 +254,7 @@ const ProductService = observer((props) => {
             else return null
         })
     }
-
-    if (loading) return <Loading />
+    
 
     if (action === "del") {
         return (
@@ -270,7 +269,19 @@ const ProductService = observer((props) => {
             </div>
         )
     }
+
     
+    const onClickButtonEditeSize = async () => {
+        // alert(JSON.stringify(size))
+        await updateProductSizes(props?.id, {size: JSON.stringify(size)}).then(() => alert("Ok"))
+    }
+    
+
+
+    if (loading) return <Loading />
+
+
+
     return (
         <div  className="mb-2">
             <div className="inputBox d-flex flex-wrap">
@@ -455,6 +466,12 @@ const ProductService = observer((props) => {
                     setSize={setSize} 
                     action={action}
                 />
+                <Button
+                    variant="outline-danger" 
+                    onClick={onClickButtonEditeSize}
+                >
+                    Изменить габариты
+                </Button>
             </div>
             <div className="inputBox">
                 <Description // описание
