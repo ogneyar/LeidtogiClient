@@ -31,7 +31,7 @@ const FooterSocialNetwork = () => {
                     <li>   
                         <a
                             className="NavLink Footer_NavLink Footer_NavLink_SocialNetwork"
-                            href="https://vk.com/club217175802"
+                            href="https://vk.com/leidtogi"
                             target="_blank"
                             rel="noreferrer"
                         >
