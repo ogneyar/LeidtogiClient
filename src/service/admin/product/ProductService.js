@@ -3,6 +3,7 @@ import { Button, Form, Dropdown, Image } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 
 import { createProduct, fetchAllProducts, updateAllProduct, deleteProduct, updateProductSizes } from '../../../http/productAPI'
+import { editProductInfos } from '../../../http/productInfoAPI'
 // import { mlkGetAll } from '../../../http/parser/milwaukeeAPI'
 import { Context } from '../../..'
 
@@ -276,6 +277,10 @@ const ProductService = observer((props) => {
         await updateProductSizes(props?.id, {size: JSON.stringify(size)}).then(() => alert("Ok"))
     }
     
+    const onClickButtonEditeInfos = async (title, body) => {
+        await editProductInfos(props?.id, title, body).then(() => alert("Ok"))
+    }
+    
 
 
     if (loading) return <Loading />
@@ -466,12 +471,13 @@ const ProductService = observer((props) => {
                     setSize={setSize} 
                     action={action}
                 />
-                <Button
+                 {action === "edit" && 
+                 <Button
                     variant="outline-danger" 
                     onClick={onClickButtonEditeSize}
                 >
                     Изменить габариты
-                </Button>
+                </Button>}
             </div>
             <div className="inputBox">
                 <Description // описание
@@ -479,6 +485,13 @@ const ProductService = observer((props) => {
                     setDescription={setDescription} 
                     action={action}
                 />
+                 {action === "edit" && 
+                 <Button
+                    variant="outline-danger" 
+                    onClick={() => onClickButtonEditeInfos("description", description)}
+                >
+                    Изменить описание
+                </Button>}
             </div>
             <div className="inputBox">
                 <Characteristics // характеристики
@@ -486,6 +499,13 @@ const ProductService = observer((props) => {
                     setCharacteristics={setCharacteristics}
                     action={action}
                 />
+                {action === "edit" && 
+                <Button
+                   variant="outline-danger" 
+                   onClick={() => onClickButtonEditeInfos("characteristics", characteristics)}
+               >
+                   Изменить характеристики
+               </Button>}
             </div>
             <div className="inputBox">
                 <Equipment // комплектация
@@ -493,6 +513,13 @@ const ProductService = observer((props) => {
                     setEquipment={setEquipment}
                     action={action}
                 />
+                {action === "edit" && 
+                <Button
+                   variant="outline-danger" 
+                   onClick={() => onClickButtonEditeInfos("equipment", equipment)}
+               >
+                   Изменить комплектацию
+               </Button>}
             </div>
 
             <hr />
