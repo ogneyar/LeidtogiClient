@@ -28,6 +28,7 @@ const CreateOrderPage = () => {
     const refPhone = useRef()
 
     const [amount, setAmount] = useState(0)
+    const [amountNew, setAmountNew] = useState(0)
 
     const [ choiseDelivery, setСhoiseDelivery ] = useState(true)
     const [ load, setLoad ] = useState(true)
@@ -47,12 +48,22 @@ const CreateOrderPage = () => {
 
     const [ message, setMessage ] = useState("")
 
+    const [ certificate, setCertificate ] = useState("")
+
     useEffect(() => {
         if (cartStore?.cart) {
             let totalValue = 0
-            cartStore?.cart.forEach(i => totalValue += i.total)
+            cartStore.cart.forEach(i => totalValue += i.total)
             // setAmount(totalValue)
-            setAmount(Math.round(totalValue * 100) / 100)
+            
+            setAmount(Math.round(totalValue * 100) / 100) 
+
+            let cert = localStorage.getItem('certificate')
+            if (cert) {
+                setCertificate(cert)
+                totalValue = (totalValue - (totalValue / 10))
+                setAmountNew(Math.round(totalValue * 100) / 100) 
+            }
         }
     }, [cartStore?.cart])
 
@@ -319,7 +330,23 @@ const CreateOrderPage = () => {
                                 })}
                             </div>
                             <br />
+
+                            {certificate && <>
+                                Сертификат на скидку 10% <span style={{color: "green", fontSize: "2rem"}}>{certificate}</span>
+                            </>}
+
+                            <br />
+                            
+                            {certificate && amountNew 
+                            ?
+                            <p>Итого к оплате:&nbsp;
+                                <strong style={{textDecoration:"line-through"}}>{amount}&nbsp;р.</strong>
+                                &nbsp;
+                                <strong style={{color:"red"}}>{amountNew}&nbsp;р.</strong>
+                            </p>
+                            :
                             <p>Итого к оплате: <strong>{amount}&nbsp;р.</strong></p>
+                            }
                         </div>
                         
                         {/*подтвердить наличие*/}
@@ -328,6 +355,8 @@ const CreateOrderPage = () => {
                             load={load} 
                             setLoad={setLoad} 
                             amount={amount} 
+                            amountNew={amountNew} 
+                            certificate={certificate} 
                             email={email} 
                             client={client} 
                             role={role} 
@@ -367,16 +396,38 @@ const CreateOrderPage = () => {
                                 })}
                             </div>
                             <br />
-                            <p>Товара на сумму: <strong>{amount}р.</strong></p>
+                            {certificate && amountNew 
+                            ?                         
+                            <p>Товара на сумму:&nbsp;
+                                <strong style={{textDecoration:"line-through"}}>{amount}р.</strong>
+                                &nbsp;
+                                <strong style={{color:"red"}}>{amountNew}р.</strong>
+                            </p>
+                            :
+                            <p>Товара на сумму:&nbsp;<strong>{amount}р.</strong></p>}
+
+                            {certificate && <>
+                                Сертификат на скидку 10% <span style={{color: "green", fontSize: "2rem"}}>{certificate}</span>
+                            </>}
+
+                            <br />
                             <p>Доставка на сумму: <strong>{deliverySum}р.</strong></p>
 
+                            {certificate && amountNew 
+                            ?
+                            <p style={{fontSize:"20px"}}>Итого к оплате: <strong>{Math.round((amountNew + deliverySum) * 100) / 100}р.</strong></p>
+                            :
                             <p style={{fontSize:"20px"}}>Итого к оплате: <strong>{Math.round((amount + deliverySum) * 100) / 100}р.</strong></p>
+                            }
                         </div>
                         
                         {/*подтвердить наличие*/}
                         <ConfirmAvailability 
                             address={address}
                             deliverySum={deliverySum} 
+                            amount={amount} 
+                            amountNew={amountNew} 
+                            certificate={certificate} 
                             delivery={delivery} 
                             email={email}
                             client={client}

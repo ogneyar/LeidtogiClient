@@ -55,6 +55,14 @@ th {
     margin: 10px 15px;
 }
 
+.Cart_certificate input {
+    border-radius: 10px;
+    height: 50px;
+    width: 180px;
+    text-align: center;
+    font-size: 2rem;
+}
+
 @media(max-width:540px) {
     .CartTable {
         font-size: 14px;

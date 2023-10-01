@@ -26,6 +26,7 @@ const ButtonBuy = (props) => {
 
     const [ value, setValue ] = useState(1) // количество единиц товара
     const [ quantity, setQuantity ] = useState(1) // общее количество товаров в корзине
+    const [ certificate, setCertificate ] = useState("") // сертификат TMK
     
     const [ image, setImage ] = useState(API_URL + "unknown.jpg") // по умолчанию пустое фото
 
@@ -56,6 +57,7 @@ const ButtonBuy = (props) => {
         }
     }, [props?.product])
 
+    
     const onClickValue = (e, arg) => {
         if (arg === "plus") {
             if (value < 1e6) { // 1e6 - 1 * 10^6 = 1 000 000
@@ -139,6 +141,9 @@ const ButtonBuy = (props) => {
                     context.cartStore.setCart(data)
                 })
             }
+        }
+        if (arg === "certificate") {
+            setCertificate(e.target.value)
         }
     }
 
@@ -254,6 +259,22 @@ const ButtonBuy = (props) => {
                         </div>
                     </div>
                 </div>
+
+                {/* <div
+                    className="NotificationCart_certificate"
+                >
+                    {props?.product?.price * value > 5000 && 
+                    <>
+                    <span>Введите сертификат на скидку&nbsp;</span>
+                    <input
+                        // style={{display: "inline-block"}}
+                        type="text" 
+                        value={certificate} 
+                        onChange={(e) => onClickValue(e, "certificate")}
+                        size="3"
+                    />
+                    </>} 
+                </div> */}
 
                 <div
                     className="NotificationDivButtons"

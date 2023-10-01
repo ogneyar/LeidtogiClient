@@ -35,6 +35,8 @@ const ConfirmAvailability = (props) => {
         if (props?.name) order = {...order, name: props?.name}
         if (props?.phone) order = {...order, phone: props?.phone}
         if (props?.role) order = {...order, role: props?.role}
+        if (props?.certificate) order = {...order, certificate: props?.certificate}
+        if (props?.amountNew) order = {...order, amountNew: props?.amountNew}
 
         await createOrder(order).then(data => {
             if (data?.error) {

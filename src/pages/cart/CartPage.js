@@ -26,7 +26,9 @@ const Cart = () => {
     // состояние корзины
     const [state, setState] = useState([])
     // итоговая стоимость товаров
-    const [amount, setAmount] = useState(0)
+    const [amount, setAmount] = useState(0)    
+    // итоговая стоимость товаров со скидкой
+    const [amountNEW, setAmountNEW] = useState(0)
     // загрузка данных
     const [loading, setLoading] = useState(true)
     // показ сообщения 
@@ -40,6 +42,51 @@ const Cart = () => {
     const [yes, setYes] = useState(false)
     
     const [newCart, setNewCart] = useState([])
+
+    const [certificate, setCertificate] = useState("")
+    const [certTRUE, setCertTRUE] = useState(false)
+    const [valueTMK, setValueTMK] = useState(0)
+
+    // если меняется общая стоимость товаров, перещитываем скидку 
+    useEffect(() => {
+        if (amount) {
+            if (amount > 5000) {
+                let valueTMK_ = 0
+                state.forEach(item => {
+                    if (item.article.indexOf("tmk") === 0) {
+                        valueTMK_ += item.total
+                    }
+                })
+                if (valueTMK_ > 5000) {
+                    setValueTMK(valueTMK_)
+                    setAmountNEW(amount - (amount/10))
+                }else {
+                    setCertTRUE(false)
+                    setAmountNEW(0)
+                    setValueTMK(0)
+                    setCertificate("")
+                    localStorage.removeItem('certificate')
+                    context.cartStore.setCertificate("")
+                }
+            }else {
+                setCertTRUE(false)
+                setAmountNEW(0)
+                setValueTMK(0)
+                setCertificate("")
+                localStorage.removeItem('certificate')
+                context.cartStore.setCertificate("")
+            }
+        }
+    },[amount]) 
+    
+    // при вводе сертификата учитываем скидку
+    useEffect(() => {
+            if (certificate.length === 8) {
+                setCertTRUE(true)
+                localStorage.setItem('certificate', certificate) 
+                context.cartStore.setCertificate(certificate)
+            }
+    },[certificate])
 
     useEffect(() => {
         // если изменилась цена и новая корзина не пуста
@@ -80,6 +127,12 @@ const Cart = () => {
             })
         }
         setLoading(false)
+
+        let cert = localStorage.getItem('certificate')
+        if (cert) {
+            // alert(cert)
+            setCertificate(cert)
+        }
     }, [])
 
     useEffect(() => {
@@ -299,12 +352,28 @@ const Cart = () => {
                             <th></th>
                             <th>Итого:</th>
                             <th>
+                                {certTRUE 
+                                ? 
+                                <>
+                                    <div
+                                        className="CartThDivRow"
+                                        style={{textDecoration:"line-through"}}
+                                    >
+                                        {Number(amount)}&nbsp;р.
+                                    </div>
+                                    <div
+                                        className="CartThDivRow"
+                                        style={{color:"red"}}
+                                    >
+                                        {Number(amountNEW)}&nbsp;р.
+                                    </div>
+                                </> 
+                                :
                                 <div
                                     className="CartThDivRow"
                                 >
                                     {Number(amount)}&nbsp;р.
-                                </div>
-                                
+                                </div>}
                             </th>
                         </tr>
                     </tbody>
@@ -313,6 +382,30 @@ const Cart = () => {
                 {/* <Payment amount={amount} />  */}
 
                 {/* <Delivery /> */}
+
+                <br />
+
+                <div
+                    className="Cart_certificate"
+                >
+                    {valueTMK > 5000 && 
+                    <>
+                    <span>Введите сертификат на скидку&nbsp;</span>
+                    <input
+                        // style={{display: "inline-block"}}
+                        type="text" 
+                        value={certificate} 
+                        // onChange={(e) => onClickValue(e, "certificate")}
+                        disabled={certTRUE && true} 
+                        onChange={(e) => {
+                            if (e.target.value.length <= 8) setCertificate(e.target.value) 
+                            // if (e.target.value.length == 8) setCertTRUE(true)
+                        }}
+                        size="3"
+                    />
+                    </>} 
+                </div>
+
 
                 <br />
                 <hr />

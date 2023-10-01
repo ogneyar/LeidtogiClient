@@ -59,7 +59,7 @@
 }
 
 .NotificationCart_price_value {
-    min-width: 120px;
+    min-width: 140px;
 }
 .NotificationCart_price_value small {
     padding: 0 10px;
@@ -91,6 +91,9 @@
     font-size: 24px;
 }
 
+.NotificationCart_certificate  {
+    text-align: center;
+}
 
 @media (max-width: 991px) {
     .NotificationCart {

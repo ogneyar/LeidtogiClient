@@ -48,7 +48,7 @@ const NavBar = observer(() => {
 
     useEffect(() => {
         if (cartStore?.cart) {
-            setQuantity(cartStore?.cart?.length)
+            setQuantity(cartStore.cart?.length)
         }
     },[cartStore?.cart])
 
