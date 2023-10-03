@@ -17,6 +17,7 @@ import { API_URL } from '../../utils/consts'
 import InfoPage from '../info/InfoPage'
 import { Context } from '../..'
 import { setSortProduct } from '../../http/sortProductAPI'
+import CertificateNotification from '../../components/certificate/CertificateNotification'
 
 
 const TesterPage = () => {
@@ -270,6 +271,15 @@ const TesterPage = () => {
     return (
         <InfoPage>
             <div>
+                
+                <div>
+                    <br />
+                    Работа с сертификатами
+                    <hr />
+                    <CertificateNotification text="Сертификаты" />
+                    <hr />
+                </div>
+                
                 
                 <div>
                     <br />

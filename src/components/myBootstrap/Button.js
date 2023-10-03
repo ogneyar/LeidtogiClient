@@ -8,7 +8,7 @@ const Button = (props) => {
         className += "readOnly " 
     }else {
         if (props?.variant) {
-            className += props.variant + " "
+            if (! props.disabled ) className += props.variant + " "
         }else className += "standartButton "
     }
     
@@ -30,7 +30,6 @@ const Button = (props) => {
             // onClick={props?.onClick}
             // title={props?.title}
             // placeholder={props?.placeholder}
-            
         >
 
             {props?.children}

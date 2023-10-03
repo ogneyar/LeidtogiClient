@@ -25,11 +25,11 @@ const Notification = (props) => {
             // className="d-flex justify-content-center align-items-center"
             onClick={e => {
                 e.stopPropagation()
-                e.preventDefault()
+                // e.preventDefault()
             }}
             size={props?.size || null}
         >
-            <Modal.Header closeButton>
+            <Modal.Header closeButton={props.closeButton && true}>
                 <Modal.Title id="contained-modal-title-vcenter">
                     {props?.title || "Уведомление"}
                     

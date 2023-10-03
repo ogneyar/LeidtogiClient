@@ -22,7 +22,8 @@
     "react-uuid": "^2.0.0",
     "react-yandex-maps": "^4.6.0",
     "serve-favicon": "^2.5.0",
-    "use-query-params": "^2.2.0"
+    "use-query-params": "^2.2.0",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "cross-env REACT_APP_ENV=develop react-scripts --openssl-legacy-provider start",

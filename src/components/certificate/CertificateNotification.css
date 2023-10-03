@@ -1,0 +1,29 @@
+
+.CertificateNotification {}
+
+.CertificateNotification_Body_certificates {
+    margin-bottom: 20px;
+}
+
+.CertificateNotification_span_code {
+    font-size: 1.5rem;
+}
+
+.CertificateNotification_span_no_cert {
+    font-size: 1.5rem;
+}
+
+.CertificateNotification_Input {
+    /* background-color: lightgreen; */
+    background-color: var(--success-color);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.CertificateNotification_DivButtons {
+    text-align: end;
+}
+
+.CertificateNotification_DivButtons button {
+    padding: 5px 15px;
+}
