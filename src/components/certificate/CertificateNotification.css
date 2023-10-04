@@ -27,3 +27,18 @@
 .CertificateNotification_DivButtons button {
     padding: 5px 15px;
 }
+
+.CertificateNotification_DatePicker {
+    text-align: center;
+}
+
+.CertificateNotification_unlimited_span {
+    border: 1px dotted grey;
+    margin: 10px;
+    padding: 5px;
+    cursor: pointer;
+    user-select: none;
+}
+
+
+

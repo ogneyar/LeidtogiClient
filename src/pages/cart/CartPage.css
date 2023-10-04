@@ -63,6 +63,10 @@ th {
     font-size: 2rem;
 }
 
+.redCertTrue {
+    color: red;
+}
+
 @media(max-width:540px) {
     .CartTable {
         font-size: 14px;

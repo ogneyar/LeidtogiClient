@@ -17,6 +17,7 @@ import removeDataLayer from '../../service/dataLayer/remove'
 import { Context } from '../..'
 import './CartPage.css'
 import { getPrice } from '../../http/productAPI'
+import { getCertificateByCode } from '../../http/certificateAPI'
 
 
 const Cart = () => {
@@ -46,6 +47,8 @@ const Cart = () => {
     const [certificate, setCertificate] = useState("")
     const [certTRUE, setCertTRUE] = useState(false)
     const [valueTMK, setValueTMK] = useState(0)
+
+    const [ redCert, setRedCert ] = useState(false)
 
     // если меняется общая стоимость товаров, перещитываем скидку 
     useEffect(() => {
@@ -81,11 +84,22 @@ const Cart = () => {
     
     // при вводе сертификата учитываем скидку
     useEffect(() => {
-            if (certificate.length === 8) {
-                setCertTRUE(true)
-                localStorage.setItem('certificate', certificate) 
-                context.cartStore.setCertificate(certificate)
-            }
+        if (certificate.length === 8) {
+            getCertificateByCode(certificate)
+            .then(data => {
+                if (data && data.state === "assigned") {
+                    if (new Date().valueOf() <= (new Date(data.before).valueOf() + 86400000)) { // + 86400000 (+ день) типа ДО включительно
+                        setCertTRUE(true)
+                        localStorage.setItem('certificate', certificate) 
+                        context.cartStore.setCertificate(certificate)
+                        setRedCert(false)
+                    }
+                }else {
+                    setRedCert(true)
+                }
+            })
+            .catch(error => alert(error))
+        }
     },[certificate])
 
     useEffect(() => {
@@ -402,6 +416,7 @@ const Cart = () => {
                             // if (e.target.value.length == 8) setCertTRUE(true)
                         }}
                         size="3"
+                        className={redCert && "redCertTrue"}
                     />
                     </>} 
                 </div>

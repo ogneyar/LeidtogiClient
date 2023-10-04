@@ -2,13 +2,13 @@
 import { $host, $authHost } from './index'
 
 
-export const createCertificate = async (code, state = "issued") => {
-    const { data } = await $authHost.post('api/certificate', { code, state }) // issued - выпущен; assigned - назначен (клиенту); applied - применён
+export const createCertificate = async (code, date = null, state = "issued") => {
+    const { data } = await $authHost.post('api/certificate', { code, before: date, state }) // issued - выпущен; assigned - назначен (клиенту); applied - применён
     return data  
 }
 
-export const creatingCertificatesFromAFile = async (array) => { // array = [{ id, name, url },...{ id, name, url }]
-    const { data } = await $authHost.post('api/certificate/from_a_file', { array })
+export const creatingCertificatesFromAFile = async (array, date = null) => { // array = [{ id, name, url },...{ id, name, url }]
+    const { data } = await $authHost.post('api/certificate/from_a_file', { array, before: date })
     return data  
 }
 
