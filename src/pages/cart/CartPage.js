@@ -53,14 +53,14 @@ const Cart = () => {
     // если меняется общая стоимость товаров, перещитываем скидку 
     useEffect(() => {
         if (amount) {
-            if (amount > 5000) {
+            if (amount >= 5000) {
                 let valueTMK_ = 0
                 state.forEach(item => {
                     if (item.article.indexOf("tmk") === 0) {
                         valueTMK_ += item.total
                     }
                 })
-                if (valueTMK_ > 5000) {
+                if (valueTMK_ >= 5000) {
                     setValueTMK(valueTMK_)
                     setAmountNEW(amount - (amount/10))
                 }else {
