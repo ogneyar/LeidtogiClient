@@ -402,7 +402,7 @@ const Cart = () => {
                 <div
                     className="Cart_certificate"
                 >
-                    {valueTMK > 5000 && 
+                    {valueTMK >= 5000 && 
                     <>
                     <span>Введите сертификат на скидку&nbsp;</span>
                     <input
