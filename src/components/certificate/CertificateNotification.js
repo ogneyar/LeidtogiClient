@@ -23,6 +23,7 @@ const CertificateNotification = (props) => {
     const [ list, setList ] = useState(null)
     const [ startDate, setStartDate ] = useState( addMonths(new Date(), 2) )
     const [ unlimited, setUnlimited ] = useState(true)
+    const [ urlZip, setUrlZip ] = useState(true)
     
     let className
     if (props?.className) className = props?.className
@@ -67,7 +68,7 @@ const CertificateNotification = (props) => {
                     creatingCertificatesFromAFile(body, date)
                         .then(data => {
                             // alert(JSON.stringify(data))
-                            data = data.map(item => {          
+                            let array = data.array.map(item => {          
                                 return {
                                     "№": item.id,
                                     "Фамилия Имя Отечество": item.name,
@@ -76,7 +77,8 @@ const CertificateNotification = (props) => {
                                     "Действителен до": item.before ? item.before : "без срока"
                                 }
                             })
-                            setList(data) 
+                            setList(array) 
+                            setUrlZip(data.url)
 
                             setLoading(false)
                             onClickButtonCertificates()
@@ -236,14 +238,21 @@ const CertificateNotification = (props) => {
                     &nbsp;
                     {feed && 
                     <>
-                    <hr />
-                    Заберите файл&nbsp;
-                    <Button
-                        variant="outline-primary"
-                        onClick={exportFile}
-                    >
-                        Сертификаты.xlsx
-                    </Button>
+                        <hr />
+                        Заберите файл&nbsp;
+                        <Button
+                            variant="outline-primary"
+                            onClick={exportFile}
+                        >
+                            Сертификаты.xlsx
+                        </Button>
+                    </>}
+                    &nbsp;
+                    {urlZip && 
+                    <>
+                        <hr />
+                        Скачайте архив&nbsp;
+                        <a href={urlZip}>Сертификаты.7z</a>
                     </>}
                 </div>
 
