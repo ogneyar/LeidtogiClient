@@ -23,7 +23,7 @@ const CertificateNotification = (props) => {
     const [ list, setList ] = useState(null)
     const [ startDate, setStartDate ] = useState( addMonths(new Date(), 2) )
     const [ unlimited, setUnlimited ] = useState(true)
-    const [ urlZip, setUrlZip ] = useState(true)
+    const [ urlZip, setUrlZip ] = useState(null)
     
     let className
     if (props?.className) className = props?.className
