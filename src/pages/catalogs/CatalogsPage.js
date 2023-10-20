@@ -52,11 +52,11 @@ const CatalogsPage = () => {
     return (
         <InfoPage>
             <div className="CatalogsPage">
-                <h2>Каталоги</h2>
+                <header className="CatalogsPage_header">Каталоги</header>
 
                 <hr />
                 
-                <div>Здесь вы можете посмотреть или скачать каталоги:</div>
+                <div className="CatalogsPage_header_mini">Здесь вы можете посмотреть или скачать каталоги:</div>
 
                 <hr />
 
@@ -65,6 +65,7 @@ const CatalogsPage = () => {
                     return (
                     <div
                         key={item+"page"}
+                        className="CatalogsPage_row"
                     >
                         {index+1}.&nbsp;{item}&nbsp;
                         <a 

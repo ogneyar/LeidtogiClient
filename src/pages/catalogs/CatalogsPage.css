@@ -1,2 +1,40 @@
 
 .CatalogsPage {}
+.CatalogsPage_header {
+    font-size: 2rem;
+    text-align: center;
+}
+.CatalogsPage_header_mini,
+.CatalogsPage_row {
+    font-size: 1.5rem;
+}
+.CatalogsPage_row {
+    padding-bottom: 20px;
+}
+
+
+/* @media (max-width: 991px) {    
+    .CatalogsPage_header {}
+    .CatalogsPage_header_mini {}
+    .CatalogsPage_row {}
+} */
+
+@media (max-width: 575px) {
+    .CatalogsPage_header {
+        font-size: 1.5rem;
+    }
+    .CatalogsPage_header_mini,
+    .CatalogsPage_row {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 555px) {
+    .CatalogsPage_header {
+        font-size: 1.2rem;
+    }
+    .CatalogsPage_header_mini,
+    .CatalogsPage_row {
+        font-size: 1rem;
+    }
+}
