@@ -76,6 +76,7 @@ export const Chinese = {
     page_delivery: '派递服务',
     page_support: '支援服务',
     page_news: '新闻',
+    page_catalogs: '目录',
     page_about_us: '关于公司',
     page_returns_policy: '报税表条款',
     page_warranty: '保修和服务',

@@ -20,7 +20,7 @@ const FooterSocialNetwork = () => {
                     <li>   
                         <a
                             className="NavLink Footer_NavLink Footer_NavLink_SocialNetwork"
-                            href="https://t.me/leidtogi"
+                            href="https://t.me/leidtogi_ru"
                             target="_blank"
                             rel="noreferrer"
                         >

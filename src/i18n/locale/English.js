@@ -76,6 +76,7 @@ export const English = {
     page_delivery: 'Delivery',
     page_support: 'Support',
     page_news: 'News',
+    page_catalogs: 'Catalogs',
     page_about_us: 'About us',
     page_returns_policy: 'Terms of return',
     page_warranty: 'Warranty and Service',
