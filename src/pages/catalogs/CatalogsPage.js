@@ -63,7 +63,9 @@ const CatalogsPage = () => {
                 {catalogs && Array.isArray(catalogs) && 
                 catalogs.map((item,index) => {
                     return (
-                    <div>
+                    <div
+                        key={item+"page"}
+                    >
                         {index+1}.&nbsp;{item}&nbsp;
                         <a 
                             href={API_URL + "catalogs/" + item} 

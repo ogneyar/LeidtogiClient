@@ -10,11 +10,12 @@ import { Alert } from '../../components/myBootstrap'
 import Category from '../../components/admin/Category'
 import Brand from '../../components/admin/Brand'
 import Product from '../../components/admin/Product'
+import Catalogs from '../../components/admin/Catalogs'
 import DeleteSite from '../../components/admin/DeleteSite'
 import { Context } from '../..'
-
-import './AdminPage.css';
 import scrollUp from '../../utils/scrollUp'
+
+import './AdminPage.css'
 
 
 const Admin = observer(() => {
@@ -69,6 +70,7 @@ const Admin = observer(() => {
     const [categoryVisible, setCategoryVisible] = useState(false)
     const [brandVisible, setBrandVisible] =  useState(false)
     const [productVisible, setProductVisible] = useState(false)
+    const [catalogsVisible, setCatalogsVisible] =  useState(false)
     
     const [deleteSiteVisible, setDeleteSiteVisible] = useState(false)
 
@@ -134,6 +136,17 @@ const Admin = observer(() => {
                     Редактор брендов
                 </Button>
             : null}
+            
+            {userStore.user?.id === 1 
+            ?
+                <Button 
+                    variant={"outline-dark"} 
+                    className="m-3 p-2 Admin_button"
+                    onClick={() => setCatalogsVisible(true)}
+                >
+                    Редактор каталогов
+                </Button>
+            : null}
 
             {userStore.user?.id === 1 && <hr/>}
             
@@ -183,6 +196,7 @@ const Admin = observer(() => {
             <Product show={productVisible} onHide={() => setProductVisible(false)}/>
             <Category show={categoryVisible} onHide={() => setCategoryVisible(false)}/>
             <Brand show={brandVisible} onHide={() => setBrandVisible(false)}/>
+            <Catalogs show={catalogsVisible} onHide={() => setCatalogsVisible(false)}/>
 
             <DeleteSite show={deleteSiteVisible} onHide={() => setDeleteSiteVisible(false)}/>
             
