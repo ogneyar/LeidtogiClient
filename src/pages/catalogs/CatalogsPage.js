@@ -71,10 +71,11 @@ const CatalogsPage = () => {
                         <a 
                             href={API_URL + "catalogs/" + item} 
                             target="_blank"
+                            className="CatalogsPage_row_view"
                         >
                             Посмотреть
+                            &nbsp;
                         </a>
-                        &nbsp;
                         <span 
                             style={{cursor:"pointer",color:"green"}} 
                             onClick={() => getDownload(item)}

@@ -38,6 +38,7 @@ const CONTACTS_ROUTE = '/contacts' // контакты
 const SPECIALS_ROUTE = '/specials' // акции
 const DEALER_ROUTE = '/dealers' // дилерам
 const NEWS_ROUTE = '/news' // новости
+const CATALOGS_ROUTE = '/catalogs' // каталоги
 
 // страницы брендов (в порядке добавления продукции на сайт)
 const MILWAUKEE_ROUTE = '/milwaukee' // milwaukee brand
@@ -105,6 +106,7 @@ module.exports = [
     { path: SPECIALS_ROUTE },
     { path: DEALER_ROUTE },
     { path: NEWS_ROUTE },
+    { path: CATALOGS_ROUTE },
 
     { path: MILWAUKEE_ROUTE },
     { path: RGK_ROUTE },

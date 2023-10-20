@@ -13,11 +13,11 @@
 }
 
 
-/* @media (max-width: 991px) {    
-    .CatalogsPage_header {}
-    .CatalogsPage_header_mini {}
-    .CatalogsPage_row {}
-} */
+@media (max-width: 991px) {    
+    .CatalogsPage_row_view {
+        display: none;
+    }
+}
 
 @media (max-width: 575px) {
     .CatalogsPage_header {
