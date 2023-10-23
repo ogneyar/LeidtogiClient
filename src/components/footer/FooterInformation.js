@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import { NavLink } from '../myBootstrap'
 import {    
     ABOUT_US_ROUTE, DELIVERY_ROUTE, PAYMENT_ROUTE, PRIVACY_POLICY_ROUTE, RETURNS_POLICY_ROUTE,
-    TERMS_OF_USE_ROUTE, WARRANTY_ROUTE, SPECIALS_ROUTE, SUPPORT_ROUTE, DEALER_ROUTE, NEWS_ROUTE, CATALOGS_ROUTE
+    TERMS_OF_USE_ROUTE, WARRANTY_ROUTE, SPECIALS_ROUTE, SUPPORT_ROUTE, DEALER_ROUTE, NEWS_ROUTE, CATALOGS_ROUTE, CONTACTS_ROUTE
 } from '../../utils/consts'
 
 import './FooterInformation.css'
@@ -80,6 +80,15 @@ const FooterInformation = () => {
                     <li>
                         <NavLink
                             className="NavLink Footer_NavLink Footer_NavLink_Info"
+                            to={CONTACTS_ROUTE}
+                        >
+                            {/* Контакты */}
+                            <FormattedMessage id='page_contacts' />
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            className="NavLink Footer_NavLink Footer_NavLink_Info"
                             to={ABOUT_US_ROUTE}
                         >
                             {/* О компании */}
@@ -101,7 +110,7 @@ const FooterInformation = () => {
                             to={RETURNS_POLICY_ROUTE}
                         >
                             {/* Условия возврата */}
-                            <FormattedMessage id='page_support' />
+                            <FormattedMessage id='page_returns_policy' /> 
                         </NavLink>
                     </li>
                     <li>

@@ -6,9 +6,8 @@ import { FormattedMessage } from 'react-intl'
 import { LOCALES } from '../../../i18n/locales'
 import { Container } from '../../myBootstrap'
 import { 
-    SHOP_ROUTE, DELIVERY_ROUTE, PAYMENT_ROUTE, DEALER_ROUTE,
-    // eslint-disable-next-line
-    CONTACTS_ROUTE, SPECIALS_ROUTE, SUPPORT_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE 
+    SHOP_ROUTE, CATALOGS_ROUTE, PAYMENT_ROUTE, DEALER_ROUTE,
+    SPECIALS_ROUTE, SUPPORT_ROUTE, SCROLL_TOP, SCROLL_TOP_MOBILE 
 } from '../../../utils/consts'
 import scrollUp from '../../../utils/scrollUp'
 import Search from '../../search/Search'
@@ -103,21 +102,12 @@ const Top = () => {
                             <strong className="TopLinkStrong">
                                 <div
                                     className="NavLink NavLink_Top"
-                                    // to={DELIVERY_ROUTE}
-                                    onClick={()=>onClickBox(DELIVERY_ROUTE)}
+                                    onClick={()=>onClickBox(CATALOGS_ROUTE)}
                                 >
-                                    {/* Доставка */}
-                                    <FormattedMessage id='page_delivery' />
+                                    {/* Каталоги */}
+                                    <FormattedMessage id='page_catalogs' />
                                 </div>
                             </strong>
-                            {/* <strong className="TopLinkStrong">
-                                <div
-                                    className="NavLink NavLink_Top"
-                                    onClick={()=>onClickBox(CONTACTS_ROUTE)}
-                                >
-                                    Контакты
-                                </div>
-                            </strong> */}
                             <strong className="TopLinkStrong">
                                 <div
                                     className="NavLink NavLink_Top_Support"

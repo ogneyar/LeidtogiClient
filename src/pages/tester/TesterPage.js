@@ -165,15 +165,19 @@ const TesterPage = () => {
 
             let response = await setSiteMap({
                 routes: [
-                    "/about_us",
-                    "/delivery",
-                    "/payment",
-                    "/privacy_policy",
-                    "/returns_policy",
-                    "/terms_of_use",
-                    "/warranty",
-                    "/contacts",
-                    "/specials",
+                    "/about_us", //
+                    "/delivery", //
+                    "/payment", //
+                    "/privacy_policy", //
+                    "/returns_policy", //
+                    "/terms_of_use", //
+                    "/warranty", //
+                    "/contacts", //
+                    "/specials", //
+                    "/dealers", //
+                    "/support", //
+                    "/news", //
+                    "/catalogs", //
                 ]
             })
 

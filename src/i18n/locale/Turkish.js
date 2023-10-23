@@ -77,6 +77,7 @@ export const Turkish = {
     page_support: 'Tek.destek',
     page_news: 'Haber',
     page_catalogs: 'Dizinler',
+    page_contacts: 'Temaslar',
     page_about_us: 'Şirket hakkında',
     page_returns_policy: 'İade Koşulları',
     page_warranty: 'Garanti ve Servis',

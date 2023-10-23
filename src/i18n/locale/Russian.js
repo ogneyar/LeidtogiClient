@@ -77,6 +77,7 @@ export const Russian = {
     page_support: 'Тех.поддержка',
     page_news: 'Новости',
     page_catalogs: 'Каталоги',
+    page_contacts: 'Контакты',
     page_about_us: 'О компании',
     page_returns_policy: 'Условия возврата',
     page_warranty: 'Гарантия и Сервис',
