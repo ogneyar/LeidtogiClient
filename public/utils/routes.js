@@ -23,7 +23,6 @@ const PARSER_ROUTE = '/parser' // парсер HTML
 const TESTER_ROUTE = '/tester' // парсер HTML
 const CONFIRM_ROUTE = '/confirmation' // подтверждение почты пользователя
 const CONFIRM_AVAILABILITY_ROUTE = '/confirm_availability' // подтверждение наличия заказа
-const SUPPORT_ROUTE = '/support' // тех.поддержка
 const MESSAGE_ROUTE = '/message' // страница для сообщений
 
 // отдел Информация
@@ -39,6 +38,7 @@ const SPECIALS_ROUTE = '/specials' // акции
 const DEALER_ROUTE = '/dealers' // дилерам
 const NEWS_ROUTE = '/news' // новости
 const CATALOGS_ROUTE = '/catalogs' // каталоги
+const SUPPORT_ROUTE = '/support' // тех.поддержка
 
 // страницы брендов (в порядке добавления продукции на сайт)
 const MILWAUKEE_ROUTE = '/milwaukee' // milwaukee brand
