@@ -31,11 +31,12 @@ export const getLength = async (args) => {
 
 // смена цен
 export const changePrices = async (args) => {
-    let { brand, formData, chapter } = args
+    let { brand, formData, chapter, update } = args
     
     let params = { 
         change: true,
-        chapter
+        chapter,
+        update
     }
 
     const { data } = await $authHost.post(`api/parser/${brand}/`, formData, { params })

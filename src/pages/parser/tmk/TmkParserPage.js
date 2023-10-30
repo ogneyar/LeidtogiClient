@@ -17,6 +17,8 @@ const TmkParserPage = observer((props) => {
     const [ checkUpdatePrice, setCheckUpdatePrice ] = useState(true)
     const [ message, setMessage ] = useState("")
     const [ loading, setLoading ] = useState(false)
+    const [ updating, setUpdating ] = useState(false) // обновление файла feed.json
+    const [ loadingUpdating, setLoadingUpdating ] = useState(false)
     const [ number, setNumber ] = useState(0)
 
     
@@ -65,13 +67,27 @@ const TmkParserPage = observer((props) => {
 
     // оновление цен
     let onClickButtonChangePrices = async () => {
+        let ok = false
         setMessage("")
+        setLoading(true)
         const formData = new FormData()
         if (feed && !checkUpdatePrice) {
             formData.append("feed", feed)
+        }else {
+            setLoadingUpdating(true)
+            setUpdating(true)
+            await changePrices({brand: props.brand, formData, update: true})
+                .then(data => {
+                    if (data?.ok) {
+                        ok = true
+                    }else {
+                        ok = data?.error
+                    }
+                })
+            setLoadingUpdating(false)
         }
-        setLoading(true)
-        await changePrices({brand: props.brand, formData})
+        if (ok == true) {
+            await changePrices({brand: props.brand, formData})
             // eslint-disable-next-line
             .then(data => {
                 if (data?.error) {
@@ -87,6 +103,9 @@ const TmkParserPage = observer((props) => {
                 setMessage("(Ошибка) " + JSON.stringify(error))
                 // console.log("(Ошибка) " + error)
             })
+        }else {
+            setMessage("(Ошибка) " + ok)
+        }
         setLoading(false)
     }
 
@@ -111,8 +130,14 @@ const TmkParserPage = observer((props) => {
                     <br />
                 </>
                 : null}
+
+                {updating 
+                ? loadingUpdating 
+                    ? <>Обновление feed.json...<br /><Loading /></>
+                    : <>Обновление feed.json завершено.<br /></>
+                : null}
                 
-                {loading ? <Loading /> 
+                {loading ? <>Обновление цен<br /><Loading /></>
                 : 
                 <>
                     <label>Заведение товаров {props.brand.toUpperCase()} на сайт!</label>
