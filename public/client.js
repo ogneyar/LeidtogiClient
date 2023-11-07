@@ -30,7 +30,7 @@ app.get('*', async (req, res) =>  {
         for (let i = 0; i < routes.length; i++) {
             if (req.url.split('?')[0] === routes[i].path) {
                 // return res.send('send routes')
-                return res.sendFile(__dirname + '/index.html')
+                return res.status(200).sendFile(__dirname + '/index.html')
             }
         }
         resolve("успех")
@@ -45,7 +45,7 @@ app.get('*', async (req, res) =>  {
                 for (let i = 0; i < response.length; i++) {
                     if (req.url === "/"+response[i].url || req.url === "/"+response[i].url+"/") {
                         // return res.send('send категория')
-                        return res.sendFile(__dirname + '/index.html')
+                        return res.status(200).sendFile(__dirname + '/index.html')
                     }
                 }     
                 resolve("успех")
@@ -54,14 +54,14 @@ app.get('*', async (req, res) =>  {
     }catch(e) {
         console.log(e)
         // return res.send('send catch') 
-        return res.sendFile(__dirname + '/index.html')
+        return res.status(200).sendFile(__dirname + '/index.html')
     }
 
 
     // роуты товаров, начинаются с имени бренда - /nazvanie-brenda/nazvanie-tovara
     if (req.url.includes("redverg") || req.url.includes("concorde") || req.url.includes("kvalitet")) {
         // return res.send('send продукт3')
-        return res.sendFile(__dirname + '/index.html')
+        return res.status(200).sendFile(__dirname + '/index.html')
     }
     if (req.url.includes("esab") || req.url.includes("aeg") || req.url.includes("leon")) {
         if (req.url.split("/")[2] === undefined) {
@@ -69,7 +69,7 @@ app.get('*', async (req, res) =>  {
             return res.status(404).sendFile(__dirname + '/404.html')
         }else {
             // return res.send('send index')
-            return res.sendFile(__dirname + '/index.html')
+            return res.status(200).sendFile(__dirname + '/index.html')
         }
     }
     try {
@@ -79,7 +79,7 @@ app.get('*', async (req, res) =>  {
                 for (let i = 0; i < response.length; i++) {
                     if (req.url.includes(response[i].name.toLowerCase())) {
                         // return res.send('send продукт')
-                        return res.sendFile(__dirname + '/index.html')
+                        return res.status(200).sendFile(__dirname + '/index.html')
                     }
                 }         
                 resolve("успех")
@@ -88,7 +88,7 @@ app.get('*', async (req, res) =>  {
     }catch(e) {
         console.log(e)
         // return res.send('send catch2') 
-        return res.sendFile(__dirname + '/index.html')
+        return res.status(200).sendFile(__dirname + '/index.html')
     }
     
 
