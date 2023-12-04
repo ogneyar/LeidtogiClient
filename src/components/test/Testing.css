@@ -1,0 +1,41 @@
+
+.Testing {}
+
+.Testing_Body_certificates {
+    margin-bottom: 20px;
+}
+
+.CTesting_span_code {
+    font-size: 1.5rem;
+}
+
+.Testing_span_no_cert {
+    font-size: 1.5rem;
+}
+
+.Testing_Input {
+    /* background-color: lightgreen; */
+    background-color: var(--success-color);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.Testing_DivButtons {
+    text-align: end;
+}
+
+.Testing_DivButtons button {
+    padding: 5px 15px;
+}
+
+.Testing_DatePicker {
+    text-align: center;
+}
+
+.Testing_unlimited_span {
+    border: 1px dotted grey;
+    margin: 10px;
+    padding: 5px;
+    cursor: pointer;
+    user-select: none;
+}

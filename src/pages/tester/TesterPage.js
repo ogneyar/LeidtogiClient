@@ -18,6 +18,7 @@ import InfoPage from '../info/InfoPage'
 import { Context } from '../..'
 import { setSortProduct } from '../../http/sortProductAPI'
 import CertificateNotification from '../../components/certificate/CertificateNotification'
+import Testing from '../../components/test/Testing'
 
 
 const TesterPage = () => {
@@ -386,6 +387,15 @@ const TesterPage = () => {
                     <hr />
                     {separate && <> {separate} <br /> </>}
                     <Button onClick={runSeparationTmk}> Начать делёж </Button>
+                    <hr />
+                </div>
+
+                
+                <div>
+                    <br />
+                    Тесты EXCEL
+                    <hr />
+                    <Testing text="Тесты" />
                     <hr />
                 </div>
 
