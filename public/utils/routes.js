@@ -58,6 +58,7 @@ const KRAUSE_ROUTE = '/krause' // Krause бренд
 const KEDR_ROUTE = '/kedr' // Kedr бренд
 const BYCON_ROUTE = '/bycon' // Bycon бренд
 const GEFEST_ROUTE = '/gefest' // Gefest бренд
+const CLEANVAC_ROUTE = '/cleanvac' // Cleanvac бренд
 // Esab - не заводил
 // AEG - в ручную заводил несколько штук
 // Leon - в ручную заводил несколько штук 
@@ -125,6 +126,7 @@ module.exports = [
     { path: KEDR_ROUTE },
     { path: BYCON_ROUTE },
     { path: GEFEST_ROUTE },
+    { path: CLEANVAC_ROUTE },
 
     { path: TESTFORM_ROUTE },
     { path: DELETE_ROUTE },
