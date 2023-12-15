@@ -3,15 +3,17 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 
 import { NEWS_ROUTE } from '../../../utils/consts'
+import isSSR from '../../../utils/isSSR'
 
 import './Banner.css'
+// import { NavLink } from 'react-bootstrap'
 
 
 const Banner = (props) => {
 
     const history = useHistory()
 
-    const [ width, setWidth ] = useState(window.innerWidth)
+    const [ width, setWidth ] = useState( ! isSSR ? window.innerWidth : null)
     const [ visibleButton, setVisibleButton ] = useState(false)
     
     useEffect(() => {
@@ -37,9 +39,11 @@ const Banner = (props) => {
         history.push(NEWS_ROUTE + "#mitex22")
     }
 
-    window.addEventListener('resize', () => {
-        setWidth(window.innerWidth)
-    })
+    if ( ! isSSR ) {
+        window.addEventListener('resize', () => {
+            setWidth(window.innerWidth)
+        })
+    }
 
     const onLoadImage = () => {
         setVisibleButton(true)
@@ -53,7 +57,7 @@ const Banner = (props) => {
             <div
                 className="Banner_img"
             >
-                {window.innerWidth < 720 
+                { ! isSSR && window.innerWidth < 720 
                 ? <img onLoad={onLoadImage} src={"/images/banner/banner.jpg"} alt="banner" />
                 : <img onLoad={onLoadImage} hight="100" src={"/images/banner/miniBanner.jpg"} alt="miniBanner" />}
                 
@@ -65,6 +69,11 @@ const Banner = (props) => {
                 >
                     смотреть
                 </button>}
+                {/* <NavLink
+                    to="/shop"
+                >
+                    smotret
+                </NavLink> */}
             </div>
         
         </div>

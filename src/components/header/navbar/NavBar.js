@@ -16,7 +16,7 @@ import { logout } from '../../../http/userAPI'
 import scrollUp from '../../../utils/scrollUp'
 
 import { Context } from '../../..'
-import './NavBar.css';
+import './NavBar.css'
 
 
 const NavBar = observer(() => {

@@ -5,10 +5,8 @@ import Top from './top/Top'
 import NavBar from './navbar/NavBar'
 import Address from './address/Address'
 import Aside from './aside/Aside'
-// eslint-disable-next-line
-import Banner from './banner/Banner'
-// eslint-disable-next-line
-import Carousel from './carousel/Carousel'
+// import Banner from './banner/Banner'
+// import Carousel from './carousel/Carousel'
 import LineMenu from '../lineMenu/LineMenu'
 
 import './Header.css'

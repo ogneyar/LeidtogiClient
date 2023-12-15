@@ -2,6 +2,7 @@
 import React, { createContext } from 'react'
 import ReactDOM from 'react-dom'
 
+// import { App } from './AppSSR'
 import App from './App'
 import UserStore from './store/UserStore'
 import ProductStore from './store/ProductStore'
