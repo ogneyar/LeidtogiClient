@@ -5,11 +5,11 @@ import React from 'react'
 // import NavBar from './navbar/NavBar'
 // import Address from './address/Address'
 // import Aside from './aside/Aside'
-import Banner from './banner/Banner'
+import Banner from './banner/BannerSSR'
 // import Carousel from './carousel/Carousel'
 // import LineMenu from '../lineMenu/LineMenu'
 
-import './Header.css'
+// import './Header.css'
 
 
 const Header = () => {

@@ -10,6 +10,7 @@
     "html-react-parser": "^3.0.9",
     "jquery": "^3.6.3",
     "jwt-decode": "^3.1.2",
+    "mathjs": "^12.2.0",
     "mobx": "^6.8.0",
     "mobx-react-lite": "^3.4.0",
     "mysql2": "^3.4.3",
@@ -28,7 +29,9 @@
   },
   "scripts": {
     "start": "cross-env REACT_APP_ENV=develop react-scripts --openssl-legacy-provider start",
-    "build": "cross-env REACT_APP_ENV=production react-scripts --openssl-legacy-provider build"
+    "build": "cross-env REACT_APP_ENV=production react-scripts --openssl-legacy-provider build",
+    "ssr": "cross-env NODE_APP_ENV=production nodemon client_ssr",
+    "ssr_dev": "cross-env NODE_APP_ENV=develop nodemon client_ssr"
   },
   "browserslist": {
     "production": [
@@ -56,6 +59,7 @@
     "@babel/runtime": "^7.12.5",
     "babel-loader": "^8.2.2",
     "cross-env": "^7.0.3",
-    "ignore-styles": "^5.0.1"
+    "ignore-styles": "^5.0.1",
+    "nodemon": "^3.0.2"
   }
 }

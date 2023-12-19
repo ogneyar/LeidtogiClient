@@ -9,9 +9,13 @@ const NavLinker = (props) => {
     
     let className = "NavLink "
     if (props?.className) className = className + props.className
+    let style = {}
+    if (props?.style) style = props.style
 
     return (
-        <NavLink className={className}
+        <NavLink 
+            className={className}
+            style={style}
             to={props.to}
             onClick={() => {
                 // window.scrollTo(0,0)

@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 
 // import { App } from './AppSSR'
 import App from './App'
+
 import UserStore from './store/UserStore'
 import ProductStore from './store/ProductStore'
 import CategoryStore from './store/CategoryStore'
@@ -29,7 +30,7 @@ let contextValue = {
 
 let jsx = (
     <Context.Provider value={contextValue}>
-        <App />
+        <App /> 
     </Context.Provider>
 )
 

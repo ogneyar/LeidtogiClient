@@ -10,8 +10,12 @@ import { BrowserRouter } from 'react-router-dom'
 // import { LOCALES } from './i18n/locales'
 // import { messages } from './i18n/messages'
 
-import AppRouter from './components/AppRouter'
+// import AppRouter from './components/AppRouter'
+
 import Header from './components/header/HeaderSSR'
+// import Header from './components/header/Header'
+import isSSR from './utils/isSSR'
+
 // import Footer from './components/footer/Footer'
 // import { Alert } from './components/myBootstrap'
 // import { getUserInfo } from './http/userAPI'
@@ -22,7 +26,7 @@ import Header from './components/header/HeaderSSR'
 // import { Context } from '.'
 
 // import 'bootstrap/dist/css/bootstrap.css'
-import './styles/App.css'
+import './styles/App.css' 
 
 
 // const App = observer(() => { 
@@ -107,17 +111,20 @@ export const App = () => {
     // if (alertVisible) return <Alert show={alertVisible} onHide={() => setAlertVisible(false)} message={messageAlert} />
 
     // const locale = LOCALES.RUSSIAN
-    // const locale = LOCALES.TURKISH
+    // // const locale = LOCALES.TURKISH
     // const [currentLocale, setCurrentLocale] = useState(locale)
     
 
     return (
     <>
-
-        <Header />
-        <BrowserRouter>
-            <AppRouter />
-        </BrowserRouter>
+        { ! isSSR ?
+            <BrowserRouter> 
+                <Header />
+                {/* <AppRouter /> */}
+            </BrowserRouter>
+        :
+            <Header />
+        }
         
         {/* <IntlProvider 
             messages={messages[localeStore.currentLocale]}
