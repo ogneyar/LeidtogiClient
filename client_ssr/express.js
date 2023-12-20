@@ -11,14 +11,14 @@ const favicon = require('serve-favicon')
 const app = express()
 
 // import App component
-const { App } = require('../src/AppSSR')
+const { App } = require('../src/App')
 
 let folder = "build"
 if (process.env.NODE_APP_ENV == "develop") folder = "public"
 
 // serve static assets
 // app.use(express.static(path.resolve(__dirname, '../build' )))
-app.get( /\.(js|css|map|ico|jpeg|jpg)$/, express.static( path.resolve( __dirname, `../${folder}` ) ) )
+app.get( /\.(js|css|map|ico|jpeg|jpg|png|woff|woff2|ttf)$/, express.static( path.resolve( __dirname, `../${folder}` ) ) )
 app.use(favicon(path.resolve(__dirname, '../build/favicon.ico')))
 
 // for any other requests, send `index.html` as a response
@@ -44,7 +44,25 @@ app.get('*', async (req, res) => {
         // if (req.url === "/") {
             let indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/styles/index.css`))
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/styles/App.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/header/Header.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
             indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/header/banner/Banner.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/header/top/Top.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/footer/Footer.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/footer/End.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/footer/FooterLogo.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/footer/FooterContacts.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../node_modules/bootstrap/dist/css/bootstrap.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/search/Search.css`))
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
         // }
     }

@@ -10,12 +10,20 @@ import ErrorPage from '../pages/error/ErrorPage'
 import { ERROR_ROUTE } from '../utils/consts'
 import Loading from './Loading'
 
+import isSSR from '../utils/isSSR'
 import { Context } from '..'
 
 
 const AppRouter = observer(() => {
     
-    const { userStore, brandStore } = useContext(Context)
+    // const { userStore, brandStore } = useContext(Context)
+    let userStore = null
+    let brandStore = null
+    if ( ! isSSR ) {
+        let context = useContext(Context)
+        userStore = context.userStore
+        brandStore = context.brandStore
+    }
 
     const [ brandRoutes, setBrandRoutes ] = useState([])
 
@@ -28,7 +36,7 @@ const AppRouter = observer(() => {
                 component: BrandPage//({ brandName })
             }
         }))
-    }, [brandStore.brands])
+    }, [brandStore?.brands])
 
 
     // ожидание загрузки роутов брендов (Этот лоадинг на оранжевом фоне)

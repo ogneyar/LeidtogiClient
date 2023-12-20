@@ -2,12 +2,13 @@
 import { makeAutoObservable } from 'mobx' 
 
 import { LOCALES } from '../i18n/locales'
+import isSSR from '../utils/isSSR'
 
 // const locale = LOCALES.RUSSIAN
 
 function getInitialLocale() {
     // получаем сохраненные данные
-    const savedLocale = localStorage.getItem('locale')
+    const savedLocale = ! isSSR ? localStorage.getItem('locale') : null 
     return savedLocale || LOCALES.RUSSIAN
   }
 

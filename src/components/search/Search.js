@@ -6,16 +6,25 @@ import { Spinner } from 'react-bootstrap'
 
 import { API_URL, SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
 import priceFormater from '../../utils/priceFormater'
+import { searchValue } from '../../http/searchAPI'
 import scrollUp from '../../utils/scrollUp'
 
+import isSSR from '../../utils/isSSR'
 import { Context } from '../..'
+
 import './Search.css'
-import { searchValue } from '../../http/searchAPI'
 
 
 const Search = observer((props) => {
     
-    const { productStore, brandStore } = useContext(Context)
+    // const { productStore, brandStore } = useContext(Context)
+    let productStore = null
+    let brandStore = null
+    if ( ! isSSR ) {
+        let context = useContext(Context)
+        productStore = context.productStore
+        brandStore = context.brandStore
+    }
 
     const [ admin, setAdmin ] =  useState(false)
 
@@ -39,7 +48,7 @@ const Search = observer((props) => {
             search = search.replace("!","")
         }
 
-        searchValue({ value: search, page: productStore.page, limit: productStore.limit })
+        searchValue({ value: search, page: productStore?.page, limit: productStore?.limit })
             .then(data => {
                 setList(data.rows)
                 setLoading(false)
@@ -83,7 +92,7 @@ const Search = observer((props) => {
             if (admin) history.push(`/product/${val.id}`)
             else {
                 let brandName
-                brandStore.brands.forEach(i => {
+                brandStore?.brands.forEach(i => {
                     if (val.brandId === i.id) brandName = i.name.toLowerCase()
                 })
                 history.push(`/${brandName}/${val.url}`)

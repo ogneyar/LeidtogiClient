@@ -12,13 +12,25 @@ import RatingStore from './store/RatingStore'
 import BreadCrumbsStore from './store/BreadCrumbsStore'
 import CartStore from './store/CartStore'
 import LocaleStore from './store/LocaleStore'
-
-import isSSR from './utils/isSSR'
+import { 
+    IBrandStore, IBreadCrumbsStore, ICartStore, ICategoryStore,
+    ILocaleStore, IProductStore,  IRatingStore, IUserStore 
+} from './utils/types/stores'
 
 import './styles/index.css'
 
+interface IContext {
+    userStore: IUserStore
+    productStore: IProductStore
+    categoryStore: ICategoryStore
+    brandStore: IBrandStore
+    ratingStore: IRatingStore
+    breadStore: IBreadCrumbsStore
+    cartStore: ICartStore
+    localeStore: ILocaleStore
+}
 
-export const Context = React.createContext(null)
+export const Context = React.createContext<IContext | null>(null)
 
 let contextValue = {
     userStore: new UserStore(),
@@ -31,11 +43,10 @@ let contextValue = {
     localeStore: new LocaleStore(),
 }
 
-if ( ! isSSR ) {
 let jsx = (
     <Context.Provider value={contextValue}>
         <App /> 
     </Context.Provider>
 )
+
 ReactDOM.render(jsx, document.getElementById('root'))
-}

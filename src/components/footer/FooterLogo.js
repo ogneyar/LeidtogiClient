@@ -1,8 +1,9 @@
+
 import React from 'react'
 import { Image } from 'react-bootstrap'
 
 import { NavLink } from '../myBootstrap'
-import logo from '../../assets/logo.png'
+
 import './FooterLogo.css'
 
 
@@ -12,10 +13,14 @@ const FooterLogo = () => {
         <div
             className="FooterLogo"
         >
-            <NavLink className="NavLink"
+            <NavLink 
+                className="NavLink"
                 to="/"
             >
-                <Image className="FooterLogoImage" src={logo} />
+                <Image 
+                    className="FooterLogoImage" 
+                    src={"/images/logo.png"} 
+                />                
             </NavLink>
         </div> 
     )

@@ -1,7 +1,7 @@
 
 import React from 'react'
 
-// import Top from './top/Top'
+import Top from './top/Top'
 // import NavBar from './navbar/NavBar'
 // import Address from './address/Address'
 // import Aside from './aside/Aside'
@@ -17,7 +17,7 @@ const Header = () => {
         <header
             className="Header"
         >
-            {/* <Top /> */}
+            <Top />
             {/* <NavBar />  Адрес есть и тут /> */}
             {/* <Address /> и тут /> */}
             <Banner />
