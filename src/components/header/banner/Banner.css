@@ -27,11 +27,6 @@
     background-color: green;
     color: white;
     border: 1px solid white;
-    /* bottom: 52px;
-    right: 7px;
-    border-radius: 15px;
-    padding: 0 12px 7px 12px;
-    font-size: 2rem; */
 }
 .Banner_button:hover {
     background-color: white;
@@ -44,13 +39,3 @@
         padding-top: 10px;
     }
 }
-
-/* @media(min-width: 2000px) {
-    .Banner_button {
-        bottom: 77px;
-        right: 12px;
-        border-radius: 15px;
-        padding: 0 12px 7px 12px;
-        font-size: 3.2rem;
-    }
-} */

@@ -5,28 +5,37 @@ import { useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import { FormattedMessage } from 'react-intl'
 
-// import { NavLink } from '../myBootstrap'
+import { NavLink } from '../../myBootstrap'
 import { 
     ADMIN_ROUTE, LOGIN_ROUTE, CART_ROUTE, LK_ROUTE, NAME, 
     ADDRESS, PHONE_ONE, MAIL, SCROLL_TOP, SCROLL_TOP_MOBILE 
 } from '../../../utils/consts'
-import logo from '../../../assets/logo.png'
-import basket from '../../../assets/cart.png'
+// import logo from '../../../assets/logo.png'
+// import basket from '../../../assets/cart.png'
 import { logout } from '../../../http/userAPI'
 import scrollUp from '../../../utils/scrollUp'
 
+import isSSR from '../../../utils/isSSR'
 import { Context } from '../../..'
+
 import './NavBar.css'
 
 
 const NavBar = observer(() => {
 
-    const { userStore, cartStore } = useContext(Context)
+    // const { userStore, cartStore } = useContext(Context)
+    let userStore = null, cartStore = null
+    if ( ! isSSR ) {
+        let context = useContext(Context)
+        userStore = context.userStore
+        cartStore = context.cartStore
+    }
+
     const history = useHistory()
 
     const onClickLogoutButton = () => {
-        userStore.setUser({})
-        userStore.setIsAuth(false)
+        userStore?.setUser({})
+        userStore?.setIsAuth(false)
         // localStorage.removeItem('token') 
         logout()
         // history.push(LOGIN_ROUTE)
@@ -35,7 +44,7 @@ const NavBar = observer(() => {
 
     const onClickAndScroll = (route, scroll = 0) => {
         if (! scroll) {
-            if (window.innerWidth > 575) scroll = SCROLL_TOP
+            if (( ! isSSR ) && window.innerWidth > 575) scroll = SCROLL_TOP
             else scroll = SCROLL_TOP_MOBILE
         }
         history.push(route)
@@ -68,13 +77,16 @@ const NavBar = observer(() => {
                     <div 
                         className="NavBar_Col_Logo"
                     >
-                        {/* <NavLink className="NavLink NavBar_NavLink" */}
-                        <div className="NavLink NavBar_NavLink"
-                            // to="/"
-                            onClick={() => onClickAndScroll("/")}
+                        <NavLink className="NavLink NavBar_NavLink"
+                            to="/"
+                            // onClick={() => onClickAndScroll("/")}
                         >
 
-                            <Image src={logo} className="NavBar_Logo" />
+                            {/* <Image src={logo} className="NavBar_Logo" />  */}
+                            <Image 
+                                className="NavBar_Logo" 
+                                src={"/images/logo.png"} 
+                            />   
 
                             <div 
                                 className="hidden-mobile"
@@ -83,7 +95,7 @@ const NavBar = observer(() => {
                                     <FormattedMessage id='header_slogan' /> 
                             </div>
                             
-                        </div>
+                        </NavLink>
                     </div>
 
                     <div
@@ -100,28 +112,31 @@ const NavBar = observer(() => {
                     <div 
                         className="NavBar_Col_Buttons"
                     >
-                            {/* <NavLink className="NavLink NavBar_Cart" */}
-                            <div className="NavLink NavBar_Cart"
-                                // to={CART_ROUTE}
-                                onClick={() => onClickAndScroll(CART_ROUTE)}
-                            >
-                                <div className="NavBar_Cart_Box">
+                        <NavLink className="NavLink NavBar_Cart"
+                            to={CART_ROUTE}
+                            // onClick={() => onClickAndScroll(CART_ROUTE)}
+                        >
+                            <div className="NavBar_Cart_Box">
 
-                                    <Image className="NavBar_Cart_Image" src={basket} />
-                                    
-                                   {quantity !== 0 && <span>{quantity}</span>}
+                                {/* <Image className="NavBar_Cart_Image" src={basket} /> */}
+                                <Image 
+                                    className="NavBar_Cart_Image" 
+                                    src={"/images/cart.png"} 
+                                />
+                                
+                               {quantity !== 0 && <span>{quantity}</span>}
 
-                                </div>
                             </div>
+                        </NavLink>
                         <Nav>
-                            {userStore.loading
+                            {userStore?.loading
                             ?
                             <div className="NavBar_Spinner">
                                 <Spinner animation="border" variant="light" />
                             </div>
                             :
                             
-                                userStore.isAuth && userStore.user?.role ?
+                                userStore?.isAuth && userStore.user?.role ?
                             
                                 <>
                                     {userStore.user?.role === 'ADMIN' ? 
@@ -166,14 +181,18 @@ const NavBar = observer(() => {
                                 </>
                             :
                             
-
+                                
                                 <Button 
-                                    // onClick={() => history.push(LOGIN_ROUTE + "?returnUrl=" + history?.location?.pathname)}
                                     onClick={() => onClickAndScroll(LOGIN_ROUTE + "?returnUrl=" + history?.location?.pathname)}
                                     variant={'outline-light'}
                                 >
-                                    {/* Авторизация */}
-                                    <FormattedMessage id='header_auth' />
+                                    {/* <NavLink
+                                        to={LOGIN_ROUTE + "?returnUrl=" + history?.location?.pathname}
+                                    > */}
+                                        {/* Авторизация */}
+                                        <FormattedMessage id='header_auth' />
+                                        
+                                    {/* </NavLink> */}
                                 </Button>
                             
                             }

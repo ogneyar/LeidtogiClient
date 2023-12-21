@@ -12,8 +12,8 @@ import { messages } from './i18n/messages'
 
 import AppRouter from './components/AppRouter'
 
-// import Header from './components/header/HeaderSSR'
-import Header from './components/header/Header'
+import Header from './components/header/HeaderSSR'
+// import Header from './components/header/Header'
 
 import Footer from './components/footer/Footer'
 import { Alert } from './components/myBootstrap'

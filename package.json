@@ -30,7 +30,7 @@
   "scripts": {
     "start": "cross-env REACT_APP_ENV=develop react-scripts --openssl-legacy-provider start",
     "build": "cross-env REACT_APP_ENV=production react-scripts --openssl-legacy-provider build",
-    "ssr": "cross-env NODE_APP_ENV=production nodemon client_ssr",
+    "ssr": "cross-env NODE_APP_ENV=production node client_ssr",
     "ssr_dev": "cross-env NODE_APP_ENV=develop nodemon client_ssr"
   },
   "browserslist": {

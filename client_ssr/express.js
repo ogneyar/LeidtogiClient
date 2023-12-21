@@ -13,6 +13,8 @@ const app = express()
 // import App component
 const { App } = require('../src/App')
 
+const PORT = 3000
+
 let folder = "build"
 if (process.env.NODE_APP_ENV == "develop") folder = "public"
 
@@ -48,9 +50,15 @@ app.get('*', async (req, res) => {
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
             indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/header/Header.css`))
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
-            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/header/banner/Banner.css`))
-            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
             indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/header/top/Top.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/header/navbar/NavBar.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/header/address/Address.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/header/aside/Aside.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/header/banner/Banner.css`))
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
             indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/footer/Footer.css`))
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
@@ -85,7 +93,7 @@ app.get('*', async (req, res) => {
     // return error
 } )
 
-// run express server on port 9000
-app.listen('9000', () => {
-    console.log( 'Express server started at http://localhost:9000' )
+// run express server on PORT
+app.listen(PORT, () => {
+    console.log(`Express server started at http://localhost:${PORT}`)
 })

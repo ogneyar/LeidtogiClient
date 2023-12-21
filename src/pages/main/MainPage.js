@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
+import Banner from '../../components/header/banner/BannerSSR'
 import { 
     MILWAUKEE_ROUTE, HUSQVARNA_ROUTE, GEDORE_ROUTE, RGK_ROUTE, KVT_ROUTE, 
     SCROLL_TOP, SCROLL_TOP_MOBILE, SHOP_ROUTE
@@ -11,7 +12,6 @@ import ShopButton from './ShopButton'
 import array from './mainData'
 
 import './MainPage.css'
-import Banner from '../../components/header/banner/Banner'
 
 
 const MainPage = () => {

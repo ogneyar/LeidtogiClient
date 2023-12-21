@@ -6,15 +6,25 @@ import { observer } from 'mobx-react-lite'
 import { fetchOneProduct, fetchOneProductOnUrl } from '../../../http/productAPI'
 import Container from '../../../components/myBootstrap/container/Container'
 import { authRoutes, publicRoutes } from '../../../utils/routes'
-
-import { Context } from '../../..'
-import './Aside.css'
 import { fetchAllCategories } from '../../../http/categoryAPI'
+
+import isSSR from '../../../utils/isSSR'
+import { Context } from '../../..'
+
+import './Aside.css'
 
 
 const Aside = observer(() => {
 
-    const { categoryStore, brandStore, breadStore, productStore } = useContext(Context)
+    // const { categoryStore, brandStore, breadStore, productStore } = useContext(Context)
+    let categoryStore = null, brandStore = null, breadStore = null, productStore = null
+    if ( ! isSSR ) {
+        let context = useContext(Context)
+        categoryStore = context.categoryStore
+        brandStore = context.brandStore
+        breadStore = context.breadStore
+        productStore = context.productStore
+    }
 
     const history = useHistory()
     
@@ -24,13 +34,13 @@ const Aside = observer(() => {
     const [ breadCrumbsState, setBreadCrumbsState ] = useState([])
     let breadCrumbs = [] 
 
-    const [ categories, setCategories ] = useState(categoryStore.categories)
+    const [ categories, setCategories ] = useState(categoryStore?.categories)
 
 
     function recursiveFunction(path) {
         if (path === "") {
             setBreadCrumbsState([])
-            breadStore.setCrumbs([])
+            breadStore?.setCrumbs([])
         }else if (categories?.length > 0) {
             categories.forEach(i => {
                 if (i?.url === path) {
@@ -51,12 +61,12 @@ const Aside = observer(() => {
 
 
     useEffect(() => {
-        if ( ! categories.length && history.location.pathname !== "/" ) {
+        if ( ! categories?.length && history.location.pathname !== "/" ) {
             fetchAllCategories().then(data => {
                 setCategories(data)
             })
         }
-    },[ categories.length, history.location.pathname ])
+    },[ categories?.length, history.location.pathname ])
 
     useEffect(() => {
         // eslint-disable-next-line
@@ -81,7 +91,7 @@ const Aside = observer(() => {
                 if (numberPublic !== -1) pathPublic = pathPublic.substring(0, numberPublic)
                 if (pathPublic === path) yes = true
             })
-            brandStore.brands.forEach(i => {
+            brandStore?.brands.forEach(i => {
                 let pathBrand = i.name.toLowerCase()
                 let numberBrand = pathBrand.indexOf(`/`)
                 if (numberBrand !== -1) pathBrand = pathBrand.substring(0, numberBrand)
@@ -89,7 +99,7 @@ const Aside = observer(() => {
             })
             if (yes) {
                 setBreadCrumbsState([])
-                breadStore.setCrumbs([])
+                breadStore?.setCrumbs([])
             }else {
                 recursiveFunction(path)
             }
@@ -109,10 +119,10 @@ const Aside = observer(() => {
                     })
                 }
 
-            }else if (brandStore.selectedBrand?.name !== undefined && string === brandStore.selectedBrand?.name.toLowerCase()) { // "/aeg/akkumulyator-l1240r-pro-li-ion-12-v-4-a-ch-aeg_aeg4932430166"
+            }else if (brandStore?.selectedBrand?.name !== undefined && string === brandStore.selectedBrand?.name.toLowerCase()) { // "/aeg/akkumulyator-l1240r-pro-li-ion-12-v-4-a-ch-aeg_aeg4932430166"
                 let url = path.substring(number + 1, path.length)
 
-                if (categories.length > 0) {
+                if (categories?.length > 0) {
                     fetchOneProductOnUrl(url).then(data => {
                         categories.forEach(cat => {
                             if (cat?.id === data?.categoryId) {
@@ -136,12 +146,12 @@ const Aside = observer(() => {
         let path = history.location.pathname.replace("/","") 
         if (path === "") {
             setBreadCrumbsState([])
-            breadStore.setCrumbs([])
+            breadStore?.setCrumbs([])
         }else {
             breadCrumbs = []
             recursiveFunction(path)
         }
-        productStore.setPage(1)
+        productStore?.setPage(1)
     }
 
 
