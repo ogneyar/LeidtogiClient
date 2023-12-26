@@ -33,7 +33,8 @@ app.get('*', async (req, res) => {
    
     // get HTML string from the `App` component
     let appHTML = ReactDOMServer.renderToString(
-        <StaticRouter location={req.url}>
+        // <StaticRouter location={req.url}>
+        <StaticRouter location={req.originalUrl}>
             <App />
         </StaticRouter>
     )
@@ -48,6 +49,10 @@ app.get('*', async (req, res) => {
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
             indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/styles/App.css`))
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../node_modules/bootstrap/dist/css/bootstrap.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+
             indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/header/Header.css`))
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
             indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/header/top/Top.css`))
@@ -60,6 +65,9 @@ app.get('*', async (req, res) => {
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
             indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/header/banner/Banner.css`))
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/header/carousel/Carousel.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+
             indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/footer/Footer.css`))
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
             indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/footer/End.css`))
@@ -68,9 +76,60 @@ app.get('*', async (req, res) => {
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
             indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/footer/FooterContacts.css`))
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
-            indexCSS = fs.readFileSync(path.resolve(__dirname, `../node_modules/bootstrap/dist/css/bootstrap.css`))
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/footer/FooterInformation.css`))
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/footer/FooterSocialNetwork.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+
             indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/search/Search.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/filter/noImages/NoImages.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/filter/mix/mix.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/filter/limit/Limit.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/components/filter/filters/FilterPrice.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/main/MainPage.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/main/ShopButton.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/shop/ShopPage.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/category/CategoryPage.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/dealer/DealerPage.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/catalogs/CatalogsPage.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/support/SupportPage.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/info/InfoPage.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/info/Payment.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/info/Specials.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/info/news/NewsPage.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/info/Delivery.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/info/Contacts.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/info/AboutUs.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/info/ReturnsPolicy.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/info/Warranty.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/info/PrivacyPolicy.css`))
+            indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
+            indexCSS = fs.readFileSync(path.resolve(__dirname, `../src/pages/info/TermsOfUse.css`))
             indexHTML = indexHTML.replace(`</head>`, `<style>${indexCSS}</style></head>`)
         // }
     }

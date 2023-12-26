@@ -8,15 +8,20 @@ import ProductItem from './ProductItem'
 import Loading from '../Loading'
 // import { sortPriceUp, sortPriceDown, sortNameUp, sortNameDown } from '../../service/product'
 
+import isSSR from '../../utils/isSSR'
 import { Context } from '../..'
 import './Product.css'
 
 
 const ProductList = observer((props) => {
 
-    const { productStore, brandStore, 
-        // categoryStore
-    } = useContext(Context)
+    // const { productStore, brandStore } = useContext(Context)
+    let productStore = null, brandStore = null
+    if ( ! isSSR ) {
+        let context = useContext(Context)
+        productStore = context.productStore
+        brandStore = context.brandStore
+    }
 
     const [ info, setInfo ] = useState(null)
     // const [ loading, setLoading ] = useState(true)
@@ -26,7 +31,7 @@ const ProductList = observer((props) => {
     
     useEffect(() => {
 
-        if ( ! props?.loading || productStore.products.length ) { // если уже подгружены товары
+        if ( ! props?.loading || productStore?.products.length ) { // если уже подгружены товары
 
             // let offset = productStore.page * productStore.limit - productStore.limit // отступ
             // let limit = 0
@@ -86,7 +91,7 @@ const ProductList = observer((props) => {
             setInfo(newArray)
         }
         
-    }, [  props?.loading, productStore.products, brandStore.selectedBrand ])
+    }, [  props?.loading, productStore?.products, brandStore?.selectedBrand ])
     // eslint-disable-next-line
     // }, [  props?.loading, productStore.products, productStore.page, productStore.limit, brandStore.selectedBrand, categoryStore.selectedCategory, productStore.sort, productStore.filter, productStore.totalCount ])
     // }, [ productStore.page, productStore.limit, brandStore.selectedBrand, categoryStore.selectedCategory, productStore, props?.categoryUrl, props?.loading, fetchTimeOut ]) 
@@ -97,7 +102,7 @@ const ProductList = observer((props) => {
         if (visibleContextMenu && visibleContextMenu?.product) {
             productClick = visibleContextMenu.product
             let brandName = "milwaukee" // дефолтное состояние
-            brandStore.brands.forEach(i => {
+            brandStore?.brands.forEach(i => {
                 if (productClick.brandId === i.id) {
                     brandName = i.name
                 }

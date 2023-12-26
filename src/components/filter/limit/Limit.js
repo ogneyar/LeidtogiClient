@@ -2,32 +2,39 @@ import React, { useState, useContext, useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import { LIMIT } from '../../../utils/consts'
-import { Context } from '../../..'
 
+import isSSR from '../../../utils/isSSR'
+import { Context } from '../../..'
 import './Limit.css'
 
 
 const Limit = observer(() => {
 
-    const { userStore, productStore } = useContext(Context)
+    // const { userStore, productStore } = useContext(Context)
+    let userStore = null, productStore = null
+    if ( ! isSSR ) {
+        let context = useContext(Context)
+        userStore = context.userStore
+        productStore = context.productStore
+    }
 
-    let limit = localStorage.getItem('limit') || LIMIT
+    let limit = ( ( ! isSSR ) && localStorage.getItem('limit') )|| LIMIT
     const [state, setState] = useState(limit)
         
     useEffect(() => {
-        if (productStore.limit && productStore.limit !== state) {
+        if (productStore?.limit && productStore.limit !== state) {
             setState(productStore.limit)
         }
     // eslint-disable-next-line
-    }, [productStore.limit])
+    }, [productStore?.limit])
 
     const change = (e) => {
         //setState(e.target.value)
-        localStorage.setItem('limit', e.target.value)
+        localStorage?.setItem('limit', e.target.value)
 
-        productStore.setLimit(e.target.value)
+        productStore?.setLimit(e.target.value)
 
-        productStore.setPage(1)
+        productStore?.setPage(1)
     }
 
     return (
@@ -42,7 +49,7 @@ const Limit = observer(() => {
                 onChange={e => change(e)}
             >
                 {/* <option disabled>количество:</option> */}
-                {userStore.user?.id === 1 
+                {userStore?.user?.id === 1 
                 ?
                 <>
                     <option value="3">3</option>

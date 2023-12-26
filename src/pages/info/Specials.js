@@ -10,6 +10,7 @@ import { API_URL, ERROR_ROUTE } from '../../utils/consts'
 import ButtonBuy from '../../components/cart/ButtonBuy'
 import scrollUp from '../../utils/scrollUp'
 
+import isSSR from '../../utils/isSSR'
 import { Context } from '../..'
 import './Specials.css'
 
@@ -18,13 +19,18 @@ const Specials = () => {
 
     const history = useHistory()
 
-    const { brandStore } = useContext(Context)
+    // const { brandStore } = useContext(Context)
+    let brandStore = null
+    if ( ! isSSR ) {
+        let context = useContext(Context)
+        brandStore = context.brandStore
+    }
 
     const [ loading, setLoading ] = useState(true)
     
     const [ promo, setPromo ] = useState([])
 
-    const [ prod ] = useState(process.env.REACT_APP_ENV === 'production' && (window.location.hostname === "leidtogi.ru" || window.location.hostname === "www.leidtogi.ru") ? true : false)
+    const [ prod ] = useState(process.env.REACT_APP_ENV === 'production' && ( ! isSSR ) && (window.location.hostname === "leidtogi.ru" || window.location.hostname === "www.leidtogi.ru") ? true : false)
 
     useEffect(() => {
         setLoading(true)
@@ -38,13 +44,13 @@ const Specials = () => {
     const onClickProduct = (product) => {
         let url = ERROR_ROUTE
         let brandName = "milwaukee" // дефолтное состояние
-        brandStore.brands.forEach(i => {
+        brandStore?.brands.forEach(i => {
             if (product.brandId === i.id) {
                 brandStore.setSelectedBrand(i) 
                 brandName = i.name
             }
         })
-        if (brandName) url = brandName.toLowerCase() + '/' + product?.url
+        if (brandName) url = brandName?.toLowerCase() + '/' + product?.url
         
         history.push(url)
         scrollUp()
@@ -74,8 +80,8 @@ const Specials = () => {
                     // let oldPrice = priceFormater(Number(pro?.old_price.replace(",", ".")))
                     let oldPrice = pro?.old_price.replace(",", ".")
                     
-                    let width = window.innerWidth > 450 ? "150px" 
-                        :  window.innerWidth > 350 ? "100px" : "80px"
+                    let width = ( ! isSSR ) && window.innerWidth > 450 ? "150px" 
+                        : ( ! isSSR ) && window.innerWidth > 350 ? "100px" : "80px"
                     
                     return (
                         <div 

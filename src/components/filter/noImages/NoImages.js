@@ -1,28 +1,35 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 
+import isSSR from '../../../utils/isSSR'
 import { Context } from '../../..'
 import './NoImages.css'
 
 const NoImages = observer(() => {
 
-    const { userStore, productStore } = useContext(Context)
+    // const { userStore, productStore } = useContext(Context) 
+    let userStore = null, productStore = null
+    if ( ! isSSR ) {
+        let context = useContext(Context)
+        userStore = context.userStore
+        productStore = context.productStore
+    }
 
-    const [ value, setValue ] = useState(productStore.mixNoImg === false ? false : true)
+    const [ value, setValue ] = useState(productStore?.mixNoImg === false ? false : true)
 
     useEffect(() => {
     },[])
     
     const onChangeInput = () => {
-        localStorage.setItem('mixNoImg', !value)
+        localStorage?.setItem('mixNoImg', !value)
         setValue(!value)
-        productStore.setMixNoImg(!value)
+        productStore?.setMixNoImg(!value)
     }
 
     return (
         <div
             className='NoImages'
-            style={userStore.user.id!==1 ? {display:"none",visible:"hidden"} : {}}
+            style={userStore?.user.id!==1 ? {display:"none",visible:"hidden"} : {}}
             onClick={onChangeInput}
         >
             MixNoImg&nbsp;

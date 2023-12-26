@@ -40,7 +40,7 @@ const AppRouter = observer(() => {
 
 
     // ожидание загрузки роутов брендов (Этот лоадинг на оранжевом фоне)
-    if (brandRoutes[0]?.path === undefined) return <Loading />
+    if (( ! isSSR ) && brandRoutes[0]?.path === undefined) return <Loading />
 
 
     return (
@@ -48,7 +48,7 @@ const AppRouter = observer(() => {
             <Route path={'/error'} component={ErrorPage} status={404} exact /> 
 
             {/* роуты зарегистрированных пользователей */}
-            {userStore.isAuth && authRoutes.map(({ path, component, status }) => 
+            {userStore?.isAuth && authRoutes.map(({ path, component, status }) => 
                 <Route key={path} path={path} component={component} status={status || 200} exact />
             )}
 

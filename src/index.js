@@ -32,10 +32,11 @@ let contextValue = {
 }
 
 if ( ! isSSR ) {
-let jsx = (
-    <Context.Provider value={contextValue}>
-        <App /> 
-    </Context.Provider>
-)
-ReactDOM.render(jsx, document.getElementById('root'))
+    let jsx = (
+        <Context.Provider value={contextValue}>
+            <App /> 
+        </Context.Provider>
+    )
+    // ReactDOM.render(jsx, document.getElementById('root'))
+    ReactDOM.hydrate(jsx, document.getElementById('root'))
 }

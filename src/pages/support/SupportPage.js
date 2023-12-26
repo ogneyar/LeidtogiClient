@@ -2,21 +2,28 @@ import React, { useContext, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
-import $ from 'jquery'
+// import $ from 'jquery'
 
 import { Alert } from '../../components/myBootstrap'
 import InfoPage from '../info/InfoPage'
 import Loading from '../../components/Loading'
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, SUPPORT_ROUTE } from '../../utils/consts'
-import { Context } from '../..'
-
-import './SupportPage.css'
 import { sendMessage } from '../../http/telegramAPI'
+import scrollUp from '../../utils/scrollUp'
+
+import isSSR from '../../utils/isSSR'
+import { Context } from '../..'
+import './SupportPage.css'
 
 
 const SupportPage = observer(() => {
     
-    const { userStore } = useContext(Context)
+    // const { userStore } = useContext(Context)
+    let userStore = null
+    if ( ! isSSR ) {
+        let context = useContext(Context)
+        userStore = context.userStore
+    }
 
     const [ info, setInfo ] = useState({})
     const [ value, setValue ] = useState("")
@@ -28,13 +35,14 @@ const SupportPage = observer(() => {
             setInfo(userStore.user)
         }
         setLoading(false)
-    },[userStore.user])
+    },[userStore?.user])
 
     const onClickButtonSend = () => {
         if (value) {
             setLoading(true)
             // прокрутка страницы вверх
-            $('html, body').animate({scrollTop: 0}, 700, function(){})
+            // $('html, body').animate({scrollTop: 0}, 700, function(){})
+            scrollUp()
 
             sendMessage(`Обращение в тех.поддержку.\n${info?.email}\n\n${value}`).then(data => {
                 if (data?.ok) {

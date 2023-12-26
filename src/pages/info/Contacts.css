@@ -1,18 +1,11 @@
 
 .Contacts {
-    /* display: flex; */
-    /* justify-content: center;
-    align-items: center; */
-    /* flex-direction: column; */
 }
 .Contacts header {
     text-align: center;
     margin-bottom: 20px;
     font-size: 32px;
 }
-/* .ContactsTitle {
-    font-size: 24px;
-} */
 .ContactsBody {
     display: flex;
     align-items: flex-start;

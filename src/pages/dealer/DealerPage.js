@@ -2,21 +2,28 @@
 import React, { useContext } from 'react'
 // import { useHistory } from 'react-router-dom'
 
-import { Context } from '../..'
 import { API_URL } from '../../utils/consts'
 import InfoPage from '../info/InfoPage'
 // import { SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
 // import scrollUp from '../../utils/scrollUp'
+
+import { Context } from '../..'
+import isSSR from '../../utils/isSSR'
 import './DealerPage.css'
 
 
 const DealerPage = () => {
 
-    const { userStore } = useContext(Context)
+    // const { userStore } = useContext(Context)
+    let userStore = null
+    if ( ! isSSR ) {
+        let context = useContext(Context)
+        userStore = context.userStore
+    }
 
     // const history = useHistory()
 
-    if (!userStore.isAuth) {
+    if (!userStore?.isAuth) {
         //history.push("/login?returnUrl=/dealers")
     }
 

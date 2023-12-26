@@ -31,13 +31,12 @@
   }
 
 .TopRow {
-    display:flex; 
-    justify-content:space-between; 
-    align-items:center;
-    
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
 }
 .TopCol {
-    padding: 5px 0; 
+    padding: 5px 0;
 }
 
 .TopColLink {
@@ -46,10 +45,10 @@
 }
 
 .TopDivLink {
-    width:100%;
-    display:flex; 
-    justify-content:space-between; 
-    align-items:center;
+    width: 100%;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
 }
 
 .TopLinkStrong {}

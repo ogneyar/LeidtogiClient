@@ -18,9 +18,9 @@ const MainPage = () => {
 
     const history = useHistory()
 
-    const [ info, setInfo ] = useState([])
+    const [ info, setInfo ] = useState(array.sort(() => Math.random() - 0.5))
 
-    const [ quantity, setQuantity ] = useState(0)
+    const [ quantity, setQuantity ] = useState(Math.trunc(array.length / 4) * 4)
 
     const onClickBox = (route, scroll = 0) => {
         if (! scroll) {

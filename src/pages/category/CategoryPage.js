@@ -12,13 +12,21 @@ import { Alert } from '../../components/myBootstrap'
 import { fetchAllCategories } from '../../http/categoryAPI'
 import { fetchArrayProductsByCategory } from '../../http/productAPI'
 
+import isSSR from '../../utils/isSSR'
 import { Context } from '../..'
 import './CategoryPage.css'
 
 
 const CategoryPage = observer((props) => { 
 
-    const { productStore, categoryStore, brandStore } = useContext(Context)
+    // const { productStore, categoryStore, brandStore } = useContext(Context) 
+    let productStore = null, categoryStore = null, brandStore = null
+    if ( ! isSSR ) {
+        let context = useContext(Context)
+        productStore = context.productStore
+        categoryStore = context.categoryStore
+        brandStore = context.brandStore
+    }
 
     const [ loadingCategory, setLoadingCategory ] = useState(true)
     const [ loadingBrand, setLoadingBrand ] = useState(true)
@@ -37,7 +45,7 @@ const CategoryPage = observer((props) => {
     }
     
     useEffect(() => {
-        if (brandStore.brands.length) {
+        if (brandStore?.brands.length) {
             setLoadingBrand(false)
         }
     },[brandStore])
@@ -68,7 +76,7 @@ const CategoryPage = observer((props) => {
     },[])
 
     useEffect(() => {
-        if (categoryStore.categories.length && nameCategory) {
+        if (categoryStore?.categories.length && nameCategory) {
             setLoadingCategory(true)
             const reOpenCategory = (array, item) => { // рекурсивная функция для открытия выбраных подкаталогов
                 let response = []
@@ -133,7 +141,7 @@ const CategoryPage = observer((props) => {
                 .catch(error => getError(`Не удалось загрузить массив товаров!`, error))
         }
     // eslint-disable-next-line 
-    },[ props.name, productStore.page ])
+    },[ props.name, productStore?.page ])
 
 
     if (alertVisible) return <Alert show={alertVisible} onHide={() => setAlertVisible(false)} message={messageAlert} />
@@ -146,7 +154,7 @@ const CategoryPage = observer((props) => {
             <h2>Страница категории</h2>
             <div className="CategoryPage_Row">
                 <div className="CategoryPage_ColCategory">
-                    {loadingCategory || categoryStore.loading ? <Loading variant="warning" /> : <CategoryBar page="categoryPage" />}
+                    {loadingCategory || categoryStore?.loading ? <Loading variant="warning" /> : <CategoryBar page="categoryPage" />}
                 </div>
                 <div className="CategoryPage_ColContent">
                     {loadingBrand ? <Loading variant="warning" /> : <BrandBar page={"categoryPage"} />}

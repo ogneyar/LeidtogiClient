@@ -10,7 +10,12 @@ import './FilterPrice.css'
 
 const FilterPrice = () => {
 
-    const { productStore } = useContext(Context)
+    // const { productStore } = useContext(Context)
+    let productStore = null
+    if ( ! isSSR ) {
+        let context = useContext(Context)
+        productStore = context.productStore
+    }
 
     const [ visibleMenu, setVisibleMenu ] = useState(false)
     const [ from, setFrom ] = useState([])
@@ -21,11 +26,11 @@ const FilterPrice = () => {
     const [ beforeMsk ] = useState([ 100, 250, 500, 750, 1000, 2500, 5000, 7500, 10000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000, 10000000 ])
     
     useEffect(() => {
-        if (productStore.filter && productStore.filter?.price) {
+        if (productStore?.filter && productStore.filter?.price) {
             setFromInput(productStore.filter.price[0])
             setBeforeInput(productStore.filter.price[1])
         }
-    }, [productStore.filter]) 
+    }, [productStore?.filter]) 
 
     useEffect(() => {
         let arrayFrom = []
@@ -64,7 +69,7 @@ const FilterPrice = () => {
             event.stopPropagation()
         }
         setVisibleMenu(false)
-        productStore.setFilter({
+        productStore?.setFilter({
             ...productStore.filter,
             price: [fromInput,beforeInput]
         })

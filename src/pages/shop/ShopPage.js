@@ -14,6 +14,7 @@ import { fetchAllCategories } from '../../http/categoryAPI'
 import { fetchProducts } from '../../http/productAPI'
 import CategoryPage from '../category/CategoryPage'
 
+import isSSR from '../../utils/isSSR'
 import { Context } from '../..'
 
 import './ShopPage.css'
@@ -21,7 +22,14 @@ import './ShopPage.css'
 
 const ShopPage = observer(() => { 
 
-    const { productStore, categoryStore, brandStore } = useContext(Context)
+    // const { productStore, categoryStore, brandStore } = useContext(Context)    
+    let productStore = null, categoryStore = null, brandStore = null
+    if ( ! isSSR ) {
+        let context = useContext(Context)
+        productStore = context.productStore
+        categoryStore = context.categoryStore
+        brandStore = context.brandStore
+    }
 
     const [ loadingCategory, setLoadingCategory ] = useState(true)
     const [ loadingBrand, setLoadingBrand ] = useState(true)
@@ -85,12 +93,12 @@ const ShopPage = observer(() => {
                 error => getError(`Не удалось загрузить товары!`, error)
             ).catch(error => getError(`Не удалось загрузить данные о товарах!`, error))
         }        
-    },[productStore, name, productStore.page])
+    },[productStore, name, productStore?.page])
 
 
     useEffect(() => {
-        if ( ! name || name === "shop") brandStore.setSelectedBrand({})
-        if (brandStore.brands.length) {
+        if ( ! name || name === "shop") brandStore?.setSelectedBrand({})
+        if (brandStore?.brands.length) {
             setLoadingBrand(false)
         }
     },[brandStore, name])
@@ -108,7 +116,7 @@ const ShopPage = observer(() => {
             <h2>Страница товаров</h2>
             <div className="ShopRow">
                 <div className="ShopColCategory">
-                    {loadingCategory || categoryStore.loading ? <Loading variant="warning" /> : <CategoryBar />}
+                    {loadingCategory || categoryStore?.loading ? <Loading variant="warning" /> : <CategoryBar />}
                 </div>
                 <div className="ShopColContent">
                     {loadingBrand ? <Loading variant="warning" /> : <BrandBar />}
