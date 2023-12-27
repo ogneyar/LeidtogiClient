@@ -22,6 +22,7 @@ import { fetchBrands } from './http/brandAPI'
 import { echo } from './http/testerAPI'
 // import scrollUp from './utils/scrollUp'
 import { leidtogiFirst, addedTmkBrands } from './service/app'
+// import BrandStore from './store/BrandStore'
 
 import isSSR from './utils/isSSR'
 import { Context } from '.'
@@ -30,7 +31,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './styles/App.css' 
 
 
-export const App = observer(() => { 
+export const App = observer((props) => { 
 
     let userStore = null, brandStore = null, cartStore = null, localeStore = null
     if ( ! isSSR ) {
@@ -39,6 +40,11 @@ export const App = observer(() => {
         brandStore = context.brandStore
         cartStore = context.cartStore
         localeStore = context.localeStore
+    }else if (props.staticContext) {
+        console.log(props.staticContext.brand_store[0].name)
+        // let data = leidtogiFirst(props.staticContext.brand_store)
+        // data = addedTmkBrands(data)
+        // brandStore = new BrandStore(data)
     }
 
     const [ alertVisible, setAlertVisible ] = useState(false)
@@ -70,6 +76,8 @@ export const App = observer(() => {
         //     document.getElementById("fundraising").style.display = "flex"
         // }
     }, [])
+    
+    // if (props.staticContext) console.log(props.staticContext.brand_store[0].name)
 
     useEffect(() => {
 
@@ -90,7 +98,20 @@ export const App = observer(() => {
                 .finally(() => userStore.setLoading(false))
         }else userStore.setLoading(false)
         
-        fetchBrands()
+        // if (props.staticContex) {
+        //     brandStore.setBrands(props.staticContex.brand_store)
+        //     console.log(props.staticContex)
+        // }else 
+        if ( window.initial_brand_store ) 
+        {
+            let data = leidtogiFirst(window.initial_brand_store)
+            data = addedTmkBrands(data)
+            brandStore.setBrands(data)
+            // console.log("initial_brand_store")
+        }
+        else 
+        {
+            fetchBrands()
             .then(
                 data => {
                     // устанавливаем бренд LeidTogi на первое место
@@ -99,10 +120,12 @@ export const App = observer(() => {
                     // сохраняем бренды в сторе
                     if ( ! isSSR ) brandStore.setBrands(data)
                     // brandStore.setSelectedBrand(data[0])
+                    // console.log("fetchBrands")
                 },
                 error => getError(`Не удалось загрузить бренды!`, error)
             )
             .catch(error => getError(`Не удалось загрузить данные о брендах!`, error))
+        }
         
         let basket = null
         if ( ! isSSR ) basket = localStorage.getItem('cart') 
@@ -132,7 +155,7 @@ export const App = observer(() => {
 
 
     return (
-    <>
+    <div id="wait">
         <IntlProvider 
             messages={messages[isSSR ? currentLocale : localeStore.currentLocale]}
             locale={isSSR ? currentLocale : localeStore.currentLocale}
@@ -149,7 +172,7 @@ export const App = observer(() => {
             </BrowserRouter>
             }
         </IntlProvider>
-    </>   
+    </div>   
     )
 
 })

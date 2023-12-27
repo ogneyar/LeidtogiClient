@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl'
 import { NavLink } from '../../myBootstrap'
 import { 
     ADMIN_ROUTE, LOGIN_ROUTE, CART_ROUTE, LK_ROUTE, NAME, 
-    ADDRESS, PHONE_ONE, MAIL, SCROLL_TOP, SCROLL_TOP_MOBILE 
+    ADDRESS, PHONE_ONE, MAIL, SCROLL_TOP, SCROLL_TOP_MOBILE, URL 
 } from '../../../utils/consts'
 // import logo from '../../../assets/logo.png'
 // import basket from '../../../assets/cart.png'
@@ -85,7 +85,7 @@ const NavBar = observer(() => {
                             {/* <Image src={logo} className="NavBar_Logo" />  */}
                             <Image 
                                 className="NavBar_Logo" 
-                                src={"/images/logo.png"} 
+                                src={URL + "images/logo.png"} 
                             />   
 
                             <div 
@@ -121,7 +121,7 @@ const NavBar = observer(() => {
                                 {/* <Image className="NavBar_Cart_Image" src={basket} /> */}
                                 <Image 
                                     className="NavBar_Cart_Image" 
-                                    src={"/images/cart.png"} 
+                                    src={URL + "images/cart.png"} 
                                 />
                                 
                                {quantity !== 0 && <span>{quantity}</span>}

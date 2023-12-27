@@ -3,6 +3,7 @@ import React from 'react'
 import { Image } from 'react-bootstrap'
 
 import { NavLink } from '../myBootstrap'
+import { URL } from '../../utils/consts'
 
 import './FooterLogo.css'
 
@@ -19,7 +20,7 @@ const FooterLogo = () => {
             >
                 <Image 
                     className="FooterLogoImage" 
-                    src={"/images/logo.png"} 
+                    src={URL + "images/logo.png"} 
                 />                
             </NavLink>
         </div> 

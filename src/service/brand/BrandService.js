@@ -20,7 +20,7 @@ const BrandService =  observer((props) => {
 
     useEffect(() => {
         if (brandStore.brands && Array.isArray(brandStore.brands)) setInfo(brandStore.brands)
-    },[brandStore.brands])
+    },[brandStore.brands])        
 
     const onClickCard = (br) => { 
         if (br) {

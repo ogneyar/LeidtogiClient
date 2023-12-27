@@ -7,21 +7,21 @@ const ReactDOMServer = require('react-dom/server')
 const { StaticRouter } = require('react-router')
 const favicon = require('serve-favicon')
 
+const { App } = require('../src/App')
+const { fetchBrands } = require('../src/http/brandAPI')
+
 // create express application
 const app = express()
 
-// import App component
-const { App } = require('../src/App')
-
-const PORT = 3000
+const PORT = process.env.NODE_APP_ENV == "production" ? 3000 : 9000
 
 let folder = "build"
 if (process.env.NODE_APP_ENV == "develop") folder = "public"
 
 // serve static assets
-// app.use(express.static(path.resolve(__dirname, '../build' )))
 app.get( /\.(js|css|map|ico|jpeg|jpg|png|woff|woff2|ttf)$/, express.static( path.resolve( __dirname, `../${folder}` ) ) )
-app.use(favicon(path.resolve(__dirname, '../build/favicon.ico')))
+
+app.use(favicon(path.resolve(__dirname, `../${folder}/favicon.ico`)))
 
 // for any other requests, send `index.html` as a response
 app.get('*', async (req, res) => {
@@ -30,11 +30,18 @@ app.get('*', async (req, res) => {
     let indexHTML = fs.readFileSync(path.resolve(__dirname, `../${folder}/index.html`), {
         encoding: 'utf8',
     })
-   
+       
+    let brand_store = await fetchBrands()
+    indexHTML = indexHTML.replace('initial_brand_store=null', `initial_brand_store=${ JSON.stringify( brand_store ) }`);
+
+    let context = {
+        brand_store
+    }
+
     // get HTML string from the `App` component
     let appHTML = ReactDOMServer.renderToString(
         // <StaticRouter location={req.url}>
-        <StaticRouter location={req.originalUrl}>
+        <StaticRouter location={req.originalUrl} context={context} >
             <App />
         </StaticRouter>
     )

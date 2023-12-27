@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 
-import { NEWS_ROUTE } from '../../../utils/consts'
+import { NEWS_ROUTE, URL } from '../../../utils/consts'
 
 import './Banner.css'
 
@@ -54,8 +54,8 @@ const Banner = (props) => {
                 className="Banner_img"
             >
                 {window.innerWidth < 720 
-                ? <img onLoad={onLoadImage} src={"/images/banner/banner.jpg"} alt="banner" />
-                : <img onLoad={onLoadImage} hight="100" src={"/images/banner/miniBanner.jpg"} alt="miniBanner" />}
+                ? <img onLoad={onLoadImage} src={URL + "images/banner/banner.jpg"} alt="banner" />
+                : <img onLoad={onLoadImage} hight="100" src={URL + "images/banner/miniBanner.jpg"} alt="miniBanner" />}
                 
                 {visibleButton && 
                 <button 

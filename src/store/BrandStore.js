@@ -3,9 +3,9 @@ import { runInAction, makeAutoObservable } from 'mobx'
 
 
 class BrandStore {
-    constructor() {
-        this._brands = []
-        this._selectedBrand = {}
+    constructor(brands = [], selectedBrand = {}) {
+        this._brands = brands
+        this._selectedBrand = selectedBrand
         makeAutoObservable(this)
     }
 

@@ -12,7 +12,6 @@ const BrandBar =  observer((props) => {
 
     const [brandVisible, setBrandVisible] = useState(false)
 
-
     return (
         <div
             className="BrandBar"

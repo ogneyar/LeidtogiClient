@@ -3,7 +3,7 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { NavLink } from '../myBootstrap'
-import { SHOP_ROUTE } from '../../utils/consts'
+import { SHOP_ROUTE, URL } from '../../utils/consts'
 import scrollUp from '../../utils/scrollUp'
 
 import './End.css'
@@ -27,7 +27,9 @@ const End = () => {
                 style={{cursor:"pointer"}}
                 onClick={() => scrollUp()}
             >
-                <i className="EndDivArrow fa fa-arrow-circle-up"></i>
+                {/* <i className="EndDivArrow fa fa-arrow-circle-up"></i> */}
+                <img className="EndDivArrow" src={URL + "image/arrow-up.png"} alt="стрелка вверх" />
+                
             </div>
         </div>
     )
