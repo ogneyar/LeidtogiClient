@@ -28,7 +28,7 @@ const End = () => {
                 onClick={() => scrollUp()}
             >
                 {/* <i className="EndDivArrow fa fa-arrow-circle-up"></i> */}
-                <img className="EndDivArrow" src={URL + "image/arrow-up.png"} alt="стрелка вверх" />
+                <img className="EndDivArrow" src={URL + "images/arrow-up.png"} alt="стрелка вверх" />
                 
             </div>
         </div>
