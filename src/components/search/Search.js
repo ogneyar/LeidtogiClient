@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import { Spinner } from 'react-bootstrap'
 
-import { API_URL, SCROLL_TOP, SCROLL_TOP_MOBILE } from '../../utils/consts'
+import { API_URL, SCROLL_TOP, SCROLL_TOP_MOBILE, URL } from '../../utils/consts'
 import priceFormater from '../../utils/priceFormater'
 import { searchValue } from '../../http/searchAPI'
 import scrollUp from '../../utils/scrollUp'
@@ -132,7 +132,11 @@ const Search = observer((props) => {
                             > 
                                 {loading 
                                 ? <Spinner size="sm" animation="border" variant="secondary" />
-                                : <i className="fa fa-search " />
+                                : 
+                                <>
+                                    {/* <i className="fa fa-search " /> */}
+                                    <img className="InputGroupButton_img" src={URL + "images/search.png"} alt="поиск" />
+                                </>
                             }
                             </button>
                         </span>

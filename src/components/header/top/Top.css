@@ -1,12 +1,24 @@
+
 .Top {
     background-color: var(--main-silver-color);
     /* background-color: yellow; */
     margin: 0;
     padding: 0;
     position: relative;
+    /* height: 50px; */
+    
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
 }
 
-.TopContainer {}
+.TopContainer {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    /* background-color: green; */
+    /* margin: auto; */
+}
 
 .Top .switcher {
     display:flex; 
@@ -32,15 +44,17 @@
 
 .TopRow {
     display: flex; 
-    justify-content: space-between; 
-    align-items: center;
+    /* justify-content: space-between;  */
+    /* align-items: center; */
+    /* background-color: blue; */
 }
 .TopCol {
     padding: 5px 0;
+    /* background-color: violet; */
 }
 
 .TopColLink {
-    width:100%;
+    width: 100%;
     margin-right: 10px;
 }
 
@@ -49,6 +63,8 @@
     display: flex; 
     justify-content: space-between; 
     align-items: center;
+    /* background-color: grey; */
+    height: 100%;
 }
 
 .TopLinkStrong {}

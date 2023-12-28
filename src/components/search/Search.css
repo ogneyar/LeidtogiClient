@@ -114,6 +114,11 @@
     opacity: 0.6;
 }
 
+.InputGroupButton_img {
+    width: 25px;
+    height: 25px;
+}
+
 @media(max-width:1199px) {
     .SearchDiv {
         width: 330px;
