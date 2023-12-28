@@ -5,7 +5,7 @@ const RENDER_CACHE = new Map()
 
 async function ssr(url) 
 {
-    if (RENDER_CACHE.has(url)) {
+    if (RENDER_CACHE.has(url) && process.env.NODE_ENV == "production") {
         return {html: RENDER_CACHE.get(url), ttRenderMs: 0}
     }
 

@@ -7,7 +7,6 @@ const favicon = require('serve-favicon')
 const connection = require('./utils/db')
 const routes = require('./utils/routes')
   
-
 const PORT = process.env.PORT || 3000
 
 const app = express()

@@ -13,7 +13,8 @@ const { fetchBrands } = require('../src/http/brandAPI')
 // create express application
 const app = express()
 
-const PORT = process.env.NODE_APP_ENV == "production" ? 3000 : 9000
+// const PORT = process.env.NODE_APP_ENV == "production" ? 3000 : 9000
+const PORT = 3000
 
 let folder = "build"
 if (process.env.NODE_APP_ENV == "develop") folder = "public"
@@ -32,16 +33,14 @@ app.get('*', async (req, res) => {
     })
        
     let brand_store = await fetchBrands()
-    indexHTML = indexHTML.replace('initial_brand_store=null', `initial_brand_store=${ JSON.stringify( brand_store ) }`);
-
-    let context = {
+    let initial_state = {
         brand_store
     }
+    indexHTML = indexHTML.replace('initial_state=null', `initial_state=${ JSON.stringify( initial_state ) }`);
 
     // get HTML string from the `App` component
     let appHTML = ReactDOMServer.renderToString(
-        // <StaticRouter location={req.url}>
-        <StaticRouter location={req.originalUrl} context={context} >
+        <StaticRouter location={req.url} context={initial_state} >
             <App />
         </StaticRouter>
     )

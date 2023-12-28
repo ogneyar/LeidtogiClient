@@ -6,6 +6,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.17.1",
     "mysql2": "^3.4.3",
+    "puppeteer": "^21.6.1",
     "serve-favicon": "^2.5.0"
   }
 }

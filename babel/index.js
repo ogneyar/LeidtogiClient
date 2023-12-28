@@ -9,5 +9,5 @@ require('@babel/register')({
     configFile: path.resolve(__dirname, '../babel.config.js'),
 })
 
-// import express server
-require('./express.js')
+// import ssr server
+require('./ssr.js')

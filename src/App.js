@@ -12,8 +12,7 @@ import { messages } from './i18n/messages'
 
 import AppRouter from './components/AppRouter'
 
-import Header from './components/header/HeaderSSR'
-// import Header from './components/header/Header'
+import Header from './components/header/Header'
 
 import Footer from './components/footer/Footer'
 import { Alert } from './components/myBootstrap'
@@ -102,9 +101,9 @@ export const App = observer((props) => {
         //     brandStore.setBrands(props.staticContex.brand_store)
         //     console.log(props.staticContex)
         // }else 
-        if ( window.initial_brand_store ) 
+        if ( window.initial_state && window.initial_state.brand_store ) 
         {
-            let data = leidtogiFirst(window.initial_brand_store)
+            let data = leidtogiFirst(window.initial_state.brand_store)
             data = addedTmkBrands(data)
             brandStore.setBrands(data)
             // console.log("initial_brand_store")
@@ -118,7 +117,7 @@ export const App = observer((props) => {
                     data = leidtogiFirst(data)
                     data = addedTmkBrands(data)
                     // сохраняем бренды в сторе
-                    if ( ! isSSR ) brandStore.setBrands(data)
+                    brandStore.setBrands(data)
                     // brandStore.setSelectedBrand(data[0])
                     // console.log("fetchBrands")
                 },

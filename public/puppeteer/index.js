@@ -8,23 +8,20 @@ const favicon = require('serve-favicon')
 
 const app = express()
 
-// const PORT_REACT = 8080
-// const PORT_PUPPETEER = 3000
-const PORT_REACT = 3000
-const PORT_PUPPETEER = 8080
+const PORT_REACT = 4000
+const PORT_PUPPETEER = 3000
 
-let folder = "public"
-folder = "build"
-
-app.use(express.static(path.resolve(__dirname, `../${folder}`)))
-app.use(favicon(path.join(__dirname,`../${folder}/favicon.ico`)))
+app.use(express.static(path.resolve(__dirname, `..`))) 
+app.use(favicon(path.join(__dirname,`../favicon.ico`)))
 
 app.get('*', async (req, res, next) => {
 
-    if (req.url.includes("static/js") || req.url.includes("manifest.json")) {
-        log(req.url)
-        return res.status(404).send("404")
-    }
+    if (process.env.NODE_APP_ENV == "develop") {
+        if ( req.url.includes("static/js") || req.url.includes("manifest.json") || req.url.includes("fonts/font-awesome") ) {
+            log(req.url)
+            return res.status(404).send("404")
+        }
+    }    
 
     // const {html, ttRenderMs} = await ssr(`${req.protocol}://${req.get('host')}/index.html`)
     const {html, ttRenderMs} = await ssr(`http://localhost:${PORT_REACT}${req.url}`)  
