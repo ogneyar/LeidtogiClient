@@ -5,7 +5,7 @@ const RENDER_CACHE = new Map()
 
 async function ssr(url) 
 {
-    if (RENDER_CACHE.has(url) && process.env.NODE_ENV == "production") {
+    if (RENDER_CACHE.has(url) && process.env.NODE_APP_ENV == "production") {
         return {html: RENDER_CACHE.get(url), ttRenderMs: 0}
     }
 
@@ -20,10 +20,11 @@ async function ssr(url)
         await page.waitForSelector('#wait')
     } catch (err) {
         console.error(err)
-        throw new Error('waitForSelector timed out.')
+        if (process.env.NODE_APP_ENV == "production") 
+            throw new Error('waitForSelector timed out.')
     }
 
-    const html = await page.content() // serialized HTML of page DOM.
+    let html = await page.content() // serialized HTML of page DOM.
     await browser.close()
 
     const ttRenderMs = Date.now() - start

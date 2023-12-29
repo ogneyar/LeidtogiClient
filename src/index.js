@@ -37,8 +37,8 @@ if ( ! isSSR ) {
             <App /> 
         </Context.Provider>
     )
-    if (process.env.REACT_APP_ENV === 'production') 
-        ReactDOM.hydrate(jsx, document.getElementById('root'))
-    else
+    // if (process.env.REACT_APP_ENV === 'production') 
+    //     ReactDOM.hydrate(jsx, document.getElementById('root'))
+    // else
         ReactDOM.render(jsx, document.getElementById('root'))
 }
