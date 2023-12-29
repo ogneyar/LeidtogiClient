@@ -1,5 +1,6 @@
 
 const puppeteer = require('puppeteer')
+const { info } = require('console')
 
 const RENDER_CACHE = new Map()
 
@@ -24,13 +25,15 @@ async function ssr(url)
             throw new Error('waitForSelector timed out.')
     }
 
-    let html = await page.content() // serialized HTML of page DOM.
+    let html = await page.content() // сериализованный HTML-код страницы
     await browser.close()
 
     const ttRenderMs = Date.now() - start
-    console.info(`Headless rendered page in: ${ttRenderMs}ms`)
 
-    RENDER_CACHE.set(url, html) // cache rendered page.
+    if (process.env.NODE_APP_ENV == "develop")
+        info(`Headless rendered page in: ${ttRenderMs}ms`)
+
+    RENDER_CACHE.set(url, html) // кеширование страницы
 
     return {html, ttRenderMs}
 }
