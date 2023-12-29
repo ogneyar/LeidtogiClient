@@ -8,7 +8,7 @@ const favicon = require('serve-favicon')
 
 const app = express()
 
-const PORT_REACT = process.env.NODE_APP_ENV == "production" ? 4000 : 4040
+const PORT_REACT = 4000
 const PORT_PUPPETEER = 3000
 
 app.get( /\.(js|css|map|ico|jpeg|jpg|png|woff|woff2|ttf|json)$/, express.static( path.resolve( __dirname, `..` ) ) )
