@@ -6,13 +6,17 @@ const RENDER_CACHE = new Map()
 
 async function ssr(url) 
 {
-    if (RENDER_CACHE.has(url) && process.env.NODE_APP_ENV == "production") {
+    if (RENDER_CACHE.has(url) && process.env.NODE_APP_ENV != "develop") {
         return {html: RENDER_CACHE.get(url), ttRenderMs: 0}
     }
 
     const start = Date.now()
 
-    const browser = await puppeteer.launch({ headless: 'new' })
+    const browser = await puppeteer.launch({ 
+        headless: 'new',
+        executablePath: '/usr/bin/chromium-browser', 
+        args: [ '--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote' ]
+    })
 
     const page = await browser.newPage()
 
@@ -21,7 +25,7 @@ async function ssr(url)
         await page.waitForSelector('#wait')
     } catch (err) {
         console.error(err)
-        if (process.env.NODE_APP_ENV == "production") 
+        if (process.env.NODE_APP_ENV != "develop") 
             throw new Error('waitForSelector timed out.')
     }
 
