@@ -272,7 +272,7 @@ const KvtParserPage = observer((props) => {
                                 onChange={() => {}} 
                                 checked={checkUpdatePrice}
                             />&nbsp;
-                            использовать файл на сервере (price.xlsx)
+                            использовать файл на сервере (stock.xlsx)
                         </div>
                         <hr />
                         {/* <button 
