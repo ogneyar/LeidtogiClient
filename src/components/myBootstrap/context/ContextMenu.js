@@ -15,9 +15,10 @@ const ContextMenu = (props) => {
     // let top, left
 
     useEffect(() => {
-        if (props?.visible && props.visible?.event) {
-            setTop(props.visible.event.clientY)
-            setLeft(props.visible.event.clientX)
+        if (props?.visible && props.visible?.clientX) { 
+            // alert(props.visible.clientY)
+            setTop(props.visible.clientY)
+            setLeft(props.visible.clientX)
             // console.log(props?.visible)
             if (!visible) setVisible(true)
         }

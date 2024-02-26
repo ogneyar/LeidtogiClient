@@ -6,7 +6,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1000;
+    z-index: 10000;
     /* background-color: grey;
     opacity: 0.8; */
 }
@@ -17,7 +17,7 @@
 
 .ContextMenu_buttons {
     position: relative;
-    z-index: 1001;
+    z-index: 10001;
     border: 1px solid var(--main-orange-color);
     border-radius: 2px;
     background-color: lightgrey;

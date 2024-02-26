@@ -100,6 +100,7 @@ const ProductList = observer((props) => {
     const onClickOpenOnNewPage = () => {
         let productClick
         if (visibleContextMenu && visibleContextMenu?.product) {
+            // alert(visibleContextMenu.event.clientX)
             productClick = visibleContextMenu.product
             let brandName = "milwaukee" // дефолтное состояние
             brandStore?.brands.forEach(i => {
@@ -143,12 +144,13 @@ const ProductList = observer((props) => {
                 
                 <ContextMenu 
                     visible={visibleContextMenu}
+                    // visible={true}
                 >
                     <div 
                         onClick={onClickOpenOnNewPage}
                         className="ProductList_div_OpenOnNewPage"
                     >
-                        Открыть в новой вкладке
+                        Открыть в новой вкладке 
                     </div>
                 </ContextMenu>
 

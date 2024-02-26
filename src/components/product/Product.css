@@ -19,6 +19,16 @@
     padding: 20px;
 }
 
+.ProductList_div_OpenOnNewPage {
+    padding: 2px;
+}
+
+.ProductList_div_OpenOnNewPage:hover {
+    background-color: white;
+    /* cursor: context-menu; */
+    cursor: pointer;
+}
+
 .ProductItem {
     display:flex;
     justify-content:space-around; 
@@ -50,6 +60,54 @@
     /* border: 1px dotted grey; */
     border: 2px dotted rgb(255, 255, 255);
 }
+
+
+.product-body {
+    padding: 5px 10px 10px 10px;
+}
+
+.product-name {
+    /* padding: 10px 0; */
+    font-size: 1em;
+    height: 100px;
+}
+
+.product-name p {
+    font-size: 0.7em;
+}
+
+.product-article {
+    font-size: 0.7em;
+}
+
+.product-text {
+    padding: 10px 0;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.product-description {}
+
+.product-price {
+    color: var(--main-orange-color);
+    font-size: 1.2em;
+}
+.product-rating {
+    display:flex;
+}
+
+.product-price_redPrice {
+    /* color: rgb(212, 2, 2); */
+    color: var(--main-red-color);
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+.product-price_oldPrice {
+    text-decoration:line-through;
+}
+
 
 
 @media (max-width: 1199px) {
@@ -102,60 +160,4 @@
         /* height: 100vw; */
         height: calc(100vw - 30px);
     }
-}
-
-.product-body {
-    padding: 5px 10px 10px 10px;
-}
-
-.product-name {
-    /* padding: 10px 0; */
-    font-size: 1em;
-    height: 100px;
-}
-
-.product-name p {
-    font-size: 0.7em;
-}
-
-.product-article {
-    font-size: 0.7em;
-}
-
-.product-text {
-    padding: 10px 0;
-    display:flex;
-    justify-content: space-between;
-    align-items:center;
-}
-
-.product-description {}
-
-.product-price {
-    color: var(--main-orange-color);
-    font-size: 1.2em;
-}
-.product-rating {
-    display:flex;
-}
-
-.product-price_redPrice {
-    /* color: rgb(212, 2, 2); */
-    color: var(--main-red-color);
-    font-weight: 700;
-    margin-right: 10px;
-}
-
-.product-price_oldPrice {
-    text-decoration:line-through;
-}
-
-.ProductList_div_OpenOnNewPage {
-    padding: 2px;
-}
-
-.ProductList_div_OpenOnNewPage:hover {
-    background-color: white;
-    /* cursor: context-menu; */
-    cursor: pointer;
 }

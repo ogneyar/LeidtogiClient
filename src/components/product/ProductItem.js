@@ -59,8 +59,9 @@ const ProductItem = (props) => {
 
     const onClickContextMenu = (e) => {
         e.preventDefault()
+        // alert(e.clientX)
         // window.open("leidtogi")
-        props?.setVisibleContextMenu({product, event: e})
+        props?.setVisibleContextMenu({product, event: e, clientX: e.clientX, clientY: e.clientY}) 
     }
 
 
