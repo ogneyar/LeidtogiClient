@@ -125,6 +125,8 @@ export const DELIVERY_EXTRA_CHARGE = 1.3 // 30%
 
 // стоимость доставки курьером по г. Москва 
 export const DELIVERY_BOXBERRY_CURIER_PRICE = 250 // в рублях
+// пункт отправки - ул. Алтуфьевское шоссе, 80, г.Москва
+export const DELIVERY_BOXBERRY_TARGET_START = 97151
 
 // необходимы в файле service/delivery/dl/getDerivalCity.js
 export const DELIVERY_DL_DERIVAL_CITY_LEIDTOGI = "5000002804500000000000000"      // LeidTogi скопировал с Gedore 

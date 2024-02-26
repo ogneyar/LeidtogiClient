@@ -100,11 +100,22 @@ const DeliveryBoxberry = observer((props) => {
                 })
                 if (response?.error) {
                     if (response.error?.message) {
-                        props?.setTextAlert("Ошибка: " + response.error.message)
+                        // props?.setTextAlert("Ошибка: " + response.error.message)
+                        alert("Ошибка: " + response.error.message)
                     }else {
-                        props?.setTextAlert("Ошибка: " + response.error)
+                        // props?.setTextAlert("Ошибка: " + response.error)
+                        alert("Ошибка: " + response.error)
                     }
-                }else { 
+                }else if (response?.err) {
+                    if (response.err?.message) {
+                        // props?.setTextAlert("Ошибка: " + response.err.message)
+                        alert("Ошибка: " + response.err.message)
+                    }else {
+                        // props?.setTextAlert("Ошибка: " + response.err)
+                        alert("Ошибка: " + response.err)
+                    }
+                }else{ 
+                    // alert(JSON.stringify(response))
                     props?.setDelivery("boxberry")
                     props?.setDeliverySum(Math.round( ( (Number(response.price) + DELIVERY_BOXBERRY_CURIER_PRICE) * DELIVERY_EXTRA_CHARGE ) * 100 ) / 100)
                     props?.setPayment(true)

@@ -1,5 +1,6 @@
 // eslint-disable-next-line
 import { $host, $authHost } from '../index'
+import { DELIVERY_BOXBERRY_TARGET_START } from '../../utils/consts'
 
 
 // Список всех городов доставки
@@ -28,6 +29,11 @@ export const getListPointsByCityCode = async (CityCode) => {
 
 // Калькулятор стоимости доставки
 export const getDeliveryCosts = async (args) => { // args = { target:16126,weight:5000 }
-    const { data } = await $host.get('api/delivery/boxberry/deliveryCosts', { params: { ...args } })
+    const { data } = await $host.get('api/delivery/boxberry/deliveryCosts', { 
+        params: { 
+            targetstart: DELIVERY_BOXBERRY_TARGET_START,
+            ...args 
+        } 
+    })
     return data
 }

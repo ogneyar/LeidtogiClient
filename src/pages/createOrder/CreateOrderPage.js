@@ -30,7 +30,7 @@ const CreateOrderPage = () => {
     const [amount, setAmount] = useState(0)
     const [amountNew, setAmountNew] = useState(0)
 
-    const [ choiseDelivery, setСhoiseDelivery ] = useState(true)
+    const [ choiseDelivery, setChoiseDelivery ] = useState(true)
     const [ load, setLoad ] = useState(true)
     const [ payment, setPayment ] = useState(false)
     const [ pickup, setPickup ] = useState(false)
@@ -184,7 +184,7 @@ const CreateOrderPage = () => {
         // console.log("client",client);
         await createCart(client, cartStore?.cart)
 
-        setСhoiseDelivery(false)
+        setChoiseDelivery(false)
         setPickup(true)
         setMessage("")
         window.innerWidth > 991 ? scrollUp(SCROLL_TOP) : scrollUp(SCROLL_TOP_MOBILE)
@@ -193,7 +193,7 @@ const CreateOrderPage = () => {
     const onClickDeliveryButton = async () => {
         await createCart(client, cartStore?.cart)
         
-        setСhoiseDelivery(false)
+        setChoiseDelivery(false)
         setPayment(false)
         setMessage("")
         window.innerWidth > 991 ? scrollUp(SCROLL_TOP) : scrollUp(SCROLL_TOP_MOBILE)
