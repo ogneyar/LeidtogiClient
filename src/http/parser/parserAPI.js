@@ -7,9 +7,9 @@ export const addProduct = async (args) => {
     let { brand, formData, number, quantity, chapter } = args
 
     let params = { 
-        add: quantity || 1,
+        add: quantity || 1, 
         number,
-        chapter
+        chapter /* для Адванта-М */
     }
 
     const { data } = await $authHost.post(`api/parser/${brand}/`, formData, { params })
@@ -22,7 +22,7 @@ export const getLength = async (args) => {
     let { brand, formData, chapter } = args
     
     let params = { 
-        chapter
+        chapter /* для Адванта-М */
     }
 
     const { data } = await $authHost.post(`api/parser/${brand}/`, formData, { params })
@@ -35,7 +35,7 @@ export const changePrices = async (args) => {
     
     let params = { 
         change: true,
-        chapter,
+        chapter, /* для Адванта-М */
         update
     }
 

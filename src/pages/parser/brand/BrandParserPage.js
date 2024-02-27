@@ -10,16 +10,16 @@ import InfoPage from '../../info/InfoPage'
 import './BrandParserPage.css'
 import '../ParserPage.css'
 import getChapters from '../advanta/getChapters'
-
+ 
 
 const BrandParserPage = observer((props) => {
     
     const [ feed, setFeed ] = useState(null)
-    const [ checkFeed, setCheckFeed ] = useState(false)
+    const [ checkFeed, setCheckFeed ] = useState(true)
     const [ checkUpdatePrice, setCheckUpdatePrice ] = useState(true)
     const [ message, setMessage ] = useState("")
     const [ loading, setLoading ] = useState(false)
-    const [ number, setNumber ] = useState(0)
+    const [ number, setNumber ] = useState(1)
 
     /* для Адванта-М */
     const [ chapter, setChapter ] = useState(props.brand === "advanta" ? "gpo" : "")
@@ -39,11 +39,13 @@ const BrandParserPage = observer((props) => {
         //     })
         // }else {
             let length = await getLength({brand: props.brand, formData, chapter})
-            if ((number+1) < length) {
+
+            if (number && number <= length) {
                 let quantity = 10
                 mess = "Начало:"
                 // for(let i = 1; i <= length; i = i + quantity) {
-                for(let i = (number+1); i <= (length - (number+1)); i = i + quantity) {
+                // for(let i = (number+1); i <= (length - (number+1)); i = i + quantity) {
+                for(let i = number; i <= length; i = i + quantity) {
 
                     await addProduct({brand: props.brand, formData, number: i, quantity, chapter})
                         // eslint-disable-next-line
@@ -156,7 +158,7 @@ const BrandParserPage = observer((props) => {
                             className="ParserPage_box_input"
                             type="text" 
                             value={number} 
-                            onChange={(e) => setNumber(e.target.value)} 
+                            onChange={(e) => setNumber(Number(e.target.value))} 
                         />
                         
                         <button 
