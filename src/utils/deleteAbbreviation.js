@@ -20,5 +20,6 @@ export default function deleteAbbreviation(string){
 		.replace("kdr","") // Kedr
 		.replace("bcn","") // Bycon
 		.replace("gfs","") // Gefest
+		.replace("ptk","") // ПТК
         .trim()
 }

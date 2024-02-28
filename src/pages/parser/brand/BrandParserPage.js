@@ -76,12 +76,13 @@ const BrandParserPage = observer((props) => {
     // оновление цен
     let onClickButtonChangePrices = async () => {
         setMessage("")
+        let update = false
         const formData = new FormData()
         if (feed) {
             formData.append("feed", feed)
-        }
+        }else update = true
         setLoading(true)
-        await changePrices({brand: props.brand, formData, chapter})
+        await changePrices({brand: props.brand, formData, chapter, update})
             // eslint-disable-next-line
             .then(data => {
                 if (data?.error) {
