@@ -83,6 +83,7 @@ export const Chinese = {
     page_warranty: '保修和服务',
     page_privacy_policy: '私隐政策',
     page_terms_of_use: '用户协议',
+    page_presentation: '陈述报告цыф',
     // footer
     footer_inform: '资料',
     footer_web: '我们在社交网络',

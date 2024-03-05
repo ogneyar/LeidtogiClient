@@ -83,6 +83,7 @@ export const Russian = {
     page_warranty: 'Гарантия и Сервис',
     page_privacy_policy: 'Политика конфиденциальности',
     page_terms_of_use: 'Пользовательское соглашение',
+    page_presentation: 'Презентация',
     // footer
     footer_inform: 'Информация',
     footer_web: 'Мы в соц.сетях',

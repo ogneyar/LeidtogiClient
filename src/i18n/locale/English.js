@@ -83,6 +83,7 @@ export const English = {
     page_warranty: 'Warranty and Service',
     page_privacy_policy: 'Privacy policy',
     page_terms_of_use: 'User agreement',
+    page_presentation: 'Presentation',
     // footer
     footer_inform: 'Information',
     footer_web: 'We are in social networks',

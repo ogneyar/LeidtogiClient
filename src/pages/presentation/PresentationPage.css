@@ -1,0 +1,40 @@
+
+.PresentationPage {}
+.PresentationPage_header {
+    font-size: 2rem;
+    text-align: center;
+}
+.PresentationPage_header_mini,
+.PresentationPage_row {
+    font-size: 1.5rem;
+}
+.PresentationPage_row {
+    padding-bottom: 20px;
+}
+
+
+@media (max-width: 991px) {    
+    .PresentationPage_row_view {
+        display: none;
+    }
+}
+
+@media (max-width: 575px) {
+    .PresentationPage_header {
+        font-size: 1.5rem;
+    }
+    .PresentationPage_header_mini,
+    .PresentationPage_row {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 555px) {
+    .PresentationPage_header {
+        font-size: 1.2rem;
+    }
+    .PresentationPage_header_mini,
+    .PresentationPage_row {
+        font-size: 1rem;
+    }
+}

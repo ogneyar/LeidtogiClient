@@ -83,6 +83,7 @@ export const Turkish = {
     page_warranty: 'Garanti ve Servis',
     page_privacy_policy: 'Gizlilik Politikası',
     page_terms_of_use: 'Kullanıcı Sözleşmesi',
+    page_presentation: 'Sunu',
     // footer
     footer_inform: 'Bilgi',
     footer_web: 'Sosyal medyadayız',

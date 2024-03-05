@@ -38,6 +38,7 @@ import Specials from '../pages/info/Specials'
 import NewsPage from '../pages/info/news/NewsPage'
 
 import CatalogsPage from '../pages/catalogs/CatalogsPage'
+import PresentationPage from '../pages/presentation/PresentationPage'
 
 import TestFormPage from '../pages/test/TestFormPage'
 
@@ -49,7 +50,7 @@ import {
     DELIVERY_ROUTE, PAYMENT_ROUTE, PRIVACY_POLICY_ROUTE, RETURNS_POLICY_ROUTE, CREATE_ORDER_ROUTE,
     TERMS_OF_USE_ROUTE, WARRANTY_ROUTE, CONTACTS_ROUTE, SPECIALS_ROUTE, DELETE_ROUTE, CONGRATULATION_ROUTE,
     SUPPORT_ROUTE, MESSAGE_ROUTE, FORGOT_PASSWORD_ROUTE, CHANGE_PASSWORD_ROUTE, CONFIRM_AVAILABILITY_ROUTE,
-    PAYMENT_ORDER_ROUTE, DEALER_ROUTE, NEWS_ROUTE, TESTFORM_ROUTE, CATALOGS_ROUTE
+    PAYMENT_ORDER_ROUTE, DEALER_ROUTE, NEWS_ROUTE, TESTFORM_ROUTE, CATALOGS_ROUTE, PRESENTATION_ROUTE
 } from './consts'
 
 // brandRoutes находится в src/components/AppRouter.js
@@ -204,7 +205,11 @@ export const publicRoutes = [
 
     {
         path: CATALOGS_ROUTE, // каталоги
-        component:CatalogsPage
+        component: CatalogsPage
+    },
+    {
+        path: PRESENTATION_ROUTE, // презентация
+        component: PresentationPage
     },
 
     // {
