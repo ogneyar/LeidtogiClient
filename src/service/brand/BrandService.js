@@ -98,6 +98,8 @@ const BrandService =  observer((props) => {
                     br.name === "Cleanvac"
                     || 
                     br.name === "PTK"
+                    || 
+                    br.name === "Stalex"
                 ) {
 
                     return <Card
