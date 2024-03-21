@@ -40,6 +40,7 @@ const ParserPage = observer(() => {
                 <button onClick={() => setBrandAndScroll("tmk")} className="ParserPage_Header_green">TMK</button>
                 <button onClick={() => setBrandAndScroll("tor")} className="ParserPage_Header_green">Tor</button>
                 <button onClick={() => setBrandAndScroll("ptk")} className="ParserPage_Header_green">ПТК</button>
+                <button onClick={() => setBrandAndScroll("stalex")} className="ParserPage_Header_green">Stalex</button>
                 <button onClick={() => setBrandAndScroll("leidtogi")} className="ParserPage_Header_red">LeidTogi</button>
                 <button onClick={() => setBrandAndScroll("milwaukee")} >Milwaukee</button>
                 <button onClick={() => setBrandAndScroll("husqvarna")} >Husqvarna</button>

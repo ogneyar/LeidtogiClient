@@ -21,5 +21,6 @@ export default function deleteAbbreviation(string){
 		.replace("bcn","") // Bycon
 		.replace("gfs","") // Gefest
 		.replace("ptk","") // ПТК
+		.replace("stl","") // Stalex
         .trim()
 }
