@@ -96,8 +96,8 @@ const BrandService =  observer((props) => {
                     br.name === "Gefest"
                     || 
                     br.name === "Cleanvac"
-                    || 
-                    br.name === "PTK"
+                    // || 
+                    // br.name === "PTK"
                     || 
                     br.name === "Stalex"
                 ) {
@@ -116,7 +116,7 @@ const BrandService =  observer((props) => {
                         : br.name === "Redverg" ? "RedVerg"
                         : br.name === "Kvalitet" ? "Квалитет" 
                         : br.name === "Kedr" ? "Кедр" 
-                        : br.name === "PTK" ? "П Т К" 
+                        // : br.name === "PTK" ? "П Т К" 
                         : br.name}
 
                     </Card>

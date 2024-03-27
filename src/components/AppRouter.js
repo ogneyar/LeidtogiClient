@@ -29,13 +29,18 @@ const AppRouter = observer(() => {
 
     
     useEffect(() => {
-        setBrandRoutes(brandStore.brands.map(i => {
-            let brandName = i?.name.toLowerCase()
-            return {
-                path: '/' + brandName,
-                component: BrandPage//({ brandName })
-            }
-        }))
+        setBrandRoutes(
+            brandStore.brands
+            .map(i => {
+                let brandName = i?.name.toLowerCase()
+                if (brandName == "ptk") return null
+                return {
+                    path: '/' + brandName,
+                    component: BrandPage//({ brandName })
+                }
+            })
+            .filter(item => item != null)
+        )
     }, [brandStore?.brands])
 
 
