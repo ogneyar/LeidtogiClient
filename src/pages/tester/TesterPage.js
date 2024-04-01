@@ -275,16 +275,7 @@ const TesterPage = () => {
 
     return (
         <InfoPage>
-            <div>
-                
-                <div>
-                    <br />
-                    Работа с сертификатами
-                    <hr />
-                    <CertificateNotification text="Сертификаты" />
-                    <hr />
-                </div>
-                
+            <div> 
                 
                 <div>
                     <br />
@@ -313,6 +304,14 @@ const TesterPage = () => {
                     <hr />
                 </div>
 
+                <div>
+                    <br />
+                    Работа с сертификатами
+                    <hr />
+                    <CertificateNotification text="Сертификаты" />
+                    <hr />
+                </div>
+                
                 <div>
                     <br />
                     Создание places.csv для Деловых линий
