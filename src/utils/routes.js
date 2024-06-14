@@ -2,6 +2,7 @@ import MainPage from '../pages/main/MainPage'
 // eslint-disable-next-line
 
 import AdminPage from '../pages/admin/AdminPage'
+import ManagerPage from '../pages/manager/ManagerPage'
 import ParserPage from '../pages/parser/ParserPage'
 import TesterPage from '../pages/tester/TesterPage'
 import LkPage from '../pages/lk/LkPage'
@@ -46,7 +47,7 @@ import DeletePage from '../pages/site/DeletePage'
 
 import {
     MAIN_ROUTE, ADMIN_ROUTE, PARSER_ROUTE, TESTER_ROUTE, CART_ROUTE, PAY_ROUTE, SHOP_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, 
-    PRODUCT_ROUTE, LK_ROUTE, CONFIRM_ROUTE, SEARCH_ROUTE, SUCCESS_ROUTE, ERROR_ROUTE, ABOUT_US_ROUTE, 
+    PRODUCT_ROUTE, LK_ROUTE, CONFIRM_ROUTE, SEARCH_ROUTE, SUCCESS_ROUTE, ERROR_ROUTE, ABOUT_US_ROUTE, MANAGER_ROUTE,
     DELIVERY_ROUTE, PAYMENT_ROUTE, PRIVACY_POLICY_ROUTE, RETURNS_POLICY_ROUTE, CREATE_ORDER_ROUTE,
     TERMS_OF_USE_ROUTE, WARRANTY_ROUTE, CONTACTS_ROUTE, SPECIALS_ROUTE, DELETE_ROUTE, CONGRATULATION_ROUTE,
     SUPPORT_ROUTE, MESSAGE_ROUTE, FORGOT_PASSWORD_ROUTE, CHANGE_PASSWORD_ROUTE, CONFIRM_AVAILABILITY_ROUTE,
@@ -59,6 +60,10 @@ export const authRoutes = [
     {
         path: ADMIN_ROUTE,
         component: AdminPage
+    },
+    {
+        path: MANAGER_ROUTE,
+        component: ManagerPage
     },
     {
         path: PARSER_ROUTE,

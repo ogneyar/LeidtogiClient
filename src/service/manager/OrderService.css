@@ -1,0 +1,16 @@
+
+.OrderService {}
+
+
+.OrderService table {
+    /* display: block; */
+    /* background-color: green; */
+}
+
+.OrderService table td {
+    padding: 3px 10px;
+    /* background-color: green; */
+    border: 1px solid grey;
+}
+
+

@@ -64,6 +64,7 @@ export const Chinese = {
     // header
     header_slogan: '与我们一起建设，节省时间',
     header_ap: '署长', // директор
+    header_mp: '经理小组', // Группа менеджеров
     header_lk: '居室', // комната
     header_pers_acc: '个人帐户',
     header_exit: '退出',

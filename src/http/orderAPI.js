@@ -28,7 +28,7 @@ export const getOrderByUuid = async (uuid) => {
     return data  
 }
 
-export const getAllOrders = async (id) => {
+export const getAllOrders = async () => {
     const {data} = await $authHost.get('api/order') 
     return data  
 }

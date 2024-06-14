@@ -64,6 +64,7 @@ export const English = {
     // header
     header_slogan: 'Build with us, save time',
     header_ap: 'AP', // Admin Panel
+    header_mp: 'MP', // Manager Panel
     header_lk: 'PA', // Personal Account
     header_pers_acc: 'Personal Account',
     header_exit: 'Exit',

@@ -7,6 +7,7 @@ export const LIMIT = 12
 export const MAIN_ROUTE = '/' // главная страница
 
 export const ADMIN_ROUTE = '/admin' // администрация
+export const MANAGER_ROUTE = '/manager' // менеджер
 export const LOGIN_ROUTE = '/login' // вход
 export const REGISTRATION_ROUTE = '/registration' // регистрация
 

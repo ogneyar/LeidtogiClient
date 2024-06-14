@@ -7,7 +7,7 @@ import { FormattedMessage } from 'react-intl'
 
 import { NavLink } from '../../myBootstrap'
 import { 
-    ADMIN_ROUTE, LOGIN_ROUTE, CART_ROUTE, LK_ROUTE, NAME, 
+    ADMIN_ROUTE, LOGIN_ROUTE, CART_ROUTE, LK_ROUTE, NAME, MANAGER_ROUTE,
     ADDRESS, PHONE_ONE, MAIL, SCROLL_TOP, SCROLL_TOP_MOBILE, URL 
 } from '../../../utils/consts'
 // import logo from '../../../assets/logo.png'
@@ -160,6 +160,26 @@ const NavBar = observer(() => {
                                         </Button>
                                     </>
                                     : 
+                                    userStore.user?.role === 'MANAGER'
+                                    ?
+                                    <>
+                                        <Button 
+                                            variant={'outline-light'} 
+                                            onClick={() => onClickAndScroll(MANAGER_ROUTE)}
+                                        >
+                                            {/* МП */}
+                                            <FormattedMessage id='header_mp' />
+                                        </Button>
+                                        <Button 
+                                            variant={'outline-light'}
+                                            onClick={() => onClickAndScroll(LK_ROUTE)}
+                                            className="ml-2"
+                                        >
+                                            {/* ЛК */}
+                                            <FormattedMessage id='header_lk' />
+                                        </Button>
+                                    </>
+                                    :
                                         <Button 
                                             variant={'outline-light'} 
                                             // onClick={() => history.push(LK_ROUTE)}

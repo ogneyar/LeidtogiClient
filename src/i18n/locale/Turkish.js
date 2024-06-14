@@ -64,6 +64,7 @@ export const Turkish = {
     // header
     header_slogan: 'Bizimle inşa edin, zamandan tasarruf edin',
     header_ap: 'YP', // Yönetici Paneli
+    header_mp: 'IP', // Işletmecisinden Paneli
     header_lk: 'KH', // Kişisel Hesap
     header_pers_acc: 'Kişisel Hesap',
     header_exit: 'Çıkış',

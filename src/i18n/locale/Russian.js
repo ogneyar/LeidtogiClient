@@ -63,7 +63,8 @@ export const Russian = {
     consts_time_to_weekend: 'сб - вс: выходной',
     // header
     header_slogan: 'Стройте с нами, экономьте время',
-    header_ap: 'АП',
+    header_ap: 'АП', // Админ панель
+    header_mp: 'ПМ', // Панель менеджера
     header_lk: 'ЛК',
     header_pers_acc: 'Личный Кабинет',
     header_exit: 'Выход',
