@@ -2,6 +2,7 @@
 const MAIN_ROUTE = '/' // главная страница
 
 const ADMIN_ROUTE = '/admin' // администрация
+const MANAGER_ROUTE = '/manager' // менеджер
 const LOGIN_ROUTE = '/login' // вход
 const REGISTRATION_ROUTE = '/registration' // регистрация
 
@@ -73,6 +74,7 @@ module.exports = [
     { path: MAIN_ROUTE },
 
     { path: ADMIN_ROUTE },
+    { path: MANAGER_ROUTE },
     { path: LOGIN_ROUTE },
     { path: REGISTRATION_ROUTE },
 
