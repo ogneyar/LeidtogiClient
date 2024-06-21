@@ -34,8 +34,8 @@
     "babel": "cross-env NODE_APP_ENV=production node babel",
     "babel_dev": "cross-env NODE_APP_ENV=develop nodemon babel -e js,json,css,html",
     "client": "node build/client.js",
-    "puppeteer": "cross-env NODE_APP_ENV=production node build/puppeteer",
-    "puppeteer_dev": "cross-env NODE_APP_ENV=develop nodemon public/puppeteer -e js,json,css,html"
+    "puppeteer": "cross-env NODE_APP_ENV=production node build/puppeteer/puppeteer",
+    "puppeteer_dev": "cross-env NODE_APP_ENV=develop nodemon public/puppeteer/puppeteer -e js,json,css,html"
   },
   "browserslist": {
     "production": [

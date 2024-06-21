@@ -12,11 +12,16 @@ async function ssr(url)
 
     const start = Date.now()
 
-    const browser = await puppeteer.launch({ 
-        headless: 'new',
-        executablePath: '/usr/bin/chromium-browser', 
-        args: [ '--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote' ]
-    })
+    let browser = null
+
+    if (process.env.NODE_APP_ENV == "develop")
+        browser = await puppeteer.launch({headless: 'new'})
+    else
+        browser = await puppeteer.launch({ 
+            headless: 'new',
+            executablePath: '/usr/bin/chromium-browser', 
+            args: [ '--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote' ]
+        })
 
     const page = await browser.newPage()
 

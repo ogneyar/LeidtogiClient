@@ -8,8 +8,8 @@ const favicon = require('serve-favicon')
 
 const app = express()
 
-const PORT_REACT = 4000
-const PORT_PUPPETEER = 3000
+const PORT_REACT = 3000
+const PORT_PUPPETEER = 4000
 
 app.get( /\.(js|css|map|ico|jpeg|jpg|png|woff|woff2|ttf|json)$/, express.static( path.resolve( __dirname, `..` ) ) )
 app.use(favicon(path.join(__dirname,`../favicon.ico`)))
