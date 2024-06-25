@@ -48,7 +48,7 @@ const MainPage = () => {
 
     return (
     <>
-    <Banner padding="bottom"/>
+    {/* <Banner padding="bottom"/> */}
     <div
         className="MainPage"
     >
